@@ -34,15 +34,24 @@
 from django.http import HttpResponse
 
 import datetime
-
+import ephem
 
 
 
 def hello(request):
-    return HttpResponse("Hello world")
+
+    mars = ephem.Mars()
+    mars.compute('2015/3/17')
+    txtx = mars.ra
+
+    # return HttpResponse("Hello world...")
+    return HttpResponse(txtx)
+
 
 
 def current_datetime(request):
     timenow = datetime.datetime.now()
-    html = "<html><body>Current time:%s. </body></html>" % timenow
+    html = "<html><body>" \
+           "Current time:%s. " \
+           "</body></html>" % timenow
     return HttpResponse(html)

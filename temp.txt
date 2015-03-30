@@ -57,3 +57,12 @@ source bin/activate
 deactivate
 
 
+
+########################## virtualenv ENV_1 ##########################
+cd ENV_1/
+source bin/activate
+deactivate
+
+easy_install django
+pip install gunicorn
+http://127.0.0.1:8000/hello/
