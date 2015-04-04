@@ -1,8 +1,6 @@
 https://www.howtoforge.com/tutorial/django-install-ubuntu-14.04/
 
 
-
-
 python -c "import django; print(django.get_version())"
 
 Creating a project
