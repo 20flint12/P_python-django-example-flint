@@ -30,6 +30,7 @@
 
 from django.http import HttpResponse
 
+
 import datetime
 # import ephem
 
@@ -94,33 +95,33 @@ import os
 import sys
 
 
-# try:
-#     # sys.path.insert(0, '.P_scrape_web2')
-#     # import scrape_data3 as scr
-#
-#
-#     #
-#     # # first change the cwd to the script path
-#     # scriptPath = os.path.realpath(os.path.dirname(__name__))
-#     # print "scriptPath >>>>>>>>>>", scriptPath
-#     # os.chdir(scriptPath)
-#     # #append the relative location you want to import from
-#     # sys.path.append("..P_scrape_web")
-#     # import scrape_data3 as scr
-#     #
-#
-#     # import P_scrape_web2.scrape_data3
-#
-#
-#     # from mysite.P_scrape_web2 \
-#     # import scrape_data3
-#
-#
-#     # from ..P_scrape_web import scrape_data3
-#     print "ImportOk"
-# except ImportError:
-#     print "ImportError ###############"
-#     # import connection_setting_MAG as conn
+try:
+    sys.path.insert(0, '/home/flint/Projects/Py_projects/P_virtualenv/ENV_H/P_scrape_web')
+    import scrape_data3 as scr
+
+
+
+    # first change the cwd to the script path
+    # scriptPath = os.path.realpath(os.path.dirname(__name__))
+    # print "scriptPath >>>>>>>>>>", scriptPath
+    # os.chdir(scriptPath)
+    # #append the relative location you want to import from
+    # sys.path.append("..P_scrape_web")
+    # import scrape_data3 as scr
+    #
+
+    # import P_scrape_web2.scrape_data3
+
+
+    # from mysite.P_scrape_web2 \
+    # import scrape_data3
+
+
+    # from ..P_scrape_web import scrape_data3
+    print "ImportOk"
+except ImportError:
+    print "ImportError ###############"
+    # import connection_setting_MAG as conn
 
 
 
@@ -128,11 +129,13 @@ import sys
 
 def scrape_data_req(request):
     now = datetime.datetime.now()
-    cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    # news = get_news()
+    # cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    news = scr.get_news()
     return render_to_response('scrape_data.html',
                               {'current_site':now,
-                               'data_context':cur_dir})
+                               'data_context':news})
+
+
 
 
 
