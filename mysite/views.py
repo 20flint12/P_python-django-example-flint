@@ -96,8 +96,12 @@ import sys
 
 
 try:
-    sys.path.insert(0, '/home/flint/Projects/Py_projects/P_virtualenv/ENV_H/P_scrape_web')
-    import scrape_data3 as scr
+    # Work for local
+    # sys.path.insert(0, '/home/flint/Projects/Py_projects/P_virtualenv/ENV_H/P_scrape_web')
+    # import scrape_data3 as scr
+
+    # sys.path.insert(0, 'scrapes')
+    # import scrape_data3 as scr
 
 
 
@@ -110,7 +114,8 @@ try:
     # import scrape_data3 as scr
     #
 
-    # import P_scrape_web2.scrape_data3
+    # from mysite.scrapes \
+    import scrape_data3 as scr
 
 
     # from mysite.P_scrape_web2 \
