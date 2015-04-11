@@ -63,4 +63,42 @@ deactivate
 
 easy_install django
 pip install gunicorn
+
+pip install --upgrade pip
+
 http://127.0.0.1:8000/hello/
+
+
+
+
+python manage.py startapp records
+
+python manage.py validate
+python manage.py sqlall records она просто выводит на экран команды, которые Django выполнит, если вы попросите.
+
+python manage.py syncdb синхронизирует модели с базой данных. безопасна, ее запуск ничего не испортит.
+
+python manage.py dbshell    посмотрите, какие таблицы создал Django.
+
+sqlite3
+sudo apt-get install sqlite3 libsqlite3-dev
+
+
+python manage.py shell
+
+from records.models import Publisher
+p1 = Publisher(name='Apress', address='2855 Telegraph Avenue',
+city='Berkeley', state_province='CA', country='U.S.A,',
+website='http://www.apress.com/')
+p1.save()
+p2 = Publisher(name="0'Reilly", address='10 Fawcett St.',
+city='Cambridge', state_province='MA', country='U.S.A.',
+website='http://www.oreilly.com/')
+p2.save()
+publisher_list = Publisher.objects.all()
+publisher_list
+
+===================================== !!!
+python manage.py makemigrations records
+python manage.py sqlmigrate records 0001
+python manage.py migrate
