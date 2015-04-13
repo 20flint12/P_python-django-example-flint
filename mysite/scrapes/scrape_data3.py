@@ -44,7 +44,7 @@ def get_news():
     #     str_last_time = str_news
     #     return str_last_time
 
-    return str_news
+    return unicode(str_news)
 
 
 
