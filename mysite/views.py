@@ -145,7 +145,7 @@ def scrape_data_req(request):
     # cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     # news = scr.get_news()
     news = scr2.get_temperature()
-    print unicode(news)
+    # print unicode(news)
     return render_to_response('scrape_data.html',
                               {'current_site':now,
                                'data_context':news})
