@@ -102,6 +102,7 @@ try:
     # # sys.path.insert(0, './scrapes/')
 
     # import scrape_data3 as scr
+    import scrapes.scrape_data2 as scr2
     import scrapes.scrape_data3 as scr
 
     # from /home/flint/Projects/Py_projects/ENV_H/' \
@@ -142,7 +143,9 @@ except ImportError:
 def scrape_data_req(request):
     now = datetime.datetime.now()
     # cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    news = scr.get_news()
+    # news = scr.get_news()
+    news = scr2.get_temperature()
+    print news
     return render_to_response('scrape_data.html',
                               {'current_site':now,
                                'data_context':news})

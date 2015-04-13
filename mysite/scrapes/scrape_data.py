@@ -10,6 +10,8 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
+
+
 while 1:
 
     time.sleep(2)

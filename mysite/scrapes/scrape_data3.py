@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf8
 
 import os
@@ -49,23 +48,9 @@ def get_news():
 
 
 
+
 if __name__ == '__main__':
 
     print (get_news())
 
-
-
-
-
-#
-#
-# url = "http://icecat.biz/p/toshiba/pscbxe-01t00een/satellite-pro-notebooks-4051528049077-Satellite+Pro+C8501GR-17732197.html"
-# html = urllib2.urlopen(url)
-# soup = BeautifulSoup(html)
-#
-# imgs = soup.findAll("div", {"class":"thumb-pic"})
-# print imgs
-# for img in imgs:
-#     imgUrl = img.a['href'].split("imgurl=")[0]
-#     urllib.urlretrieve(imgUrl, os.path.basename(imgUrl))
 

@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import time
 import re
 
+
 # while True:
 #
 #
@@ -122,46 +123,32 @@ def get_temperature():
     soup = BeautifulSoup(r.content)
     # print soup.prettify()
     g_data = soup.find_all("table")
-
     # print g_data
-
-    # print g_data[0]
-    # print "\n"
-    # print "1#"*40
-    # print g_data[1]
-    # print "\n"
-    # print "2#"*40
-    # print g_data[2]
-    # print "\n"
-    # print "3#"*40
 
     tabTags = g_data[2].find_all("table")
 
     trTags = tabTags[1].find_all("tr")
-    # for tr in trTags:
-    #     print tr.text
-    #
-    #     # line = u(tr.text)
-    #     str_re = u"Давление (на станции) (.*) мм.рт.ст."
-    #     # res = re.search(str_re, str)
-    #     # if res:
-    #     #     print res.group(1)  # pressure
+
+    out_str = ""
+    for tr in trTags:
+        print tr.text
+        out_str += tr.text + "\n"
 
 
-    out_str = trTags[1].text
-    # print trTags[1].text
+    # out_str = trTags[1].text
 
+    # if str_last_time == out_str:
+    #     return None
+    # else:
+    #     str_last_time = out_str
+    #     return unicode(str_last_time)
 
-    if str_last_time == out_str:
-        return None
-    else:
-        str_last_time = out_str
-        return str_last_time
+    return (out_str)
 
 
 
-    return out_str
 
 
+if __name__ == '__main__':
 
-# print (get_temperature())
+    print (get_temperature())
