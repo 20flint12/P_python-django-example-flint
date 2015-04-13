@@ -130,7 +130,7 @@ def get_temperature():
 
     out_str = ""
     for tr in trTags:
-        print tr.text
+        # print tr.text
         out_str += tr.text + "\n"
 
 
