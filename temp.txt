@@ -78,8 +78,6 @@ python manage.py syncdb синхронизирует модели с базой 
 
 python manage.py dbshell    посмотрите, какие таблицы создал Django.
 
-sqlite3
-sudo apt-get install sqlite3 libsqlite3-dev
 
 
 python manage.py shell

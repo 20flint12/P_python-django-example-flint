@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf8
 
 
@@ -143,7 +142,7 @@ def get_temperature():
     #     str_last_time = out_str
     #     return unicode(str_last_time)
 
-    return (out_str)
+    return unicode(out_str)
 
 
 
