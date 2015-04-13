@@ -32,7 +32,7 @@ from django.http import HttpResponse
 
 
 import datetime
-# import ephem
+import ephem
 
 
 
@@ -150,6 +150,18 @@ def scrape_data_req(request):
                               {'current_site':now,
                                'data_context':news})
 
+
+
+
+
+
+def astro_req(request):
+    site = "pyephem"
+    ctx = "sdfgdsgdsfi"
+    print ctx
+    return render_to_response('astro_data.html',
+                              {'current_site':site,
+                               'data_context':ctx})
 
 
 

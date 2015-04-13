@@ -104,5 +104,4 @@ cctrlapp testastroflint/default deploy  87
 
 
 
-pip install gunicorn
 

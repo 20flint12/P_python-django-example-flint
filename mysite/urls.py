@@ -27,6 +27,7 @@ urlpatterns = patterns(
     # (r'^hello/$',   views.hello),  ##############################
     (r'^time/$',    views.current_datetime),
     (r'^scrape/$',  views.scrape_data_req),
+    (r'^astro/$',   views.astro_req),
 
 )
 
