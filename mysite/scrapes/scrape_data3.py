@@ -48,7 +48,10 @@ def get_news():
 
 
 
-print (get_news())
+
+if __name__ == '__main__':
+
+    print (get_news())
 
 
 
