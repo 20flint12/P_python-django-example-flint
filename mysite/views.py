@@ -97,16 +97,19 @@ import sys
 
 try:
     # Work for local
-    sys.path.insert(0, '/home/flint/Projects/Py_projects/P_virtualenv/ENV_H/'
-                       'P_python-django-example-flint/scrapes/')
-    import scrape_data3 as scr
+    # # sys.path.insert(0, '/home/flint/Projects/Py_projects/ENV_H/P_python-django-example-flint/scrapes/')
+    # sys.path.insert(0, '/home/flint/Projects/Py_projects/ENV_H/P_python-django-example-flint/mysite/scrapes/')
+    # # sys.path.insert(0, './scrapes/')
 
-
-    # scriptPath = os.path.realpath(os.path.dirname(__name__))
-    # print "scriptPath >>>>>>>>>>", scriptPath
-
-    # sys.path.insert(0, 'scrapes')
     # import scrape_data3 as scr
+    import scrapes.scrape_data3 as scr
+
+    # from /home/flint/Projects/Py_projects/ENV_H/' \
+    #      'P_python-django-example-flint/scrapes/' import scrape_data3 as scr
+
+    scriptPath = os.path.realpath(os.path.dirname(__name__))
+    print "scriptPath >>>>>>>>>>", scriptPath
+
 
 
 

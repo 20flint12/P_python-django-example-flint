@@ -74,9 +74,11 @@ http://127.0.0.1:8000/hello/
 python manage.py startapp records
 
 python manage.py validate
-python manage.py sqlall records она просто выводит на экран команды, которые Django выполнит, если вы попросите.
+python manage.py sqlall records она просто выводит на экран команды,
+которые Django выполнит, если вы попросите.
 
-python manage.py syncdb синхронизирует модели с базой данных. безопасна, ее запуск ничего не испортит.
+python manage.py syncdb синхронизирует модели с базой данных. безопасна, ее запуск
+ничего не испортит.
 
 python manage.py dbshell    посмотрите, какие таблицы создал Django.
 
