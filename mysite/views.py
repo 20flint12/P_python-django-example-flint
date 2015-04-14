@@ -150,7 +150,7 @@ import sys
 
 
 
-import astroroutines.ephem1 as epph
+# import astroroutines.ephem1 as epph
 
 import scrapes.scrape_data2 as scr2
 import scrapes.scrape_data3 as scr
@@ -211,7 +211,7 @@ def scrape_data_req(request):
 
 def astro_req(request):
     site = datetime.datetime.now()
-    ctx = epph.sun_rise()
+    ctx = "dfgdfg" #epph.sun_rise()
     print ctx
     return render_to_response('astro_data.html',
                               {'current_site':site,
