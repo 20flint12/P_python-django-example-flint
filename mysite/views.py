@@ -32,7 +32,7 @@ from django.http import HttpResponse
 
 
 import datetime
-import ephem
+# import ephem
 
 
 
@@ -105,7 +105,7 @@ try:
     import scrapes.scrape_data2 as scr2
     import scrapes.scrape_data3 as scr
 
-    import astro_routines.ephem1 as eph
+    import astro_routines.ephem1 as epph
 
 
     # from /home/flint/Projects/Py_projects/ENV_H/' \
@@ -160,7 +160,7 @@ def scrape_data_req(request):
 
 def astro_req(request):
     site = "pyephem"
-    ctx = eph.sun_rise()
+    ctx = epph.sun_rise()
     print ctx
     return render_to_response('astro_data.html',
                               {'current_site':site,
@@ -177,6 +177,10 @@ if __name__ == '__main__':
 
     for path in sys.path:
         print path
+
+
+    ctx = epph.sun_rise()
+    print ctx
 
 
     # sys.path.pop(0)
