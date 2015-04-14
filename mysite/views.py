@@ -105,6 +105,9 @@ try:
     import scrapes.scrape_data2 as scr2
     import scrapes.scrape_data3 as scr
 
+    import astro_routines.ephem1 as eph
+
+
     # from /home/flint/Projects/Py_projects/ENV_H/' \
     #      'P_python-django-example-flint/scrapes/' import scrape_data3 as scr
 
@@ -157,11 +160,12 @@ def scrape_data_req(request):
 
 def astro_req(request):
     site = "pyephem"
-    ctx = "sdfgdsgdsfi"
+    ctx = eph.sun_rise()
     print ctx
     return render_to_response('astro_data.html',
                               {'current_site':site,
                                'data_context':ctx})
+
 
 
 
