@@ -101,11 +101,10 @@ try:
     # sys.path.insert(0, '/home/flint/Projects/Py_projects/ENV_H/P_python-django-example-flint/mysite/scrapes/')
     # # sys.path.insert(0, './scrapes/')
 
-    # import scrape_data3 as scr
+    import astro_routines.ephem1 as epph
+
     import scrapes.scrape_data2 as scr2
     import scrapes.scrape_data3 as scr
-
-    import astro_routines.ephem1 as epph
 
 
     # from /home/flint/Projects/Py_projects/ENV_H/' \
@@ -157,10 +156,47 @@ def scrape_data_req(request):
 
 
 
+import ephem
+import datetime
+
+
+def sun_rise():
+
+    # pass
+    now = datetime.datetime.now() #get current time
+
+    Boston = ephem.Observer()
+    Boston.pressure = 1010 # millibar
+    Boston.temp = 25 # deg. Celcius
+    Boston.horizon = 0
+    Boston.lat = '42.3462'
+    Boston.lon = '-71.0978'
+    Boston.elevation = 3 # meters
+    Boston.date = now
+
+    sun = ephem.Sun()
+
+    # print(Boston.next_rising(sun))
+    # print(ephem.localtime(Boston.next_rising(sun)))
+
+    str_out = ''
+    str_out += "Next sunrise in Boston will be: " + \
+               str(ephem.localtime(Boston.next_rising(sun))) + "\n"
+    str_out += "Next sunset in Boston will be: " + \
+               str(ephem.localtime(Boston.next_setting(sun)))
+
+    # print(str_out)
+
+    return str_out
+
+
+
+
+
 
 def astro_req(request):
     site = "pyephem"
-    ctx = epph.sun_rise()
+    ctx = sun_rise()
     print ctx
     return render_to_response('astro_data.html',
                               {'current_site':site,
