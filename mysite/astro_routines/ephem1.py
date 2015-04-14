@@ -40,6 +40,9 @@ def sun_rise():
 
 
 
+
+
+
 # # '1978/10/3 11:32'
 # d1 = ephem.next_full_moon('2015/3/14')
 # print(d1)
@@ -53,3 +56,10 @@ def sun_rise():
 if __name__ == '__main__':
 
     sun_rise()
+
+
+    a_date = ephem.now() # current UTC date and time
+    print "UTC:", a_date # note that fractional part is missing from seconds
+
+    a_date = ephem.now()
+    print "localtime:", ephem.localtime(a_date)
