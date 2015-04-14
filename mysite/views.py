@@ -150,7 +150,7 @@ import sys
 
 
 
-import astroroutines.ephem1 as epph
+import astro_routines.ephem1 as epph
 
 import scrapes.scrape_data2 as scr2
 import scrapes.scrape_data3 as scr
@@ -166,46 +166,6 @@ def scrape_data_req(request):
     return render_to_response('scrape_data.html',
                               {'current_site':now,
                                'data_context':news})
-
-
-
-
-#
-# import ephem
-# import datetime
-#
-#
-# def sun_rise():
-#
-#     # pass
-#     now = datetime.datetime.now() #get current time
-#
-#     Boston = ephem.Observer()
-#     Boston.pressure = 1010 # millibar
-#     Boston.temp = 25 # deg. Celcius
-#     Boston.horizon = 0
-#     Boston.lat = '42.3462'
-#     Boston.lon = '-71.0978'
-#     Boston.elevation = 3 # meters
-#     Boston.date = now
-#
-#     sun = ephem.Sun()
-#
-#     # print(Boston.next_rising(sun))
-#     # print(ephem.localtime(Boston.next_rising(sun)))
-#
-#     str_out = ''
-#     str_out += "Next sunrise in Boston will be: " + \
-#                str(ephem.localtime(Boston.next_rising(sun))) + "\n"
-#     str_out += "Next sunset in Boston will be: " + \
-#                str(ephem.localtime(Boston.next_setting(sun)))
-#
-#     # print(str_out)
-#
-#     return str_out
-
-
-
 
 
 
