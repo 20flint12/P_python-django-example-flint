@@ -80,8 +80,15 @@ import datetime
 from django.shortcuts import render_to_response
 
 def current_datetime(request):
-    now = datetime.datetime.now()
-    return render_to_response('Current_date_time.html', {'current_date': now})
+    # now = datetime.datetime.now()
+
+    s_out = ""
+    for path in sys.path:
+        # print path
+        s_out += path + "\n"
+
+
+    return render_to_response('Current_date_time.html', {'current_date': s_out})
 
 
 

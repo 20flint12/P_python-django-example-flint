@@ -1,5 +1,5 @@
 {% extends "my_base.html" %}
 {% block title %}Текущее время{% endblock %}
 {% block content %}
-<p>Сейчас {{ current_date }}.</p>
+<p>Сейчас {{ current_date|linebreaks }}.</p>
 {% endblock %}
