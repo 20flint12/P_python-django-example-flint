@@ -80,8 +80,15 @@ import datetime
 from django.shortcuts import render_to_response
 
 def current_datetime(request):
-    now = datetime.datetime.now()
-    return render_to_response('Current_date_time.html', {'current_date': now})
+    # now = datetime.datetime.now()
+
+    s_out = ""
+    for path in sys.path:
+        # print path
+        s_out += path + "\n"
+
+
+    return render_to_response('Current_date_time.html', {'current_date': s_out})
 
 
 
@@ -95,50 +102,80 @@ import os
 import sys
 
 
-try:
-    # Work for local
-    # sys.path.insert(0, '/home/flint/Projects/Py_projects/P_virtualenv/ENV_H/P_scrape_web')
-    # import scrape_data3 as scr
 
-    # sys.path.insert(0, 'scrapes')
-    # import scrape_data3 as scr
+# try:
+#     # Work for local
+#     # # sys.path.insert(0, '/home/flint/Projects/Py_projects/ENV_H/P_python-django-example-flint/scrapes/')
+#     # sys.path.insert(0, '/home/flint/Projects/Py_projects/ENV_H/P_python-django-example-flint/mysite/scrapes/')
+#     # # sys.path.insert(0, './scrapes/')
+#
+#     import astro_routines.ephem1 as epph
+#
+#     import scrapes.scrape_data2 as scr2
+#     import scrapes.scrape_data3 as scr
+#
+#
+#     # from /home/flint/Projects/Py_projects/ENV_H/' \
+#     #      'P_python-django-example-flint/scrapes/' import scrape_data3 as scr
+#
+#     scriptPath = os.path.realpath(os.path.dirname(__name__))
+#     print "scriptPath >>>>>>>>>>", scriptPath
+#
+#
+#
+#
+#     # first change the cwd to the script path
+#     # scriptPath = os.path.realpath(os.path.dirname(__name__))
+#     # print "scriptPath >>>>>>>>>>", scriptPath
+#     # os.chdir(scriptPath)
+#     # #append the relative location you want to import from
+#     # sys.path.append("..P_scrape_web")
+#     # import scrape_data3 as scr
+#     #
+#
+#     # import scrapes.scrape_data3 as scr
+#
+#
+#     # from mysite.P_scrape_web2 \
+#     # import scrape_data3
+#
+#
+#     # from ..P_scrape_web import scrape_data3
+#     print "ImportOk"
+# except ImportError:
+#     print "ImportError ###############"
+#     # import connection_setting_MAG as conn
 
 
 
-    # first change the cwd to the script path
-    # scriptPath = os.path.realpath(os.path.dirname(__name__))
-    # print "scriptPath >>>>>>>>>>", scriptPath
-    # os.chdir(scriptPath)
-    # #append the relative location you want to import from
-    # sys.path.append("..P_scrape_web")
-    # import scrape_data3 as scr
-    #
-
-    # from mysite.scrapes \
-    import scrape_data3 as scr
 
 
-    # from mysite.P_scrape_web2 \
-    # import scrape_data3
+import astro_routines.ephem1 as epph
 
-
-    # from ..P_scrape_web import scrape_data3
-    print "ImportOk"
-except ImportError:
-    print "ImportError ###############"
-    # import connection_setting_MAG as conn
-
-
+import scrapes.scrape_data2 as scr2
+import scrapes.scrape_data3 as scr
 
 
 
 def scrape_data_req(request):
     now = datetime.datetime.now()
     # cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    news = scr.get_news()
+    # news = scr.get_news()
+    news = scr2.get_temperature()
+    # print unicode(news)
     return render_to_response('scrape_data.html',
                               {'current_site':now,
                                'data_context':news})
+
+
+
+def astro_req(request):
+    site = datetime.datetime.now()
+    ctx = epph.sun_rise()
+    print ctx
+    return render_to_response('astro_data.html',
+                              {'current_site':site,
+                               'data_context':ctx})
 
 
 
@@ -151,6 +188,10 @@ if __name__ == '__main__':
 
     for path in sys.path:
         print path
+
+
+    ctx = epph.sun_rise()
+    print ctx
 
 
     # sys.path.pop(0)
