@@ -7,3 +7,5 @@ cd P_python-django-example-flint/
 python manage.py runserver
 
 python manage.py shell
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
