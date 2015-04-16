@@ -28,6 +28,7 @@ urlpatterns = patterns(
     (r'^time/$',    views.current_datetime),
     (r'^scrape/$',  views.scrape_data_req),
     (r'^astro/$',   views.astro_req),
+    (r'^meta/$',    views.display_meta),
 
 )
 
