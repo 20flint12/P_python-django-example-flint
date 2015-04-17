@@ -1,6 +1,23 @@
+http://www.crummy.com/software/BeautifulSoup/bs4/doc/
+pip install beautifulsoup4
 
+http://docs.python-requests.org/en/latest/user/install/
+pip install requests
 
-cm_RunTerm
+pip install gunicorn
+
+easy_install django
+
+pip install --upgrade pip
+
+pip install pyephem
+
+//sqlite3
+sudo apt-get install sqlite3 libsqlite3-dev
+
+# http://blogs.bu.edu/mhirsch/2012/08/installing-pyephem-in-ubuntu-computing-sunrisesunset-in-python/
+# https://wiki.python.org/moin/CheeseShopTutorial
+# https://virtualenv.pypa.io/en/latest/installation.html
 
 
 http://matplotlib.org/users/installing.html
@@ -10,21 +27,16 @@ sudo apt-get install libfreetype6-dev
 pip install matplotlib
 
 
-
-
-
-
-
-
-
+#######################################################################################
 Install virtualenv via pip:
-
 $ pip install virtualenv
 
 Create a virtual environment for a project:
 $ cd my_project_folder
 $ virtualenv ENV_ACER
 =======
+
+
 
 https://www.cloudcontrol.com/dev-center/platform-documentation#version-control-&-images
 

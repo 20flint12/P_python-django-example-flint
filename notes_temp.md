@@ -12,24 +12,6 @@ The development server
 python manage.py runserver
 
 
-
-Creating models
-python manage.py startapp polls
-    polls/models.py
-
-Activating models
-    mysite/settings.py
-    INSTALLED_APPS = (
-        'django.contrib.admin',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-        'polls',
-    )
-
-
 python manage.py makemigrations polls
 
 python manage.py sqlmigrate polls 0001
@@ -54,12 +36,6 @@ cd ENV_H/
 source bin/activate
 deactivate
 
-
-
-########################## virtualenv ENV_1 ##########################
-cd ENV_1/
-source bin/activate
-deactivate
 
 
 http://127.0.0.1:8000/hello/
