@@ -24,6 +24,7 @@ urlpatterns += patterns('',
 
     (r'^search-form/$', 'records.views.search_form'),
     (r'^search/$',      'records.views.search'),
+    (r'^search2/$',     'records.views.search2'),
 )
 
 

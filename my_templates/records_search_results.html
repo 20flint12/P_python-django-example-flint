@@ -1,0 +1,12 @@
+<р>Вы искали: <strong>{{ query }}</strongx/p>
+
+{% if books %}
+    <р>Найдено {{ books|length }} книг{{ books|pluralize }}.</p>
+    <ul>
+        {% for book in books %}
+        <li>{{ book.title }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <р>Книг, удовлетворяющих заданному критерию, не найдено.</р>
+{% endif %}
