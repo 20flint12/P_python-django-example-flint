@@ -38,10 +38,6 @@ deactivate
 
 
 
-http://127.0.0.1:8000/hello/
-
-
-
 
 python manage.py startapp records
 

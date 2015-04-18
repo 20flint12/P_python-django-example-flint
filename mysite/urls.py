@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
-
 ##############################################################
 # from mysite import views
 import views
@@ -11,14 +10,8 @@ import views
 # from my_tests import views
 ##############################################################
 
-# from ..astro_routines import ephem1
-# from ...records import ephem1
-
-
 
 admin.autodiscover()
-
-
 
 
 urlpatterns = patterns('',
@@ -26,6 +19,12 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 )
 
+
+urlpatterns += patterns('',
+
+    (r'^search-form/$', 'records.views.search_form'),
+    (r'^search/$',      'records.views.search'),
+)
 
 
 urlpatterns += patterns('',
@@ -35,9 +34,6 @@ urlpatterns += patterns('',
     (r'^scrape/$',  views.scrape_data_req),
     (r'^astro/$',   views.astro_req),
     (r'^meta/$',    views.display_meta),
-
-    (r'^search-form/$', views.search_form),
-    (r'^search/$',      views.search),
 )
 
 

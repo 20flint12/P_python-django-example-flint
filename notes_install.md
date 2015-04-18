@@ -27,6 +27,9 @@ sudo apt-get install libfreetype6-dev
 pip install matplotlib
 
 
+http://pytz.sourceforge.net/
+easy_install --upgrade pytz
+
 #######################################################################################
 Install virtualenv via pip:
 $ pip install virtualenv
@@ -35,7 +38,6 @@ Create a virtual environment for a project:
 $ cd my_project_folder
 $ virtualenv ENV_ACER
 =======
-
 
 
 https://www.cloudcontrol.com/dev-center/platform-documentation#version-control-&-images
