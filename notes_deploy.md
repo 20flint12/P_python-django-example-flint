@@ -43,13 +43,6 @@ cctrlapp pyappname87 user
 
 
 
-cctrlapp myflasktest create python
-20flint12@gmail.com 87
-cctrlapp myflasktest/default push
-cctrlapp myflasktest/default deploy
-Congratulations, you can now see your Flask app running at 
-http[s]://myflasktest.cloudcontrolled.com
-
 
 
 https://www.cloudcontrol.com/dev-center/Guides/Python/Django
@@ -59,11 +52,10 @@ cctrlapp mypolltest push
 cctrlapp mypolltest addon.add mysqls.free
 cctrlapp mypolltest deploy
 cctrlapp mypolltest run "python manage.py syncdb"
-cctrlapp mypolltest run "python manage.py sqlall records"
 
-cctrlapp mypolltest run "python manage.py makemigrations records"
-
-python manage.py sqlclear records
+    cctrlapp mypolltest run "python manage.py sqlall records"
+    cctrlapp mypolltest run "python manage.py makemigrations records"
+    python manage.py sqlclear records
 
 #########################################################
 
@@ -95,3 +87,7 @@ testastroflint.cloudcontrolled.com/polls
 testastroflint.cloudcontrolled.com/admin
 kostia
 098776789
+
+
+#########################################################
+testastroflint2.cloudcontrolled.com/admin   admin2/admin2
