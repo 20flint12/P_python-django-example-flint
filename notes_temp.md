@@ -56,12 +56,12 @@ python manage.py shell
 
 from records.models import Publisher
 p1 = Publisher(name='Apress', address='2855 Telegraph Avenue',
-city='Berkeley', state_province='CA', country='U.S.A,',
-website='http://www.apress.com/')
+    city='Berkeley', state_province='CA', country='U.S.A,',
+    website='http://www.apress.com/')
 p1.save()
 p2 = Publisher(name="0'Reilly", address='10 Fawcett St.',
-city='Cambridge', state_province='MA', country='U.S.A.',
-website='http://www.oreilly.com/')
+    city='Cambridge', state_province='MA', country='U.S.A.',
+    website='http://www.oreilly.com/')
 p2.save()
 publisher_list = Publisher.objects.all()
 publisher_list
@@ -71,6 +71,6 @@ python manage.py makemigrations records
 python manage.py sqlmigrate records 0001
 python manage.py migrate
 
-
+python manage.py inspectdb
 
 

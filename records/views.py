@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 
 from django.http import HttpResponse
 
-# from records.models import Book
+from records.models import Book
 
 
 def search_form(request):
@@ -23,7 +23,6 @@ def search(request):
 
 
 
-from records.models import Book
 
 def search2(request):
     if 'q' in request.GET and request.GET['q']:

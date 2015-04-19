@@ -1,6 +1,7 @@
 ########################## virtualenv ENV_H ##########################
 cd /home/flint/Projects/Py_projects/P_virtualenv/ENV_H/
 source bin/activate
+source ../bin/activate
 deactivate
 
 
