@@ -61,6 +61,12 @@ cctrlapp mypolltest deploy
 cctrlapp mypolltest run "python manage.py syncdb"
 cctrlapp mypolltest run "python manage.py sqlall records"
 
+cctrlapp mypolltest run "python manage.py makemigrations records"
+
+python manage.py sqlclear records
+
+#########################################################
+
 u8888
 20flint12@gmail.com
 987685
