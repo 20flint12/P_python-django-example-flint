@@ -10,6 +10,17 @@ from records.models import Book
 
 
 def search_form(request):
+
+    # from records.models import Publisher
+    p1 = Publisher(name='Apress2', address='2855 Telegraph Avenue',
+        city='Berkeley', state_province='CA', country='U.S.A,',
+        website='http://www.apress.com/')
+    p1.save()
+    p2 = Publisher(name="0'Reilly2", address='10 Fawcett St.',
+        city='Cambridge', state_province='MA', country='U.S.A.',
+        website='http://www.oreilly.com/')
+    p2.save()
+
     return render_to_response('records_search_form.html')
 
 
