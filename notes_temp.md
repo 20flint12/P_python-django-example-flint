@@ -13,6 +13,7 @@ python manage.py runserver
 
 
 python manage.py makemigrations polls
+python manage.py makemigrations records
 
 python manage.py sqlmigrate polls 0001
 

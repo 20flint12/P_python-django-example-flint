@@ -29,3 +29,6 @@ testastroflint.cloudcontrolled.com/astro
 testastroflint.cloudcontrolled.com/time
 testastroflint.cloudcontrolled.com/meta
 testastroflint.cloudcontrolled.com/search-form
+
+
+python manage.py inspectdb > somefile.txt

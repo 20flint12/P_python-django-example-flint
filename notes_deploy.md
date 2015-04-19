@@ -59,6 +59,8 @@ cctrlapp mypolltest push
 cctrlapp mypolltest addon.add mysqls.free
 cctrlapp mypolltest deploy
 cctrlapp mypolltest run "python manage.py syncdb"
+cctrlapp mypolltest run "python manage.py sqlall records"
+
 u8888
 20flint12@gmail.com
 987685
