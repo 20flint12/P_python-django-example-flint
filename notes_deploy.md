@@ -13,6 +13,7 @@ http://127.0.0.1:8000/admin
 
 git remote add origin https://github.com/20flint12/P_python-django-example-flint.git
 git remote add ccOrigin ssh://testastroflint@cloudcontrolled.com/repository.git
+git remote add ccOrigin2 ssh://testastroflint2@cloudcontrolled.com/repository.git
 git remote -v
 
 
@@ -93,3 +94,10 @@ kostia
 testastroflint2.cloudcontrolled.com/admin   admin2/admin2
 
 python manage.py sqlmigrate records
+
+
+
+
+
+cctrlapp testastroflint2/development push
+cctrlapp testastroflint2 deploy
