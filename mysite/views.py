@@ -171,7 +171,8 @@ def scrape_data_req(request):
 
 def astro_req(request):
     site = datetime.datetime.now()
-    ctx = epph.sun_rise()
+    # ctx = epph.sun_rise()
+    ctx = epph.moon_rise_set()
     print ctx
     return render_to_response('astro_data.html',
                               {'current_site':site,

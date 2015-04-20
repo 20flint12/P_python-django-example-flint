@@ -91,3 +91,5 @@ kostia
 
 #########################################################
 testastroflint2.cloudcontrolled.com/admin   admin2/admin2
+
+python manage.py sqlmigrate records
