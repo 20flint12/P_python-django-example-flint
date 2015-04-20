@@ -101,3 +101,4 @@ python manage.py sqlmigrate records
 
 cctrlapp testastroflint2/development push
 cctrlapp testastroflint2 deploy
+cctrlapp testastroflint2 run "python manage.py syncdb"
