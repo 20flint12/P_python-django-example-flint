@@ -77,3 +77,6 @@ python manage.py inspectdb
 
 b = Book.objects.get(id=1)
 b.title
+
+
+
