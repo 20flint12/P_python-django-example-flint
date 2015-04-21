@@ -44,7 +44,7 @@ def moon_rise_set():
     now = ephem.now() # current UTC date and time
     # print now
 
-    str_out2 = "Kharkov >>>>> Current time " + show_time(ephem.now())
+    str_out2 = "Kharkov current time  " + show_time(ephem.now())
 
 
     place = ephem.Observer() # Kharkov
@@ -60,10 +60,10 @@ def moon_rise_set():
     moon = ephem.Moon()
 
 
-    str_out2 += "place.previous_rising Sun :" + show_time(place.previous_rising(sun))
-    str_out2 += "place.next_setting Sun    :" + show_time(place.next_setting(sun))
-    str_out2 += "place.previous_rising Moon:" + show_time(place.previous_rising(moon))
-    str_out2 += "place.next_setting Moon   :" + show_time(place.next_setting(moon))
+    str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
+    str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
+    str_out2 += "previous_rising Moon :" + show_time(place.previous_rising(moon))
+    str_out2 += "next_setting Moon    :" + show_time(place.next_setting(moon))
 
     # print str_out2
     return str_out2
@@ -75,7 +75,7 @@ def show_time(time):
     out_str_time = ""
     out_str_time += "UTC:"
     out_str_time += str(time)
-    out_str_time += " {" + str(ephem.localtime(time)) + "}\n"
+    out_str_time += " {" + str(ephem.localtime(time))[:19] + "}\n"
 
     return out_str_time
 
