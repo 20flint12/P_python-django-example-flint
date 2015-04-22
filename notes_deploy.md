@@ -8,6 +8,13 @@ https://github.com/
 20flint12 88888878f
 
 
+
+[credential]
+        username = 20flint12
+        helper = cache --timeout=3600
+
+
+
 http://127.0.0.1:8000/polls/
 http://127.0.0.1:8000/admin
 
