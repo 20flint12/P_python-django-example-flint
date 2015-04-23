@@ -6,7 +6,7 @@ import datetime
 import ephem
 
 
-def get_phase_on_day(date):
+def get_phase_on_day(new_day):
     """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
     #Ephem stores its date numbers as floating points, which the following uses
     #to conveniently extract the percent time between one new moon and the next
@@ -15,13 +15,11 @@ def get_phase_on_day(date):
     #Use Year, Month, Day as arguments
     # date=ephem.Date(datetime.date(year,month,day))
 
-    pnm = ephem.previous_new_moon(date)
-    nnm = ephem.next_new_moon(date)
-
+    pnm = ephem.previous_new_moon(new_day)
+    nnm = ephem.next_new_moon(new_day)
 
     print "prev_new_moon:", pnm, "localtime:", str(ephem.localtime(pnm))[:19]
     print "next_new_moon:", nnm, "localtime:", str(ephem.localtime(nnm))[:19]
-
 
     # lunation=(date-pnm)/(nnm-pnm)
     # print "lunation:", lunation, "moon month:",nnm-pnm
@@ -35,12 +33,34 @@ def get_phase_on_day(date):
     place.horizon = 0
     place.lat = '50.0'
     place.lon = '36.15'
-    # place.elevation = 3 # meters
+    place.elevation = 3 # meters
     place.date = pnm
 
     sun = ephem.Sun()
     moon = ephem.Moon()
 
+
+
+    str_out2  = "Calculate on new moon:    " + str(place.date) + "\n"
+    # str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
+    # str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
+    str_out2 += "previous_rising Moon :" + show_time(place.previous_rising(moon))
+    str_out2 += "previous_settingMoon :" + show_time(place.previous_setting(moon))
+    str_out2 += "previous_transit Moon:" + show_time(place.previous_transit(moon))
+    str_out2 += "next_rising  Moon    :" + show_time(place.next_rising(moon))
+    str_out2 += "next_setting Moon    :" + show_time(place.next_setting(moon))
+    str_out2 += "next_transit Moon    :" + show_time(place.next_transit(moon))
+    str_out2 += "next_antitransit Moon:" + show_time(place.next_antitransit(moon))
+    # str_out2 += "pass                 :" + show_time(place.next_pass(moon))
+
+    # print str_out2
+
+
+
+
+    #####################################################################
+
+    current_date = ephem.Date('2015/4/23 20:12:03')
 
     num_day = 0
 
@@ -53,38 +73,33 @@ def get_phase_on_day(date):
         print "invisible"
 
 
-
-    str_out2  = "Calculate on new moon:    " + str(place.date) + "\n"
-    # str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
-    # str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
-    str_out2 += "previous_rising Moon :" + show_time(place.previous_rising(moon))
-    str_out2 += "previous_settingMoon :" + show_time(place.previous_setting(moon))
-    str_out2 += "previous_transit Moon:" + show_time(place.previous_transit(moon))
-    str_out2 += "next_rising Moon     :" + show_time(place.next_rising(moon))
-    str_out2 += "next_setting Moon    :" + show_time(place.next_setting(moon))
-    str_out2 += "next_transit Moon    :" + show_time(place.next_transit(moon))
-    str_out2 += "next_antitransit Moon:" + show_time(place.next_antitransit(moon))
-    # str_out2 += "pass                 :" + show_time(place.next_pass(moon))
-
-
-
-
-    start = date = pnm
+    new_day = pnm
     full_moons = []
-    while date < nnm:
-        date = place.next_rising(moon)
+
+    print "\n"
+    while new_day < nnm:
+        new_day = place.next_rising(moon)
         date_set = place.next_setting(moon)
-        place.date = date
+        place.date = new_day
         num_day += 1
-        print "moon_day:",num_day,"from:",date,"to:",date_set
-
-        full_moons.append(date)
 
 
+        str_out = ""
+        str_out += "{:2d} =".format(num_day)
+        str_out += " fr:{0:<18}".format(str(new_day))
+        str_out += " to:{0:<18}".format(str(date_set))
+
+        if current_date < new_day:
+            str_out += " -"
 
 
-    # print str_out2
-    return str_out2
+
+        print str_out
+
+        full_moons.append(new_day)
+
+    print "\n"
+
 
 
 
