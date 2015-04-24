@@ -33,3 +33,5 @@ testastroflint.cloudcontrolled.com/search-form
 
 
 python manage.py inspectdb > somefile.txt
+
+pm-suspend

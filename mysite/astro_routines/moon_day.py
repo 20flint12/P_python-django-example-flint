@@ -60,43 +60,60 @@ def get_phase_on_day(new_day):
 
     #####################################################################
 
-    current_date = ephem.Date('2015/4/23 20:12:03')
+    current_date = ephem.Date('2015/4/27 20:12:03')
 
-    num_day = 0
 
     prm = place.previous_rising(moon)
     psm = place.previous_setting(moon)
+    nsm = place.next_setting(moon)
+
+    cur_day = 0
+    cur_ris = 0
+    cur_set = 0
+    cur_vis = 0
     if prm > psm:
         print "visible"
-        num_day += 1
+        cur_ris = prm
+        cur_set = nsm
+        cur_vis = 1
+        cur_day += 1
+
     else:
         print "invisible"
+        # cur_ris = prm
+        # cur_set = nsm
+        cur_vis = 0
 
 
     new_day = pnm
     full_moons = []
 
+    place.date = new_day
+
     print "\n"
     while new_day < nnm:
-        new_day = place.next_rising(moon)
+
+        new_day  = place.next_rising(moon)
         date_set = place.next_setting(moon)
         place.date = new_day
-        num_day += 1
+        cur_day += 1
 
 
         str_out = ""
-        str_out += "{:2d} =".format(num_day)
+        str_out += "{:2d} =".format(cur_day)
         str_out += " fr:{0:<18}".format(str(new_day))
         str_out += " to:{0:<18}".format(str(date_set))
-
-        if current_date < new_day:
-            str_out += " -"
-
 
 
         print str_out
 
         full_moons.append(new_day)
+
+
+        if current_date < new_day:
+            str_out += " -"
+            break
+
 
     print "\n"
 
