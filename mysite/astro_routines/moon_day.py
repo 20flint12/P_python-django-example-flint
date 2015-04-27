@@ -142,36 +142,48 @@ def get_sun_on_month():
     place.lon = '36.15'
     place.elevation = 3 # meters
 
-    place.date = datetime.datetime.now() #get current time
+    # start_date = datetime.datetime.now() #get current time
+    start_date = ephem.Date(datetime.date(2015,4,1))
+    place.date = start_date
 
     sun = ephem.Sun()
 
-    sun_dict = {}
+    #
+    tot_list = []
     str_out2 = ""
     for i in range(5): # compute position for every one day
         sun.compute(place)
 
+        prs = place.previous_rising(sun)
+        nss = place.next_setting(sun)
 
-        str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
-        str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
+
+        str_out2 += "previous_rising Sun  :" + show_time(prs)
+        str_out2 += "next_setting Sun     :" + show_time(nss)
         str_out2 += "\n"
         str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
         str_out2 += "previous_setting Sun :" + show_time(place.previous_setting(sun))
         str_out2 += "next_rising Sun      :" + show_time(place.next_rising(sun))
         str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
 
-        temp_list = []
-        temp_list.append(place.date)
-        temp_list.append(place.previous_rising(sun))
-        temp_list.append(place.previous_setting(sun))
+        # temp_list = []
+        # temp_list.append(place.date)
+        # temp_list.append(place.previous_rising(sun))
+        # temp_list.append(place.previous_setting(sun))
+
+        sun_dict = {}
+        sun_dict[i] = i #temp_list
+        sun_dict["prev_risi_sun"] = prs
+        sun_dict["next_sett_sun"] = nss
 
 
-        sun_dict[i] = temp_list
+        tot_list.append(sun_dict)
+
         place.date += ephem.hour*24
 
-    print str_out2
-
-    return sun_dict
+    # print str_out2
+    # print tot_list
+    return tot_list
 
 
 # from datetime import date
@@ -266,7 +278,11 @@ if __name__ == '__main__':
     date_now = ephem.now() # current UTC date and time
     # print get_phase_on_day(date_now)
 
-    print get_sun_on_month()
+
+    out_list = get_sun_on_month()
+
+    for item in out_list:
+        print sorted(item)
 
     # print get_moons_in_year(2013)
     # for ev in get_moons_in_year(2015):
