@@ -6,7 +6,7 @@ import datetime
 import ephem
 
 
-def get_phase_on_day(new_day):
+def get_phase_on_day(in_day):
     """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
     #Ephem stores its date numbers as floating points, which the following uses
     #to conveniently extract the percent time between one new moon and the next
@@ -15,11 +15,11 @@ def get_phase_on_day(new_day):
     #Use Year, Month, Day as arguments
     # date=ephem.Date(datetime.date(year,month,day))
 
-    pnm = ephem.previous_new_moon(new_day)
-    nnm = ephem.next_new_moon(new_day)
+    # pnm = ephem.previous_new_moon(in_day)
+    # nnm = ephem.next_new_moon(in_day)
 
-    print "prev_new_moon:", pnm, "localtime:", str(ephem.localtime(pnm))[:19]
-    print "next_new_moon:", nnm, "localtime:", str(ephem.localtime(nnm))[:19]
+    # print "\nprev_new_moon:", pnm, "localtime:", str(ephem.localtime(pnm))[:19]
+    # print "next_new_moon:", nnm, "localtime:", str(ephem.localtime(nnm))[:19]
 
     # lunation=(date-pnm)/(nnm-pnm)
     # print "lunation:", lunation, "moon month:",nnm-pnm
@@ -34,12 +34,86 @@ def get_phase_on_day(new_day):
     place.lat = '50.0'
     place.lon = '36.15'
     place.elevation = 3 # meters
-    place.date = pnm
+    # place.date = pnm
 
     sun = ephem.Sun()
     moon = ephem.Moon()
 
+    #####################################################################
 
+    str_head = ""
+
+    # prev_NM = ephem.Date('2015/4/19 4:00:00')
+    # next_NM = ephem.Date('2015/5/19 4:00:00')
+
+    prev_NM = ephem.previous_new_moon(in_day)
+    next_NM = ephem.next_new_moon(in_day)
+
+    str_head += "prev_NM : {:<18}\n".format(str(prev_NM))
+    str_head += "next_NM : {:<18}\n".format(str(next_NM))
+
+    place.date = prev_NM
+    # print "*****", place.date
+
+    prm = place.previous_rising(moon)
+    psm = place.previous_setting(moon)
+    nrm = place.next_rising(moon)
+    nsm = place.next_setting(moon)
+    # print prm,psm,nsm
+
+    md_vis = 0
+    day_rise = 0
+    day_sett = 0
+    new_rise = 0
+    cur_day = 0
+
+    if prm > psm:
+        md_vis = True
+        day_rise = prm
+        day_sett = nsm
+        new_rise = nrm
+        cur_day += 1
+    else:
+        md_vis = False
+        day_rise = prm
+        day_sett = psm
+        new_rise = nrm
+
+    str_head += "{:2d} =".format(cur_day)
+    str_head += " rise:{0:<18}".format(str(day_rise))
+    str_head += " set:{0:<18}".format(str(day_sett))
+    str_head += " to:{0:<18}".format(str(new_rise))
+    str_head += " v:" + str(md_vis)
+    str_head += "\n" + "-" * 60 + "\n"
+
+    current_date = ephem.Date('2015/4/29 5:00:00')
+    str_head += "Calculate for date:{0:<18}\n".format(str(current_date))
+
+    str_out = ""
+    while place.date < next_NM:
+
+        day_rise = place.next_rising(moon)
+        place.date = day_rise
+        day_sett = place.next_setting(moon)
+        place.date = day_sett
+        new_rise = place.next_rising(moon)
+
+        if current_date < day_rise or current_date < day_sett:
+            str_out += "*" * 60
+            break
+        else:
+            cur_day += 1
+            str_out += "{:2d} =".format(cur_day)
+            str_out += " rise:{0:<18}".format(str(day_rise))
+            str_out += " set:{0:<18}".format(str(day_sett))
+            str_out += " to:{0:<18}".format(str(new_rise))
+            str_out += "\n"
+
+
+    str_full = str_head + str_out
+    print str_full
+
+    print "\n"
 
     str_out2  = "Calculate on new moon:    " + str(place.date) + "\n"
     # str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
@@ -56,66 +130,6 @@ def get_phase_on_day(new_day):
     # print str_out2
 
 
-
-
-    #####################################################################
-
-    current_date = ephem.Date('2015/4/27 20:12:03')
-
-
-    prm = place.previous_rising(moon)
-    psm = place.previous_setting(moon)
-    nsm = place.next_setting(moon)
-
-    cur_day = 0
-    cur_ris = 0
-    cur_set = 0
-    cur_vis = 0
-    if prm > psm:
-        print "visible"
-        cur_ris = prm
-        cur_set = nsm
-        cur_vis = 1
-        cur_day += 1
-
-    else:
-        print "invisible"
-        # cur_ris = prm
-        # cur_set = nsm
-        cur_vis = 0
-
-
-    new_day = pnm
-    full_moons = []
-
-    place.date = new_day
-
-    print "\n"
-    while new_day < nnm:
-
-        new_day  = place.next_rising(moon)
-        date_set = place.next_setting(moon)
-        place.date = new_day
-        cur_day += 1
-
-
-        str_out = ""
-        str_out += "{:2d} =".format(cur_day)
-        str_out += " fr:{0:<18}".format(str(new_day))
-        str_out += " to:{0:<18}".format(str(date_set))
-
-
-        print str_out
-
-        full_moons.append(new_day)
-
-
-        if current_date < new_day:
-            str_out += " -"
-            break
-
-
-    print "\n"
 
 
 

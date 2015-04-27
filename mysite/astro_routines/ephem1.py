@@ -64,6 +64,12 @@ def moon_rise_set():
     str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
     str_out2 += "previous_rising Moon :" + show_time(place.previous_rising(moon))
     str_out2 += "next_setting Moon    :" + show_time(place.next_setting(moon))
+    str_out2 += "\n"
+    str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
+    str_out2 += "previous_setting Sun :" + show_time(place.previous_setting(sun))
+    str_out2 += "next_rising Sun      :" + show_time(place.next_rising(sun))
+    str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
+
 
     # print str_out2
     return str_out2
