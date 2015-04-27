@@ -143,15 +143,16 @@ def get_sun_on_month():
     place.elevation = 3 # meters
 
     # start_date = datetime.datetime.now() #get current time
-    start_date = ephem.Date(datetime.date(2015,4,1))
+    # start_date = ephem.Date(datetime.date(2015,4,1))
+    start_date = ephem.Date('2015/4/27 12:00')
     place.date = start_date
 
     sun = ephem.Sun()
 
-    #
+
     tot_list = []
     str_out2 = ""
-    for i in range(5): # compute position for every one day
+    for i in range(35): # compute position for every one day
         sun.compute(place)
 
         prs = place.previous_rising(sun)
@@ -166,15 +167,15 @@ def get_sun_on_month():
         str_out2 += "next_rising Sun      :" + show_time(place.next_rising(sun))
         str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
 
-        # temp_list = []
-        # temp_list.append(place.date)
-        # temp_list.append(place.previous_rising(sun))
-        # temp_list.append(place.previous_setting(sun))
 
         sun_dict = {}
-        sun_dict[i] = i #temp_list
-        sun_dict["prev_risi_sun"] = prs
-        sun_dict["next_sett_sun"] = nss
+        sun_dict["id"] = i
+        sun_dict["day_time"] = place.date
+        sun_dict["str_day_time"] = show_time(place.date)
+        sun_dict["rising_sun"] = prs
+        sun_dict["str_rising_sun"] = show_time(prs)
+        sun_dict["setting_sun"] = nss
+        sun_dict["str_setting_sun"] = show_time(nss)
 
 
         tot_list.append(sun_dict)
@@ -281,8 +282,10 @@ if __name__ == '__main__':
 
     out_list = get_sun_on_month()
 
-    for item in out_list:
-        print sorted(item)
+    for d in out_list:
+        for k in sorted(d):
+            print k, d[k]
+        # print sorted(item),item
 
     # print get_moons_in_year(2013)
     # for ev in get_moons_in_year(2015):
