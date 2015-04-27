@@ -23,6 +23,7 @@ http://127.0.0.1:8000/astro
 http://127.0.0.1:8000/time
 http://127.0.0.1:8000/meta
 http://127.0.0.1:8000/search-form
+http://127.0.0.1:8000/json
 
 
 testastroflint.cloudcontrolled.com/polls

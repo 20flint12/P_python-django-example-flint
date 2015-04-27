@@ -132,6 +132,46 @@ def get_phase_on_day(in_day):
 
 
 
+def get_sun_on_month():
+
+    place = ephem.Observer() # Kharkov
+    place.pressure = 1010 # millibar
+    place.temp = 25 # deg. Celcius
+    place.horizon = 0
+    place.lat = '50.0'
+    place.lon = '36.15'
+    place.elevation = 3 # meters
+
+    place.date = datetime.datetime.now() #get current time
+
+    sun = ephem.Sun()
+
+    sun_dict = {}
+    str_out2 = ""
+    for i in range(5): # compute position for every one day
+        sun.compute(place)
+
+
+        str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
+        str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
+        str_out2 += "\n"
+        str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
+        str_out2 += "previous_setting Sun :" + show_time(place.previous_setting(sun))
+        str_out2 += "next_rising Sun      :" + show_time(place.next_rising(sun))
+        str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
+
+        temp_list = []
+        temp_list.append(place.date)
+        temp_list.append(place.previous_rising(sun))
+        temp_list.append(place.previous_setting(sun))
+
+
+        sun_dict[i] = temp_list
+        place.date += ephem.hour*24
+
+    print str_out2
+
+    return sun_dict
 
 
 # from datetime import date
@@ -224,7 +264,9 @@ def get_moons_in_year(year):
 if __name__ == '__main__':
 
     date_now = ephem.now() # current UTC date and time
-    print get_phase_on_day(date_now)
+    # print get_phase_on_day(date_now)
+
+    print get_sun_on_month()
 
     # print get_moons_in_year(2013)
     # for ev in get_moons_in_year(2015):

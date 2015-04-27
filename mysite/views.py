@@ -150,7 +150,6 @@ import sys
 
 
 
-import astro_routines.ephem1 as epph
 
 import scrapes.scrape_data2 as scr2
 import scrapes.scrape_data3 as scr
@@ -193,6 +192,35 @@ def display_meta(request):
 
 
 
+
+
+import astro_routines.moon_day as md
+
+def json_req(request):
+
+    import json
+
+    # response_data = {}
+    # response_data['result'] = 'failed'
+    # response_data['message'] = 'You messed up'
+    # print response_data
+
+    # response_data = md.get_phase_on_day(1)
+    response_data = md.get_sun_on_month()
+
+    return HttpResponse(json.dumps(response_data),
+                        content_type="application/json")
+
+
+
+
+# from django.http import JsonResponse
+# return JsonResponse({'foo':'bar'})
+
+
+# from django.http import JsonResponse
+# ...
+# return JsonResponse(array_to_js, safe=False)
 
 
 

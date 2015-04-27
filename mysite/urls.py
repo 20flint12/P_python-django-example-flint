@@ -35,6 +35,8 @@ urlpatterns += patterns('',
     (r'^scrape/$',  views.scrape_data_req),
     (r'^astro/$',   views.astro_req),
     (r'^meta/$',    views.display_meta),
+    (r'^json/$',    views.json_req),
+
 )
 
 
