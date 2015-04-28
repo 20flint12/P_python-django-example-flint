@@ -32,6 +32,8 @@ testastroflint.cloudcontrolled.com/time
 testastroflint.cloudcontrolled.com/meta
 testastroflint.cloudcontrolled.com/search-form
 
+testastroflint2.cloudcontrolled.com/json
+
 
 python manage.py inspectdb > somefile.txt
 
