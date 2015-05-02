@@ -5,12 +5,12 @@
 import datetime
 import ephem
 
+def get_interval_phase_on_day(start_day,end_day):
+    pass
 
-def get_phase_on_day(in_day):
+
+def get_phase_on_current_day(in_day):
     """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
-    #Ephem stores its date numbers as floating points, which the following uses
-    #to conveniently extract the percent time between one new moon and the next
-    #This corresponds (somewhat roughly) to the phase of the moon.
 
     #Use Year, Month, Day as arguments
     # date=ephem.Date(datetime.date(year,month,day))
@@ -41,25 +41,20 @@ def get_phase_on_day(in_day):
 
     #####################################################################
 
-    str_head = ""
-
     # prev_NM = ephem.Date('2015/4/19 4:00:00')
     # next_NM = ephem.Date('2015/5/19 4:00:00')
-
     prev_NM = ephem.previous_new_moon(in_day)
     next_NM = ephem.next_new_moon(in_day)
+    place.date = prev_NM
 
+    str_head = ""
     str_head += "prev_NM : {:<18}\n".format(str(prev_NM))
     str_head += "next_NM : {:<18}\n".format(str(next_NM))
-
-    place.date = prev_NM
-    # print "*****", place.date
 
     prm = place.previous_rising(moon)
     psm = place.previous_setting(moon)
     nrm = place.next_rising(moon)
     nsm = place.next_setting(moon)
-    # print prm,psm,nsm
 
     md_vis = 0
     day_rise = 0
@@ -107,28 +102,98 @@ def get_phase_on_day(in_day):
             str_out += " rise:{0:<18}".format(str(day_rise))
             str_out += " set:{0:<18}".format(str(day_sett))
             str_out += " to:{0:<18}".format(str(new_rise))
-            str_out += "\n"
-
+            str_out += "\n" # new line
 
     str_full = str_head + str_out
     print str_full
+    # print "\n"
 
-    print "\n"
-
-    str_out2  = "Calculate on new moon:    " + str(place.date) + "\n"
-    # str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
-    # str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
-    str_out2 += "previous_rising Moon :" + show_time(place.previous_rising(moon))
-    str_out2 += "previous_settingMoon :" + show_time(place.previous_setting(moon))
-    str_out2 += "previous_transit Moon:" + show_time(place.previous_transit(moon))
-    str_out2 += "next_rising  Moon    :" + show_time(place.next_rising(moon))
-    str_out2 += "next_setting Moon    :" + show_time(place.next_setting(moon))
-    str_out2 += "next_transit Moon    :" + show_time(place.next_transit(moon))
-    str_out2 += "next_antitransit Moon:" + show_time(place.next_antitransit(moon))
-    # str_out2 += "pass                 :" + show_time(place.next_pass(moon))
-
+    # str_out2  = "Calculate on new moon:    " + str(place.date) + "\n"
+    # # str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
+    # # str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
+    # str_out2 += "previous_rising Moon :" + show_time(place.previous_rising(moon))
+    # str_out2 += "previous_settingMoon :" + show_time(place.previous_setting(moon))
+    # str_out2 += "previous_transit Moon:" + show_time(place.previous_transit(moon))
+    # str_out2 += "next_rising  Moon    :" + show_time(place.next_rising(moon))
+    # str_out2 += "next_setting Moon    :" + show_time(place.next_setting(moon))
+    # str_out2 += "next_transit Moon    :" + show_time(place.next_transit(moon))
+    # str_out2 += "next_antitransit Moon:" + show_time(place.next_antitransit(moon))
+    # # str_out2 += "pass                 :" + show_time(place.next_pass(moon))
     # print str_out2
 
+
+
+def set_observer(in_day):
+    place = ephem.Observer() # Kharkov
+    place.pressure = 1010 # millibar
+    place.temp = 25 # deg. Celcius
+    place.horizon = 0
+    place.lat = '50.0'
+    place.lon = '36.15'
+    place.elevation = 3 # meters
+    place.date = in_day
+    return place
+
+
+def form_str_moon_day(cur_day,day_rise,day_sett,new_rise):
+    str_out = ""
+    str_out += "{:2d} =".format(cur_day)
+    str_out += " rise:{0:<18}".format(str(day_rise))
+    str_out += " set:{0:<18}".format(str(day_sett))
+    str_out += " to:{0:<18}".format(str(new_rise))
+    # str_head += " v:" + str(md_vis)
+    # str_out += "\n"
+    return str_out
+
+
+def get_phase_on_current_day2(dates):
+    """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
+
+    place = set_observer(dates[0])
+
+    moon = ephem.Moon()
+
+    #####################################################################
+    curr_date = ephem.Date(dates[0])
+    prev_NM = ephem.Date(dates[1])
+    next_NM = ephem.Date(dates[2])
+    # prev_NM = ephem.previous_new_moon(dates[0])
+    # next_NM = ephem.next_new_moon(dates[0])
+    place.date = prev_NM
+
+    str_head = ""
+    str_head += "Calculate for date:{0:<18}\n".format(str(curr_date))
+    str_head += "prev_NM : {:<18}\n".format(str(prev_NM))
+    str_head += "next_NM : {:<18}\n".format(str(next_NM))
+    str_head += "-" * 60 + "\n"
+
+    md_vis = False
+    cur_day = 1
+
+    day_rise = place.previous_rising(moon)
+    day_sett = place.previous_setting(moon)
+    new_rise = place.next_rising(moon)
+    if day_rise > day_sett:
+        md_vis = True
+        day_sett = place.next_setting(moon)
+
+    str_head += form_str_moon_day(cur_day,day_rise,day_sett,new_rise) + " v:" + str(md_vis) + "\n"
+
+    while curr_date > new_rise:
+
+        day_rise = place.next_rising(moon)
+        place.date = day_rise
+        day_sett = place.next_setting(moon)
+        place.date = day_sett
+        new_rise = place.next_rising(moon)
+
+        cur_day += 1
+        str_head += form_str_moon_day(cur_day,day_rise,day_sett,new_rise) + "\n"
+
+    str_head += "*" * 60
+
+    print str_head
+    # print "\n"
 
 
 
@@ -277,15 +342,24 @@ def get_moons_in_year(year):
 if __name__ == '__main__':
 
     date_now = ephem.now() # current UTC date and time
-    # print get_phase_on_day(date_now)
+    print get_phase_on_current_day(date_now)
+    print "$%#" * 20 + "\n"
+    # print get_phase_on_current_day2(date_now)
 
 
-    out_list = get_sun_on_month()
+    dates = ('2015/4/25 5:00:00','2015/4/19 4:00:00','2015/5/19 4:00:00')
+    print get_phase_on_current_day2(dates)
 
-    for d in out_list:
-        for k in sorted(d):
-            print k, d[k]
-        # print sorted(item),item
+    dates = ('2015/4/25 5:00:00','2015/4/19 3:00:00','2015/5/19 4:00:00')
+    print get_phase_on_current_day2(dates)
+
+
+    # out_list = get_sun_on_month()
+
+    # for d in out_list:
+    #     for k in sorted(d):
+    #         print k, d[k]
+    #     # print sorted(item),item
 
     # print get_moons_in_year(2013)
     # for ev in get_moons_in_year(2015):

@@ -37,4 +37,4 @@ testastroflint2.cloudcontrolled.com/json
 
 python manage.py inspectdb > somefile.txt
 
-pm-suspend
+pm-suspend 
