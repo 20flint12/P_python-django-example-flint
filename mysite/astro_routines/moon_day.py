@@ -123,7 +123,7 @@ def get_phase_on_current_day(in_day):
 
 
 
-def set_observer(in_day):
+def set_observer(in_day_utc):
     place = ephem.Observer() # Kharkov
     place.pressure = 1010 # millibar
     place.temp = 25 # deg. Celcius
@@ -131,87 +131,109 @@ def set_observer(in_day):
     place.lat = '50.0'
     place.lon = '36.15'
     place.elevation = 3 # meters
-    place.date = in_day
+    place.date = in_day_utc
     return place
 
 
-def form_str_moon_day(cur_day,day_rise,day_sett,new_rise):
+def form_str_moon_day(cur_day,day_rise,day_sett,new_rise,str_mark):
     str_out = ""
     str_out += "{:2d} =".format(cur_day)
     str_out += " rise:{0:<18}".format(str(day_rise))
     str_out += " set:{0:<18}".format(str(day_sett))
     str_out += " to:{0:<18}".format(str(new_rise))
-    # str_head += " v:" + str(md_vis)
-    # str_out += "\n"
-    return str_out
+    str_out += str_mark
+
+    md_dict = {}
+    md_dict["moon_day"] = cur_day
+    md_dict["day_rise"] = day_rise
+    md_dict["day_sett"] = day_sett
+    md_dict["new_rise"] = new_rise
+    md_dict["str_day_rise"] = show_time(day_rise)
+
+    return str_out,md_dict
 
 
 def get_phase_on_current_day2(dates):
     """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
 
     place = set_observer(dates[0])
-
     moon = ephem.Moon()
 
     #####################################################################
     curr_date = ephem.Date(dates[0])
-    prev_NM = ephem.Date(dates[1])
-    next_NM = ephem.Date(dates[2])
-    # prev_NM = ephem.previous_new_moon(dates[0])
-    # next_NM = ephem.next_new_moon(dates[0])
-    place.date = prev_NM
-
+    # prev_NM = ephem.Date(dates[1])
+    # next_NM = ephem.Date(dates[2])
+    prev_NM = ephem.previous_new_moon(dates[0])
+    next_NM = ephem.next_new_moon(dates[0])
     str_head = ""
     str_head += "Calculate for date:{0:<18}\n".format(str(curr_date))
     str_head += "prev_NM : {:<18}\n".format(str(prev_NM))
     str_head += "next_NM : {:<18}\n".format(str(next_NM))
-    str_head += "-" * 60 + "\n"
+    str_head += ">" * 60 + "\n"
 
-    md_vis = False
     cur_day = 1
-
-    day_rise = place.previous_rising(moon)
-    day_sett = place.previous_setting(moon)
+    place.date = prev_NM
     new_rise = place.next_rising(moon)
-    if day_rise > day_sett:
-        md_vis = True
-        day_sett = place.next_setting(moon)
 
-    str_head += form_str_moon_day(cur_day,day_rise,day_sett,new_rise) + " v:" + str(md_vis) + "\n"
-
+    md_dict = {}
     while curr_date > new_rise:
+        str_mark = ""
+        if cur_day == 1:
+            day_rise = place.previous_rising(moon)
+            day_sett = place.previous_setting(moon)
+            if day_rise > day_sett:
+                day_sett = place.next_setting(moon)
+            day_rise = place.previous_rising(moon)
+            str_mark = " new moon >>>"
+        else:
+            day_rise = place.next_rising(moon)
+            place.date = day_rise
+            day_sett = place.next_setting(moon)
+            place.date = day_sett
+            new_rise = place.next_rising(moon)
 
-        day_rise = place.next_rising(moon)
-        place.date = day_rise
-        day_sett = place.next_setting(moon)
-        place.date = day_sett
-        new_rise = place.next_rising(moon)
+            if next_NM < new_rise:
+                str_mark = " >>> new moon"
 
-        cur_day += 1
-        str_head += form_str_moon_day(cur_day,day_rise,day_sett,new_rise) + "\n"
+        str_out, md_dict = form_str_moon_day(cur_day,day_rise,day_sett,new_rise,str_mark)
+        str_head += str_out + "\n"
+        cur_day += 1    # prepare for next moon day
 
-    str_head += "*" * 60
+    str_head += "<" * 60
 
     print str_head
     # print "\n"
+
+    return md_dict
+
+
+
+
+
+from datetime import timedelta
+
+def prev_weekday(adate):
+    adate -= timedelta(days=1)
+    while adate.weekday() != 0: # Mon-Fri are 0-4
+        adate -= timedelta(days=1)
+    return adate
 
 
 
 def get_sun_on_month():
 
-    place = ephem.Observer() # Kharkov
-    place.pressure = 1010 # millibar
-    place.temp = 25 # deg. Celcius
-    place.horizon = 0
-    place.lat = '50.0'
-    place.lon = '36.15'
-    place.elevation = 3 # meters
-
     # start_date = datetime.datetime.now() #get current time
     # start_date = ephem.Date(datetime.date(2015,4,1))
-    start_date = ephem.Date('2015/4/27 12:00')
-    place.date = start_date
+    # start_date = ephem.Date('2015/4/27 12:00')
 
+    start_date_loc = datetime.date(2015,4,29)
+
+    # Correct to nearest Monday
+    start_date_mon = prev_weekday(start_date_loc)
+    start_date_eph = ephem.Date(start_date_mon)
+
+    place = set_observer(start_date_eph)
+    # place.date = start_date_eph
     sun = ephem.Sun()
 
 
@@ -222,7 +244,6 @@ def get_sun_on_month():
 
         prs = place.previous_rising(sun)
         nss = place.next_setting(sun)
-
 
         str_out2 += "previous_rising Sun  :" + show_time(prs)
         str_out2 += "next_setting Sun     :" + show_time(nss)
@@ -235,12 +256,12 @@ def get_sun_on_month():
 
         sun_dict = {}
         sun_dict["id"] = i
-        sun_dict["day_time"] = place.date
+        # sun_dict["day_time"] = place.date
         sun_dict["str_day_time"] = show_time(place.date)
-        sun_dict["rising_sun"] = prs
-        sun_dict["str_rising_sun"] = show_time(prs)
-        sun_dict["setting_sun"] = nss
-        sun_dict["str_setting_sun"] = show_time(nss)
+        # sun_dict["rising_sun"] = prs
+        # sun_dict["str_rising_sun"] = show_time(prs)
+        # sun_dict["setting_sun"] = nss
+        # sun_dict["str_setting_sun"] = show_time(nss)
 
 
         tot_list.append(sun_dict)
@@ -296,7 +317,7 @@ def show_time(time):
     out_str_time = ""
     out_str_time += "UTC:"
     out_str_time += str(time)
-    out_str_time += " {" + str(ephem.localtime(time))[:19] + "}\n"
+    out_str_time += " {" + str(ephem.localtime(time))[:19] + "}"
 
     return out_str_time
 
@@ -350,11 +371,16 @@ if __name__ == '__main__':
     dates = ('2015/4/25 5:00:00','2015/4/19 4:00:00','2015/5/19 4:00:00')
     print get_phase_on_current_day2(dates)
 
-    dates = ('2015/4/25 5:00:00','2015/4/19 3:00:00','2015/5/19 4:00:00')
-    print get_phase_on_current_day2(dates)
+    dates = ('2015/5/18 3:00:00','2015/4/19 3:00:00','2015/5/19 4:00:00')
+    # print get_phase_on_current_day2(dates)
+    out_list = get_phase_on_current_day2(dates)
+    for key in out_list:
+        print key,out_list[key]
 
 
-    # out_list = get_sun_on_month()
+
+
+    out_list = get_sun_on_month()
 
     # for d in out_list:
     #     for k in sorted(d):

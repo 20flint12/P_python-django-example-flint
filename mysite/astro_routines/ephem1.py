@@ -103,7 +103,13 @@ def show_time(time):
 
 
 
+from datetime import date, timedelta
 
+def prev_weekday(adate):
+    adate -= timedelta(days=1)
+    while adate.weekday() != 0: # Mon-Fri are 0-4
+        adate -= timedelta(days=1)
+    return adate
 
 
 if __name__ == '__main__':
@@ -117,4 +123,39 @@ if __name__ == '__main__':
     # print "UTC:", a_date # note that fractional part is missing from seconds
     # print "localtime:", ephem.localtime(a_date)
 
-    print moon_rise_set()
+    # print moon_rise_set()
+
+
+    import pytz
+
+    timezone='UTC'
+    tz = pytz.timezone(timezone)
+    print tz
+
+    d = ephem.Date(str('2015/5/18 3:00:00'))
+    equinox1 = d.datetime() + tz.utcoffset(d.datetime())
+
+    print "d=", d
+    print "tz.utcoffset(d.datetime())",tz.utcoffset(d.datetime())
+    print "equinox1=", equinox1
+
+
+    print "date.today()=", date.today()
+
+    print "@@", date.today().weekday()
+
+    print "prev_weekday=", prev_weekday(date.today())
+    # print datetime.date(2012, 8, 20)
+    prev_weekday(date(2012, 8, 20))
+
+
+
+    cet = pytz.timezone('CET')
+
+    dt = datetime.datetime(2010, 10, 21, 2, 12, 30)
+    offset = cet.utcoffset(dt)
+    print offset
+
+    dt = datetime.datetime.utcfromtimestamp(1288483950)
+    dt = pytz.utc.localize(dt)
+    offset = dt.astimezone(cet).utcoffset()

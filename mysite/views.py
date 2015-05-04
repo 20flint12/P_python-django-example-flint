@@ -154,6 +154,11 @@ import sys
 import scrapes.scrape_data2 as scr2
 import scrapes.scrape_data3 as scr
 
+import astro_routines.ephem1 as epph
+import astro_routines.moon_day as md
+
+
+
 
 
 def scrape_data_req(request):
@@ -179,7 +184,6 @@ def astro_req(request):
 
 
 
-
 def display_meta(request):
     values = request.META.items()
 
@@ -192,9 +196,6 @@ def display_meta(request):
 
 
 
-
-
-import astro_routines.moon_day as md
 
 def json_req(request):
 
