@@ -212,9 +212,9 @@ def get_phase_on_current_day2(dates):
 
 from datetime import timedelta
 
-def prev_weekday(adate):
-    adate -= timedelta(days=1)
-    while adate.weekday() != 0: # Mon-Fri are 0-4
+def prev_weekday(adate,wd): # 6 - sunday
+    # Find previous weekday
+    while adate.weekday() != wd: # Mon-Fri are 0-4
         adate -= timedelta(days=1)
     return adate
 
@@ -226,51 +226,52 @@ def get_sun_on_month():
     # start_date = ephem.Date(datetime.date(2015,4,1))
     # start_date = ephem.Date('2015/4/27 12:00')
 
-    start_date_loc = datetime.date(2015,4,29)
+    start_date_loc = datetime.datetime(2015,4,29,12)
+    start_date_loc = datetime.date.today() #get current time
 
     # Correct to nearest Monday
-    start_date_mon = prev_weekday(start_date_loc)
+    start_date_mon = prev_weekday(start_date_loc,6)
+    stop_date_loc  = start_date_mon + timedelta(days=35)
+
     start_date_eph = ephem.Date(start_date_mon)
+    stop_date_eph  = ephem.Date(stop_date_loc)
 
     place = set_observer(start_date_eph)
-    # place.date = start_date_eph
     sun = ephem.Sun()
 
-
-    tot_list = []
+    total_list = []
     str_out2 = ""
-    for i in range(35): # compute position for every one day
-        sun.compute(place)
 
-        prs = place.previous_rising(sun)
-        nss = place.next_setting(sun)
+    new_rise = start_date_eph
 
-        str_out2 += "previous_rising Sun  :" + show_time(prs)
-        str_out2 += "next_setting Sun     :" + show_time(nss)
+    i = 0
+    while stop_date_eph >= new_rise:
+
+        day_rise = place.next_rising(sun)
+        place.date = day_rise
+        day_sett = place.next_setting(sun)
+        place.date = day_sett
+        new_rise = place.next_rising(sun)
+
+        # ===============================================
+        str_out2 += "rising Sun  :" + show_time(day_rise)
+        str_out2 += "setting Sun :" + show_time(day_sett)
         str_out2 += "\n"
-        str_out2 += "previous_rising Sun  :" + show_time(place.previous_rising(sun))
-        str_out2 += "previous_setting Sun :" + show_time(place.previous_setting(sun))
-        str_out2 += "next_rising Sun      :" + show_time(place.next_rising(sun))
-        str_out2 += "next_setting Sun     :" + show_time(place.next_setting(sun))
 
-
+        i += 1
         sun_dict = {}
         sun_dict["id"] = i
-        # sun_dict["day_time"] = place.date
-        sun_dict["str_day_time"] = show_time(place.date)
-        # sun_dict["rising_sun"] = prs
-        # sun_dict["str_rising_sun"] = show_time(prs)
-        # sun_dict["setting_sun"] = nss
-        # sun_dict["str_setting_sun"] = show_time(nss)
+        sun_dict["day_rise"] = day_rise
+        sun_dict["str_day_rise"] = show_time(day_rise)
+        sun_dict["day_sett"] = day_sett
+        sun_dict["str_day_sett"] = show_time(day_sett)
+
+        total_list.append(sun_dict)
 
 
-        tot_list.append(sun_dict)
+    print str_out2
 
-        place.date += ephem.hour*24
-
-    # print str_out2
-    # print tot_list
-    return tot_list
+    return total_list
 
 
 # from datetime import date
@@ -362,20 +363,20 @@ def get_moons_in_year(year):
 
 if __name__ == '__main__':
 
-    date_now = ephem.now() # current UTC date and time
-    print get_phase_on_current_day(date_now)
-    print "$%#" * 20 + "\n"
-    # print get_phase_on_current_day2(date_now)
-
-
-    dates = ('2015/4/25 5:00:00','2015/4/19 4:00:00','2015/5/19 4:00:00')
-    print get_phase_on_current_day2(dates)
-
-    dates = ('2015/5/18 3:00:00','2015/4/19 3:00:00','2015/5/19 4:00:00')
+    # date_now = ephem.now() # current UTC date and time
+    # print get_phase_on_current_day(date_now)
+    # print "$%#" * 20 + "\n"
+    # # print get_phase_on_current_day2(date_now)
+    #
+    #
+    # dates = ('2015/4/25 5:00:00','2015/4/19 4:00:00','2015/5/19 4:00:00')
     # print get_phase_on_current_day2(dates)
-    out_list = get_phase_on_current_day2(dates)
-    for key in out_list:
-        print key,out_list[key]
+    #
+    # dates = ('2015/5/18 3:00:00','2015/4/19 3:00:00','2015/5/19 4:00:00')
+    # # print get_phase_on_current_day2(dates)
+    # out_list = get_phase_on_current_day2(dates)
+    # for key in out_list:
+    #     print key,out_list[key]
 
 
 
