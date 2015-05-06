@@ -146,9 +146,11 @@ def form_str_moon_day(cur_day,day_rise,day_sett,new_rise,str_mark):
     md_dict = {}
     md_dict["moon_day"] = cur_day
     md_dict["day_rise"] = day_rise
-    md_dict["day_sett"] = day_sett
-    md_dict["new_rise"] = new_rise
     md_dict["str_day_rise"] = show_time(day_rise)
+    md_dict["day_sett"] = day_sett
+    md_dict["str_day_sett"] = show_time(day_sett)
+    md_dict["new_rise"] = new_rise
+    md_dict["str_new_rise"] = show_time(new_rise)
 
     return str_out,md_dict
 
@@ -166,7 +168,7 @@ def get_phase_on_current_day2(dates):
     prev_NM = ephem.previous_new_moon(dates[0])
     next_NM = ephem.next_new_moon(dates[0])
     str_head = ""
-    str_head += "Calculate for date:{0:<18}\n".format(str(curr_date))
+    str_head += "Calculate for UTC:{0:<18}\n".format(str(curr_date))
     str_head += "prev_NM : {:<18}\n".format(str(prev_NM))
     str_head += "next_NM : {:<18}\n".format(str(next_NM))
     str_head += ">" * 60 + "\n"
@@ -204,7 +206,7 @@ def get_phase_on_current_day2(dates):
     print str_head
     # print "\n"
 
-    return md_dict
+    return md_dict,str_head
 
 
 
@@ -268,9 +270,7 @@ def get_sun_on_month():
 
         total_list.append(sun_dict)
 
-
-    print str_out2
-
+    # print str_out2
     return total_list
 
 
@@ -367,11 +367,13 @@ if __name__ == '__main__':
     # print get_phase_on_current_day(date_now)
     # print "$%#" * 20 + "\n"
     # # print get_phase_on_current_day2(date_now)
-    #
-    #
-    # dates = ('2015/4/25 5:00:00','2015/4/19 4:00:00','2015/5/19 4:00:00')
-    # print get_phase_on_current_day2(dates)
-    #
+
+
+    start_date = datetime.datetime.now() #get current time
+    start_date -= timedelta(hours=3) # always everything in UTC
+    dates = (start_date,'2015/4/19 4:00:00','2015/5/19 4:00:00')
+    print get_phase_on_current_day2(dates)
+
     # dates = ('2015/5/18 3:00:00','2015/4/19 3:00:00','2015/5/19 4:00:00')
     # # print get_phase_on_current_day2(dates)
     # out_list = get_phase_on_current_day2(dates)
