@@ -1,0 +1,39 @@
+%html{lang: 'en'}
+	%head
+		%title 'Backbone test proj'
+		%link{rel: 'icon', href: './favicon.ico', type: 'image/x-icon'}
+		%link{rel: 'stylesheet', type: 'text/css', href: './app/production/css/all.css'}
+		%script{type: 'text/javascript', src: './app/production/js/main.min.js'}
+		%script{type: 'text/template', id: 'astro-week-template'}
+			%li.calendar-week
+				{{#isCurrentDay}}
+				.calendar-day
+					{{dayNumber}}
+				{{/isCurrentDay}}
+				{{^isCurrentDay}}
+				.calendar-day.current-day
+					{{dayNumber}}
+				{{/isCurrentDay}}
+	%body
+		%div#main-container
+			#header
+				%div.astro-title
+					Your own astro calendar!
+			#body
+				#astro-calendar
+					%div.calendar-week-title
+						%div.calendar-day.sunday-day
+							sunday
+						%div.calendar-day.monday-day
+							monday
+						%div.calendar-day.tuesday-day
+							tuesday
+						%div.calendar-day.wednesday-day
+							wednesday
+						%div.calendar-day.thursday-day
+							thursday
+						%div.calendar-day.friday-day
+							friday
+						%div.calendar-day.saturday-day
+							saturday
+					%ul.astro-calendar-list

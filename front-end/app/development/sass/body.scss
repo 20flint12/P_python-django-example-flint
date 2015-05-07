@@ -1,0 +1,37 @@
+$absoluteWidth: 100%;
+$centered: 0px auto;
+
+@import './header.scss';
+@import './body/calendar.scss';
+
+body {
+	background-color: aliceblue;
+}
+
+%baseTodo {
+	width: $absoluteWidth;
+	height: 20px;
+	font-size: 22px;
+}
+
+#main-container {
+	width: 1120px;
+	margin: $centered;
+	background-color: rgb(219, 219, 219);
+	height: auto;
+	padding: 10px 20px;
+}
+
+#todo {
+	width: $absoluteWidth;
+}
+
+.todoTasks {
+	width: 70%;
+	display: inline-block;
+	margin: $centered;
+}
+
+.todoTask {
+	@extend %baseTodo;
+}

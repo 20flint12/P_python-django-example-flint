@@ -1,0 +1,59 @@
+<html lang='en'>
+  <head>
+    <title>'Backbone test proj'</title>
+    <link href='./favicon.ico' rel='icon' type='image/x-icon'>
+    <link href='./app/production/css/all.css' rel='stylesheet' type='text/css'>
+    <script src='./app/production/js/main.min.js' type='text/javascript'></script>
+    <script id='astro-week-template' type='text/template'>
+      <li class='calendar-week'>
+        {{#isCurrentDay}}
+        <div class='calendar-day'>
+          {{dayNumber}}
+        </div>
+        {{/isCurrentDay}}
+        {{^isCurrentDay}}
+        <div class='calendar-day current-day'>
+          {{dayNumber}}
+        </div>
+        {{/isCurrentDay}}
+      </li>
+    </script>
+  </head>
+  <body>
+    <div id='main-container'>
+      <div id='header'>
+        <div class='astro-title'>
+          Your own astro calendar!
+        </div>
+      </div>
+      <div id='body'>
+        <div id='astro-calendar'>
+          <div class='calendar-week-title'>
+            <div class='calendar-day sunday-day'>
+              sunday
+            </div>
+            <div class='calendar-day monday-day'>
+              monday
+            </div>
+            <div class='calendar-day tuesday-day'>
+              tuesday
+            </div>
+            <div class='calendar-day wednesday-day'>
+              wednesday
+            </div>
+            <div class='calendar-day thursday-day'>
+              thursday
+            </div>
+            <div class='calendar-day friday-day'>
+              friday
+            </div>
+            <div class='calendar-day saturday-day'>
+              saturday
+            </div>
+          </div>
+          <ul class='astro-calendar-list'></ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

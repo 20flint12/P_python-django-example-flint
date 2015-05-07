@@ -1,0 +1,60 @@
+$showInfoWidth: 325px;
+$showInfoHeight: auto;
+
+@mixin border-radius ($radius: '') {
+	-webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+   		border-radius: $radius;
+}
+
+#show-info {
+	height: $showInfoHeight;
+	width: $showInfoWidth;
+	background-color: #f6f3d6;
+	padding: 10px;
+	font-size: 20px;
+	@include border-radius(5px);
+}
+
+.day-setting,
+.day-rising {
+	height: 50px;
+}
+
+.day-setting-logo,
+.day-setting-text,
+.day-rising-logo,
+.day-rising-text {
+	display: inline-block;
+	width: 35%;
+}
+
+.day-setting-text,
+.day-rising-text {
+	width: 55%;
+	float: right;
+}
+
+.day-rising-logo,
+.day-setting-logo {
+	height: 100%;
+	background-size: 100% 100%;
+}
+
+.day-rising-logo {
+	background-image: url('./../img/rising.svg');
+}
+
+.day-setting-logo {
+	background-image: url('./../img/setting.svg');
+}
+
+.setting-number {
+	font-size: 18px;
+}
+
+.day-length {
+	margin-top: 15px;
+	text-align: center;
+}
