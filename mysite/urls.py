@@ -37,6 +37,8 @@ urlpatterns += patterns('',
     (r'^meta/$',    views.display_meta),
     (r'^json/$',    views.json_req),
 
+    (r'^main/$',    views.main_index),
+
 )
 
 

@@ -128,6 +128,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 TEMPLATE_DIRS = (
     '{0}/templates/'.format(PROJECT_ROOT),
     '{0}/my_templates/'.format(PROJECT_ROOT),
+    '{0}/front-end/'.format(PROJECT_ROOT),
+
 )
 
 INSTALLED_APPS = (

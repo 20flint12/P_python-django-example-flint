@@ -220,6 +220,12 @@ def json_req(request):
 
 
 
+def main_index(request):
+
+    # return HttpResponse('index.html')
+    return render_to_response('index.html',
+                                {'#isCurrentDay':1})
+
 
 # from django.http import JsonResponse
 # return JsonResponse({'foo':'bar'})
