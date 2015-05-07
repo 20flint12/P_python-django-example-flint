@@ -112,3 +112,4 @@ cctrlapp testastroflint2 run "python manage.py syncdb"
 
 
 git push origin development:master
+cctrlapp testastroflint2 deploy
