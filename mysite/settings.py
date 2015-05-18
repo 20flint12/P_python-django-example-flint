@@ -145,7 +145,13 @@ INSTALLED_APPS = (
     'gunicorn',
     'polls',
     'records',
+
+    # 'tastypie',
 )
+
+# INSTALLED_APPS += ['tastypie']
+
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
