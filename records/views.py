@@ -12,15 +12,15 @@ from records.models import Book
 
 def search_form(request):
 
-    # from records.models import Publisher
-    p1 = Publisher(name='Apress2', address='2855 Telegraph Avenue',
-        city='Berkeley', state_province='CA', country='U.S.A,',
-        website='http://www.apress.com/')
-    p1.save()
-    p2 = Publisher(name="0'Reilly2", address='10 Fawcett St.',
-        city='Cambridge', state_province='MA', country='U.S.A.',
-        website='http://www.oreilly.com/')
-    p2.save()
+    # # from records.models import Publisher
+    # p1 = Publisher(name='Apress2', address='2855 Telegraph Avenue',
+    #     city='Berkeley', state_province='CA', country='U.S.A,',
+    #     website='http://www.apress.com/')
+    # p1.save()
+    # p2 = Publisher(name="0'Reilly2", address='10 Fawcett St.',
+    #     city='Cambridge', state_province='MA', country='U.S.A.',
+    #     website='http://www.oreilly.com/')
+    # p2.save()
 
     return render_to_response('records_search_form.html')
 
@@ -34,12 +34,14 @@ def search(request):
     return HttpResponse(message)
 
 
+
 from records.models import Publisher
 
 def search2(request):
     if 'q' in request.GET and request.GET['q']:
         q = request.GET['q' ]
-        books = Book.objects.filter(title__icontains=q)
+        # books = Book.objects.filter(title__icontains=q)
+        books = Book.objects.all()
         # books = Publisher.objects.all()
         print books
         return render_to_response('records_search_results.html',
@@ -48,3 +50,33 @@ def search2(request):
         # return HttpResponse('Enter new req')
         return render_to_response('records_search_form.html', {'error': True})
 
+
+
+
+from records.models import RecNews
+
+def news(request):
+
+    import datetime
+
+
+    # Examples:
+    # time_stamp = today.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+    # format = "%b %d %H:%M:%S"
+
+    dt = datetime.datetime.today()
+    str_date_stamp = dt.strftime('%YYYY-%MM-%DD')
+
+
+
+    # datetime.datetime.strptime("Jun-08-2013", '%b-%d-%Y').date()
+
+    # dt = datetime.strftime('%YYYY-%MM-%DD').date()
+    print dt
+    n1 = RecNews(news_date=dt, news_contents='asfghdahfa Telegraph Avenue')
+    n1.save()
+
+    books = RecNews.objects.all()
+    print books
+    return render_to_response('records_search_results.html',
+        {'books': books})
