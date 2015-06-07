@@ -88,7 +88,8 @@ def news(request):
     ctx = scr2.get_temperature()
     # ctx = scr.get_news()
 
-    n1 = RecNews(news_date=dt, news_contents=ctx)
+    # ustring = unicode(read_string, encoding=...)
+    n1 = RecNews(news_date=dt, news_contents=unicode(ctx))
     n1.save()
 
     books = RecNews.objects.all()
