@@ -4,3 +4,4 @@ MySQL-python==1.2.5
 pyephem==3.7.5.3
 requests
 beautifulsoup4
+matplotlib==1.4.3
