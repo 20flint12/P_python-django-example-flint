@@ -61,6 +61,8 @@ cctrlapp mypolltest addon.add mysqls.free
 cctrlapp mypolltest deploy
 cctrlapp mypolltest run "python manage.py syncdb"
 
+
+
     cctrlapp mypolltest run "python manage.py sqlall records"
     cctrlapp mypolltest run "python manage.py makemigrations records"
     python manage.py sqlclear records
@@ -97,6 +99,9 @@ kostia
 098776789
 
 
+cctrlapp testastroflint run "python manage.py syncdb"
+cctrlapp testastroflint run "python manage.py makemigrations"
+cctrlapp testastroflint run "python manage.py migrate"
 #########################################################
 testastroflint2.cloudcontrolled.com/admin   admin2/admin2
 
