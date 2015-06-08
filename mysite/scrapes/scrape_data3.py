@@ -37,13 +37,14 @@ def get_news():
         # print (str_news)
 
 
-    # if str_last_time == str_news:
-    #     return None
-    # else:
-    #     str_last_time = str_news
-    #     return str_last_time
+    # return unicode(str_news)
 
-    return unicode(str_news)
+    if str_last_time == str_news:
+        return None
+    else:
+        str_last_time = str_news
+        return unicode(str_last_time)
+
 
 
 

@@ -10,3 +10,4 @@ admin.site.register(Author)
 admin.site.register(Book)
 
 admin.site.register(RecNews)
+admin.site.register(WeatherData)

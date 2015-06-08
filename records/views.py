@@ -62,7 +62,7 @@ def search2(request):
 
 from records.models import RecNews
 
-import mysite.scrapes.scrape_data3 as scr
+import mysite.scrapes.scrape_data3 as scr3
 import mysite.scrapes.scrape_data2 as scr2
 
 import multiprocessing as mp
@@ -86,7 +86,7 @@ def news(request):
     # print dt, str_date_stamp
 
     ctx = scr2.get_temperature()
-    # ctx = scr.get_news()
+    # ctx = scr3.get_news()
 
     # ustring = unicode(read_string, encoding=...)
     n1 = RecNews(news_date=dt, news_contents=unicode(ctx))
@@ -108,7 +108,7 @@ def my_proc(repeat_counter):
     begin_time = datetime.datetime.now()
     print "\nBegin time:", str(begin_time)[:-7]
     cur_time = begin_time
-    delta_time = datetime.timedelta(hours=0, minutes=20, seconds=30)
+    delta_time = datetime.timedelta(hours=5, minutes=20, seconds=30)
     checkout_time = begin_time + delta_time
 
     try:
@@ -128,15 +128,14 @@ def my_proc(repeat_counter):
 
             dt = datetime.datetime.today()
             # ctx = scr2.get_temperature()
-            ctx = scr.get_news()
+            ctx = scr3.get_news()
 
-            n1 = RecNews(news_date=dt, news_contents=ctx)
-            n1.save()
+            if ctx:
+                n1 = RecNews(news_date=dt, news_contents=ctx)
+                n1.save()
 
             print "+" * 100
-
             # break
-
             time.sleep(60)
 
     except KeyboardInterrupt:

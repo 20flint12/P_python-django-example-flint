@@ -41,3 +41,30 @@ class RecNews(models.Model):
 
     def __unicode__(self):
         return u'%s %s' % (self.news_date, self.news_contents)
+
+
+
+class WeatherData(models.Model):
+
+    weather_datetime = models.DateTimeField()
+    check_time = models.CharField(max_length=5)
+
+    # tmp_lst.append(time)
+    # tmp_lst.append(t_air)
+    # tmp_lst.append(t_com)
+    # tmp_lst.append(t_dew)
+    # tmp_lst.append(t_hum)
+    # tmp_lst.append(p_sea)
+    # tmp_lst.append(p_stn)
+    temperature_air = models.FloatField()
+    temperature_com = models.IntegerField()
+    temperature_dew = models.IntegerField()
+    temperature_hum = models.IntegerField()
+    pressure_sea = models.IntegerField()
+    pressure_stn = models.IntegerField()
+
+
+
+
+    def __unicode__(self):
+        return u'%s %s' % (self.weather_datetime, self.check_time)

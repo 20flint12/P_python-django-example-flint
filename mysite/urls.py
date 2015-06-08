@@ -45,7 +45,6 @@ urlpatterns += patterns('',
     (r'^charts/$',  views.my_simple),
 
 )
-# http://127.0.0.1:8000/charts/simple.png
 
 
 urlpatterns += staticfiles_urlpatterns()

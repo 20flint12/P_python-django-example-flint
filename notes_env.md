@@ -34,6 +34,7 @@ testastroflint.cloudcontrolled.com/meta
 testastroflint.cloudcontrolled.com/search-form
 
 testastroflint2.cloudcontrolled.com/json
+testastroflint2.cloudcontrolled.com/charts/
 
 
 python manage.py inspectdb > somefile.txt

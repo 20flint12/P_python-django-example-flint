@@ -111,6 +111,7 @@ import re
 #     time.sleep(5)
 #
 
+
 str_last_time = ""
 
 def get_temperature():
@@ -147,7 +148,97 @@ def get_temperature():
 
 
 
+def parse_temperature(str_in):
+
+    str_in = str_in.replace("\n", " ")
+    # print str_in
+
+    # Погода в Харькове на14:30 Kyiv
+    # Температура воздуха +29°
+    # Температура комфорта +28°
+    # Точка росы +8°
+    # Влажность 27%
+    # Давление (на уровне моря) 765 мм.рт.ст.
+    # Давление (на станции) 752 мм.рт.ст.
+    # Ветер западный
+    # Скорость ветра 3 м/с
+    # Пог. явления нет
+    # Облачность кучево-дождевых облаков нет
+    # Видимость >10 км
+    # Изменения погоды (на 30 мин) не ожидаются
+    # Характер погоды
+
+    str_re = u"Погода в Харькове на(.*) Kyiv " \
+             u"Температура воздуха (.*)° " \
+             u"Температура комфорта (.*)° " \
+             u"Точка росы (.*)° " \
+             u"Влажность (.*)% " \
+             u"Давление \(на уровне моря\) (.*) мм.рт.ст. " \
+             u"Давление \(на станции\) (.*) мм.рт.ст. " \
+             u"Ветер западный Скорость ветра (.*)"
+
+
+    res = re.search(str_re, str_in, flags=re.UNICODE)
+    # print "=" * 50, "\n", res
+
+    if res:
+        # print "1)", res.group(1)  # time
+        # print "2)", res.group(2)  # t_air
+        # print "3)", res.group(3)  # t_com
+        # print res.group(4)  #   t_dew
+        # print res.group(5)  #   t_hum
+        # print res.group(6)  #   p_sea
+        # print res.group(7)  #   p_stn
+
+        time = res.group(1)
+        t_air = int(res.group(2))
+        t_com = int(res.group(3))
+        t_dew = int(res.group(4))
+        t_hum = int(res.group(5))
+        p_sea = int(res.group(6))
+        p_stn = int(res.group(7))
+
+        tmp_lst = []
+        tmp_lst.append(time)
+        tmp_lst.append(t_air)
+        tmp_lst.append(t_com)
+        tmp_lst.append(t_dew)
+        tmp_lst.append(t_hum)
+        tmp_lst.append(p_sea)
+        tmp_lst.append(p_stn)
+
+        return tmp_lst
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
 
-    print (get_temperature())
+    get_str = get_temperature()
+    print get_str
+
+    print parse_temperature(get_str)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
