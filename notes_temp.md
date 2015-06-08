@@ -81,3 +81,5 @@ b.title
 
 
 http://stackoverflow.com/questions/364519/in-python-how-to-i-iterate-over-a-dictionary-in-sorted-order
+
+http://wiki.scipy.org/Cookbook/Matplotlib/Django
