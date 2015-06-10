@@ -76,7 +76,7 @@ def news(request):
     #     pass
     #
     # else:
-    my_proc_exec = mp.Process(target=my_proc,
+    my_proc_exec = mp.Process(target=my_proc_news,
                               args=(3,) )
     my_proc_exec.start()
 
@@ -99,9 +99,7 @@ def news(request):
 
 
 
-
-
-def my_proc(repeat_counter):
+def my_proc_news(repeat_counter):
 
     # repeat = 1
 
@@ -142,3 +140,76 @@ def my_proc(repeat_counter):
 
         print '^C received, break'
 
+
+from records.models import WeatherData
+
+def weather(request):
+
+    my_proc_exec = mp.Process(target=my_proc_weather,
+                              args=(3,) )
+    my_proc_exec.start()
+
+
+    dt = datetime.datetime.today()
+    str_date_stamp = dt.strftime('%YYYY-%MM-%DD')
+    # print dt, str_date_stamp
+
+    ctx = scr2.get_temperature()
+    # ctx = scr3.get_news()
+
+    # ustring = unicode(read_string, encoding=...)
+    n1 = RecNews(news_date=dt, news_contents=unicode(ctx))
+    n1.save()
+
+    books = RecNews.objects.all()
+    # print books
+    return render_to_response('news_search_results.html',
+        {'books': books})
+
+
+
+
+
+def my_proc_weather(repeat_counter):
+
+    # repeat = 1
+
+    begin_time = datetime.datetime.now()
+    print "\nBegin time:", str(begin_time)[:-7]
+    cur_time = begin_time
+    delta_time = datetime.timedelta(days=10, hours=5, minutes=20, seconds=30)
+    checkout_time = begin_time + delta_time
+
+    try:
+        while True:
+
+            if datetime.datetime.now() > checkout_time:
+
+                break
+                # Save full_str to file
+                checkout_time = datetime.datetime.now() + delta_time
+
+
+            print "weather-" * 5
+            dt = datetime.datetime.today()
+            ctx = scr2.parse_temperature(scr2.get_temperature())
+
+            if ctx:
+                # w = WeatherData(ctx)
+                w = WeatherData(weather_datetime = dt,
+                                check_time      = ctx[0],
+                                temperature_air = ctx[1],
+                                temperature_com = ctx[2],
+                                temperature_dew = ctx[3],
+                                temperature_hum = ctx[4],
+                                pressure_sea    = ctx[5],
+                                pressure_stn    = ctx[6])
+                w.save()
+
+            print "+" * 100
+            # break
+            time.sleep(60)
+
+    except KeyboardInterrupt:
+
+        print '^C received, break'

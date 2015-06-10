@@ -64,7 +64,5 @@ class WeatherData(models.Model):
     pressure_stn = models.IntegerField()
 
 
-
-
     def __unicode__(self):
-        return u'%s %s' % (self.weather_datetime, self.check_time)
+        return u'%s %s' % (self.weather_datetime, self.check_time, )

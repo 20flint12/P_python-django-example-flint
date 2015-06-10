@@ -26,6 +26,7 @@ urlpatterns += patterns('',
     (r'^search/$',      'records.views.search'),
     (r'^search2/$',     'records.views.search2'),
     (r'^news/$',        'records.views.news'),
+    (r'^weather/$',     'records.views.weather'),
 
 )
 
