@@ -109,10 +109,10 @@ testastroflint2.cloudcontrolled.com/admin   admin2/admin2
 
 
 cctrlapp testastroflint2/development push
-git push ccO development:master
+git push ccOrigin2 development:master
 cctrlapp testastroflint2 run "python manage.py syncdb"
 cctrlapp testastroflint2 run "python manage.py makemigrations"
 cctrlapp testastroflint2 run "python manage.py migrate"
 
-
-cctrlapp testastroflint2 deploy
+//cctrlapp testastroflint2 deploy
+cctrlapp testastroflint2/development deploy

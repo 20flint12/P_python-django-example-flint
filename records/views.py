@@ -141,6 +141,9 @@ def my_proc_news(repeat_counter):
         print '^C received, break'
 
 
+
+
+
 from records.models import WeatherData
 
 def weather(request):
