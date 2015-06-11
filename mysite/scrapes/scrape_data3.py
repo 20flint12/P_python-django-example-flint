@@ -11,7 +11,7 @@ import time
 import re
 
 
-str_last_time = ""
+str_last_time = u""
 
 def get_news():
 
@@ -25,7 +25,7 @@ def get_news():
     g_data = soup.find_all("div", {"class": "time-articles"})
     # print g_data
 
-    str_news = ""
+    str_news = u""
     for item in g_data:
         # print item
         # print item.text
@@ -43,7 +43,7 @@ def get_news():
         return None
     else:
         str_last_time = str_news
-        return unicode(str_last_time)
+        return str_last_time
 
 
 

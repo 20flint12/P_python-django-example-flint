@@ -105,18 +105,14 @@ cctrlapp testastroflint run "python manage.py migrate"
 #########################################################
 testastroflint2.cloudcontrolled.com/admin   admin2/admin2
 
-python manage.py sqlmigrate records
-
-
-
+//python manage.py sqlmigrate records
 
 
 cctrlapp testastroflint2/development push
-cctrlapp testastroflint2 deploy
+git push ccO development:master
 cctrlapp testastroflint2 run "python manage.py syncdb"
 cctrlapp testastroflint2 run "python manage.py makemigrations"
 cctrlapp testastroflint2 run "python manage.py migrate"
 
 
-git push origin development:master
 cctrlapp testastroflint2 deploy

@@ -129,7 +129,7 @@ def get_temperature():
 
     trTags = tabTags[1].find_all("tr")
 
-    out_str = ""
+    out_str = u""
     for tr in trTags:
         # print tr.text
         out_str += tr.text + "\n"
@@ -143,7 +143,7 @@ def get_temperature():
     #     str_last_time = out_str
     #     return unicode(str_last_time)
 
-    return unicode(out_str)
+    return out_str
 
 
 

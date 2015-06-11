@@ -106,7 +106,7 @@ def my_proc_news(repeat_counter):
     begin_time = datetime.datetime.now()
     print "\nBegin time:", str(begin_time)[:-7]
     cur_time = begin_time
-    delta_time = datetime.timedelta(hours=5, minutes=20, seconds=30)
+    delta_time = datetime.timedelta(hours=0, minutes=20, seconds=30)
     checkout_time = begin_time + delta_time
 
     try:
