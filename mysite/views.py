@@ -256,8 +256,8 @@ def my_simple(request):
     x=[]
     y=[]
     now=datetime.datetime.now()
-    delta=datetime.timedelta(days=1)
-    for i in range(10):
+    delta=datetime.timedelta(days=4)
+    for i in range(30):
         x.append(now)
         now+=delta
         y.append(random.randint(0, 1000))
