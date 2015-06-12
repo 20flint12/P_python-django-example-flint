@@ -63,3 +63,7 @@ sudo apt-get update
 sudo apt-get install kubuntu-desktop
 
 sudo apt-get remove appmenu-qt5
+
+
+##############################################################################
+pip install django-celery

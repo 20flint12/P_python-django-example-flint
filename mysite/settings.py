@@ -146,6 +146,9 @@ INSTALLED_APPS = (
     'polls',
     'records',
 
+    'djcelery',
+    'kombu.transport.django',
+
     # 'tastypie',
 )
 
@@ -183,3 +186,9 @@ LOGGING = {
 }
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+
+###############################################################################
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'django://'
