@@ -5,12 +5,6 @@ import os
 
 
 
-###############################################################################
-import djcelery
-djcelery.setup_loader()
-BROKER_URL = 'django://'
-
-
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 try:
@@ -195,3 +189,9 @@ LOGGING = {
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 
+
+###############################################################################
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'django://'
+###############################################################################
