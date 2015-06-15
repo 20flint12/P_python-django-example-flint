@@ -26,9 +26,6 @@ python manage.py shell
 
 
 
-Creating an admin user
-python manage.py createsuperuser
-sergey 20flint12@gmai.com  flint  1234
 
 
 

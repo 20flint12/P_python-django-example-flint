@@ -17,6 +17,11 @@ python manage.py shell
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
+Creating an admin user
+python manage.py createsuperuser
+        sergey 20flint12@gmai.com  flint  1234
+ENV_H   flint  20flint12@gmai.com  flint  1234
+
 
 ##########################################################
 http://127.0.0.1:8000/hello/
@@ -25,6 +30,9 @@ http://127.0.0.1:8000/time
 http://127.0.0.1:8000/meta
 http://127.0.0.1:8000/search-form
 http://127.0.0.1:8000/json
+http://127.0.0.1:8000/polls/
+
+http://127.0.0.1:8000/admin
 
 
 testastroflint.cloudcontrolled.com/polls

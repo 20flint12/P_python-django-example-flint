@@ -67,3 +67,5 @@ sudo apt-get remove appmenu-qt5
 
 ##############################################################################
 pip install django-celery
+
+sudo pip uninstall South    при сбое миграций

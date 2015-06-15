@@ -15,9 +15,6 @@ https://github.com/
 
 
 
-http://127.0.0.1:8000/polls/
-http://127.0.0.1:8000/admin
-
 git remote add origin https://github.com/20flint12/P_python-django-example-flint.git
 git remote add ccOrigin ssh://testastroflint@cloudcontrolled.com/repository.git
 git remote add ccOrigin2 ssh://testastroflint2@cloudcontrolled.com/repository.git
@@ -39,13 +36,9 @@ git remote -v
 Description
 
 sudo pip install cctrl
-
 cctrluser key.add
-
 cctrlapp -l
-
 cctrlapp pyappname87 create python
-
 cctrlapp pyappname87 user
 
 
