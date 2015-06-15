@@ -37,6 +37,11 @@ testastroflint2.cloudcontrolled.com/json
 testastroflint2.cloudcontrolled.com/charts/
 
 
+python manage.py startapp records
+
+
 python manage.py inspectdb > somefile.txt
 
 pm-suspend 
+
+ENV_ACER acer 20flint12@gmail.com acer acer
