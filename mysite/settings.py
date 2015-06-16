@@ -150,6 +150,9 @@ INSTALLED_APPS = (
     'djcelery',
     'kombu.transport.django',
 
+    # 'djcelery',
+    'celerytest',
+
     # 'tastypie',
 )
 

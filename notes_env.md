@@ -9,6 +9,10 @@ python manage.py makemigrations
 
 python manage.py migrate
 python manage.py runserver
+python manage.py celery worker --loglevel=info
+http://docs.celeryproject.org/en/2.5/django/first-steps-with-django.html
+python manage.py shell
+
 
 python manage.py migrate --fake
 
