@@ -192,9 +192,23 @@ LOGGING = {
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 
+###############################################################################
+
+# redis server address
+BROKER_URL = 'redis://localhost:6379/0'
+# store task results in redis
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+# task result life time until they will be deleted
+CELERY_TASK_RESULT_EXPIRES = 7*86400  # 7 days
+# needed for worker monitoring
+CELERY_SEND_EVENTS = True
+# where to store periodic tasks (needed for scheduler)
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+
 
 ###############################################################################
+# add following lines to the end of settings.py
 import djcelery
 djcelery.setup_loader()
-BROKER_URL = 'django://'
+# BROKER_URL = 'django://'
 ###############################################################################

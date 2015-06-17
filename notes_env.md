@@ -55,4 +55,3 @@ python manage.py startapp records
 python manage.py inspectdb > somefile.txt
 
 pm-suspend 
-
