@@ -71,14 +71,9 @@ import multiprocessing as mp
 
 def news(request):
 
-    # if my_proc_exec.is_alive():
-    #
-    #     pass
-    #
-    # else:
-    my_proc_exec = mp.Process(target=my_proc_news,
-                              args=(3,) )
-    my_proc_exec.start()
+    # my_proc_exec = mp.Process(target=my_proc_news,
+    #                           args=(3,) )
+    # my_proc_exec.start()
 
 
     dt = datetime.datetime.today()
@@ -148,9 +143,9 @@ from records.models import WeatherData
 
 def weather(request):
 
-    my_proc_exec = mp.Process(target=my_proc_weather,
-                              args=(3,) )
-    my_proc_exec.start()
+    # my_proc_exec = mp.Process(target=my_proc_weather,
+    #                           args=(3,) )
+    # my_proc_exec.start()
 
 
     dt = datetime.datetime.today()

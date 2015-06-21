@@ -52,17 +52,6 @@ python manage.py dbshell    посмотрите, какие таблицы со
 
 python manage.py shell
 
-from records.models import Publisher
-p1 = Publisher(name='Apress', address='2855 Telegraph Avenue',
-    city='Berkeley', state_province='CA', country='U.S.A,',
-    website='http://www.apress.com/')
-p1.save()
-p2 = Publisher(name="0'Reilly", address='10 Fawcett St.',
-    city='Cambridge', state_province='MA', country='U.S.A.',
-    website='http://www.oreilly.com/')
-p2.save()
-publisher_list = Publisher.objects.all()
-publisher_list
 
 ===================================== !!!
 python manage.py makemigrations records
@@ -72,11 +61,27 @@ python manage.py migrate
 python manage.py inspectdb
 
 
-b = Book.objects.get(id=1)
-b.title
-
-
-
-http://stackoverflow.com/questions/364519/in-python-how-to-i-iterate-over-a-dictionary-in-sorted-order
 
 http://wiki.scipy.org/Cookbook/Matplotlib/Django
+
+
+Django celery setup with REDIS
+http://www.lexev.org/en/2014/django-celery-setup/
+
+
+Deploying Celery on cloudControl
+https://www.cloudcontrol.com/dev-center/guides/python/celery#
+https://github.com/cloudControl/documentation/blob/master/Guides/Python/Celery.md
+
+sudo apt-get install rabbitmq-server
+
+http://simondlr.com/post/24479818721/basic-django-celery-and-rabbitmq-example
+2) Run rabbitmq: “
+    rabbitmq-server
+3) Syncdb: 
+    python manage.py syncdb
+4) Run django-celery:
+    //python manage.py celeryd --log-level=info
+    python manage.py celery worker --loglevel=info
+5) Run the django server: 
+    python manage.py runserver (or gunicorn, whatever you are using).

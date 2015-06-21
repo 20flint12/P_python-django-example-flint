@@ -109,3 +109,11 @@ cctrlapp testastroflint2 run "python manage.py migrate"
 
 //cctrlapp testastroflint2 deploy
 cctrlapp testastroflint2/development deploy
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cctrlapp testastroflint2/default run bash
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

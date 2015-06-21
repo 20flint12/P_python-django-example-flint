@@ -29,13 +29,14 @@
 #     return x + y
 
 
-
-# -*- coding: utf-8 -*-
-from celery.task import task
-
-@task(ignore_result=True, max_retries=1, default_retry_delay=10)
-def just_print():
-    print "Print from celery task"
+#
+# # -*- coding: utf-8 -*-
+# from celery.task import task
+#
+# @task(ignore_result=True, max_retries=1, default_retry_delay=10)
+# def just_print():
+#     print "Print from celery task"
+#
 
 
 # from celery import Celery
@@ -46,3 +47,21 @@ def just_print():
 # def add(x, y):
 #     print "***" * 9
 #     return x + y
+
+
+import json
+from os import getenv
+
+from celery import Celery
+
+# read credentials from runtime environment
+amqp_url = getenv('CLOUDAMQP_URL')
+
+celery = Celery('tasks', broker=amqp_url)
+# celery = Celery('tasks', broker='amqp://guest@localhost//')
+
+
+@celery.task
+def add(x, y):
+    print ".'.'.'.'" * 9
+    return x + y
