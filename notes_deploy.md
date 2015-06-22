@@ -117,3 +117,14 @@ cctrlapp testastroflint2/development deploy
 cctrlapp testastroflint2/default run bash
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+cctrlapp testastroflint2/default addon.add cloudamqp.lemur
+cctrlapp testastroflint2/default addon.add config.free --SET_ENV_VARS --FLOWER_AUTH_EMAIL=20flint12@gmail.com
+
+cctrlapp testastroflint2/default worker.add worker
+# you can always list running workers like this
+cctrlapp testastroflint2/default worker
+# and also check the worker's log output with
+cctrlapp testastroflint2/default log worker
+
+
+
