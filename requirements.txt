@@ -8,5 +8,5 @@ beautifulsoup4
 matplotlib
 django-celery
 
-celery --upgrade
-flower --upgrade
+celery
+flower
