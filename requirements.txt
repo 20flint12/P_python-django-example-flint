@@ -5,10 +5,9 @@ MySQL-python
 pyephem
 requests
 beautifulsoup4
-
+matplotlib
 django-celery
 
 celery
 flower
 
-python-dateutil==1.5
