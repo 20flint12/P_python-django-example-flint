@@ -201,3 +201,18 @@ web: gunicorn mysite.wsgi --config gunicorn_config.py --bind 0.0.0.0:${PORT:-500
 web: celery flower --port=$PORT --broker=$CLOUDAMQP_URL --auth=$FLOWER_AUTH_EMAIL
 worker: celery -A tasks worker --loglevel=info
 $%$%$%$%$%$%$%
+
+pkg_resources.DistributionNotFound: python-dateutil>=1.5,<2.0
+[Tue Jun 23 13:26:13 2015] info Traceback (most recent call last):
+[Tue Jun 23 13:26:13 2015] info   File "/app/.paasprovider/python/bin/celery", line 5, in <module>
+[Tue Jun 23 13:26:13 2015] info     from pkg_resources import load_entry_point
+[Tue Jun 23 13:26:13 2015] info   File "/app/.paasprovider/python/lib/python2.7/site-packages/distribute-0.6.36-py2.7.egg/pkg_resources.py", line 2809, in <module>
+[Tue Jun 23 13:26:13 2015] info     parse_requirements(__requires__), Environment()
+[Tue Jun 23 13:26:13 2015] info   File "/app/.paasprovider/python/lib/python2.7/site-packages/distribute-0.6.36-py2.7.egg/pkg_resources.py", line 594, in resolve
+[Tue Jun 23 13:26:13 2015] info     raise DistributionNotFound(req)
+[Tue Jun 23 13:26:13 2015] info pkg_resources.DistributionNotFound: python-dateutil>=1.5,<2.0
+[Tue Jun 23 13:26:15 2015] info Traceback (most recent call last):
+[Tue Jun 23 13:26:15 2015] info   File "/app/.paasprovider/python/bin/celery", line 5, in <module>
+[Tue Jun 23 13:26:15 2015] info     from pkg
+
+/app/.paasprovider/python/bin/celery raise DistributionNotFound(req) python-dateutil>=1.5,<2.0
