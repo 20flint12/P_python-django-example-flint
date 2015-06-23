@@ -18,6 +18,7 @@ https://github.com/
 git remote add origin https://github.com/20flint12/P_python-django-example-flint.git
 git remote add ccOrigin ssh://testastroflint@cloudcontrolled.com/repository.git
 git remote add ccOrigin2 ssh://testastroflint2@cloudcontrolled.com/repository.git
+git remote add ccOrigin3 ssh://testastroflint3@cloudcontrolled.com/repository.git
 git remote -v
 
 
