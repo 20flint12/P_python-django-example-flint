@@ -191,3 +191,11 @@ cctrlapp testastroflint2/default addon.upgrade cron.free cron.hourly
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
+# To start a shell (e.g. bash) use the run command.
+cctrlapp testastroflint2/default run bash
+
+
+%%%$%$%$%$%$%
+web: celery flower --port=$PORT --broker=$CLOUDAMQP_URL --auth=$FLOWER_AUTH_EMAIL
+worker: celery -A tasks worker --loglevel=info
+$%$%$%$%$%$%$%
