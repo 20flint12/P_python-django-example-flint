@@ -195,6 +195,11 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 cctrlapp testastroflint2/default run bash
 
 
+# command will list the environment variables. Note that the use of the quotes is required for a command that includes spaces.
+cctrlapp testastroflint2/default run "env | sort"
+
+
+
 %%%$%$%$%$%$%
 web: gunicorn mysite.wsgi --config gunicorn_config.py --bind 0.0.0.0:${PORT:-5000}
 
