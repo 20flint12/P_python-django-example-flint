@@ -121,10 +121,73 @@ cctrlapp testastroflint2/default addon.add cloudamqp.lemur
 cctrlapp testastroflint2/default addon.add config.free --SET_ENV_VARS --FLOWER_AUTH_EMAIL=20flint12@gmail.com
 
 cctrlapp testastroflint2/default worker.add worker
+
+
+# Worker configuration
+# Add the following line to your app's Procfile:
+# Usage:
+WORKER_NAME: <command> [<args>]
+# Example for a Procfile with one worker defined:
+web: python server.py
+reminder: python session_reminder.py
+
+
+
+#Starting a Worker
+#Workers can be started via the command line client's worker.add command.
+cctrlapp APP_NAME/DEP_NAME worker.add WORKER_NAME [WORKER_PARAMS]
+cctrlapp testastroflint2/default worker.add worker 
+
 # you can always list running workers like this
 cctrlapp testastroflint2/default worker
+
 # and also check the worker's log output with
 cctrlapp testastroflint2/default log worker
 
+# the available Add-on plans
+cctrlapp testastroflint2/default addon.list
+
+# To get the list of current Add-ons for a deployment
+cctrlapp testastroflint2/default addon
+
+# Adding an Add-on is just as easy.
+cctrlapp APP_NAME/DEP_NAME addon.add ADDON_NAME.ADDON_OPTION
+
+# To see the log output in a tail -f-like fashion use the cctrlapp log command
+cctrlapp testastroflint2/default log [access,error,worker,deploy]
+cctrlapp testastroflint2/default log deploy
+cctrlapp testastroflint2/default log worker
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+# Get the cron.free plan
+# To add the cron.free plan to your deployment use
+cctrlapp testastroflint2/default addon.add cron.free
+
+# Adding the Cron Add-on
+# Before you can add a Cron job, the Add-on itself has to be added:
+cctrlapp APP_NAME/DEP_NAME addon.add cron.OPTION
+cctrlapp testastroflint2/default addon.add cron.free
+
+# Adding a URL for the Cron job
+# To call an URL with the specific interval you write it as the parameter:
+# for the default deployment
+cctrlapp APP_NAME/DEP_NAME cron.add http[s]://[user:password@]APP_NAME.cloudcontrolled.com
+cctrlapp testastroflint2/default cron.add http://testastroflint2.cloudcontrolled.com/weather
+
+# List Cron overview
+# Get an overview of all your Cron jobs:
+cctrlapp testastroflint2/default cron
+
+# Get the details of a specific Cron job:
+cctrlapp testastroflint2/default cron CRON_ID
+
+# Removing a Cron job:
+# You can remove a Cron job by the job_id
+cctrlapp testastroflint2/default cron.remove JOB_ID
+
+# Upgrading / downgrading the Cron addon
+cctrlapp testastroflint2/default addon.upgrade cron.free cron.hourly
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
