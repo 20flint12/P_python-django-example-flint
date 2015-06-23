@@ -5,7 +5,7 @@ MySQL-python
 pyephem
 requests
 beautifulsoup4
-matplotlib
+
 django-celery
 
 celery
