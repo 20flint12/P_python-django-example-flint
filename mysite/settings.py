@@ -175,8 +175,8 @@ INSTALLED_APPS = (
     'polls',
     'records',
 
-    'djcelery',
-    'kombu.transport.django',
+    # 'djcelery',
+    # 'kombu.transport.django',
 
     # 'celerytest',
 
