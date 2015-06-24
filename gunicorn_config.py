@@ -1,5 +1,9 @@
 import multiprocessing
 import os
+import datetime
+
+deploy_start_time = datetime.datetime.now()
+print "deploy_start_time:", str(deploy_start_time)
 
 size = int(os.getenv("SIZE", 1))
 print "size=", size
