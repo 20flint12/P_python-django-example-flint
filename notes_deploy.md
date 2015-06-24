@@ -131,8 +131,14 @@ cctrlapp testastroflint2/default worker.add worker
 # you can always list running workers like this
 cctrlapp testastroflint2/default worker
 
+# To stop a running worker via the command line use the worker.remove command.
+cctrlapp testastroflint4/default worker.remove WRK_ID
+
 # and also check the worker's log output with
 cctrlapp testastroflint2/default log worker
+
+# To remove the Worker add-on use the addon.remove command.
+cctrlapp testastroflint4/default addon.remove worker.single
 
 # the available Add-on plans
 cctrlapp testastroflint2/default addon.list
