@@ -9,26 +9,26 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 ###############################################################################
-#
-# # redis server address
-# # BROKER_URL = 'redis://localhost:6379/0'
-# # store task results in redis
-# # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-# # task result life time until they will be deleted
-# CELERY_TASK_RESULT_EXPIRES = 7*86400  # 7 days
-# # needed for worker monitoring
-# CELERY_SEND_EVENTS = True
-# # where to store periodic tasks (needed for scheduler)
-# CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
-#
-#
-# BROKER_URL = "amqp://guest:guest@localhost:5672//"
-#
-# ###############################################################################
-# # add following lines to the end of settings.py
-# import djcelery
-# djcelery.setup_loader()
-# # BROKER_URL = 'django://'
+
+# redis server address
+# BROKER_URL = 'redis://localhost:6379/0'
+# store task results in redis
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+# task result life time until they will be deleted
+CELERY_TASK_RESULT_EXPIRES = 7*86400  # 7 days
+# needed for worker monitoring
+CELERY_SEND_EVENTS = True
+# where to store periodic tasks (needed for scheduler)
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+
+
+BROKER_URL = "amqp://guest:guest@localhost:5672//"
+
+###############################################################################
+# add following lines to the end of settings.py
+import djcelery
+djcelery.setup_loader()
+# BROKER_URL = 'django://'
 ###############################################################################
 
 
@@ -175,8 +175,8 @@ INSTALLED_APPS = (
     'polls',
     'records',
 
-    # 'djcelery',
-    # 'kombu.transport.django',
+    'djcelery',
+    'kombu.transport.django',
 
     # 'celerytest',
 
