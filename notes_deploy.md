@@ -118,6 +118,11 @@ reminder: python session_reminder.py
 
 
 
+# Adding the Worker Add-on
+# Before you can start a worker, add the add-on with the addon.add command.
+cctrlapp testastroflint4/default addon.add worker.single
+
+
 #Starting a Worker
 #Workers can be started via the command line client's worker.add command.
 cctrlapp APP_NAME/DEP_NAME worker.add WORKER_NAME [WORKER_PARAMS]
