@@ -1,4 +1,6 @@
-# P_test_py_web
+# https://www.cloudcontrol.com/console/account/flintcloudcontrol
+# 20flint12@gmail.com 88888878
+
 
 git config --local user.email "20flint12@gmail.com"
 git config --local user.name "20flint12"
@@ -6,8 +8,6 @@ git config --local http.sslverify false
 
 https://github.com/
 20flint12 88888878f
-
-
 
 [credential]
         username = 20flint12
@@ -19,35 +19,12 @@ git remote add origin https://github.com/20flint12/P_python-django-example-flint
 git remote add ccOrigin ssh://testastroflint@cloudcontrolled.com/repository.git
 git remote add ccOrigin2 ssh://testastroflint2@cloudcontrolled.com/repository.git
 git remote add ccOrigin3 ssh://testastroflint3@cloudcontrolled.com/repository.git
+git remote add ccOrigin4 ssh://testastroflint4@cloudcontrolled.com/repository.git
 git remote -v
 
 
 
-
-# https://www.cloudcontrol.com/console/account/flintcloudcontrol
-# 20flint12@gmail.com 88888878
-
-# USER flintcloudcontrol
-
-# cctrlapp flintayiitest21 user
-
-
-
-
-Description
-
-sudo pip install cctrl
-cctrluser key.add
-cctrlapp -l
-cctrlapp pyappname87 create python
-cctrlapp pyappname87 user
-
-
-
-
-
-
-https://www.cloudcontrol.com/dev-center/Guides/Python/Django
+# https://www.cloudcontrol.com/dev-center/Guides/Python/Django
 
 cctrlapp mypolltest create python
 cctrlapp mypolltest push
@@ -76,7 +53,7 @@ git remote -v
 
 
 
-
+# $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 cctrlapp testastroflint create python
 cctrlapp testastroflint push
 cctrlapp testastroflint addon.add mysqls.free
@@ -87,7 +64,6 @@ u166087
 768545367
 
 testastroflint.cloudcontrolled.com/polls
-
 testastroflint.cloudcontrolled.com/admin
 kostia
 098776789
@@ -96,10 +72,18 @@ kostia
 cctrlapp testastroflint run "python manage.py syncdb"
 cctrlapp testastroflint run "python manage.py makemigrations"
 cctrlapp testastroflint run "python manage.py migrate"
-#########################################################
-testastroflint2.cloudcontrolled.com/admin   admin2/admin2
 
-//python manage.py sqlmigrate records
+
+cctrlapp testastroflint4/default create python
+cctrlapp testastroflint4/default addon.add mysqls.free
+cctrlapp testastroflint4/default deploy
+cctrlapp testastroflint4/default run "python manage.py syncdb"
+
+
+
+# $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+testastroflint2.cloudcontrolled.com/admin   admin2/admin2
 
 
 cctrlapp testastroflint2/development push
@@ -208,17 +192,4 @@ web: celery flower --port=$PORT --broker=$CLOUDAMQP_URL --auth=$FLOWER_AUTH_EMAI
 worker: celery -A tasks worker --loglevel=info
 $%$%$%$%$%$%$%
 
-pkg_resources.DistributionNotFound: python-dateutil>=1.5,<2.0
-[Tue Jun 23 13:26:13 2015] info Traceback (most recent call last):
-[Tue Jun 23 13:26:13 2015] info   File "/app/.paasprovider/python/bin/celery", line 5, in <module>
-[Tue Jun 23 13:26:13 2015] info     from pkg_resources import load_entry_point
-[Tue Jun 23 13:26:13 2015] info   File "/app/.paasprovider/python/lib/python2.7/site-packages/distribute-0.6.36-py2.7.egg/pkg_resources.py", line 2809, in <module>
-[Tue Jun 23 13:26:13 2015] info     parse_requirements(__requires__), Environment()
-[Tue Jun 23 13:26:13 2015] info   File "/app/.paasprovider/python/lib/python2.7/site-packages/distribute-0.6.36-py2.7.egg/pkg_resources.py", line 594, in resolve
-[Tue Jun 23 13:26:13 2015] info     raise DistributionNotFound(req)
-[Tue Jun 23 13:26:13 2015] info pkg_resources.DistributionNotFound: python-dateutil>=1.5,<2.0
-[Tue Jun 23 13:26:15 2015] info Traceback (most recent call last):
-[Tue Jun 23 13:26:15 2015] info   File "/app/.paasprovider/python/bin/celery", line 5, in <module>
-[Tue Jun 23 13:26:15 2015] info     from pkg
-
-/app/.paasprovider/python/bin/celery raise DistributionNotFound(req) python-dateutil>=1.5,<2.0
+pip freeze

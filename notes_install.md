@@ -30,6 +30,20 @@ pip install matplotlib
 http://pytz.sourceforge.net/
 easy_install --upgrade pytz
 
+
+
+# $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+sudo pip install cctrl
+cctrluser key.add
+cctrlapp -l
+cctrlapp pyappname87 create python
+cctrlapp pyappname87 user
+# $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+
+
+
 #######################################################################################
 Install virtualenv via pip:
 $ pip install virtualenv
