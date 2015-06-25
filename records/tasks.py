@@ -38,10 +38,10 @@ from os import getenv
 from celery import Celery
 
 # read credentials from runtime environment
-amqp_url = getenv('CLOUDAMQP_URL')
+# amqp_url = getenv('CLOUDAMQP_URL')
 # amqp_url = 'amqp://guest@localhost//'
 
-
+amqp_url = 'amqp://guest:guest@localhost:15711//'
 
 celery = Celery('tasks', broker=amqp_url)
 

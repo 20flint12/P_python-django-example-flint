@@ -127,6 +127,7 @@ cctrlapp testastroflint4/default addon.add worker.single
 #Workers can be started via the command line client's worker.add command.
 cctrlapp APP_NAME/DEP_NAME worker.add WORKER_NAME [WORKER_PARAMS]
 cctrlapp testastroflint2/default worker.add worker 
+cctrlapp testastroflint4/default worker.add myworker
 
 # you can always list running workers like this
 cctrlapp testastroflint2/default worker
