@@ -190,6 +190,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 # To start a shell (e.g. bash) use the run command.
 cctrlapp testastroflint2/default run bash
+cctrlapp testastroflint4/default run bash
 
 
 # command will list the environment variables. Note that the use of the quotes is required for a command that includes spaces.

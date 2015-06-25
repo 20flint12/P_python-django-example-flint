@@ -31,21 +31,37 @@
 #     print "***" * 9
 #     return x + y
 
+#
+# import json
+# from os import getenv
+#
+# from celery import Celery
+#
+# # read credentials from runtime environment
+# # amqp_url = getenv('CLOUDAMQP_URL')
+# # amqp_url = 'amqp://guest@localhost//'
+#
+# amqp_url = 'amqp://guest:guest@localhost:15711//'
+#
+# celery = Celery('tasks', broker=amqp_url)
+#
+#
+# @celery.task
+# def add(x, y):
+#     print "***" * 9
+#     return x + y
 
-import json
-from os import getenv
+
+
 
 from celery import Celery
 
-# read credentials from runtime environment
-# amqp_url = getenv('CLOUDAMQP_URL')
-# amqp_url = 'amqp://guest@localhost//'
+app = Celery('tasks', broker='amqp://guest@localhost//')
 
-amqp_url = 'amqp://guest:guest@localhost:15711//'
-
-celery = Celery('tasks', broker=amqp_url)
-
-
-@celery.task
+@app.task
 def add(x, y):
+    print "***" * 9
     return x + y
+
+
+
