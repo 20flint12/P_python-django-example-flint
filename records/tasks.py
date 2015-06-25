@@ -33,8 +33,8 @@
 
 #
 # import json
-# from os import getenv
-#
+from os import getenv
+
 # from celery import Celery
 #
 # # read credentials from runtime environment
@@ -60,7 +60,9 @@ app = Celery('tasks')
 
 @app.task
 def add(x, y):
-    print "***" * 9
+    print ".'.'" * 10
+    print getenv('CLOUDAMQP_URL')
+    print "***" * 19
     return x + y
 
 

@@ -24,9 +24,10 @@ CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 CELERY_RESULT_BACKEND = "djcelery.backends.database:DatabaseBackend"
 
 
-BROKER_URL = "amqp://guest:guest@localhost:5672//"
+# BROKER_URL = "amqp://guest:guest@localhost:5672//"
 # BROKER_URL = 'amqp://guest:guest@localhost:15711//'
 # BROKER_URL = 'django://'
+BROKER_URL = "amqp://guest@localhost//"
 
 
 
