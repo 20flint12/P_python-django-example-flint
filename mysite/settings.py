@@ -22,7 +22,10 @@ CELERY_SEND_EVENTS = True
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
 
-BROKER_URL = "amqp://guest:guest@localhost:5672//"
+# BROKER_URL = "amqp://guest:guest@localhost:5672//"
+BROKER_URL = 'amqp://guest:guest@localhost:15711//'
+
+
 
 ###############################################################################
 # add following lines to the end of settings.py
