@@ -56,7 +56,7 @@
 
 from celery import Celery
 
-app = Celery('tasks', broker='amqp://guest@localhost//')
+app = Celery('tasks')
 
 @app.task
 def add(x, y):
