@@ -26,8 +26,8 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BROKER_URL = 'amqp://guest:guest@localhost:15711//'
 
 
-# CELERY_RESULT_BACKEND = "djcelery.backends.database:DatabaseBackend"
-# CELERYBEAT_SCHEDULER  = "djcelery.schedulers.DatabaseScheduler"
+CELERY_RESULT_BACKEND = "djcelery.backends.database:DatabaseBackend"
+CELERYBEAT_SCHEDULER  = "djcelery.schedulers.DatabaseScheduler"
 
 
 
