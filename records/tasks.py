@@ -42,6 +42,8 @@ amqp_url = getenv('CLOUDAMQP_URL')
 # amqp_url = 'amqp://guest@localhost//'
 # amqp_url = 'amqp://guest:guest@localhost:15711//'
 
+print "amqp_url=", amqp_url
+
 celery = Celery('tasks', broker=amqp_url)
 
 
