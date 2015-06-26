@@ -207,11 +207,12 @@ cctrlapp testastroflint2/default run "env | sort"
 
 
 
-%%%$%$%$%$%$%
-web: gunicorn mysite.wsgi --config gunicorn_config.py --bind 0.0.0.0:${PORT:-5000}
-
+# %%%$%$%$%$%$%
 web: celery flower --port=$PORT --broker=$CLOUDAMQP_URL --auth=$FLOWER_AUTH_EMAIL
 worker: celery -A tasks worker --loglevel=info
-$%$%$%$%$%$%$%
+
+web: gunicorn mysite.wsgi --config gunicorn_config.py --bind 0.0.0.0:${PORT:-5000} --log-level debug
+myworker: celery -A records.tasks worker -B -l info
+# $%$%$%$%$%$%$%
 
 pip freeze
