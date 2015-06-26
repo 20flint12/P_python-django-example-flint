@@ -3,4 +3,4 @@ web: gunicorn mysite.wsgi --config gunicorn_config.py --bind 0.0.0.0:${PORT:-500
 
 myworker: celery -A records.tasks worker --loglevel=info
 
-web: python manage.py celery worker -B
+myworker: python manage.py celery myworker -B
