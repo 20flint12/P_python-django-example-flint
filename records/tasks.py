@@ -35,35 +35,34 @@
 # import json
 from os import getenv
 
-# from celery import Celery
-#
-# # read credentials from runtime environment
-# # amqp_url = getenv('CLOUDAMQP_URL')
-# # amqp_url = 'amqp://guest@localhost//'
-#
-# amqp_url = 'amqp://guest:guest@localhost:15711//'
-#
-# celery = Celery('tasks', broker=amqp_url)
-#
-#
-# @celery.task
-# def add(x, y):
-#     print "***" * 9
-#     return x + y
-
-
-
-
 from celery import Celery
 
-app = Celery('tasks')
+# read credentials from runtime environment
+amqp_url = getenv('CLOUDAMQP_URL')
+# amqp_url = 'amqp://guest@localhost//'
+# amqp_url = 'amqp://guest:guest@localhost:15711//'
 
-@app.task
+celery = Celery('tasks', broker=amqp_url)
+
+
+@celery.task
 def add(x, y):
-    print ".'.'" * 10
-    print getenv('CLOUDAMQP_URL')
-    print "***" * 19
+    print "***" * 9
     return x + y
 
 
+
+
+# from celery import Celery
+#
+# app = Celery('tasks')
+#
+# @app.task
+# def add(x, y):
+#     print ".'.'" * 10
+#     print getenv('CLOUDAMQP_URL')
+#     print "***" * 19
+#     return x + y
+#
+#
 

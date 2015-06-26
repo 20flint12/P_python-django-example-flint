@@ -54,6 +54,6 @@
 # сelery -A records.tasks worker --loglevel=info
 
 # python manage.py celery worker -B --concurrency=1 !!!!!!!!
-
+# python manage.py celerycam --frequency=10.0 !!!!!!
 # № Учфьзду
 # https://github.com/celery/celery/tree/3.1/examples/django/
