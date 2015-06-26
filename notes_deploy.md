@@ -101,6 +101,10 @@ cctrlapp testastroflint4/default run "python manage.py celery worker -B"
 cctrlapp testastroflint4/default run "python manage.py celery worker -B -b CLOUDAMQP_URL"
 cctrlapp testastroflint4/default run "celery worker -B -b CLOUDAMQP_URL"
 
+cctrlapp testastroflint4/default run "manage.py celerycam"
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cctrlapp testastroflint4/default run bash
@@ -216,3 +220,11 @@ myworker: celery -A records.tasks worker -B -l info
 # $%$%$%$%$%$%$%
 
 pip freeze
+
+
+https://pypi.python.org/pypi/django-celery
+python manage.py celery beat !!!!
+
+cctrlapp testastroflint4/default run "python manage.py celery beat"
+
+cctrlapp testastroflint4/default run "python manage.py celery -A records.tasks worker -B -l info"
