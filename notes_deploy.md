@@ -97,6 +97,10 @@ cctrlapp testastroflint2/development deploy
 
 
 
+cctrlapp testastroflint4/default run "python manage.py celery worker -B"
+cctrlapp testastroflint4/default run "python manage.py celery worker -B -b CLOUDAMQP_URL"
+cctrlapp testastroflint4/default run "celery worker -B -b CLOUDAMQP_URL"
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cctrlapp testastroflint4/default run bash
@@ -104,9 +108,10 @@ cctrlapp testastroflint4/default run bash
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 cctrlapp testastroflint4/default addon.add cloudamqp.lemur
 cctrlapp testastroflint4/default addon.add config.free --SET_ENV_VARS --FLOWER_AUTH_EMAIL=20flint12@gmail.com
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+cctrlapp testastroflint4/default config
 
 cctrlapp testastroflint2/default worker.add worker
-
 
 # Worker configuration
 # Add the following line to your app's Procfile:
@@ -116,6 +121,10 @@ WORKER_NAME: <command> [<args>]
 web: python server.py
 reminder: python session_reminder.py
 
+
+# command will list the environment variables. 
+# Note that the use of the quotes is required for a command that includes spaces.
+cctrlapp testastroflint4/default run "env | sort"
 
 
 # Adding the Worker Add-on
