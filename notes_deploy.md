@@ -164,9 +164,9 @@ cctrlapp testastroflint2/default addon
 cctrlapp APP_NAME/DEP_NAME addon.add ADDON_NAME.ADDON_OPTION
 
 # To see the log output in a tail -f-like fashion use the cctrlapp log command
-cctrlapp testastroflint2/default log [access,error,worker,deploy]
-cctrlapp testastroflint2/default log deploy
-cctrlapp testastroflint2/default log worker
+cctrlapp testastroflint4/default log [access,error,worker,deploy]
+cctrlapp testastroflint4/default log deploy
+cctrlapp testastroflint4/default log worker
 
 
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -228,3 +228,5 @@ python manage.py celery beat !!!!
 cctrlapp testastroflint4/default run "python manage.py celery beat"
 
 cctrlapp testastroflint4/default run "python manage.py celery -A records.tasks worker -B -l info"
+
+cctrlapp testastroflint4/default run "python manage.py createsuperuser"

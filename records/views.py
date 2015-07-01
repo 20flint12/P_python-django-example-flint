@@ -143,9 +143,9 @@ from records.models import WeatherData
 
 def weather(request):
 
-    # my_proc_exec = mp.Process(target=my_proc_weather,
-    #                           args=(3,) )
-    # my_proc_exec.start()
+    my_proc_exec = mp.Process(target=my_proc_weather,
+                              args=(3,) )
+    my_proc_exec.start()
 
 
     dt = datetime.datetime.today()
@@ -168,46 +168,46 @@ def weather(request):
 
 
 
-# def my_proc_weather(repeat_counter):
-#
-#     # repeat = 1
-#
-#     begin_time = datetime.datetime.now()
-#     print "\nBegin time:", str(begin_time)[:-7]
-#     cur_time = begin_time
-#     delta_time = datetime.timedelta(days=10, hours=5, minutes=20, seconds=30)
-#     checkout_time = begin_time + delta_time
-#
-#     try:
-#         while True:
-#
-#             if datetime.datetime.now() > checkout_time:
-#
-#                 break
-#                 # Save full_str to file
-#                 checkout_time = datetime.datetime.now() + delta_time
-#
-#
-#             print "weather-" * 5
-#             dt = datetime.datetime.today()
-#             ctx = scr2.parse_temperature(scr2.get_temperature())
-#
-#             if ctx:
-#                 # w = WeatherData(ctx)
-#                 w = WeatherData(weather_datetime = dt,
-#                                 check_time      = ctx[0],
-#                                 temperature_air = ctx[1],
-#                                 temperature_com = ctx[2],
-#                                 temperature_dew = ctx[3],
-#                                 temperature_hum = ctx[4],
-#                                 pressure_sea    = ctx[5],
-#                                 pressure_stn    = ctx[6])
-#                 w.save()
-#
-#             print "+" * 100
-#             # break
-#             time.sleep(60)
-#
-#     except KeyboardInterrupt:
-#
-#         print '^C received, break'
+def my_proc_weather(repeat_counter):
+
+    # repeat = 1
+
+    begin_time = datetime.datetime.now()
+    print "\nBegin time:", str(begin_time)[:-7]
+    cur_time = begin_time
+    delta_time = datetime.timedelta(days=10, hours=5, minutes=20, seconds=30)
+    checkout_time = begin_time + delta_time
+
+    try:
+        while True:
+
+            if datetime.datetime.now() > checkout_time:
+
+                break
+                # Save full_str to file
+                checkout_time = datetime.datetime.now() + delta_time
+
+
+            print "weather-" * 5
+            dt = datetime.datetime.today()
+            ctx = scr2.parse_temperature(scr2.get_temperature())
+
+            if ctx:
+                # w = WeatherData(ctx)
+                w = WeatherData(weather_datetime = dt,
+                                check_time      = ctx[0],
+                                temperature_air = ctx[1],
+                                temperature_com = ctx[2],
+                                temperature_dew = ctx[3],
+                                temperature_hum = ctx[4],
+                                pressure_sea    = ctx[5],
+                                pressure_stn    = ctx[6])
+                w.save()
+
+            print "+" * 100
+            # break
+            time.sleep(60)
+
+    except KeyboardInterrupt:
+
+        print '^C received, break'
