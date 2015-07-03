@@ -191,6 +191,7 @@ def my_proc_weather(repeat_counter):
             print "weather-" * 5
             dt = datetime.datetime.today()
             ctx = None #scr2.parse_temperature(scr2.get_temperature())
+            ctx = [u'20:00', 23, 25, 10, 44, 768, 754]
 
             if ctx:
                 # w = WeatherData(ctx)
