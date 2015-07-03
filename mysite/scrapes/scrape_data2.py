@@ -143,7 +143,7 @@ def get_temperature():
     #     str_last_time = out_str
     #     return unicode(str_last_time)
 
-    return out_str
+    return out_str #.encode('utf-8')
 
 
 
