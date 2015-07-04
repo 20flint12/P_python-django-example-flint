@@ -183,7 +183,7 @@ def my_proc_weather(repeat_counter):
     begin_time = datetime.datetime.now()
     print "\nBegin time:", str(begin_time)[:-7]
     cur_time = begin_time
-    delta_time = datetime.timedelta(days=0, hours=0, minutes=2, seconds=30)
+    delta_time = datetime.timedelta(days=0, hours=3, minutes=2, seconds=30)
     checkout_time = begin_time + delta_time
 
     try:
@@ -209,9 +209,8 @@ def my_proc_weather(repeat_counter):
                                 pressure_sea    = ctx[5],
                                 pressure_stn    = ctx[6])
                 w.save()
+                print "+" * 100
 
-            print "+" * 100
-            # break
             time.sleep(60)
 
         print "my_proc_exec is finished"

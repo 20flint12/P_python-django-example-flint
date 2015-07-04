@@ -65,4 +65,12 @@ class WeatherData(models.Model):
 
 
     def __unicode__(self):
-        return u'%s %s' % (self.weather_datetime, self.check_time, )
+        # return u'%s %s' % (self.weather_datetime, self.check_time, )
+        return u'{:s} on:{:s} temperature_air:{:2.0f} {:d} {:d} {:d} pressure_sea:{:d} pressure_stn:{:d}'.format(str(self.weather_datetime),
+                               self.check_time,
+                               self.temperature_air,
+                               self.temperature_com,
+                               self.temperature_dew,
+                               self.temperature_hum,
+                               self.pressure_sea,
+                               self.pressure_stn)
