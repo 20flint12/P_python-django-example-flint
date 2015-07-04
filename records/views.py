@@ -162,18 +162,18 @@ def weather(request):
     str_date_stamp = dt.strftime('%YYYY-%MM-%DD')
     # print dt, str_date_stamp
 
-    ctx = scr2.get_temperature()
-    ctx = "efwoefлдо   ывдпалырвплы"
-    # ctx = scr3.get_news()
+    # ctx = scr2.get_temperature()
+    # ctx = "efwoefлдо   ывдпалырвплы"
+    # # ctx = scr3.get_news()
+    #
+    # # ustring = unicode(read_string, encoding=...)
+    # n1 = RecNews(news_date=dt, news_contents=ctx)
+    # n1.save()
 
-    # ustring = unicode(read_string, encoding=...)
-    n1 = RecNews(news_date=dt, news_contents=ctx)
-    n1.save()
-
-    books = RecNews.objects.all()
+    wdata = WeatherData.objects.all()
     # print books
     return render_to_response('news_search_results.html',
-        {'books': books})
+        {'books': wdata})
 
 
 

@@ -54,7 +54,11 @@ try:
         'HOST': db_data['MYSQLS_HOSTNAME'],
         'PORT': db_data['MYSQLS_PORT'],
         'OPTIONS': { 'init_command':
-                         'SET storage_engine=INNODB' }
+                        # 'SET storage_engine=INNODB'
+                        'SET storage_engine=INNODB,character_set_connection=utf8,collation_connection=utf8_unicode_ci'
+                    }
+
+
     }
 except KeyError, IOError:
     # development/test settings:
