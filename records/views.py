@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import time
 import datetime
@@ -84,7 +86,7 @@ def news(request):
     # ctx = scr3.get_news()
 
     # ustring = unicode(read_string, encoding=...)
-    n1 = RecNews(news_date=dt, news_contents=unicode(ctx))
+    n1 = RecNews(news_date=dt, news_contents=ctx)
     n1.save()
 
     books = RecNews.objects.all()
@@ -161,10 +163,11 @@ def weather(request):
     # print dt, str_date_stamp
 
     ctx = scr2.get_temperature()
+    ctx = "efwoefлдо   ывдпалырвплы"
     # ctx = scr3.get_news()
 
     # ustring = unicode(read_string, encoding=...)
-    n1 = RecNews(news_date=dt, news_contents=unicode(ctx))
+    n1 = RecNews(news_date=dt, news_contents=ctx)
     n1.save()
 
     books = RecNews.objects.all()
@@ -214,7 +217,6 @@ def my_proc_weather(repeat_counter):
             time.sleep(60)
 
         print "my_proc_exec is finished"
-
 
     except KeyboardInterrupt:
 

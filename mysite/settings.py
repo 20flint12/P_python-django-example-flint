@@ -43,6 +43,7 @@ djcelery.setup_loader()
 try:
     # production settings
     f = os.environ['CRED_FILE']
+    print "f=", f
     db_data = json.load(open(f))['MYSQLS']
 
     db_config = {
@@ -52,6 +53,8 @@ try:
         'PASSWORD': db_data['MYSQLS_PASSWORD'],
         'HOST': db_data['MYSQLS_HOSTNAME'],
         'PORT': db_data['MYSQLS_PORT'],
+        'OPTIONS': { 'init_command':
+                         'SET storage_engine=INNODB' }
     }
 except KeyError, IOError:
     # development/test settings:
@@ -70,9 +73,20 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+
 DATABASES = {
     'default': db_config,
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'OPTIONS': {
+#             'read_default_file': 'mysql.cnf',
+#         },
+#     }
+# }
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

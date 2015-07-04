@@ -113,6 +113,7 @@ cctrlapp testastroflint4/default addon.add cloudamqp.lemur
 cctrlapp testastroflint4/default addon.add config.free --SET_ENV_VARS --FLOWER_AUTH_EMAIL=20flint12@gmail.com
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 cctrlapp testastroflint4/default config
+cctrlapp testastroflint4/default addon
 
 cctrlapp testastroflint2/default worker.add worker
 

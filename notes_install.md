@@ -30,7 +30,10 @@ pip install matplotlib
 http://pytz.sourceforge.net/
 easy_install --upgrade pytz
 
-
+# MySQL
+sudo apt-get install libmysqlclient-dev
+pip install MySQL-python
+sudo apt-get install mysql-server
 
 # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 sudo pip install cctrl
