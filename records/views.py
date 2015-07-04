@@ -141,11 +141,19 @@ def news(request):
 
 from records.models import WeatherData
 
+my_proc_exec = mp.Process()
+
 def weather(request):
 
-    my_proc_exec = mp.Process(target=my_proc_weather,
-                              args=(3,) )
-    my_proc_exec.start()
+    global my_proc_exec
+
+    if my_proc_exec.is_alive():
+        print "my_proc_exec is alive"
+    else:
+        my_proc_exec = mp.Process(target=my_proc_weather,
+                                  args=(3,) )
+        my_proc_exec.start()
+
 
 
     dt = datetime.datetime.today()
@@ -175,26 +183,23 @@ def my_proc_weather(repeat_counter):
     begin_time = datetime.datetime.now()
     print "\nBegin time:", str(begin_time)[:-7]
     cur_time = begin_time
-    delta_time = datetime.timedelta(days=10, hours=5, minutes=20, seconds=30)
+    delta_time = datetime.timedelta(days=0, hours=0, minutes=2, seconds=30)
     checkout_time = begin_time + delta_time
 
     try:
         while True:
 
             if datetime.datetime.now() > checkout_time:
-
                 break
-                # Save full_str to file
                 checkout_time = datetime.datetime.now() + delta_time
 
 
-            print "weather-" * 5
             dt = datetime.datetime.today()
-            ctx = None #scr2.parse_temperature(scr2.get_temperature())
-            ctx = [u'20:00', 23, 25, 10, 44, 768, 754]
+            ctx = scr2.parse_temperature(scr2.get_temperature())
+            # ctx = [u'20:00', 23, 25, 10, 44, 768, 754]
+            print "weather-" * 5, ctx
 
             if ctx:
-                # w = WeatherData(ctx)
                 w = WeatherData(weather_datetime = dt,
                                 check_time      = ctx[0],
                                 temperature_air = ctx[1],
@@ -208,6 +213,9 @@ def my_proc_weather(repeat_counter):
             print "+" * 100
             # break
             time.sleep(60)
+
+        print "my_proc_exec is finished"
+
 
     except KeyboardInterrupt:
 

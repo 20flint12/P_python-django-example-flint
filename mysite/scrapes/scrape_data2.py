@@ -151,7 +151,7 @@ def get_temperature():
 def parse_temperature(str_in):
 
     str_in = str_in.replace("\n", " ")
-    print str_in
+    # print str_in
 
     # Погода в Харькове на14:30 Kyiv
     # Температура воздуха +29°

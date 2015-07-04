@@ -142,7 +142,7 @@ cctrlapp testastroflint2/default worker.add worker
 cctrlapp testastroflint4/default worker.add myworker
 
 # you can always list running workers like this
-cctrlapp testastroflint2/default worker
+cctrlapp testastroflint4/default worker
 
 # To stop a running worker via the command line use the worker.remove command.
 cctrlapp testastroflint4/default worker.remove WRK_ID
