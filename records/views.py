@@ -157,6 +157,7 @@ def weather(request):
         my_proc_exec.start()
         print "my_proc_exec is started"
 
+    print "my_proc_exec=", my_proc_exec
 
 
     # dt = datetime.datetime.today()
