@@ -63,6 +63,7 @@ def search2(request):
 
 
 from records.models import RecNews
+from records.models import WeatherData
 
 import mysite.scrapes.scrape_data3 as scr3
 import mysite.scrapes.scrape_data2 as scr2
@@ -89,8 +90,11 @@ def news(request):
     # n1 = RecNews(news_date=dt, news_contents=ctx)
     # n1.save()
 
+
+    data_list = WeatherData.objects.all()
+    print data_list[:20]
+
     books = RecNews.objects.all()
-    print books
     return render_to_response('news_search_results.html',
         {'books': books})
 
@@ -141,15 +145,13 @@ def news(request):
 
 
 
-from records.models import WeatherData
-
-my_proc_exec = None
+my_proc_exec = mp.Process()
 
 def weather(request):
 
     global my_proc_exec
 
-    if my_proc_exec is not None:
+    if my_proc_exec.is_alive():
         print "my_proc_exec is alive"
     else:
         my_proc_exec = mp.Process(target=my_proc_weather,
