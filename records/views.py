@@ -189,7 +189,7 @@ def my_proc_weather(repeat_counter):
     print "\nBegin time:", str(begin_time)[:-7]
     cur_time = begin_time
     delta_time = datetime.timedelta(days=0,
-                                    hours=0,
+                                    hours=10,
                                     minutes=3,
                                     seconds=10)
     checkout_time = begin_time + delta_time
