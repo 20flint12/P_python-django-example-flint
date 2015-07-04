@@ -78,16 +78,16 @@ def news(request):
     # my_proc_exec.start()
 
 
-    dt = datetime.datetime.today()
-    str_date_stamp = dt.strftime('%YYYY-%MM-%DD')
-    # print dt, str_date_stamp
-
-    ctx = scr2.get_temperature()
-    # ctx = scr3.get_news()
-
-    # ustring = unicode(read_string, encoding=...)
-    n1 = RecNews(news_date=dt, news_contents=ctx)
-    n1.save()
+    # dt = datetime.datetime.today()
+    # str_date_stamp = dt.strftime('%YYYY-%MM-%DD')
+    # # print dt, str_date_stamp
+    #
+    # ctx = scr2.get_temperature()
+    # # ctx = scr3.get_news()
+    #
+    # # ustring = unicode(read_string, encoding=...)
+    # n1 = RecNews(news_date=dt, news_contents=ctx)
+    # n1.save()
 
     books = RecNews.objects.all()
     print books
@@ -171,7 +171,7 @@ def weather(request):
     # n1.save()
 
     wdata = WeatherData.objects.all()
-    # print books
+    print wdata
     return render_to_response('news_search_results.html',
         {'books': wdata})
 

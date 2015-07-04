@@ -45,6 +45,7 @@ try:
     f = os.environ['CRED_FILE']
     print "f=", f
     db_data = json.load(open(f))['MYSQLS']
+    print "db_data=", db_data
 
     db_config = {
         'ENGINE': 'django.db.backends.mysql',
@@ -53,9 +54,13 @@ try:
         'PASSWORD': db_data['MYSQLS_PASSWORD'],
         'HOST': db_data['MYSQLS_HOSTNAME'],
         'PORT': db_data['MYSQLS_PORT'],
-        'OPTIONS': { 'init_command':
-                        # 'SET storage_engine=INNODB'
-                        'SET storage_engine=INNODB,character_set_connection=utf8,collation_connection=utf8_unicode_ci'
+        'OPTIONS': {
+            'sql_mode': 'TRADITIONAL',
+            'charset': 'utf8',
+            'init_command': 'SET '
+                'storage_engine=INNODB,'
+                'character_set_connection=utf8,'
+                'collation_connection=utf8_bin'
                     }
 
 
@@ -66,6 +71,11 @@ except KeyError, IOError:
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': '{0}/mysite.sqlite3'.format(PROJECT_ROOT),
     }
+
+
+
+
+
 
 
 DEBUG = True
