@@ -155,6 +155,7 @@ def weather(request):
         my_proc_exec = mp.Process(target=my_proc_weather,
                                   args=(3,) )
         my_proc_exec.start()
+        print "my_proc_exec is started"
 
 
 
@@ -171,7 +172,7 @@ def weather(request):
     # n1.save()
 
     wdata = WeatherData.objects.all()
-    print wdata
+    # print wdata
     return render_to_response('news_search_results.html',
         {'books': wdata})
 
@@ -186,7 +187,10 @@ def my_proc_weather(repeat_counter):
     begin_time = datetime.datetime.now()
     print "\nBegin time:", str(begin_time)[:-7]
     cur_time = begin_time
-    delta_time = datetime.timedelta(days=0, hours=3, minutes=2, seconds=30)
+    delta_time = datetime.timedelta(days=0,
+                                    hours=0,
+                                    minutes=3,
+                                    seconds=10)
     checkout_time = begin_time + delta_time
 
     try:
