@@ -143,13 +143,13 @@ def news(request):
 
 from records.models import WeatherData
 
-my_proc_exec = mp.Process()
+my_proc_exec = None
 
 def weather(request):
 
     global my_proc_exec
 
-    if my_proc_exec.is_alive():
+    if my_proc_exec is not None:
         print "my_proc_exec is alive"
     else:
         my_proc_exec = mp.Process(target=my_proc_weather,
@@ -159,8 +159,8 @@ def weather(request):
 
 
 
-    dt = datetime.datetime.today()
-    str_date_stamp = dt.strftime('%YYYY-%MM-%DD')
+    # dt = datetime.datetime.today()
+    # str_date_stamp = dt.strftime('%YYYY-%MM-%DD')
     # print dt, str_date_stamp
 
     # ctx = scr2.get_temperature()

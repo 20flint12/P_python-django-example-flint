@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # Django settings for mysite project.
 
 import json
@@ -91,6 +94,8 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': db_config,
 }
+
+print "DATABASES=", DATABASES
 
 # DATABASES = {
 #     'default': {
