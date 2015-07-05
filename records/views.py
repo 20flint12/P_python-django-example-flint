@@ -90,10 +90,6 @@ def news(request):
     # n1 = RecNews(news_date=dt, news_contents=ctx)
     # n1.save()
 
-
-    data_list = WeatherData.objects.all()
-    print data_list[:20]
-
     books = RecNews.objects.all()
     return render_to_response('news_search_results.html',
         {'books': books})
@@ -228,3 +224,73 @@ def my_proc_weather(repeat_counter):
     except KeyboardInterrupt:
 
         print '^C received, break'
+
+
+
+
+def weather_chart(request):
+
+    import random
+    import django
+    import datetime
+
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+    from matplotlib.dates import DateFormatter
+
+    print "!.'" * 100
+
+    fig=Figure()
+    ax=fig.add_subplot(111)
+    x=[]
+    y=[]
+
+
+    x = WeatherData.objects.all().values_list("weather_datetime")
+    # x = [(21,), (20,), (15,)]
+    print x[:]
+    y = WeatherData.objects.all().values_list("temperature_air")
+    # y = [(23,), (24,), (35,)]
+    print y[:]
+
+
+    # now=datetime.datetime.now()
+    # delta=datetime.timedelta(days=4)
+    # for i in range(30):
+    #     x.append(now)
+    #     now+=delta
+    #     y.append(random.randint(0, 1000))
+    #
+
+    ax.plot(x, y, '-')
+    # ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+    xfmt = DateFormatter('%Y-%m-%d %H:%M')
+    ax.xaxis.set_major_formatter(xfmt)
+    fig.autofmt_xdate()
+
+
+    # plt.subplots_adjust(bottom=0.2)
+    # plt.xticks( rotation=25 )
+    # ax=plt.gca()
+    # xfmt = md.DateFormatter('%Y-%m-%d %H:%M:%S')
+    # ax.xaxis.set_major_formatter(xfmt)
+    # plt.plot(dates,values)
+
+
+
+    canvas=FigureCanvas(fig)
+    response=django.http.HttpResponse(content_type='image/png')
+    canvas.print_png(response)
+    return response
+
+
+
+
+
+if __name__ == '__main__':
+
+    weather_chart(None)
+
+
+
+

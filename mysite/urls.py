@@ -28,6 +28,7 @@ urlpatterns += patterns('',
     (r'^news/$',        'records.views.news'),
     (r'^weather/$',     'records.views.weather'),
 
+    (r'^wchart/$',     'records.views.weather_chart'),
 )
 
 
