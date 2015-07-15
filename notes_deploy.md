@@ -183,7 +183,7 @@ cctrlapp testastroflint2/default addon.add cron.free
 # To call an URL with the specific interval you write it as the parameter:
 # for the default deployment
 cctrlapp APP_NAME/DEP_NAME cron.add http[s]://[user:password@]APP_NAME.cloudcontrolled.com
-cctrlapp testastroflint2/default cron.add http://testastroflint2.cloudcontrolled.com/weather
+cctrlapp testastroflint4/default cron.add http://testastroflint4.cloudcontrolled.com/weather
 
 # List Cron overview
 # Get an overview of all your Cron jobs:
