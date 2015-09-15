@@ -186,7 +186,7 @@ def my_proc_weather(repeat_counter):
     begin_time = datetime.datetime.now()
     print "\nBegin time:", str(begin_time)[:-7]
     cur_time = begin_time
-    delta_time = datetime.timedelta(days=0,
+    delta_time = datetime.timedelta(days=30,
                                     hours=10,
                                     minutes=3,
                                     seconds=10)
@@ -240,7 +240,10 @@ def weather_chart(request):
 
     print "!.'" * 100
 
-    fig=Figure()
+    # fig=Figure()
+    fig=Figure(figsize=(15, 10), dpi=80, facecolor='w', edgecolor='k')
+    # fig(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+
     ax=fig.add_subplot(111)
     x=[]
     y=[]
