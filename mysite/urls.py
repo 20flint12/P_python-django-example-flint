@@ -46,7 +46,7 @@ urlpatterns += patterns('',
     # (r'^charts/simple.png$', 'myapp.views.charts.simple'),
     (r'^charts/$',  views.my_simple),
 
-    (r'^email/$',   views.my_email),
+    # (r'^email/$',   views.my_email),
 
 )
 
