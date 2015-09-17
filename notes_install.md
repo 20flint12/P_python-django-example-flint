@@ -24,6 +24,7 @@ http://matplotlib.org/users/installing.html
 How install matplotlib:
 sudo apt-get install libpng-dev
 sudo apt-get install libfreetype6-dev
+sudo apt-get build-dep python-matplotlib
 pip install matplotlib
 
 
