@@ -37,6 +37,7 @@ http://127.0.0.1:8000/search-form
 http://127.0.0.1:8000/json
 http://127.0.0.1:8000/polls/
 http://127.0.0.1:8000/admin
+http://127.0.0.1:8000/email
 
 
 testastroflint.cloudcontrolled.com/polls

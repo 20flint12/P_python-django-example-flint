@@ -147,6 +147,8 @@ def weather(request):
 
     global my_proc_exec
 
+    my_email("@#$#@#$#@#$ my_proc_exec is started")
+
     if my_proc_exec.is_alive():
         print "my_proc_exec is alive"
     else:
@@ -186,7 +188,7 @@ def my_proc_weather(repeat_counter):
     begin_time = datetime.datetime.now()
     print "\nBegin time:", str(begin_time)[:-7]
     cur_time = begin_time
-    delta_time = datetime.timedelta(days=0,
+    delta_time = datetime.timedelta(days=30,
                                     hours=10,
                                     minutes=3,
                                     seconds=10)
@@ -240,7 +242,10 @@ def weather_chart(request):
 
     print "!.'" * 100
 
-    fig=Figure()
+    # fig=Figure()
+    fig=Figure(figsize=(15, 10), dpi=80, facecolor='w', edgecolor='k')
+    # fig(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+
     ax=fig.add_subplot(111)
     x=[]
     y=[]
@@ -282,6 +287,54 @@ def weather_chart(request):
     response=django.http.HttpResponse(content_type='image/png')
     canvas.print_png(response)
     return response
+
+
+
+
+import smtplib
+
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+
+def my_email(str_data):
+
+    print ".'.'.'.'.'.'.'.'.'.'.'.'.'.'.'"
+
+    me = "AstroFactor@email.com"
+    you = "20flint12@gmail.com"
+    mail_subject = u"Info"
+
+    # Create message container - the correct MIME type is multipart/alternative.
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = mail_subject
+    msg['From'] = me
+    msg['To'] = you
+
+    # Create the body of the message (a plain-text and an HTML version).
+    # text = "Hi!\nHow are you?\nHere is the link you wanted:\nhttps://www.python.org"
+    text = str_data
+    html = text
+
+    # Record the MIME types of both parts - text/plain and text/html.
+    part1 = MIMEText(text, 'plain')
+    part2 = MIMEText(html, 'html')
+
+    # Attach parts into message container.
+    # According to RFC 2046, the last part of a multipart message, in this case
+    # the HTML message, is best and preferred.
+    msg.attach(part1)
+    msg.attach(part2)
+
+    # Send the message via local SMTP server.
+    s = smtplib.SMTP('localhost')
+    # sendmail function takes 3 arguments: sender's address, recipient's address
+    # and message to send - here it is sent as one string.
+    s.sendmail(me, you, msg.as_string())
+    s.quit()
+
+    str_out = "\n### mail to {:s} sent.".format(you)
+    print str_out
 
 
 

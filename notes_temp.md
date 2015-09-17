@@ -28,15 +28,6 @@ python manage.py shell
 
 
 
-
-########################## virtualenv ENV_H ##########################
-cd ENV_H/
-source bin/activate
-deactivate
-
-
-
-
 python manage.py startapp records
 
 python manage.py validate

@@ -274,6 +274,12 @@ def my_simple(request):
 
 
 
+
+
+
+
+
+
 if __name__ == '__main__':
 
     # print locals()
