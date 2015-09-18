@@ -1,23 +1,39 @@
-__author__ = 'sergey'
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-"""
-This illustrates placing images directly in the figure, with no axes.
 
-"""
 import numpy as np
-import matplotlib
-import matplotlib.cm as cm
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
+def update_line(num, data, line):
+    line.set_data(data[...,:num])
+    return line,
 
-fig = plt.figure()
-Z = np.arange(10000.0)
-Z.shape = 100,100
-Z[:,50:] = 1.
+fig1 = plt.figure()
 
-im1 = plt.figimage(Z, xo=50, yo=0, cmap=cm.jet, origin='lower')
-im2 = plt.figimage(Z, xo=100, yo=100, alpha=.8, cmap=cm.jet, origin='lower')
+data = np.random.rand(2, 25)
+l, = plt.plot([], [], 'r-')
+plt.xlim(0, 1)
+plt.ylim(0, 1)
+plt.xlabel('x')
+plt.title('test')
+line_ani = animation.FuncAnimation(fig1, update_line, 25, fargs=(data, l),
+    interval=50, blit=True)
+#line_ani.save('lines.mp4')
+
+fig2 = plt.figure()
+
+x = np.arange(-9, 10)
+y = np.arange(-9, 10).reshape(-1, 1)
+base = np.hypot(x, y)
+ims = []
+for add in np.arange(15):
+    ims.append((plt.pcolor(x, y, base + add, norm=plt.Normalize(0, 30)),))
+
+im_ani = animation.ArtistAnimation(fig2, ims, interval=50, repeat_delay=3000,
+    blit=True)
+#im_ani.save('im.mp4', metadata={'artist':'Guido'})
 
 plt.show()
-
 
