@@ -147,7 +147,7 @@ def weather(request):
 
     global my_proc_exec
 
-    my_email("@#$#@#$#@#$ my_proc_exec is started")
+    # my_email("@#$#@#$#@#$ my_proc_exec is started")
 
     if my_proc_exec.is_alive():
         print "my_proc_exec is alive"
