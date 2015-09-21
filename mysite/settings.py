@@ -41,7 +41,7 @@ djcelery.setup_loader()
 ###############################################################################
 
 
-
+# https://www.cloudcontrol.com/dev-center/guides/python/add-on-credentials
 
 try:
     # production settings
@@ -65,8 +65,6 @@ try:
                 'character_set_connection=utf8,'
                 'collation_connection=utf8_bin'
                     }
-
-
     }
 except KeyError, IOError:
     # development/test settings:

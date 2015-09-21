@@ -30,7 +30,7 @@ ENV_ACER    acer    20flint12@gmail.com     acer    acer
 
 
 pip freeze > requirementsACER.txt
-
+pip install -r requirementsACER.txt
 
 ##########################################################
 http://127.0.0.1:8000/hello/
