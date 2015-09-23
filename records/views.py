@@ -147,7 +147,9 @@ def weather(request):
 
     global my_proc_exec
 
-    # my_email("@#$#@#$#@#$ my_proc_exec is started")
+    # print EMAIL_HOST
+    print "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
+    my_email1("@#$#@#$#@#$ my_proc_exec is started")
 
     if my_proc_exec.is_alive():
         print "my_proc_exec is alive"
@@ -290,6 +292,19 @@ def weather_chart(request):
 
 
 
+from django.core.mail import send_mail
+
+def my_email(str_data):
+
+    send_mail('Subject here',
+              'Here is the message.',
+              'from122@ex23ample.com',
+              ['20flint12@gmail.com'],
+              fail_silently=False)
+
+
+
+
 
 import smtplib
 
@@ -297,7 +312,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-def my_email(str_data):
+def my_email1(str_data):
 
     print ".'.'.'.'.'.'.'.'.'.'.'.'.'.'.'"
 
