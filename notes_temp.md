@@ -76,3 +76,7 @@ http://simondlr.com/post/24479818721/basic-django-celery-and-rabbitmq-example
     python manage.py celery worker --loglevel=info
 5) Run the django server: 
     python manage.py runserver (or gunicorn, whatever you are using).
+    
+
+astroinformer    
+95dd2d30    

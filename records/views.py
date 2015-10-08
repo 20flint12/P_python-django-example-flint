@@ -147,7 +147,8 @@ def weather(request):
 
     global my_proc_exec
 
-    # my_email("@#$#@#$#@#$ my_proc_exec is started")
+    print "_________________________________________"
+    my_email("@#$#@#$#@#$ my_proc_exec is started")
 
     if my_proc_exec.is_alive():
         print "my_proc_exec is alive"
@@ -301,15 +302,15 @@ def my_email(str_data):
 
     print ".'.'.'.'.'.'.'.'.'.'.'.'.'.'.'"
 
-    me = "AstroFactor@email.com"
-    you = "20flint12@gmail.com"
-    mail_subject = u"Info"
+    fromaddr = "astroinformer@email.com"
+    toaddrs  = "20flint12@gmail.com"
+    mail_subject = u"AstroInfo"
 
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
     msg['Subject'] = mail_subject
-    msg['From'] = me
-    msg['To'] = you
+    msg['From'] = fromaddr
+    msg['To'] = toaddrs
 
     # Create the body of the message (a plain-text and an HTML version).
     # text = "Hi!\nHow are you?\nHere is the link you wanted:\nhttps://www.python.org"
@@ -326,15 +327,100 @@ def my_email(str_data):
     msg.attach(part1)
     msg.attach(part2)
 
-    # Send the message via local SMTP server.
-    s = smtplib.SMTP('localhost')
-    # sendmail function takes 3 arguments: sender's address, recipient's address
-    # and message to send - here it is sent as one string.
-    s.sendmail(me, you, msg.as_string())
-    s.quit()
+    # # Send the message via local SMTP server.
+    # s = smtplib.SMTP('localhost')
+    # # sendmail function takes 3 arguments: sender's address, recipient's address
+    # # and message to send - here it is sent as one string.
+    # s.sendmail(fromaddr, toaddrs, msg.as_string())
+    # s.quit()
 
-    str_out = "\n### mail to {:s} sent.".format(you)
+    # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+    # Send the message via google SMTP server XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    # Credentials (if needed)
+    # username = "astroinformer@email.com"
+    username = "ssurmilo@redpointpositioning.com"
+    password = "95dd2d30"
+    EMAIL_PASSWORD = "$rpp20flint12"
+
+
+    # https://www.google.com/settings/security/lesssecureapps
+
+
+    # The actual mail send
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.starttls()
+    server.login(username, password)
+    server.sendmail(fromaddr, toaddrs, msg.as_string())
+    server.quit()
+
+    str_out = "\n### mail to {:s} sent.".format(toaddrs)
     print str_out
+
+
+
+
+def send_mail(check, str_plain, str_html):
+
+    if check == 0:
+        return
+
+
+    for email in config_MAM.EMAIL_LIST:
+
+        fromaddr = config_MAM.EMAIL_SENDER
+        toaddrs  = email
+
+        mail_subject = u"[" + config_MAM.SERVER_IP + "] Alarm: disappeared nodes" # (" + str(check) + " items)"
+
+        # Create message container - the correct MIME type is multipart/alternative.
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = mail_subject
+        msg['From']    = fromaddr
+        msg['To']      = toaddrs
+
+
+        # Create the body of the message (a plain-text and an HTML version).
+        # text = "Hi!\nHow are you?\nHere is the link you wanted:\nhttps://www.python.org"
+        text = str_plain
+        html = str_html
+
+        # Record the MIME types of both parts - text/plain and text/html.
+        part1 = MIMEText(text, 'plain')
+        part2 = MIMEText(html, 'html')
+
+        # Attach parts into message container.
+        # According to RFC 2046, the last part of a multipart message, in this case
+        # the HTML message, is best and preferred.
+        msg.attach(part1)
+        msg.attach(part2)
+
+        # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+        # Send the message via local SMTP server XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        # server = smtplib.SMTP('localhost')
+        # # sendmail function takes 3 arguments: sender's address, recipient's address
+        # # and message to send - here it is sent as one string.
+        # server.sendmail(fromaddr, toaddr, msg.as_string())
+        # server.quit()
+
+        # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+        # Send the message via google SMTP server XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        # Credentials (if needed)
+        username = config_MAM.EMAIL_USERNAME
+        password = config_MAM.EMAIL_PASSWORD
+        # "ssurmilo@redpointpositioning.com"
+        # EMAIL_USERNAME = "ssurmilo@redpointpositioning.com"
+        # EMAIL_PASSWORD = "$rpp20flint12"
+
+        # The actual mail send
+        server = smtplib.SMTP('smtp.gmail.com:587')
+        server.starttls()
+        server.login(username, password)
+        server.sendmail(fromaddr, toaddrs, msg.as_string())
+        server.quit()
+
+        print "\n### mail to {:s} sent.".format(email)
+
+
 
 
 
