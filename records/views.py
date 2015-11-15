@@ -149,8 +149,8 @@ def weather(request):
 
     # print EMAIL_HOST
     print "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
-    # my_email1("@#$#@#$#@#$ my_proc_exec is started")
-    send_mail2("Informer", "test1", "test2")
+    my_email("@#$#@#$#@#$ my_proc_exec is started")
+    # send_mail2("Informer", "test1", "test2")
 
     if my_proc_exec.is_alive():
         print "my_proc_exec is alive"
@@ -299,13 +299,22 @@ def my_email(str_data):
 
     send_mail('Subject here',
               'Here is the message.',
-              'from122@ex23ample.com',
+              'fastroinformer@gmail.com',
               ['20flint12@gmail.com'],
               fail_silently=False)
 
 
-
-
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = "xxxx@gmail.com"
+# EMAIL_HOST_PASSWORD = "xxxxxxxx"
+# EMAIL_PORT = 587
+# You can try it easy with the django shell: >>>
+# from django.core.mail import send_mail >>>
+# send_mail('test email',
+# 'hello world',
+# 'xxxx@gmail.com', ['xxx@yyyy.com'])
+#
 
 import smtplib
 
