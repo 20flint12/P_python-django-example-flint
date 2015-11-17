@@ -49,8 +49,8 @@ print "SERVER_IP  :", SERVER_IP
 # EMAIL_USERNAME = "ssurmilo@redpointpositioning.com"
 # EMAIL_PASSWORD = "$rpp20flint12"
 
-EMAIL_SENDER   = "astroinformer@gmail.com"
-EMAIL_USERNAME = "astroinformer@gmail.com"
+EMAIL_SENDER   = "astroreminder@gmail.com"
+EMAIL_USERNAME = "astroreminder@gmail.com"
 EMAIL_PASSWORD = "95dd2d30 "
 
 
