@@ -31,11 +31,9 @@ def my_email(str_data):
 
 def email_reminder():
 
-
-
     # print EMAIL_HOST
     print "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
-    email.my_email("@#$#@#$#@#$ my_proc_exec is started")
+    my_email("@#$#@#$#@#$ my_proc_exec is started")
     # my_mail2("Reminder", "test1", "test2")
 
 

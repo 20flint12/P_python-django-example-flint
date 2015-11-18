@@ -152,7 +152,7 @@ def weather(request):
 
     global my_proc_exec
 
-    reminder.email_reminder()
+    reminder.email_reminder()   ###############################################
 
     if my_proc_exec.is_alive():
         print "my_proc_exec is alive"
