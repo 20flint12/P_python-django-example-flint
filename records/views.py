@@ -141,18 +141,18 @@ def news(request):
 
 
 
-my_proc_exec = mp.Process()
 
-import mysite.email_ASR as email
+import mysite.email_ASR as reminder
+
+
+
+my_proc_exec = mp.Process()
 
 def weather(request):
 
     global my_proc_exec
 
-    # print EMAIL_HOST
-    print "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
-    email.my_email("@#$#@#$#@#$ my_proc_exec is started")
-    # my_mail2("Reminder", "test1", "test2")
+    reminder.email_reminder()
 
     if my_proc_exec.is_alive():
         print "my_proc_exec is alive"

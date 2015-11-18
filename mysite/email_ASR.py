@@ -15,15 +15,31 @@ def my_email(str_data):
     #           fail_silently=False)
 
     try:
-        send_mail('Subject here',
-                  'Here is the message.',
+        send_mail('Info',
+                   str_data,
                   'astroreminder@gmail.com',
-                  ['20flint12@gmail.com'],
+                  ['20flint12@gmail.com','380688845064@sms.kyivstar.net'],
                   fail_silently=False)
     except:
         str_res = "Unexpected error:" + str(sys.exc_info()[0]) + str(sys.exc_info()[1])
         print str_res
         # sys.exit()
+
+
+
+
+
+def email_reminder():
+
+
+
+    # print EMAIL_HOST
+    print "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
+    email.my_email("@#$#@#$#@#$ my_proc_exec is started")
+    # my_mail2("Reminder", "test1", "test2")
+
+
+
 
 
 

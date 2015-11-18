@@ -83,3 +83,7 @@ Astro Reminder
 astroreminder
 0661395414
 95dd2d30    
+
+
+380688845064@sms.kyivstar.net
+380688845064@mms.kyivstar.net
