@@ -256,4 +256,13 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'astroreminder@gmail.com'
+DEFAULT_FROM_EMAIL = 'astroreminder@gmail.com'
+SERVER_EMAIL = 'astroreminder@gmail.com'
+EMAIL_HOST_PASSWORD = '95dd2d30'

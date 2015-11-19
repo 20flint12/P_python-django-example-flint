@@ -32,7 +32,7 @@ from django.http import HttpResponse
 
 
 import datetime
-# import ephem
+import ephem
 
 
 
@@ -176,12 +176,12 @@ def scrape_data_req(request):
 def astro_req(request):
     site = datetime.datetime.now()
     # ctx = epph.sun_rise()
-    ctx = epph.moon_rise_set()
+    ctx = "" #epph.moon_rise_set()
 
-    start_date = datetime.datetime.now() #get current time
-    start_date -= datetime.timedelta(hours=3) # always everything in UTC
-    dates = (start_date,'2015/4/19 4:00:00','2015/5/19 4:00:00')
-    tp,ctx2 = md.get_phase_on_current_day2(dates)
+    # start_date = datetime.datetime.now()        # get current time
+    # start_date -= datetime.timedelta(hours=3)   # always everything in UTC
+    cur_date_utc = ephem.now()  # current UTC date and time
+    tp, ctx2, cur_mday = md.get_phase_on_current_day(cur_date_utc)
     ctx += "\n" + ctx2
     print ctx
     return render_to_response('astro_data.html',

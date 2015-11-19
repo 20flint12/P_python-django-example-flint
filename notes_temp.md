@@ -78,5 +78,12 @@ http://simondlr.com/post/24479818721/basic-django-celery-and-rabbitmq-example
     python manage.py runserver (or gunicorn, whatever you are using).
     
 
-astroinformer    
+Astro Reminder
+13 january 2000
+astroreminder
+0661395414
 95dd2d30    
+
+
+380688845064@sms.kyivstar.net
+380688845064@mms.kyivstar.net

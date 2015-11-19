@@ -5,6 +5,7 @@ import ephem
 import datetime
 
 
+
 def sun_rise():
 
     # pass
@@ -33,7 +34,6 @@ def sun_rise():
     # print(str_out)
 
     return str_out
-
 
 
 
@@ -84,9 +84,6 @@ def show_time(time):
     out_str_time += " {" + str(ephem.localtime(time))[:19] + "}\n"
 
     return out_str_time
-
-
-
 
 
 
