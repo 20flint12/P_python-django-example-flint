@@ -4,6 +4,10 @@
 import ephem
 import datetime
 
+import pytz
+
+from datetime import date, timedelta
+
 
 
 def sun_rise():
@@ -100,13 +104,16 @@ def show_time(time):
 
 
 
-from datetime import date, timedelta
-
 def prev_weekday(adate):
     adate -= timedelta(days=1)
     while adate.weekday() != 0: # Mon-Fri are 0-4
         adate -= timedelta(days=1)
     return adate
+
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -123,7 +130,6 @@ if __name__ == '__main__':
     # print moon_rise_set()
 
 
-    import pytz
 
     timezone='UTC'
     tz = pytz.timezone(timezone)

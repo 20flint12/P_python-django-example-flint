@@ -6,24 +6,33 @@ import datetime
 import ephem
 import pprint
 
+import mysite.config_ASR as conf
 
-def set_observer(in_day_utc):
+
+
+def set_Observer(in_day_utc, in_place):
+
     place = ephem.Observer() # Kharkov
     place.pressure = 1010 # millibar
     place.temp = 25 # deg. Celcius
     place.horizon = 0
-    place.lat = '50.0'
-    place.lon = '36.15'
+
+    # place.lat = '50.0'
+    # place.lon = '36.15'
+    place.lat = str(conf.GEO_PLACE[in_place]["location"][0])
+    place.lon = str(conf.GEO_PLACE[in_place]["location"][1])
+
+
     place.elevation = 3 # meters
     place.date = in_day_utc
     return place
 
 
 
-def get_phase_on_current_day(in_date):
+def get_phase_on_current_day(in_date, in_place):
     """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
 
-    place = set_observer(in_date)
+    place = set_Observer(in_date, in_place)
     moon = ephem.Moon()
 
     #####################################################################
@@ -114,7 +123,7 @@ def get_sun_on_month():
     start_date_eph = ephem.Date(start_date_mon)
     stop_date_eph  = ephem.Date(stop_date_loc)
 
-    place = set_observer(start_date_eph)
+    place = set_Observer(start_date_eph)
     sun = ephem.Sun()
 
     total_list = []

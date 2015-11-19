@@ -19,22 +19,36 @@ EMAIL_LIST = ["20flint12@gmail.com"]
 
 
 print "HOSTNAME   :", HOSTNAME
-print "SERVER_NAME:", SERVER_NAME
-print "SERVER_IP  :", SERVER_IP
+# print "SERVER_NAME:", SERVER_NAME
+# print "SERVER_IP  :", SERVER_IP
 
 #------------------------------------------------------------------------------
 
 
 
-GEO_POINT = {
+GEO_PLACE = {
 
     "Kharkiv":
         {"time_zone": 2,
-         "location": [22,33]},
+         "location": [50.0, 36.15]},
     "Kremenchug":
         {"time_zone": 2,
          "location": [22,50]},
 }
+
+
+EMAIL_SET = {
+
+    "Kharkiv":
+        ['20flint12@gmail.com',
+         '380688845064@sms.kyivstar.net',
+         ],
+    "Kremenchug":
+        ['20flint12@gmail.com',
+         '380688845064@sms.kyivstar.net',
+         ],
+}
+
 
 
 

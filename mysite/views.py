@@ -181,7 +181,7 @@ def astro_req(request):
     # start_date = datetime.datetime.now()        # get current time
     # start_date -= datetime.timedelta(hours=3)   # always everything in UTC
     cur_date_utc = ephem.now()  # current UTC date and time
-    tp, ctx2, cur_mday = md.get_phase_on_current_day(cur_date_utc)
+    tp, ctx2, cur_mday = md.get_phase_on_current_day(cur_date_utc, "Kharkiv")
     ctx += "\n" + ctx2
     print ctx
     return render_to_response('astro_data.html',

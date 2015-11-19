@@ -11,6 +11,7 @@ import astro_routines.moon_day as md
 
 import pprint
 
+import mysite.config_ASR as conf
 
 
 
@@ -28,6 +29,8 @@ def my_email(str_data):
                   'astroreminder@gmail.com',
                   ['20flint12@gmail.com','380688845064@sms.kyivstar.net'],
                   fail_silently=False)
+
+
     except:
         str_res = "Unexpected error:" + str(sys.exc_info()[0]) + str(sys.exc_info()[1])
         print str_res
@@ -39,8 +42,11 @@ def my_email(str_data):
 
 def email_reminder():
 
+    cur_place = conf.EMAIL_SET.keys()[0]
     cur_date_utc = ephem.now()  # current UTC date and time
-    tp, ctx2, cur_mday = md.get_phase_on_current_day(cur_date_utc)
+    print "cur_place=", cur_place, "cur_date_utc=", cur_date_utc
+
+    tp, ctx2, cur_mday = md.get_phase_on_current_day(cur_date_utc, cur_place)
 
     print "tp=", pprint.pprint(tp)
     # tp={'day_rise': 42324.914049849416,
@@ -56,6 +62,7 @@ def email_reminder():
               tp["str_day_sett"] + "\n" + \
               tp["str_new_rise"]
     print str_msg, " ||| ", len(str_msg)
+
 
     print "Q"*80
     my_email(str_msg)
@@ -73,7 +80,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-import mysite.config_ASR as conf
+
 
 
 def send_mail2(mail_subject, str_plain, str_html):
