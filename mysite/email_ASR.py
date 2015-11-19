@@ -6,6 +6,14 @@ import sys
 
 from django.core.mail import send_mail
 
+import ephem
+import astro_routines.moon_day as md
+
+import pprint
+
+
+
+
 def my_email(str_data):
 
     # send_mail('Subject here',
@@ -31,16 +39,33 @@ def my_email(str_data):
 
 def email_reminder():
 
+    cur_date_utc = ephem.now()  # current UTC date and time
+    tp, ctx2, cur_mday = md.get_phase_on_current_day(cur_date_utc)
+
+    print "tp=", pprint.pprint(tp)
+    # tp={'day_rise': 42324.914049849416,
+    # 'day_sett': 42325.34484464035,
+    # 'moon_day': 8,
+    # 'new_rise': 42325.93734154524,
+    # 'str_day_rise': 'UTC:2015/11/18 09:56:14 {2015-11-18 11:56:13}',
+    # 'str_day_sett': 'UTC:2015/11/18 20:16:35 {2015-11-18 22:16:34}',
+    # 'str_new_rise': 'UTC:2015/11/19 10:29:46 {2015-11-19 12:29:46}'}
+    str_msg = str(tp["moon_day"]) + " moon day: " + \
+              tp["str_day_rise"] + " " + \
+              tp["str_day_sett"] + " " + \
+              tp["str_new_rise"]
+    print str_msg, " ||| ", len(str_msg)
+
     # print EMAIL_HOST
     print "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
-    my_email("@#$#@#$#@#$ my_proc_exec is started")
+    my_email(str_msg)
     # my_mail2("Reminder", "test1", "test2")
 
 
 
 
 
-
+###############################################################################
 
 
 import smtplib
@@ -48,7 +73,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-import mysite.config_ASF as conf
+import mysite.config_ASR as conf
 
 
 def send_mail2(mail_subject, str_plain, str_html):
@@ -103,4 +128,16 @@ def send_mail2(mail_subject, str_plain, str_html):
         server.quit()
 
         print "\n### mail to {:s} sent.".format(email)
+
+
+
+
+
+
+if __name__ == '__main__':
+
+    email_reminder()
+
+
+
 
