@@ -50,9 +50,9 @@ def email_reminder():
     # 'str_day_rise': 'UTC:2015/11/18 09:56:14 {2015-11-18 11:56:13}',
     # 'str_day_sett': 'UTC:2015/11/18 20:16:35 {2015-11-18 22:16:34}',
     # 'str_new_rise': 'UTC:2015/11/19 10:29:46 {2015-11-19 12:29:46}'}
-    str_msg = str(tp["moon_day"]) + " moon day: " + \
-              tp["str_day_rise"] + " " + \
-              tp["str_day_sett"] + " " + \
+    str_msg = str(tp["moon_day"]) + " moon day:\n" + \
+              tp["str_day_rise"] + "\n" + \
+              tp["str_day_sett"] + "\n" + \
               tp["str_new_rise"]
     print str_msg, " ||| ", len(str_msg)
 
