@@ -1,16 +1,35 @@
 # coding: utf8
 #!/usr/bin/python
 
+import sys
 
 import datetime
 import ephem
 import pprint
 
 import mysite.config_ASR as conf
+import mysite.astro_routines.geo_place as geo
 
 
 
-def set_Observer(in_day_utc, in_place):
+def set_Observer(in_day_utc, in_place_name):
+
+    # From local dict GEO_PLACE
+    lat = conf.GEO_PLACE[in_place_name]["location"][0]
+    lon = conf.GEO_PLACE[in_place_name]["location"][1]
+    coord = (lat, lon)
+
+    # Update from Google ######################################################
+    try:
+        coord = geo.get_place_coord(in_place_name)
+    except:
+        str_res = "Unexpected error:" + str(sys.exc_info()[0]) + str(sys.exc_info()[1])
+        print str_res
+    print in_place_name, coord
+
+    tz_name = geo.get_tz_name(coord)
+    print "tz_name=", tz_name
+
 
     place = ephem.Observer() # Kharkov
     place.pressure = 1010 # millibar
@@ -19,8 +38,8 @@ def set_Observer(in_day_utc, in_place):
 
     # place.lat = '50.0'
     # place.lon = '36.15'
-    place.lat = str(conf.GEO_PLACE[in_place]["location"][0])
-    place.lon = str(conf.GEO_PLACE[in_place]["location"][1])
+    place.lat = str(lat)
+    place.lon = str(lon)
 
 
     place.elevation = 3 # meters
@@ -78,9 +97,9 @@ def get_phase_on_current_day(in_date, in_place):
 
     str_head += "<" * 80
 
-    print str_head, "\ncur_mday=", cur_mday
+    # print str_head, "\ncur_mday=", cur_mday
 
-    return md_dict, str_head, cur_mday
+    return md_dict, str_head
 
 
 

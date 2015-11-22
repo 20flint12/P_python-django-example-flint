@@ -15,7 +15,7 @@ import mysite.config_ASR as conf
 
 
 
-def my_email(str_data):
+def my_email(str_subject,str_body,list_emails):
 
     # send_mail('Subject here',
     #           'Here is the message.',
@@ -24,13 +24,10 @@ def my_email(str_data):
     #           fail_silently=False)
 
     try:
-        send_mail('Info',
-                   str_data,
+        send_mail(str_subject, str_body,
                   'astroreminder@gmail.com',
-                  ['20flint12@gmail.com','380688845064@sms.kyivstar.net'],
+                  list_emails, # ['20flint12@gmail.com','380688845064@sms.kyivstar.net'],
                   fail_silently=False)
-
-
     except:
         str_res = "Unexpected error:" + str(sys.exc_info()[0]) + str(sys.exc_info()[1])
         print str_res
@@ -42,31 +39,37 @@ def my_email(str_data):
 
 def email_reminder():
 
-    cur_place = conf.EMAIL_SET.keys()[0]
-    cur_date_utc = ephem.now()  # current UTC date and time
-    print "cur_place=", cur_place, "cur_date_utc=", cur_date_utc
+    for cur_place in conf.EMAIL_SET.keys():
 
-    tp, ctx2, cur_mday = md.get_phase_on_current_day(cur_date_utc, cur_place)
+        list_emails = conf.EMAIL_SET[cur_place]
+        print "list_emails=", list_emails
 
-    print "tp=", pprint.pprint(tp)
-    # tp={'day_rise': 42324.914049849416,
-    # 'day_sett': 42325.34484464035,
-    # 'moon_day': 8,
-    # 'new_rise': 42325.93734154524,
-    # 'str_day_rise': 'UTC:2015/11/18 09:56:14 {2015-11-18 11:56:13}',
-    # 'str_day_sett': 'UTC:2015/11/18 20:16:35 {2015-11-18 22:16:34}',
-    # 'str_new_rise': 'UTC:2015/11/19 10:29:46 {2015-11-19 12:29:46}'}
+        cur_date_utc = ephem.now()  # current UTC date and time
+        print "cur_place=", cur_place, "cur_date_utc=", cur_date_utc
 
-    str_msg = str(tp["moon_day"]) + " moon day:\n" + \
-              tp["str_day_rise"] + "\n" + \
-              tp["str_day_sett"] + "\n" + \
-              tp["str_new_rise"]
-    print str_msg, " ||| ", len(str_msg)
+        tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, cur_place)
+
+        print "tp=", pprint.pprint(tp)
+        # tp={'day_rise': 42324.914049849416,
+        # 'day_sett': 42325.34484464035,
+        # 'moon_day': 8,
+        # 'new_rise': 42325.93734154524,
+        # 'str_day_rise': 'UTC:2015/11/18 09:56:14 {2015-11-18 11:56:13}',
+        # 'str_day_sett': 'UTC:2015/11/18 20:16:35 {2015-11-18 22:16:34}',
+        # 'str_new_rise': 'UTC:2015/11/19 10:29:46 {2015-11-19 12:29:46}'}
+
+        str_subject = cur_place
+
+        str_msg = str(tp["moon_day"]) + " moon day:\n" + \
+                  tp["str_day_rise"] + "\n" + \
+                  tp["str_day_sett"] + "\n" + \
+                  tp["str_new_rise"]
+        print str_msg, " ||| ", len(str_msg)
 
 
-    print "Q"*80
-    my_email(str_msg)
-    # my_mail2("Reminder", "test1", "test2")
+        print "Q"*80
+        my_email(str_subject, str_msg, list_emails)
+        # my_mail2("Reminder", "test1", "test2")
 
 
 

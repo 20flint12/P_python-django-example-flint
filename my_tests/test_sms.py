@@ -18,9 +18,9 @@ from tzwhere import tzwhere
 
 
 g = geocoders.GoogleV3()
-place, (lat, lng) = g.geocode('Kharkiv')     # Kremenchuk
+place, (lat, lng) = g.geocode('Boston')     # Kremenchuk
 # -> (u'Singapore', (1.352083, 103.819836))
-print place, lat
+print place, lat, lng
 
 
 
@@ -45,7 +45,7 @@ print "tz_name=", tz_name
 
 # local_timezone = pytz.timezone('Europe/Kiev')
 local_timezone = pytz.timezone(tz_name)
-utc_time = datetime.strptime("2011-01-21 02:37:21", "%Y-%m-%d %H:%M:%S")
+utc_time = datetime.strptime("2011-06-21 02:37:21", "%Y-%m-%d %H:%M:%S")
 local_time = utc_time.replace(tzinfo=pytz.utc).astimezone(local_timezone)
 print "local_time=", local_time
 
