@@ -44,14 +44,14 @@ def set_Observer(in_day_utc, in_place_name):
 
     place.elevation = 3 # meters
     place.date = in_day_utc
-    return place
+    return place, tz_name
 
 
 
 def get_phase_on_current_day(in_date, in_place):
     """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
 
-    place = set_Observer(in_date, in_place)
+    place, tz_name = set_Observer(in_date, in_place)
     moon = ephem.Moon()
 
     #####################################################################
@@ -90,7 +90,7 @@ def get_phase_on_current_day(in_date, in_place):
             if next_NM < new_rise:
                 str_mark = " >>> new moon"
 
-        str_out, md_dict = form_str_moon_day(cur_mday,
+        str_out, md_dict = form_str_moon_day(cur_mday, tz_name,
                                              day_rise, day_sett, new_rise,
                                              str_mark)
         str_head += str_out + "\n"
@@ -103,7 +103,9 @@ def get_phase_on_current_day(in_date, in_place):
 
 
 
-def form_str_moon_day(cur_day,day_rise,day_sett,new_rise,str_mark):
+def form_str_moon_day(cur_day, tz_name,
+                      day_rise,day_sett,new_rise,
+                      str_mark):
     str_out = ""
     str_out += "{:2d} =".format(cur_day)
     str_out += " rise:{0:<18}".format(str(day_rise))
@@ -113,6 +115,7 @@ def form_str_moon_day(cur_day,day_rise,day_sett,new_rise,str_mark):
 
     md_dict = {}
     md_dict["moon_day"] = cur_day
+    md_dict["tz_name"]  = str(tz_name)
     md_dict["day_rise"] = day_rise
     md_dict["str_day_rise"] = _print_UTC_time(day_rise)
     md_dict["day_sett"] = day_sett

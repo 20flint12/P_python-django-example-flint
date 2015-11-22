@@ -10,8 +10,10 @@ import ephem
 import astro_routines.moon_day as md
 
 import pprint
+from datetime import datetime
 
 import mysite.config_ASR as conf
+import mysite.astro_routines.geo_place as geo
 
 
 
@@ -44,7 +46,8 @@ def email_reminder():
         list_emails = conf.EMAIL_SET[cur_place]
         print "list_emails=", list_emails
 
-        cur_date_utc = ephem.now()  # current UTC date and time
+        # cur_date_utc = ephem.now()  # current UTC date and time
+        cur_date_utc = datetime.now()
         print "cur_place=", cur_place, "cur_date_utc=", cur_date_utc
 
         tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, cur_place)
@@ -58,7 +61,10 @@ def email_reminder():
         # 'str_day_sett': 'UTC:2015/11/18 20:16:35 {2015-11-18 22:16:34}',
         # 'str_new_rise': 'UTC:2015/11/19 10:29:46 {2015-11-19 12:29:46}'}
 
-        str_subject = cur_place
+        cur_date_loc = geo.utc_to_local_time(tp["tz_name"], cur_date_utc)
+        print "cur_date_loc=", cur_date_loc
+
+        str_subject = cur_place + "[" + tp["tz_name"] + "]"
 
         str_msg = str(tp["moon_day"]) + " moon day:\n" + \
                   tp["str_day_rise"] + "\n" + \
