@@ -57,7 +57,7 @@ git remote -v
 cctrlapp testastroflint create python
 cctrlapp testastroflint push
 cctrlapp testastroflint addon.add mysqls.free
-cctrlapp testastroflint deploy
+cctrlapp testastroflint4 deploy
 cctrlapp testastroflint run "python manage.py syncdb"
 u166087
 20flint12@gmail.com

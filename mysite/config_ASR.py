@@ -45,12 +45,12 @@ EMAIL_SET = {
     "Kharkiv":
         [
             '20flint12@gmail.com',
-            # '380688845064@sms.kyivstar.net',
+            '380688845064@sms.kyivstar.net',
         ],
     "Kremenchug":
         [
             '20flint12@gmail.com',
-            # '380688845064@sms.kyivstar.net',
+            '380688846025@sms.kyivstar.net',
         ],
     "Boston":
         [
