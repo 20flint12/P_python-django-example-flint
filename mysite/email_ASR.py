@@ -46,9 +46,16 @@ def email_reminder():
         list_emails = conf.EMAIL_SET[cur_place]
         print "list_emails=", list_emails
 
-        # cur_date_utc = ephem.now()  # current UTC date and time
-        cur_date_utc = datetime.now()
+        cur_date_utc = ephem.now().datetime()  # current UTC PyEphem date to convert datetime
+        # cur_date_utc = datetime.now()
         print "cur_place=", cur_place, "cur_date_utc=", cur_date_utc
+
+
+        # Get date on noon
+        today = datetime.today()
+        cur_noon_utc = datetime.datetime(cur_date_utc.year, cur_date_utc.month, cur_date_utc.day, 12, 0, 0)
+        print "cur_noon_utc=", cur_noon_utc
+
 
         tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, cur_place)
 
@@ -62,19 +69,43 @@ def email_reminder():
         # 'str_new_rise': 'UTC:2015/11/19 10:29:46 {2015-11-19 12:29:46}'}
 
         cur_date_loc = geo.utc_to_local_time(tp["tz_name"], cur_date_utc)
-        print "cur_date_loc=", cur_date_loc
+        time_offset = str(cur_date_loc)[-6:-3:]
+        print "cur_date_loc=", cur_date_loc, "time_offset=", time_offset
 
-        str_subject = cur_place + "[" + tp["tz_name"] + "]"
 
-        str_msg = str(tp["moon_day"]) + " moon day:\n" + \
-                  tp["str_day_rise"] + "\n" + \
-                  tp["str_day_sett"] + "\n" + \
-                  tp["str_new_rise"]
-        print str_msg, " ||| ", len(str_msg)
+        # >>> strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        # 'Thu, 28 Jun 2001 14:17:15 +0000'
+        # # time_stamp = today.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+        format = "%d %b %H:%M"
+
+
+        str_subject = cur_place + "[" + time_offset + "]"
+        str_subject += " on " + str(cur_date_loc.strftime(format))
+        print "str_subject=", str_subject
+
+        str_msg = str(tp["moon_day"]) + " moon day:\n"
+        # str_msg += tp["str_day_rise"] + "\n"
+        # str_msg += tp["str_day_sett"] + "\n"
+        # str_msg += tp["str_new_rise"] + "\n"
+        # print str_msg, " ||| ", len(str_msg)
+
+
+        day_rise_loc = geo.utc_to_local_time(tp["tz_name"],
+                                             ephem.Date(tp["day_rise"]).datetime())
+        day_sett_loc = geo.utc_to_local_time(tp["tz_name"],
+                                             ephem.Date(tp["day_sett"]).datetime())
+        new_rise_loc = geo.utc_to_local_time(tp["tz_name"],
+                                             ephem.Date(tp["new_rise"]).datetime())
+
+        str_msg += "rise " + str(day_rise_loc.strftime(format)) + "\n"
+        str_msg += "sett " + str(day_sett_loc.strftime(format)) + "\n"
+        str_msg += "next " + str(new_rise_loc.strftime(format)) + "\n"
+
+        print str_msg, " |||"*5, len(str_msg)
 
 
         print "Q"*80
-        my_email(str_subject, str_msg, list_emails)
+        # my_email(str_subject, str_msg, list_emails)
         # my_mail2("Reminder", "test1", "test2")
 
 
