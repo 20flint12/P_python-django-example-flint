@@ -51,10 +51,10 @@ def email_reminder():
         print "cur_place=", cur_place, "cur_date_utc=", cur_date_utc
 
 
-        # Get date on noon
-        today = datetime.today()
-        cur_noon_utc = datetime.datetime(cur_date_utc.year, cur_date_utc.month, cur_date_utc.day, 12, 0, 0)
-        print "cur_noon_utc=", cur_noon_utc
+        # # Calculate utc date on local noon for selected place ###############
+        # today = datetime.today()
+        # cur_noon_utc = datetime.datetime(cur_date_utc.year, cur_date_utc.month, cur_date_utc.day, 12, 0, 0)
+        # print "cur_noon_utc=", cur_noon_utc
 
 
         tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, cur_place)
