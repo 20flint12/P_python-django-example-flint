@@ -55,11 +55,13 @@ def loc_to_utc_time(in_tz_name, in_loc_time):
 
     import pytz
 
-    local_timezone = pytz.timezone(in_tz_name)  # 'Europe/Kiev'
-    utc_time = in_loc_time.astimezone(local_timezone)
+    loc_timezone = pytz.timezone(in_tz_name)
+    loc_time = loc_timezone.localize(in_loc_time)
+    utc_time = loc_time.astimezone(pytz.timezone('UTC'))
 
-    print "utc_time=", utc_time
+    # print "utc_time=", utc_time
     return utc_time
+
 
 
 
@@ -82,7 +84,7 @@ if __name__ == '__main__':
     print "utc_time=", utc_time
 
     loc_time = utc_to_loc_time(tz_name, utc_time)
-    print "loc_time=", loc_time, loc_time.utcoffset()
+    print "loc_time=", loc_time, "utcoffset=", loc_time.utcoffset()
 
 
 
@@ -91,4 +93,27 @@ if __name__ == '__main__':
     print "loc_time=", loc_time
 
     utc_time = loc_to_utc_time(tz_name, loc_time)
-    print "loc_time=", loc_time, loc_time.utcoffset()
+    print "utc_time=", utc_time, "utcoffset=", utc_time.utcoffset()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

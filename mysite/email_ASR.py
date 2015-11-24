@@ -56,17 +56,19 @@ def email_reminder():
         # cur_noon_utc = datetime.datetime(cur_date_utc.year, cur_date_utc.month, cur_date_utc.day, 12, 0, 0)
         # print "cur_noon_utc=", cur_noon_utc
 
-
-        tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, cur_place)
+        coord, tz_name = md.set_tz(cur_place)
+        tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, coord)
 
         print "tp=", pprint.pprint(tp)
-        # tp={'day_rise': 42324.914049849416,
-        # 'day_sett': 42325.34484464035,
-        # 'moon_day': 8,
-        # 'new_rise': 42325.93734154524,
-        # 'str_day_rise': 'UTC:2015/11/18 09:56:14 {2015-11-18 11:56:13}',
-        # 'str_day_sett': 'UTC:2015/11/18 20:16:35 {2015-11-18 22:16:34}',
-        # 'str_new_rise': 'UTC:2015/11/19 10:29:46 {2015-11-19 12:29:46}'}
+        # tp={'day_rise': 42331.036574133206,
+        # 'day_sett': 42331.58704307381,
+        # 'moon_day': 14,
+        # 'new_rise': 42332.072643126965,
+        # 'str_day_rise': 'UTC:2015/11/24 12:52:40 {2015-11-24 14:52:40}',
+        # 'str_day_sett': 'UTC:2015/11/25 02:05:21 {2015-11-25 04:05:20}',
+        # 'str_new_rise': 'UTC:2015/11/25 13:44:36 {2015-11-25 15:44:36}',
+        # 'tz_name': 'America/New_York'}
+
 
         cur_date_loc = geo.utc_to_loc_time(tp["tz_name"], cur_date_utc)
         time_offset = str(cur_date_loc)[-6:-3:]
@@ -180,7 +182,6 @@ def send_mail2(mail_subject, str_plain, str_html):
 
 
 
-
 if __name__ == '__main__':
 
     # email_reminder()
@@ -193,29 +194,52 @@ if __name__ == '__main__':
 
 
     # Calculate utc date on local noon for selected place ###############
-    today = datetime.today().astimezone('America/New_York')
-    print "today=", today, today.tzinfo
-
-    cur_noon_utc = datetime(cur_date_utc.year, cur_date_utc.month, cur_date_utc.day, 12, 0, 0)
-    print "cur_noon_utc=", cur_noon_utc
+    today_loc = datetime.today()
+    print "today=", today_loc, "tzinfo=", today_loc.tzinfo
 
 
 
+    # cur_noon_utc = datetime(cur_date_utc.year, cur_date_utc.month, cur_date_utc.day, 12, 0, 0)
+    # print "cur_noon_utc=", cur_noon_utc
 
-    tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, cur_place)
+
+    coord, tz_name = md.set_tz(cur_place)
+
+    utc_time = geo.loc_to_utc_time(tz_name, today_loc)
+    print "utc_time=", utc_time, "utcoffset=", utc_time.utcoffset()
+
+
+    tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, coord)
 
     print "tp=", pprint.pprint(tp)
     # tp={'day_rise': 42324.914049849416,
     # 'day_sett': 42325.34484464035,
     # 'moon_day': 8,
     # 'new_rise': 42325.93734154524,
-    # 'str_day_rise': 'UTC:2015/11/18 09:56:14 {2015-11-18 11:56:13}',
-    # 'str_day_sett': 'UTC:2015/11/18 20:16:35 {2015-11-18 22:16:34}',
-    # 'str_new_rise': 'UTC:2015/11/19 10:29:46 {2015-11-19 12:29:46}'}
 
-    cur_date_loc = geo.utc_to_loc_time(tp["tz_name"], cur_date_utc)
-    time_offset = str(cur_date_loc)[-6:-3:]
-    print "cur_date_loc=", cur_date_loc, "time_offset=", time_offset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

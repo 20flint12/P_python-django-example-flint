@@ -12,7 +12,7 @@ import mysite.astro_routines.geo_place as geo
 
 
 
-def set_Observer(in_day_utc, in_place_name):
+def set_tz(in_place_name):
 
     # From local dict GEO_PLACE
     lat = conf.GEO_PLACE[in_place_name]["location"][0]
@@ -30,6 +30,11 @@ def set_Observer(in_day_utc, in_place_name):
     tz_name = geo.get_tz_name(coord)
     print "tz_name=", tz_name
 
+    return tz_name, coord
+
+
+
+def set_Observer(in_day_utc, coord):
 
     place = ephem.Observer() # Kharkov
     place.pressure = 1010 # millibar
@@ -38,20 +43,21 @@ def set_Observer(in_day_utc, in_place_name):
 
     # place.lat = '50.0'
     # place.lon = '36.15'
-    place.lat = str(lat)
-    place.lon = str(lon)
+    place.lat = str(coord[0])
+    place.lon = str(coord[1])
 
 
     place.elevation = 3 # meters
     place.date = in_day_utc
-    return place, tz_name
+    return place
 
 
 
-def get_phase_on_current_day(in_date, in_place):
+def get_phase_on_current_day(in_date, coord):
     """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
 
-    place, tz_name = set_Observer(in_date, in_place)
+    # coord, tz_name = set_tz(in_place_name)
+    place = set_Observer(in_date, coord)
     moon = ephem.Moon()
 
     #####################################################################
@@ -90,7 +96,7 @@ def get_phase_on_current_day(in_date, in_place):
             if next_NM < new_rise:
                 str_mark = " >>> new moon"
 
-        str_out, md_dict = form_str_moon_day(cur_mday, tz_name,
+        str_out, md_dict = form_str_moon_day(cur_mday,
                                              day_rise, day_sett, new_rise,
                                              str_mark)
         str_head += str_out + "\n"
@@ -103,7 +109,7 @@ def get_phase_on_current_day(in_date, in_place):
 
 
 
-def form_str_moon_day(cur_day, tz_name,
+def form_str_moon_day(cur_day,
                       day_rise,day_sett,new_rise,
                       str_mark):
     str_out = ""
@@ -115,7 +121,6 @@ def form_str_moon_day(cur_day, tz_name,
 
     md_dict = {}
     md_dict["moon_day"] = cur_day
-    md_dict["tz_name"]  = str(tz_name)
     md_dict["day_rise"] = day_rise
     md_dict["str_day_rise"] = _print_UTC_time(day_rise)
     md_dict["day_sett"] = day_sett
@@ -187,7 +192,6 @@ def _prev_weekday(adate,wd): # 6 - sunday
     while adate.weekday() != wd: # Mon-Fri are 0-4
         adate -= timedelta(days=1)
     return adate
-
 
 
 
