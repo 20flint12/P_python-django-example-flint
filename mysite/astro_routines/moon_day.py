@@ -25,16 +25,18 @@ def set_tz(in_place_name):
     except:
         str_res = "Unexpected error:" + str(sys.exc_info()[0]) + str(sys.exc_info()[1])
         print str_res
-    print in_place_name, coord
+    # print in_place_name, coord
 
     tz_name = geo.get_tz_name(coord)
-    print "tz_name=", tz_name
+    # print "tz_name=", tz_name
 
     return tz_name, coord
 
 
 
 def set_Observer(in_day_utc, coord):
+
+    print "============", coord
 
     place = ephem.Observer() # Kharkov
     place.pressure = 1010 # millibar

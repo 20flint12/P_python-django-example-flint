@@ -203,11 +203,10 @@ if __name__ == '__main__':
     # print "cur_noon_utc=", cur_noon_utc
 
 
-    coord, tz_name = md.set_tz(cur_place)
+    tz_name, coord = md.set_tz(cur_place)
 
     utc_time = geo.loc_to_utc_time(tz_name, today_loc)
-    print "utc_time=", utc_time, "utcoffset=", utc_time.utcoffset()
-
+    # print "utc_time=", utc_time, "utcoffset=", utc_time.utcoffset()
 
     tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, coord)
 
@@ -221,11 +220,17 @@ if __name__ == '__main__':
 
 
 
-
-
-
-
-
+#
+#
+# tz_name= America/New_York
+# utc_time= 2015-11-24 18:51:24.099044
+# loc_time= 2015-11-24 13:51:24.099044-05:00 utcoffset= -1 day, 19:00:00
+# loc_time= 2015-11-24 18:51:24.153141
+# utc_time= 2015-11-24 23:51:24.153141+00:00 utcoffset= 0:00:00
+#
+#
+#
+#
 
 
 
