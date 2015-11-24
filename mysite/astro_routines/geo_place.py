@@ -39,27 +39,33 @@ def get_tz_name(in_coord):
 
 
 
-def utc_to_local_time(in_tz_name, in_utc_time):
+def utc_to_loc_time(in_tz_name, in_utc_time):
 
     import pytz
 
     local_timezone = pytz.timezone(in_tz_name)  # 'Europe/Kiev'
-    local_time = in_utc_time.replace(tzinfo=pytz.utc).astimezone(local_timezone)
+    loc_time = in_utc_time.replace(tzinfo=pytz.utc).astimezone(local_timezone)
 
-    # print "local_time=", local_time
-    return local_time
+    # print "loc_time=", loc_time
+    return loc_time
 
+
+
+def loc_to_utc_time(in_tz_name, in_loc_time):
+
+    import pytz
+
+    local_timezone = pytz.timezone(in_tz_name)  # 'Europe/Kiev'
+    utc_time = in_loc_time.astimezone(local_timezone)
+
+    print "utc_time=", utc_time
+    return utc_time
 
 
 
 
 if __name__ == '__main__':
 
-
-    utc_time = datetime.now()
-
-    # utc_time = datetime.strptime("2011-06-21 02:37:21", "%Y-%m-%d %H:%M:%S")
-    print "utc_time=", utc_time
 
     place_name = 'Boston'
     coord = get_place_coord(place_name)
@@ -69,5 +75,20 @@ if __name__ == '__main__':
     print "tz_name=", tz_name
 
 
-    loc_time = utc_to_local_time(tz_name, utc_time)
+
+    ###########################################################################
+    utc_time = datetime.now()
+    # utc_time = datetime.strptime("2011-06-21 02:37:21", "%Y-%m-%d %H:%M:%S")
+    print "utc_time=", utc_time
+
+    loc_time = utc_to_loc_time(tz_name, utc_time)
+    print "loc_time=", loc_time, loc_time.utcoffset()
+
+
+
+    ###########################################################################
+    loc_time = datetime.now()
+    print "loc_time=", loc_time
+
+    utc_time = loc_to_utc_time(tz_name, loc_time)
     print "loc_time=", loc_time, loc_time.utcoffset()

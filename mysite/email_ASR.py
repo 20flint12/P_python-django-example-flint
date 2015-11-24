@@ -10,7 +10,7 @@ import ephem
 import astro_routines.moon_day as md
 
 import pprint
-from datetime import datetime
+from datetime import *
 
 import mysite.config_ASR as conf
 import mysite.astro_routines.geo_place as geo
@@ -68,7 +68,7 @@ def email_reminder():
         # 'str_day_sett': 'UTC:2015/11/18 20:16:35 {2015-11-18 22:16:34}',
         # 'str_new_rise': 'UTC:2015/11/19 10:29:46 {2015-11-19 12:29:46}'}
 
-        cur_date_loc = geo.utc_to_local_time(tp["tz_name"], cur_date_utc)
+        cur_date_loc = geo.utc_to_loc_time(tp["tz_name"], cur_date_utc)
         time_offset = str(cur_date_loc)[-6:-3:]
         print "cur_date_loc=", cur_date_loc, "time_offset=", time_offset
 
@@ -90,11 +90,11 @@ def email_reminder():
         # print str_msg, " ||| ", len(str_msg)
 
 
-        day_rise_loc = geo.utc_to_local_time(tp["tz_name"],
+        day_rise_loc = geo.utc_to_loc_time(tp["tz_name"],
                                              ephem.Date(tp["day_rise"]).datetime())
-        day_sett_loc = geo.utc_to_local_time(tp["tz_name"],
+        day_sett_loc = geo.utc_to_loc_time(tp["tz_name"],
                                              ephem.Date(tp["day_sett"]).datetime())
-        new_rise_loc = geo.utc_to_local_time(tp["tz_name"],
+        new_rise_loc = geo.utc_to_loc_time(tp["tz_name"],
                                              ephem.Date(tp["new_rise"]).datetime())
 
         str_msg += "rise " + str(day_rise_loc.strftime(format)) + "\n"
@@ -183,7 +183,39 @@ def send_mail2(mail_subject, str_plain, str_html):
 
 if __name__ == '__main__':
 
-    email_reminder()
+    # email_reminder()
+
+    cur_place = "Boston"
+
+    cur_date_utc = ephem.now().datetime()  # current UTC PyEphem date to convert datetime
+    # cur_date_utc = datetime.now()
+    print "cur_place=", cur_place, "cur_date_utc=", cur_date_utc
+
+
+    # Calculate utc date on local noon for selected place ###############
+    today = datetime.today().astimezone('America/New_York')
+    print "today=", today, today.tzinfo
+
+    cur_noon_utc = datetime(cur_date_utc.year, cur_date_utc.month, cur_date_utc.day, 12, 0, 0)
+    print "cur_noon_utc=", cur_noon_utc
+
+
+
+
+    tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, cur_place)
+
+    print "tp=", pprint.pprint(tp)
+    # tp={'day_rise': 42324.914049849416,
+    # 'day_sett': 42325.34484464035,
+    # 'moon_day': 8,
+    # 'new_rise': 42325.93734154524,
+    # 'str_day_rise': 'UTC:2015/11/18 09:56:14 {2015-11-18 11:56:13}',
+    # 'str_day_sett': 'UTC:2015/11/18 20:16:35 {2015-11-18 22:16:34}',
+    # 'str_new_rise': 'UTC:2015/11/19 10:29:46 {2015-11-19 12:29:46}'}
+
+    cur_date_loc = geo.utc_to_loc_time(tp["tz_name"], cur_date_utc)
+    time_offset = str(cur_date_loc)[-6:-3:]
+    print "cur_date_loc=", cur_date_loc, "time_offset=", time_offset
 
 
 
