@@ -36,8 +36,6 @@ def set_tz(in_place_name):
 
 def set_Observer(in_day_utc, coord):
 
-    print "============", coord
-
     place = ephem.Observer() # Kharkov
     place.pressure = 1010 # millibar
     place.temp = 25 # deg. Celcius
@@ -124,11 +122,11 @@ def form_str_moon_day(cur_day,
     md_dict = {}
     md_dict["moon_day"] = cur_day
     md_dict["day_rise"] = day_rise
-    md_dict["str_day_rise"] = _print_UTC_time(day_rise)
+    # md_dict["str_day_rise"] = _print_UTC_time(day_rise)
     md_dict["day_sett"] = day_sett
-    md_dict["str_day_sett"] = _print_UTC_time(day_sett)
+    # md_dict["str_day_sett"] = _print_UTC_time(day_sett)
     md_dict["new_rise"] = new_rise
-    md_dict["str_new_rise"] = _print_UTC_time(new_rise)
+    # md_dict["str_new_rise"] = _print_UTC_time(new_rise)
 
     return str_out, md_dict
 

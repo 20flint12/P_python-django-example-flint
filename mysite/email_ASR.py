@@ -46,33 +46,35 @@ def email_reminder():
         list_emails = conf.EMAIL_SET[cur_place]
         print "list_emails=", list_emails
 
-        cur_date_utc = ephem.now().datetime()  # current UTC PyEphem date to convert datetime
-        # cur_date_utc = datetime.now()
-        print "cur_place=", cur_place, "cur_date_utc=", cur_date_utc
+        tz_name, coord = md.set_tz(cur_place)
+        print "cur_place=", cur_place, coord, tz_name
 
 
         # # Calculate utc date on local noon for selected place ###############
-        # today = datetime.today()
-        # cur_noon_utc = datetime.datetime(cur_date_utc.year, cur_date_utc.month, cur_date_utc.day, 12, 0, 0)
-        # print "cur_noon_utc=", cur_noon_utc
+        format = "%Y-%m-%d %H:%M:%S %z"
+        ###########################################################################
+        cur_date_loc = datetime.today()
+        print "cur_date_loc=", cur_date_loc.strftime(format)
 
-        coord, tz_name = md.set_tz(cur_place)
+        # Calculate utc date on local noon for selected place #####################
+        cur_noon_loc = datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
+        print "cur_noon_loc=", cur_noon_loc
+
+        # -------------------------------------------------------------------------
+        aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
+        print "aware_loc=", aware_loc.strftime(format)
+        cur_date_utc = geo.aware_time_to_utc(aware_loc)
+        print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
+
         tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, coord)
-
         print "tp=", pprint.pprint(tp)
         # tp={'day_rise': 42331.036574133206,
         # 'day_sett': 42331.58704307381,
         # 'moon_day': 14,
-        # 'new_rise': 42332.072643126965,
-        # 'str_day_rise': 'UTC:2015/11/24 12:52:40 {2015-11-24 14:52:40}',
-        # 'str_day_sett': 'UTC:2015/11/25 02:05:21 {2015-11-25 04:05:20}',
-        # 'str_new_rise': 'UTC:2015/11/25 13:44:36 {2015-11-25 15:44:36}',
-        # 'tz_name': 'America/New_York'}
+        # 'new_rise': 42332.072643126965,}
 
-
-        cur_date_loc = geo.utc_to_loc_time(tp["tz_name"], cur_date_utc)
-        time_offset = str(cur_date_loc)[-6:-3:]
-        print "cur_date_loc=", cur_date_loc, "time_offset=", time_offset
+        str_on = aware_loc.strftime("%d %b %H:%M%z")[:-2]
+        # print "str_on=", str_on
 
 
         # >>> strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
@@ -81,8 +83,10 @@ def email_reminder():
         format = "%d %b %H:%M"
 
 
-        str_subject = cur_place + "[" + time_offset + "]"
-        str_subject += " on " + str(cur_date_loc.strftime(format))
+        # Kremenchug on 25 Nov 12:00+02
+        # 25 Nov 12:00+02 Kremenchug
+
+        str_subject = str_on + " " + cur_place
         print "str_subject=", str_subject
 
         str_msg = str(tp["moon_day"]) + " moon day:\n"
@@ -92,12 +96,9 @@ def email_reminder():
         # print str_msg, " ||| ", len(str_msg)
 
 
-        day_rise_loc = geo.utc_to_loc_time(tp["tz_name"],
-                                             ephem.Date(tp["day_rise"]).datetime())
-        day_sett_loc = geo.utc_to_loc_time(tp["tz_name"],
-                                             ephem.Date(tp["day_sett"]).datetime())
-        new_rise_loc = geo.utc_to_loc_time(tp["tz_name"],
-                                             ephem.Date(tp["new_rise"]).datetime())
+        day_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp["day_rise"]).datetime())
+        day_sett_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp["day_sett"]).datetime())
+        new_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp["new_rise"]).datetime())
 
         str_msg += "rise " + str(day_rise_loc.strftime(format)) + "\n"
         str_msg += "sett " + str(day_sett_loc.strftime(format)) + "\n"
@@ -184,57 +185,40 @@ def send_mail2(mail_subject, str_plain, str_html):
 
 if __name__ == '__main__':
 
-    # email_reminder()
+    email_reminder()
 
-    cur_place = "Boston"
-
-    cur_date_utc = ephem.now().datetime()  # current UTC PyEphem date to convert datetime
-    # cur_date_utc = datetime.now()
-    print "cur_place=", cur_place, "cur_date_utc=", cur_date_utc
-
-
-    # Calculate utc date on local noon for selected place ###############
-    today_loc = datetime.today()
-    print "today=", today_loc, "tzinfo=", today_loc.tzinfo
-
-
-
-    # cur_noon_utc = datetime(cur_date_utc.year, cur_date_utc.month, cur_date_utc.day, 12, 0, 0)
-    # print "cur_noon_utc=", cur_noon_utc
-
-
-    tz_name, coord = md.set_tz(cur_place)
-
-    utc_time = geo.loc_to_utc_time(tz_name, today_loc)
-    # print "utc_time=", utc_time, "utcoffset=", utc_time.utcoffset()
-
-    tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, coord)
-
-    print "tp=", pprint.pprint(tp)
-    # tp={'day_rise': 42324.914049849416,
-    # 'day_sett': 42325.34484464035,
-    # 'moon_day': 8,
-    # 'new_rise': 42325.93734154524,
-
-
-
-
-
-#
-#
-# tz_name= America/New_York
-# utc_time= 2015-11-24 18:51:24.099044
-# loc_time= 2015-11-24 13:51:24.099044-05:00 utcoffset= -1 day, 19:00:00
-# loc_time= 2015-11-24 18:51:24.153141
-# utc_time= 2015-11-24 23:51:24.153141+00:00 utcoffset= 0:00:00
-#
-#
-#
-#
-
-
-
-
+    # cur_place = "Boston"
+    # # cur_place = "Kharkiv"
+    #
+    # tz_name, coord = md.set_tz(cur_place)
+    # print "cur_place=", cur_place, coord, tz_name
+    #
+    #
+    # format = "%Y-%m-%d %H:%M:%S %z"
+    # ###########################################################################
+    # cur_date_loc = datetime.today()
+    # print "cur_date_loc=", cur_date_loc.strftime(format)
+    #
+    # # Calculate utc date on local noon for selected place #####################
+    # cur_noon_loc = datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
+    # print "cur_noon_loc=", cur_noon_loc
+    #
+    # # -------------------------------------------------------------------------
+    # # cur_date_utc = geo.loc_to_utc_time(tz_name, cur_noon_loc)
+    # # print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
+    # #
+    # # tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, coord)
+    # # print "tp=", pprint.pprint(tp)
+    #
+    # # -------------------------------------------------------------------------
+    # aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
+    # print "aware_loc=", aware_loc.strftime(format)
+    # cur_date_utc = geo.aware_time_to_utc(aware_loc)
+    # # print "aware_utc=",    cur_date_utc.strftime(format)
+    # print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
+    #
+    # tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, coord)
+    # print "tp=", pprint.pprint(tp)
 
 
 
