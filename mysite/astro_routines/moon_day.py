@@ -55,7 +55,6 @@ def _set_Observer(coord):
 def get_phase_on_current_day(in_date_utc, coord):
     """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
 
-    # coord, tz_name = set_tz(in_place_name)
     place = _set_Observer(coord)
     moon = ephem.Moon()
 
@@ -121,11 +120,8 @@ def _form_str_moon_day(cur_day,
     md_dict = {}
     md_dict["moon_day"] = cur_day
     md_dict["day_rise"] = day_rise
-    # md_dict["str_day_rise"] = _print_UTC_time(day_rise)
     md_dict["day_sett"] = day_sett
-    # md_dict["str_day_sett"] = _print_UTC_time(day_sett)
     md_dict["new_rise"] = new_rise
-    # md_dict["str_new_rise"] = _print_UTC_time(new_rise)
 
     return str_out, md_dict
 
@@ -192,16 +188,6 @@ def _prev_weekday(adate,wd): # 6 - sunday
         adate -= timedelta(days=1)
     return adate
 
-
-
-def _print_UTC_time(time):
-
-    out_str_time = ""
-    out_str_time += "UTC:"
-    out_str_time += str(time)
-    out_str_time += " {" + str(ephem.localtime(time))[:19] + "}"
-
-    return out_str_time
 
 
 

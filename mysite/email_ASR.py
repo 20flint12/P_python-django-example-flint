@@ -14,7 +14,7 @@ from datetime import *
 
 import mysite.config_ASR as conf
 import mysite.astro_routines.geo_place as geo
-
+import mysite.astro_routines.sun_rise_sett as srs
 
 
 def my_email(str_subject,str_body,list_emails):
@@ -104,11 +104,25 @@ def email_reminder():
         str_msg += "sett " + str(day_sett_loc.strftime(format)) + "\n"
         str_msg += "next " + str(new_rise_loc.strftime(format)) + "\n"
 
+
+        #----------------------------------------------------------------------
+        sd = srs.get_sun_rise_sett(cur_date_utc, coord)
+        print "sd=", pprint.pprint(sd)
+
+        str_msg += "sunrise - sunsett:\n"
+        day_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(sd["day_rise"]).datetime())
+        day_sett_loc = geo.utc_to_loc_time(tz_name, ephem.Date(sd["day_sett"]).datetime())
+
+        str_msg += "rise " + str(day_rise_loc.strftime(format)) + "\n"
+        str_msg += "sett " + str(day_sett_loc.strftime(format)) + "\n"
+
+
+        #======================================================================
         print str_msg, " |||"*5, len(str_msg)
 
 
         print "Q"*80
-        # my_email(str_subject, str_msg, list_emails)
+        my_email(str_subject, str_msg, list_emails)
         # my_mail2("Reminder", "test1", "test2")
 
 
