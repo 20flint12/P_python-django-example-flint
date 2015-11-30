@@ -34,7 +34,7 @@ def set_tz(in_place_name):
 
 
 
-def set_Observer(in_day_utc, coord):
+def _set_Observer(coord):
 
     place = ephem.Observer() # Kharkov
     place.pressure = 1010 # millibar
@@ -46,24 +46,23 @@ def set_Observer(in_day_utc, coord):
     place.lat = str(coord[0])
     place.lon = str(coord[1])
 
-
     place.elevation = 3 # meters
-    place.date = in_day_utc
+
     return place
 
 
 
-def get_phase_on_current_day(in_date, coord):
+def get_phase_on_current_day(in_date_utc, coord):
     """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
 
     # coord, tz_name = set_tz(in_place_name)
-    place = set_Observer(in_date, coord)
+    place = _set_Observer(coord)
     moon = ephem.Moon()
 
     #####################################################################
-    curr_date = ephem.Date(in_date)
-    prev_NM = ephem.previous_new_moon(in_date)
-    next_NM = ephem.next_new_moon(in_date)
+    curr_date = ephem.Date(in_date_utc)
+    prev_NM = ephem.previous_new_moon(in_date_utc)
+    next_NM = ephem.next_new_moon(in_date_utc)
 
     str_head = ""
     str_head += "Calculate for UTC:{0:<18}\n".format(str(curr_date))
@@ -96,7 +95,7 @@ def get_phase_on_current_day(in_date, coord):
             if next_NM < new_rise:
                 str_mark = " >>> new moon"
 
-        str_out, md_dict = form_str_moon_day(cur_mday,
+        str_out, md_dict = _form_str_moon_day(cur_mday,
                                              day_rise, day_sett, new_rise,
                                              str_mark)
         str_head += str_out + "\n"
@@ -109,7 +108,7 @@ def get_phase_on_current_day(in_date, coord):
 
 
 
-def form_str_moon_day(cur_day,
+def _form_str_moon_day(cur_day,
                       day_rise,day_sett,new_rise,
                       str_mark):
     str_out = ""
@@ -150,7 +149,7 @@ def get_sun_on_month():
     start_date_eph = ephem.Date(start_date_mon)
     stop_date_eph  = ephem.Date(stop_date_loc)
 
-    place = set_Observer(start_date_eph)
+    place = _set_Observer(start_date_eph)
     sun = ephem.Sun()
 
     total_list = []
