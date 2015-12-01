@@ -37,7 +37,8 @@ import datetime
 import itertools
 import math
 
-zodiac = 'AR TA GE CN LE VI LI SC SG CP AQ PI'.split()
+# zodiac = 'AR TA GE CN LE VI LI SC SG CP AQ PI'.split()
+zodiac = 'Овен Телец Близнецы Рак Лев Дева Весы Скорпион Стрелец Козерог Водолей Рыбы'.split()
 
 def format_zodiacal_longitude(longitude):
     "Format longitude in zodiacal form (like '00AR00') and return as a string."
@@ -103,7 +104,10 @@ while stop_date >= cur_date:
 
     # print cur_date
     m = ephem.Moon(cur_date)
-    print cur_date, m.ra, "deg=", deg(deg(m.ra)), m.dec, deg(deg(m.dec)), ephem.constellation(m)
+    print cur_date, m.ra, "deg=", deg(deg(m.ra)), \
+        m.dec, deg(deg(m.dec)), \
+        ephem.constellation(m), "|||", Ecliptic(m).long, Ecliptic(m).lat
+
     m.compute(cur_date, cur_date)
     print format_zodiacal_longitude(Ecliptic(m).long)
 
