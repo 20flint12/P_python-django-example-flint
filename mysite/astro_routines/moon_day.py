@@ -10,9 +10,19 @@ import pprint
 import mysite.config_ASR as conf
 import mysite.astro_routines.geo_place as geo
 
-
+file_GEO_PLACE = {}
 
 def set_tz(in_place_name):
+
+    if not file_GEO_PLACE:  # if empty
+        pass
+        # read from file
+
+
+    if in_place_name in file_GEO_PLACE:
+        pass
+    else:
+        pass
 
     # From local dict GEO_PLACE
     lat = conf.GEO_PLACE[in_place_name]["location"][0]
@@ -182,12 +192,11 @@ def get_sun_on_month():
 
 
 
-def _prev_weekday(adate,wd): # 6 - sunday
+def _prev_weekday(adate, wd): # 6 - sunday
     # Find previous weekday
     while adate.weekday() != wd: # Mon-Fri are 0-4
-        adate -= timedelta(days=1)
+        adate -= datetime.timedelta(days=1)
     return adate
-
 
 
 
@@ -223,21 +232,75 @@ def get_moons_in_year(year):
 
 
 
+def get_phase_on_local12_place(in_date_loc, place):
+    """
+    Input: local unaware time and place
+    Returns tuple in utc for local time and place
+    """
+
+    tz_name, coord = set_tz(place)
+    print "place=", place, coord, tz_name
+
+
+    format = "%Y-%m-%d %H:%M:%S %z"
+    ###########################################################################
+    cur_date_loc = in_date_loc  # datetime.datetime.today()
+    print "cur_date_loc=", cur_date_loc.strftime(format)
+
+    # Calculate utc date on local noon for selected place #####################
+    cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
+    print "cur_noon_loc=", cur_noon_loc
+    # -------------------------------------------------------------------------
+
+    aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
+    print "aware_loc=", aware_loc.strftime(format)
+    # -------------------------------------------------------------------------
+
+    cur_date_utc = geo.aware_time_to_utc(aware_loc)
+    # print "aware_utc=",    cur_date_utc.strftime(format)
+    print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
+    # -------------------------------------------------------------------------
+
+    tp_md, ctx2 = get_phase_on_current_day(cur_date_utc, coord)
+    # =========================================================================
+
+
+    tp_md.update({"date_utc": cur_date_utc})
+    tp_md.update({"aware_loc": aware_loc})
+
+    day_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md["day_rise"]).datetime())
+    day_sett_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md["day_sett"]).datetime())
+    new_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md["new_rise"]).datetime())
+    tp_md.update({"day_rise_loc": day_rise_loc})
+    tp_md.update({"day_sett_loc": day_sett_loc})
+    tp_md.update({"new_rise_loc": new_rise_loc})
+
+    # 'aware_loc': datetime.datetime(2015, 12, 4, 12, 0, tzinfo=<DstTzInfo 'Europe/Kiev' EET+2:00:00 STD>),
+    # 'day_rise': 42340.40295680378,
+    # 'day_rise_loc': datetime.datetime(2015, 12, 3, 23, 40, 15, 467846, tzinfo=<DstTzInfo 'Europe/Kiev' EET+2:00:00 STD>),
+    # 'day_sett': 42340.93776006038,
+    # 'day_sett_loc': datetime.datetime(2015, 12, 4, 12, 30, 22, 469216, tzinfo=<DstTzInfo 'Europe/Kiev' EET+2:00:00 STD>),
+    # 'moon_day': 23,
+    # 'new_rise': 42341.44557255306,
+    # 'new_rise_loc': datetime.datetime(2015, 12, 5, 0, 41, 37, 468584, tzinfo=<DstTzInfo 'Europe/Kiev' EET+2:00:00 STD>)}
+
+    return tp_md
+
 
 
 
 if __name__ == '__main__':
 
-    # date_now = ephem.now() # current UTC date and time
-    # print get_phase_on_current_day(date_now)
-    # print "$%#" * 20 + "\n"
-    # # # print get_phase_on_current_day2(date_now)
+
+    # cur_place = "Boston"
+    cur_place = "Kharkiv"
+    loc_date = datetime.datetime.today()
+
+    tp_md_ext = get_phase_on_local12_place(loc_date, cur_place)
+    print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
 
 
-    # start_date = datetime.datetime.now()        # get current time
-    # start_date -= datetime.timedelta(hours=3)   # always everything in UTC
-    cur_date_utc = ephem.now()  # current UTC date and time
-    pprint.pprint(get_phase_on_current_day(cur_date_utc))
+
 
     # dates = ('2015/5/18 3:00:00','2015/4/19 3:00:00','2015/5/19 4:00:00')
     # # print get_phase_on_current_day2(dates)

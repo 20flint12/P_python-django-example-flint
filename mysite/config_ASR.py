@@ -79,7 +79,7 @@ EMAIL_PASSWORD = "95dd2d30 "
 
 
 
-def write_geo_to_config():
+def write_geo_to_config(place, coord, dst):
 
     config = ConfigParser.RawConfigParser()
 
@@ -99,24 +99,23 @@ def write_geo_to_config():
     # config.set('Section', 'foo', '%(bar)s is %(baz)s!')
 
 
-    config.add_section('USART device:')
-    config.set('USART device:', 'name', config_MAG.SERIAL_DEV)
+    config.add_section(place)
+    config.set(place, 'coord', coord)
+    config.set(place, 'dst', dst)
 
-    config.add_section('Files:')
-    config.set('Files:', 'input  (*.txt)', config_MAG.FILE_TXT)
-    config.set('Files:', 'Output directory', config_MAG.SAVE_TO_DIR)
-    config.set('Files:', 'Output file name', config_MAG.CSV_NAME)
-
-    config.add_section('Gateway:')
-    config.set('Gateway:', 'IP address', config_MAG.SERVER)
+    # config.add_section('Files:')
+    # config.set('Files:', 'input  (*.txt)', config_MAG.FILE_TXT)
+    # config.set('Files:', 'Output directory', config_MAG.SAVE_TO_DIR)
+    # config.set('Files:', 'Output file name', config_MAG.CSV_NAME)
+    #
+    # config.add_section('Gateway:')
+    # config.set('Gateway:', 'IP address', config_MAG.SERVER)
 
 
     # Writing our configuration file to 'settings.cfg'
     with open('settings.cfg', 'wb') as configfile:
         config.write(configfile)
         print "Configuration saved."
-
-
 
 
 
@@ -161,3 +160,25 @@ def read_config_to_geo():
 
         print "there is no config file!!!"
         print "used defaults..."
+
+
+
+
+
+
+
+if __name__ == '__main__':
+
+    place = "Bostotqwe"
+    coord = (1231, 12315)
+    dst   = True
+
+    write_geo_to_config(place, coord, dst)
+
+
+
+    place = "Kremtotqwe"
+    coord = (1221, 78)
+    dst   = False
+
+    write_geo_to_config(place, coord, dst)
