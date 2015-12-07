@@ -107,100 +107,6 @@ def _form_str_moon_day(cur_day,
 
 
 
-
-
-def get_sun_on_month():
-
-    # start_date = datetime.datetime.now() #get current time
-    # start_date = ephem.Date(datetime.date(2015,4,1))
-    # start_date = ephem.Date('2015/4/27 12:00')
-
-    start_date_loc = datetime.datetime(2015,4,29,12)
-    start_date_loc = datetime.date.today() #get current time
-
-    # Correct to nearest Monday
-    start_date_mon = _prev_weekday(start_date_loc,6)
-    stop_date_loc  = start_date_mon + datetime.timedelta(days=35)
-
-    start_date_eph = ephem.Date(start_date_mon)
-    stop_date_eph  = ephem.Date(stop_date_loc)
-
-    place = _set_Observer(start_date_eph)
-    sun = ephem.Sun()
-
-    total_list = []
-    str_out2 = ""
-
-    new_rise = start_date_eph
-
-    i = 0
-    while stop_date_eph >= new_rise:
-
-        day_rise = place.next_rising(sun)
-        place.date = day_rise
-        day_sett = place.next_setting(sun)
-        place.date = day_sett
-        new_rise = place.next_rising(sun)
-
-        # ===============================================
-        str_out2 += "rising Sun  :" + _print_UTC_time(day_rise)
-        str_out2 += "setting Sun :" + _print_UTC_time(day_sett)
-        str_out2 += "\n"
-
-        i += 1
-        sun_dict = {}
-        sun_dict["id"] = i
-        sun_dict["day_rise"] = day_rise
-        sun_dict["str_day_rise"] = _print_UTC_time(day_rise)
-        sun_dict["day_sett"] = day_sett
-        sun_dict["str_day_sett"] = _print_UTC_time(day_sett)
-
-        total_list.append(sun_dict)
-
-    # print str_out2
-    return total_list
-
-
-
-def _prev_weekday(adate, wd): # 6 - sunday
-    # Find previous weekday
-    while adate.weekday() != wd: # Mon-Fri are 0-4
-        adate -= datetime.timedelta(days=1)
-    return adate
-
-
-
-def get_moons_in_year(year):
-    """Returns a list of the full and new moons in a year. The list contains tuples
-    of either the form (DATE,'full') or the form (DATE,'new')"""
-    moons=[]
-
-    date=ephem.Date(datetime.date(year,01,01))
-    while date.datetime().year==year:
-        date=ephem.next_full_moon(date)
-        moons.append( (date,'full moon') )
-
-    date=ephem.Date(datetime.date(year,01,01))
-    while date.datetime().year==year:
-        date=ephem.next_new_moon(date)
-        moons.append( (date,'new moon') )
-
-    date=ephem.Date(datetime.date(year,01,01))
-    while date.datetime().year==year:
-        date=ephem.next_first_quarter_moon(date)
-        moons.append( (date,'first_quarter') )
-
-    date=ephem.Date(datetime.date(year,01,01))
-    while date.datetime().year==year:
-        date=ephem.next_last_quarter_moon(date)
-        moons.append( (date,'last_quarter') )
-
-    moons.sort(key=lambda x: x[0])
-
-    return moons
-
-
-
 def get_moonday_local12place(in_date_loc, place):
     """
     Input: local unaware time and place
@@ -254,6 +160,100 @@ def get_moonday_local12place(in_date_loc, place):
     # 'new_rise_loc': datetime.datetime(2015, 12, 5, 0, 41, 37, 468584, tzinfo=<DstTzInfo 'Europe/Kiev' EET+2:00:00 STD>)}
 
     return tp_md
+
+
+
+def get_sun_on_month():
+
+    # start_date_loc = ephem.Date('2015/4/27 12:00')
+    # start_date_loc = datetime.datetime(2015,4,29,12)
+    start_date_loc = datetime.date.today() #get current time
+
+    # Correct to nearest Monday
+    start_date_mon = _prev_weekday(start_date_loc,6)
+    stop_date_loc  = start_date_mon + datetime.timedelta(days=35)
+
+    start_date_eph = ephem.Date(start_date_mon)
+    stop_date_eph  = ephem.Date(stop_date_loc)
+
+
+    place_name = "Kharkiv"
+    tz_name, coord = geopr.set_tz(place_name)
+    print "place=", place_name, coord, tz_name
+
+    place = _set_Observer(coord)
+    sun = ephem.Sun()
+
+    total_list = []
+    str_out2 = ""
+
+    new_rise = start_date_eph
+
+    i = 0
+    while stop_date_eph >= new_rise:
+
+        day_rise = place.next_rising(sun)
+        place.date = day_rise
+        day_sett = place.next_setting(sun)
+        place.date = day_sett
+        new_rise = place.next_rising(sun)
+
+        # ===============================================
+        # str_out2 += "rising Sun  :" + _print_UTC_time(day_rise)
+        # str_out2 += "setting Sun :" + _print_UTC_time(day_sett)
+        str_out2 += "\n"
+
+        i += 1
+        sun_dict = {}
+        sun_dict["id"] = i
+        sun_dict["day_rise"] = day_rise
+        # sun_dict["str_day_rise"] = _print_UTC_time(day_rise)
+        sun_dict["day_sett"] = day_sett
+        # sun_dict["str_day_sett"] = _print_UTC_time(day_sett)
+
+        total_list.append(sun_dict)
+
+    # print str_out2
+    return total_list
+
+
+
+def _prev_weekday(adate, wd): # 6 - sunday
+    # Find previous weekday
+    while adate.weekday() != wd: # Mon-Fri are 0-4
+        adate -= datetime.timedelta(days=1)
+    return adate
+
+
+
+def get_moons_in_year(year):
+    """Returns a list of the full and new moons in a year. The list contains tuples
+    of either the form (DATE,'full') or the form (DATE,'new')"""
+    moons=[]
+
+    date=ephem.Date(datetime.date(year,01,01))
+    while date.datetime().year==year:
+        date=ephem.next_full_moon(date)
+        moons.append( (date,'full moon') )
+
+    date=ephem.Date(datetime.date(year,01,01))
+    while date.datetime().year==year:
+        date=ephem.next_new_moon(date)
+        moons.append( (date,'new moon') )
+
+    date=ephem.Date(datetime.date(year,01,01))
+    while date.datetime().year==year:
+        date=ephem.next_first_quarter_moon(date)
+        moons.append( (date,'first_quarter') )
+
+    date=ephem.Date(datetime.date(year,01,01))
+    while date.datetime().year==year:
+        date=ephem.next_last_quarter_moon(date)
+        moons.append( (date,'last_quarter') )
+
+    moons.sort(key=lambda x: x[0])
+
+    return moons
 
 
 
