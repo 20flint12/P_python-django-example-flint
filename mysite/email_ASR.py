@@ -48,13 +48,9 @@ def email_reminder():
         list_emails = conf.EMAIL_SET[cur_place]
         print "list_emails=", list_emails
 
-        tz_name, coord = geopr.set_tz(cur_place)
-        # print "cur_place=", cur_place, coord, tz_name
+        cur_date_loc = datetime.today() ### server time
 
-        cur_date_loc = datetime.today()
-
-
-        tp_md_ext = md.get_phase_on_local12_place(cur_date_loc, cur_place)
+        tp_md_ext = md.get_moonday_local12place(cur_date_loc, cur_place)
         # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
         # =====================================================================
 
@@ -72,24 +68,24 @@ def email_reminder():
         print "str_subject=", str_subject
 
         str_msg = str(tp_md_ext["moon_day"]) + " moon day:\n"
-
         str_msg += "rise " + tp_md_ext["day_rise_loc"].strftime(format) + "\n"
         str_msg += "sett " + tp_md_ext["day_sett_loc"].strftime(format) + "\n"
         str_msg += "next " + tp_md_ext["new_rise_loc"].strftime(format) + "\n"
         #----------------------------------------------------------------------
 
 
-        sd = srs.get_sun_rise_sett(tp_md_ext["date_utc"], coord)
-        # print "sd=", pprint.pprint(sd)
+
+        tp_srs_ext = srs.get_sun_rise_sett_local12place(cur_date_loc, cur_place)
+        # print "tp_srs_ext=", pprint.pprint(tp_srs_ext)
         # =====================================================================
 
         str_msg += "sunrise - sunsett:\n"
-        day_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(sd["day_rise"]).datetime())
-        day_sett_loc = geo.utc_to_loc_time(tz_name, ephem.Date(sd["day_sett"]).datetime())
-
-        str_msg += "rise " + str(day_rise_loc.strftime(format)) + "\n"
-        str_msg += "sett " + str(day_sett_loc.strftime(format)) + "\n"
+        str_msg += "rise " + tp_srs_ext["day_rise_loc"].strftime(format) + "\n"
+        str_msg += "sett " + tp_srs_ext["day_sett_loc"].strftime(format) + "\n"
         #----------------------------------------------------------------------
+
+
+
 
 
 

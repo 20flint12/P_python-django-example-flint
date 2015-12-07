@@ -281,7 +281,7 @@ import pprint
 path_geo_file = os.path.dirname(os.path.abspath(__file__)) + "/" + conf.GEO_FILE
 
 
-conf.GEO_PLACE_dict = geopr.read_config_to_geo(path_geo_file)
+geopr.GEO_PLACE_dict = geopr.read_config_to_geo(path_geo_file)
 print "conf.GEO_PLACE_dict=\n", pprint.pprint(geopr.GEO_PLACE_dict)
 
 

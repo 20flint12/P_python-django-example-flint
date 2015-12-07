@@ -9,11 +9,12 @@ import pprint
 import datetime
 
 
-# import mysite.settings as mset
 import mysite.astro_routines.geo_place as geo
 
 
-cur_path_to_file = ""
+
+
+cur_path_to_file = 'geo_test.cfg'
 
 
 GEO_PLACE_dict= \
@@ -86,10 +87,7 @@ def set_tz(in_place_name):
                                         })
             write_geo_to_config(GEO_PLACE_dict)
 
-
     return tz_name, coord
-
-
 
 
 
@@ -166,7 +164,7 @@ def read_config_to_geo(path_to_file):
 
     try:
 
-        with open(path_to_file, 'r') as configfile:
+        with open(cur_path_to_file, 'r') as configfile:
 
             config = ConfigParser.RawConfigParser()
 

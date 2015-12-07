@@ -1,7 +1,6 @@
 # coding: utf8
 #!/usr/bin/python
 
-import sys
 
 import datetime
 import ephem
@@ -30,9 +29,12 @@ def _set_Observer(coord):
 
 
 
-def get_phase_on_current_day(in_date_utc, coord):
-    """Returns a floating-point number from 0-1. where 0=new, 0.5=full, 1=new"""
-
+def get_moonday(in_date_utc, coord):
+    '''
+    Input:
+    Returns:
+    '''
+    
     place = _set_Observer(coord)
     moon = ephem.Moon()
 
@@ -199,8 +201,7 @@ def get_moons_in_year(year):
 
 
 
-
-def get_phase_on_local12_place(in_date_loc, place):
+def get_moonday_local12place(in_date_loc, place):
     """
     Input: local unaware time and place
     Returns tuple in utc for local time and place
@@ -229,7 +230,7 @@ def get_phase_on_local12_place(in_date_loc, place):
     print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
     # -------------------------------------------------------------------------
 
-    tp_md, ctx2 = get_phase_on_current_day(cur_date_utc, coord)
+    tp_md, ctx2 = get_moonday(cur_date_utc, coord)
     # =========================================================================
 
 
@@ -264,7 +265,7 @@ if __name__ == '__main__':
     cur_place = "Kharkiv"
     loc_date = datetime.datetime.today()
 
-    tp_md_ext = get_phase_on_local12_place(loc_date, cur_place)
+    tp_md_ext = get_moonday_local12place(loc_date, cur_place)
     print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
 
 

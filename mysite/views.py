@@ -210,7 +210,7 @@ def astro_req(request):
     cur_date_utc = geo.aware_time_to_utc(aware_loc)
     # print "cur_date_utc=", cur_date_utc.strftime(format)
 
-    tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, coord)
+    tp, ctx2 = md.get_moonday(cur_date_utc, coord)
 
 
 
