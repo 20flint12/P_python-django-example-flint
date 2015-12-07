@@ -7,57 +7,8 @@ import datetime
 import ephem
 import pprint
 
-import mysite.config_ASR as conf
 import mysite.astro_routines.geo_place as geo
-import mysite.settings as mset
-
-
-# GEO_PLACE_dict = {}
-
-
-def set_tz(in_place_name):
-
-    # if not conf.GEO_PLACE_dict:  # if empty
-    #     pass
-    #     # read from file
-    #
-    #
-    # if in_place_name in conf.GEO_PLACE_dict:
-    #     pass
-    # else:
-    #     pass
-
-    # From local dict GEO_PLACE
-    lat = conf.GEO_PLACE[in_place_name]["location"][0]
-    lon = conf.GEO_PLACE[in_place_name]["location"][1]
-    coord = (lat, lon)
-
-    # Update from Google ######################################################
-    try:
-        coord = geo.get_place_coord(in_place_name)
-    except:
-        str_res = "Unexpected error:" + str(sys.exc_info()[0]) + str(sys.exc_info()[1])
-        print str_res
-    # print in_place_name, coord
-
-    tz_name = geo.get_tz_name(coord)
-    # print "tz_name=", tz_name
-
-    # Save to
-    if in_place_name in conf.GEO_PLACE_dict:
-        pass
-    else:
-        pass
-        conf.GEO_PLACE_dict.update({in_place_name:
-                                        {"coord":(coord[0],coord[1]),
-                                         "dst":"iutuyrdfkhjds"
-                                         }
-                                    })
-        conf.write_geo_to_config(mset.path_geo_file, conf.GEO_PLACE_dict)
-
-
-
-    return tz_name, coord
+import mysite.astro_routines.geo_preload as geopr
 
 
 
@@ -255,7 +206,7 @@ def get_phase_on_local12_place(in_date_loc, place):
     Returns tuple in utc for local time and place
     """
 
-    tz_name, coord = set_tz(place)
+    tz_name, coord = geopr.set_tz(place)
     print "place=", place, coord, tz_name
 
 

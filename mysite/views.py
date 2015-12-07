@@ -157,7 +157,7 @@ import scrapes.scrape_data3 as scr
 
 import astro_routines.ephem1 as epph
 import astro_routines.moon_day as md
-
+import mysite.astro_routines.geo_preload as geopr
 
 
 
@@ -190,7 +190,7 @@ def astro_req(request):
 
 
     cur_place = "Kharkiv"
-    tz_name, coord = md.set_tz(cur_place)
+    tz_name, coord = geopr.set_tz(cur_place)
     # print "cur_place=", cur_place, coord, tz_name
 
 

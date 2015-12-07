@@ -17,8 +17,8 @@ import mysite.astro_routines.moon_day as md
 def set_tz(in_place_name):
 
     # From local dict GEO_PLACE
-    lat = conf.GEO_PLACE[in_place_name]["location"][0]
-    lon = conf.GEO_PLACE[in_place_name]["location"][1]
+    lat = conf.GEO_PLACE_dict[in_place_name]["location"][0]
+    lon = conf.GEO_PLACE_dict[in_place_name]["location"][1]
     coord = (lat, lon)
 
     # Update from Google ######################################################

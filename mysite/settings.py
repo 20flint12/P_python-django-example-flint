@@ -272,33 +272,17 @@ EMAIL_HOST_PASSWORD = '95dd2d30'
 #==============================================================================
 
 import mysite.config_ASR as conf
+import mysite.astro_routines.geo_preload as geopr
 import pprint
+
 
 # For cron
 # PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 path_geo_file = os.path.dirname(os.path.abspath(__file__)) + "/" + conf.GEO_FILE
 
 
-
-
-# GEO_PLACE_dict1= \
-#     {
-#         'Kr':
-#             {
-#                 'dst': 'False',
-#                 'coord': (1221, 78)
-#             },
-#         'Kh':
-#             {
-#                 'dst': 'Fals4444e',
-#                 'coord': (1222, 79)
-#             },
-#     }
-# conf.write_geo_to_config(path_geo_file, GEO_PLACE_dict1)
-
-
-conf.GEO_PLACE_dict = conf.read_config_to_geo(path_geo_file)
-print "conf.GEO_PLACE_dict=\n", pprint.pprint(conf.GEO_PLACE_dict)
+conf.GEO_PLACE_dict = geopr.read_config_to_geo(path_geo_file)
+print "conf.GEO_PLACE_dict=\n", pprint.pprint(geopr.GEO_PLACE_dict)
 
 
 

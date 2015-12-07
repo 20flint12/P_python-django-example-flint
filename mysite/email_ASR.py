@@ -16,6 +16,8 @@ import mysite.config_ASR as conf
 import mysite.astro_routines.geo_place as geo
 import mysite.astro_routines.sun_rise_sett as srs
 
+import mysite.astro_routines.geo_preload as geopr
+
 
 def my_email(str_subject,str_body,list_emails):
 
@@ -46,7 +48,7 @@ def email_reminder():
         list_emails = conf.EMAIL_SET[cur_place]
         print "list_emails=", list_emails
 
-        tz_name, coord = md.set_tz(cur_place)
+        tz_name, coord = geopr.set_tz(cur_place)
         # print "cur_place=", cur_place, coord, tz_name
 
         cur_date_loc = datetime.today()
