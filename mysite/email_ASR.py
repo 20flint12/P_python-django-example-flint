@@ -16,7 +16,8 @@ import mysite.config_ASR as conf
 import mysite.astro_routines.geo_place as geo
 import mysite.astro_routines.sun_rise_sett as srs
 
-import mysite.astro_routines.geo_preload as geopr
+
+
 
 
 def my_email(str_subject,str_body,list_emails):
@@ -36,8 +37,6 @@ def my_email(str_subject,str_body,list_emails):
         str_res = "Unexpected error:" + str(sys.exc_info()[0]) + str(sys.exc_info()[1])
         print str_res
         # sys.exit()
-
-
 
 
 
