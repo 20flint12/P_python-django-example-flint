@@ -2,17 +2,16 @@
 # -*- coding: utf-8 -*-
 
 
-import sys
-
-from django.core.mail import send_mail
-
-import ephem
-import astro_routines.moon_day as md
-
 import pprint
 from datetime import *
 
+from django.core.mail import send_mail
+
+
 import mysite.config_ASR as conf
+
+import astro_routines.moon_day as md
+
 import mysite.astro_routines.geo_place as geo
 import mysite.astro_routines.sun_rise_sett as srs
 
@@ -100,6 +99,8 @@ def email_reminder():
 
 
 
+###############################################################################
+###############################################################################
 ###############################################################################
 
 
