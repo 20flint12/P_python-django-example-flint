@@ -253,12 +253,23 @@ def weather_chart(request):
     y=[]
 
 
-    x = WeatherData.objects.all().values_list("weather_datetime")
+    #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    WeatherData.objects.filter(pressure_stn=0).delete()
+
+    #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    cnt = WeatherData.objects.count()
+    sel = WeatherData.objects.all()[cnt-3000:cnt]   # last 1000
+
+    # sel = WeatherData.reverse()[:10000]   # last 1000
+
+
+    x = sel.values_list("weather_datetime")
+    # print x[:]
     # x = [(21,), (20,), (15,)]
-    print x[:]
-    y = WeatherData.objects.all().values_list("temperature_air")
-    # y = [(23,), (24,), (35,)]
-    print y[:]
+
+    # y = sel.values_list("temperature_air")
+    y = sel.values_list("pressure_stn")
+    # print y[:]
 
 
     # now=datetime.datetime.now()
