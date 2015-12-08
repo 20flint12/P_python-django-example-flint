@@ -25,6 +25,7 @@ python manage.py createsuperuser
             sergey  20flint12@gmail.com     flint   1234
 ENV_H       flint   20flint12@gmail.com     flint   1234
 ENV_ACER    acer    20flint12@gmail.com     acer    acer
+admin4 88888878
 
 
 pip freeze > requirementsACER.txt

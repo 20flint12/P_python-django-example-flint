@@ -1,4 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
+
 from django.db import models
+
+
 
 # Create your models here.
 
@@ -66,7 +73,10 @@ class WeatherData(models.Model):
 
     def __unicode__(self):
         # return u'%s %s' % (self.weather_datetime, self.check_time, )
-        return u'{:s} on:{:s} temperature_air:{:2.0f} {:d} {:d} {:d} pressure_sea:{:d} pressure_stn:{:d}'.format(str(self.weather_datetime),
+        return u'{:s} on:{:s} temperature_air:{:2.0f} ' \
+               u'{:d} {:d} {:d} ' \
+               u'pressure_sea:{:d} ' \
+               u'pressure_stn:{:d}'.format(str(self.weather_datetime),
                                self.check_time,
                                self.temperature_air,
                                self.temperature_com,

@@ -16,6 +16,20 @@ from django.http import HttpResponse
 
 from records.models import Book
 
+from records.models import Publisher
+
+from records.models import RecNews
+from records.models import WeatherData
+
+import mysite.scrapes.scrape_data3 as scr3
+import mysite.scrapes.scrape_data2 as scr2
+
+import multiprocessing as mp
+
+
+import mysite.email_ASR as reminder
+
+
 
 
 def search_form(request):
@@ -43,7 +57,6 @@ def search(request):
 
 
 
-from records.models import Publisher
 
 def search2(request):
     if 'q' in request.GET and request.GET['q']:
@@ -59,16 +72,6 @@ def search2(request):
         # return HttpResponse('Enter new req')
         return render_to_response('records_search_form.html', {'error': True})
 
-
-
-
-from records.models import RecNews
-from records.models import WeatherData
-
-import mysite.scrapes.scrape_data3 as scr3
-import mysite.scrapes.scrape_data2 as scr2
-
-import multiprocessing as mp
 
 
 
@@ -141,11 +144,6 @@ def news(request):
 
 
 
-
-import mysite.email_ASR as reminder
-
-
-
 my_proc_exec = mp.Process()
 
 def weather(request):
@@ -181,7 +179,6 @@ def weather(request):
     # print wdata
     return render_to_response('news_search_results.html',
         {'books': wdata})
-
 
 
 
@@ -294,7 +291,7 @@ def weather_chart(request):
     return response
 
 
-#
+
 # from django.core.mail import send_mail
 #
 # def my_email(str_data):
@@ -308,7 +305,7 @@ def weather_chart(request):
 #
 
 
-#
+
 # import smtplib
 #
 # from email.mime.multipart import MIMEMultipart
