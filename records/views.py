@@ -234,15 +234,13 @@ def my_proc_weather(repeat_counter):
 
 def weather_chart(request):
 
-    import random
     import django
-    import datetime
 
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
     from matplotlib.figure import Figure
     from matplotlib.dates import DateFormatter
 
-    print "!.'" * 100
+    print ".'" * 20, "weather_chart", ".'" * 20
 
     # fig=Figure()
     fig=Figure(figsize=(15, 10), dpi=80, facecolor='w', edgecolor='k')
@@ -272,14 +270,6 @@ def weather_chart(request):
     # print y[:]
 
 
-    # now=datetime.datetime.now()
-    # delta=datetime.timedelta(days=4)
-    # for i in range(30):
-    #     x.append(now)
-    #     now+=delta
-    #     y.append(random.randint(0, 1000))
-    #
-
     ax.plot(x, y, '-')
     # ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
     xfmt = DateFormatter('%Y-%m-%d %H:%M')
@@ -293,7 +283,6 @@ def weather_chart(request):
     # xfmt = md.DateFormatter('%Y-%m-%d %H:%M:%S')
     # ax.xaxis.set_major_formatter(xfmt)
     # plt.plot(dates,values)
-
 
 
     canvas=FigureCanvas(fig)
