@@ -1,6 +1,9 @@
 # coding: utf8
 #!/usr/bin/python
 
+
+# http://lyna.info/
+
 import sys
 
 import datetime
@@ -98,20 +101,62 @@ start_date = ephem.Date('2015/10/21 15:00')
 stop_date  = ephem.Date('2016/02/21 15:00')
 
 deg = ephem.degrees
-cur_date = start_date
 
+# cur_date = start_date
+# while stop_date >= cur_date:
+#
+#     # print cur_date
+#     body = ephem.Moon(cur_date)
+#     body.compute(cur_date, cur_date)
+#
+#     str_pr = str(body) + " "
+#     str_pr += "deg={:>15}".format(deg(body.ra)) + " - "
+#     str_pr += "deg={:>15}".format(deg(body.a_ra)) + " - "
+#     str_pr += "deg={:>15}".format(deg(body.g_ra)) + " "
+#     # str_pr += "deg={:7.2f}".format(deg(deg(body.ra)))+ ""
+#
+#     str_pr += "deg={:>15}".format(deg(body.dec)) + " + "
+#     str_pr += "deg={:>15}".format(deg(body.a_dec)) + " + "
+#     str_pr += "deg={:>15}".format(deg(body.g_dec)) + " "
+#
+#     str_pr += ephem.constellation(body)[0]
+#     str_pr += " ||| "
+#     str_pr += str(Ecliptic(body, epoch='2015').long)
+#     str_pr += " ??? "
+#     str_pr += str(Ecliptic(body, epoch='1950').long)
+#     print str_pr
+#
+#     # print format_zodiacal_longitude(Ecliptic(body, epoch='2000').long)
+#
+#     cur_date = ephem.Date(cur_date + 1.5)
+#     # ===============================================
+
+
+cur_date = start_date
 while stop_date >= cur_date:
 
     # print cur_date
-    m = ephem.Moon(cur_date)
-    print cur_date, m.ra, "deg=", deg(deg(m.ra)), \
-        m.dec, deg(deg(m.dec)), \
-        ephem.constellation(m), "|||", Ecliptic(m).long, Ecliptic(m).lat
+    body = ephem.Moon(cur_date)
 
-    m.compute(cur_date, cur_date)
-    print format_zodiacal_longitude(Ecliptic(m).long)
+    ma = ephem.Equatorial(body.ra, body.dec, epoch=cur_date)
+    me = ephem.Ecliptic(ma)
 
-    cur_date = ephem.Date(cur_date + 0.1)
+    print body, "deg=", deg(body.ra), \
+        ephem.constellation(body)[0], "|||", Ecliptic(body).long, ma.epoch, ma.ra, ma.dec
+
+    print('%s %s' % (me.lon, me.lat))
+
+    # body.compute(cur_date, cur_date)
+    # print format_zodiacal_longitude(Ecliptic(body, epoch='2000').long)
+
+
+
+    str_pr = str(body) + " "
+    str_pr += "deg={:7.3f}".format(body.ra * 180 / 3.14) + " - "
+    print str_pr
+
+
+    cur_date = ephem.Date(cur_date + 0.5)
     # ===============================================
 
 
@@ -120,8 +165,34 @@ while stop_date >= cur_date:
 
 
 
-
-
+#     >>> import ephem
+#     >>> m = ephem.Mars('1990/12/13')
+#     >>> print('%s %s' % (m.a_ra, m.a_dec))
+#     3:51:20.54 22:12:49.4
+#
+#     >>> ecl = ephem.Ecliptic(m)
+#     >>> print('%s %s' % (ecl.lon, ecl.lat))
+#     60:27:09.2 2:00:47.5
+#
+#     >>> gal = ephem.Galactic(m)
+#     >>> print('%s %s' % (gal.lon, gal.lat))
+#     168:47:15.2 -24:14:01.8
+#
+#     The epoch of the resulting coordinates is the same as that used by the body for its astrometric coordinates:
+#
+#     >>> print(ecl.epoch)
+#     2000/1/1 12:00:00
+#
+# Using Another Right Ascension and Declination
+#
+#     In the first above example, when we passed a body directly to Ecliptic() and Galactic(), they automatically used the body’s astrometric right ascension and declination. If for some particular application you want to use the apparent version of the coordinates instead, then use the alternative right ascension and declination to build your own Equatorial object:
+#
+#     >>> import ephem
+#     >>> m = ephem.Mars('1980/2/25')
+#     >>> ma = ephem.Equatorial(m.ra, m.dec, epoch='1980/2/25')
+#     >>> me = ephem.Ecliptic(ma)
+#     >>> print('%s %s' % (me.lon, me.lat))
+#     155:52:22.4 4:22:08.7
 
 
 
