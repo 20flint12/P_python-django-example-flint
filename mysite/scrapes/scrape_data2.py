@@ -122,7 +122,7 @@ def get_temperature():
     r = requests.get("http://meteopost.com/weather/kharkov/")
     # print r.content
 
-    soup = BeautifulSoup(r.content)
+    soup = BeautifulSoup(r.content, "html.parser")
     # print soup.prettify()
     g_data = soup.find_all("table")
     # print g_data

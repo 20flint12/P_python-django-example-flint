@@ -5,6 +5,7 @@
 import datetime
 import ephem
 import pprint
+import re
 
 import mysite.astro_routines.geo_place as geo
 import mysite.astro_routines.geo_preload as geopr
@@ -29,7 +30,7 @@ def _set_Observer(coord):
 
 
 
-def get_moonday(in_date_utc, coord):
+def get_moon_day(in_date_utc, coord):
     '''
     Input:
     Returns:
@@ -107,7 +108,7 @@ def _form_str_moon_day(cur_day,
 
 
 
-def get_moonday_local12place(in_date_loc, place):
+def get_moon_day_local12place(in_date_loc, place):
     """
     Input: local unaware time and place
     Returns tuple in utc for local time and place
@@ -136,7 +137,7 @@ def get_moonday_local12place(in_date_loc, place):
     print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
     # -------------------------------------------------------------------------
 
-    tp_md, ctx2 = get_moonday(cur_date_utc, coord)
+    tp_md, ctx2 = get_moon_day(cur_date_utc, coord)
     # =========================================================================
 
 
@@ -160,69 +161,6 @@ def get_moonday_local12place(in_date_loc, place):
     # 'new_rise_loc': datetime.datetime(2015, 12, 5, 0, 41, 37, 468584, tzinfo=<DstTzInfo 'Europe/Kiev' EET+2:00:00 STD>)}
 
     return tp_md
-
-
-
-def get_sun_on_month():
-
-    # start_date_loc = ephem.Date('2015/4/27 12:00')
-    # start_date_loc = datetime.datetime(2015,4,29,12)
-    start_date_loc = datetime.date.today() #get current time
-
-    # Correct to nearest Monday
-    start_date_mon = _prev_weekday(start_date_loc,6)
-    stop_date_loc  = start_date_mon + datetime.timedelta(days=35)
-
-    start_date_eph = ephem.Date(start_date_mon)
-    stop_date_eph  = ephem.Date(stop_date_loc)
-
-
-    place_name = "Kharkiv"
-    tz_name, coord = geopr.set_tz(place_name)
-    print "place=", place_name, coord, tz_name
-
-    place = _set_Observer(coord)
-    sun = ephem.Sun()
-
-    total_list = []
-    str_out2 = ""
-
-    new_rise = start_date_eph
-
-    i = 0
-    while stop_date_eph >= new_rise:
-
-        day_rise = place.next_rising(sun)
-        place.date = day_rise
-        day_sett = place.next_setting(sun)
-        place.date = day_sett
-        new_rise = place.next_rising(sun)
-
-        # ===============================================
-        # str_out2 += "rising Sun  :" + _print_UTC_time(day_rise)
-        # str_out2 += "setting Sun :" + _print_UTC_time(day_sett)
-        str_out2 += "\n"
-
-        i += 1
-        sun_dict = {}
-        sun_dict["id"] = i
-        sun_dict["day_rise"] = day_rise
-        # sun_dict["str_day_rise"] = _print_UTC_time(day_rise)
-        sun_dict["day_sett"] = day_sett
-        # sun_dict["str_day_sett"] = _print_UTC_time(day_sett)
-
-        total_list.append(sun_dict)
-
-    # print str_out2
-    return total_list
-
-
-
-def _prev_weekday(adate, wd): # 6 - sunday
-    # Find previous weekday
-    while adate.weekday() != wd: # Mon-Fri are 0-4
-        adate -= datetime.timedelta(days=1)
-    return adate
 
 
 
@@ -257,36 +195,150 @@ def get_moons_in_year(year):
 
 
 
+def get_moon_phase(in_date_utc):
+    '''
+    Input:
+    Returns:
+    '''
+
+    moon = ephem.Moon()
+
+    #####################################################################
+    curr_date = ephem.Date(in_date_utc)
+
+    # prev_NM = ephem.previous_new_moon(curr_date)
+    # prev_FQ = ephem.previous_first_quarter_moon(curr_date)
+    # prev_FM = ephem.previous_full_moon(curr_date)
+    # prev_LQ = ephem.previous_last_quarter_moon(curr_date)
+    #
+    # next_NM = ephem.next_new_moon(curr_date)
+    # next_FQ = ephem.next_first_quarter_moon(curr_date)
+    # next_FM = ephem.next_full_moon(curr_date)
+    # next_LQ = ephem.next_last_quarter_moon(curr_date)
+
+    mph_dict = {}
+    mph_dict["date_utc"] = curr_date
+
+    if (curr_date - ephem.previous_new_moon(curr_date)) < 8:
+        mph_dict["prev"] = "prev_NM"
+        mph_dict["prev_NM_utc"] = ephem.previous_new_moon(curr_date)
+    elif (curr_date - ephem.previous_first_quarter_moon(curr_date)) < 8:
+        mph_dict["prev"] = "prev_FQ"
+        mph_dict["prev_FQ_utc"] = ephem.previous_first_quarter_moon(curr_date)
+    elif (curr_date - ephem.previous_full_moon(curr_date)) < 8:
+        mph_dict["prev"] = "prev_FM"
+        mph_dict["prev_FM_utc"] = ephem.previous_full_moon(curr_date)
+    elif (curr_date - ephem.previous_last_quarter_moon(curr_date)) < 8:
+        mph_dict["prev"] = "prev_LQ"
+        mph_dict["prev_LQ_utc"] = ephem.previous_last_quarter_moon(curr_date)
+
+
+    if (ephem.next_new_moon(curr_date) - curr_date) < 8:
+        mph_dict["next"] = "next_NM"
+        mph_dict["next_NM_utc"] = ephem.next_new_moon(curr_date)
+    elif (ephem.next_first_quarter_moon(curr_date) - curr_date) < 8:
+        mph_dict["next"] = "next_FQ"
+        mph_dict["next_FQ_utc"] = ephem.next_first_quarter_moon(curr_date)
+    elif (ephem.next_full_moon(curr_date) - curr_date) < 8:
+        mph_dict["next"] = "next_FM"
+        mph_dict["next_FM_utc"] = ephem.next_full_moon(curr_date)
+    elif (ephem.next_last_quarter_moon(curr_date) - curr_date) < 8:
+        mph_dict["next"] = "next_LQ"
+        mph_dict["next_LQ_utc"] = ephem.next_last_quarter_moon(curr_date)
+
+    return mph_dict
+
+
+
+
+def get_moon_phase_local12place(in_date_loc, place):
+    """
+    Input: local unaware time and place
+    Returns tuple in utc for local time and place
+    """
+
+    tz_name, coord = geopr.set_tz(place)
+    print "place=", place, coord, tz_name
+
+
+    format = "%Y-%m-%d %H:%M:%S %z"
+    ###########################################################################
+    cur_date_loc = in_date_loc  # datetime.datetime.today()
+    print "cur_date_loc=", cur_date_loc.strftime(format)
+
+    # Calculate utc date on local noon for selected place #####################
+    cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
+    print "cur_noon_loc=", cur_noon_loc
+    # -------------------------------------------------------------------------
+
+    aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
+    print "aware_loc=", aware_loc.strftime(format)
+    # -------------------------------------------------------------------------
+
+    cur_date_utc = geo.aware_time_to_utc(aware_loc)
+    # print "aware_utc=",    cur_date_utc.strftime(format)
+    print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
+    # -------------------------------------------------------------------------
+
+    tp_mph = get_moon_phase(cur_date_utc)
+    # =========================================================================
+    print "tp_mph=", pprint.pprint(tp_mph)
+
+
+    for k in tp_mph.keys():
+        # print k, "5%%%%%%%%%%%%%%%%%"
+
+        str_re = "(.*)_utc"
+        res = re.search(str_re, k)
+        if res:
+            time_item = res.group(1)
+            time_item_loc = time_item + "_loc"
+
+            time_utc = tp_mph[k]
+            time_loc = geo.utc_to_loc_time(tz_name, ephem.Date(time_utc).datetime())
+
+            tp_mph[time_item_loc] = time_loc
+
+
+    # tp_mph.update({"date_utc": cur_date_utc})
+    tp_mph.update({"aware_loc": aware_loc})
+
+    # 'aware_loc': datetime.datetime(2015, 12, 11, 12, 0, tzinfo=<DstTzInfo 'America/New_York' EST-1 day, 19:00:00 STD>),
+    # 'date_loc': datetime.datetime(2015, 12, 11, 12, 0, tzinfo=<DstTzInfo 'America/New_York' EST-1 day, 19:00:00 STD>),
+    # 'date_utc': 42348.208333333336,
+    # 'next': 'next_FQ',
+    # 'next_FQ_loc': datetime.datetime(2015, 12, 18, 10, 14, 19, 81533, tzinfo=<DstTzInfo 'America/New_York' EST-1 day, 19:00:00 STD>),
+    # 'next_FQ_utc': 42355.1349430733,
+    # 'prev': 'prev_NM',
+    # 'prev_NM_loc': datetime.datetime(2015, 12, 11, 5, 29, 25, 28389, tzinfo=<DstTzInfo 'America/New_York' EST-1 day, 19:00:00 STD>),
+    # 'prev_NM_utc': 42347.93709523599
+
+    return tp_mph
+
+
+
 
 if __name__ == '__main__':
 
 
-    # cur_place = "Boston"
-    cur_place = "Kharkiv"
+    cur_place = "Boston"
+    # cur_place = "Kharkiv"
     loc_date = datetime.datetime.today()
 
-    tp_md_ext = get_moonday_local12place(loc_date, cur_place)
-    print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
+    # tp_md_ext = get_moon_day_local12place(loc_date, cur_place)
+    # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
 
 
+    print get_moon_phase(loc_date)
 
 
-    # dates = ('2015/5/18 3:00:00','2015/4/19 3:00:00','2015/5/19 4:00:00')
-    # # print get_phase_on_current_day2(dates)
-    # out_list = get_phase_on_current_day2(dates)
-    # for key in out_list:
-    #     print key,out_list[key]
-
-
-
-
-    # out_list = get_sun_on_month()
-
-    # for d in out_list:
-    #     for k in sorted(d):
-    #         print k, d[k]
-    #     # print sorted(item),item
-
-    # print get_moons_in_year(2013)
     # for ev in get_moons_in_year(2015):
     #     print ev
+
+
+    res_dict = get_moon_phase_local12place(loc_date, cur_place)
+    pprint.pprint(res_dict)
+
+
+
+

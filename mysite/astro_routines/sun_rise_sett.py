@@ -105,7 +105,7 @@ def get_sun_rise_sett_local12place(in_date_loc, place):
 
 
 
-def get_sun_on_month():
+def get_sun_on_month(place):
 
     # start_date = datetime.datetime.now() #get current time
     # start_date = ephem.Date(datetime.date(2015,4,1))
@@ -121,7 +121,12 @@ def get_sun_on_month():
     start_date_eph = ephem.Date(start_date_mon)
     stop_date_eph  = ephem.Date(stop_date_loc)
 
-    place = _set_Observer(start_date_eph)
+
+    tz_name, coord = geopr.set_tz(place)
+    print "place=", place, coord, tz_name
+
+
+    place = _set_Observer(coord)
     sun = ephem.Sun()
 
     total_list = []
@@ -158,6 +163,16 @@ def get_sun_on_month():
 
 
 
+
+def _prev_weekday(adate, wd): # 6 - sunday
+    # Find previous weekday
+    while adate.weekday() != wd: # Mon-Fri are 0-4
+        adate -= datetime.timedelta(days=1)
+    return adate
+
+
+
+
 def _print_UTC_time(time):
 
     out_str_time = ""
@@ -177,46 +192,21 @@ if __name__ == '__main__':
 
     # cur_place = "Boston"
     cur_place = "Kharkiv"
-    loc_date = datetime.datetime.today()
 
-    tp_md_ext = get_sun_rise_sett_local12place(loc_date, cur_place)
-    print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
+    # loc_date = datetime.datetime.today()
+    #
+    # tp_md_ext = get_sun_rise_sett_local12place(loc_date, cur_place)
+    # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
 
 
-    #
-    # cur_place = "Boston"
-    # # cur_place = "Kharkiv"
-    #
-    # tz_name, coord = geopr.set_tz(cur_place)
-    # print "cur_place=", cur_place, coord, tz_name
-    #
-    #
-    # format = "%Y-%m-%d %H:%M:%S %z"
-    # ###########################################################################
-    # cur_date_loc = datetime.datetime.today()
-    # print "cur_date_loc=", cur_date_loc.strftime(format)
-    #
-    # # Calculate utc date on local noon for selected place #####################
-    # cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
-    # print "cur_noon_loc=", cur_noon_loc
-    #
-    # aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
-    # print "aware_loc=", aware_loc.strftime(format)
-    # cur_date_utc = geo.aware_time_to_utc(aware_loc)
-    # # print "aware_utc=",    cur_date_utc.strftime(format)
-    # print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
-    #
-    # sd = get_sun_rise_sett(cur_date_utc, coord)
-    # print "sd=", pprint.pprint(sd)
-    #
-    #
-    # str_msg = "sunrise - sunsett:\n"
-    #
-    # day_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(sd["day_rise"]).datetime())
-    # day_sett_loc = geo.utc_to_loc_time(tz_name, ephem.Date(sd["day_sett"]).datetime())
-    #
-    # str_msg += "rise " + str(day_rise_loc.strftime(format)) + "\n"
-    # str_msg += "sett " + str(day_sett_loc.strftime(format)) + "\n"
-    #
-    # print str_msg, " |||"*5, len(str_msg)
-    #
+
+
+
+
+    out_list = get_sun_on_month(cur_place)
+    for d in out_list:
+        for k in sorted(d):
+            print k, d[k]
+        # print sorted(item),item
+
+

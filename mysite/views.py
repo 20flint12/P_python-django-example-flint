@@ -140,6 +140,7 @@ def astro_req(request):
     # tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, coord)
 
 
+    # cur_place = "Boston"
     cur_place = "Kharkiv"
     tz_name, coord = geopr.set_tz(cur_place)
     # print "cur_place=", cur_place, coord, tz_name
@@ -161,7 +162,7 @@ def astro_req(request):
     cur_date_utc = geo.aware_time_to_utc(aware_loc)
     # print "cur_date_utc=", cur_date_utc.strftime(format)
 
-    tp, ctx2 = md.get_moonday(cur_date_utc, coord)
+    tp, ctx2 = md.get_moon_day(cur_date_utc, coord)
 
     ctx += "\n" + ctx2
     print ctx

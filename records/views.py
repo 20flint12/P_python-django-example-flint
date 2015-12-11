@@ -219,7 +219,7 @@ def my_proc_weather(repeat_counter):
                                 pressure_sea    = ctx[5],
                                 pressure_stn    = ctx[6])
                 w.save()
-                print "+" * 100
+                print "+" * 80
 
             time.sleep(60)
 
@@ -256,7 +256,7 @@ def weather_chart(request):
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     cnt = WeatherData.objects.count()
-    sel = WeatherData.objects.all()[cnt-3000:cnt]   # last 1000
+    sel = WeatherData.objects.all()[cnt-5000:cnt]   # last 1000
 
     # sel = WeatherData.reverse()[:10000]   # last 1000
 

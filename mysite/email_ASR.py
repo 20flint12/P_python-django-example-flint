@@ -48,7 +48,7 @@ def email_reminder():
 
         cur_date_loc = datetime.today() ### server time
 
-        tp_md_ext = md.get_moonday_local12place(cur_date_loc, cur_place)
+        tp_md_ext = md.get_moon_day_local12place(cur_date_loc, cur_place)
         # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
         # =====================================================================
 
@@ -85,6 +85,19 @@ def email_reminder():
 
 
 
+        tp_mph_ext = md.get_moon_phase_local12place(cur_date_loc, cur_place)
+        print "tp_mph_ext=", pprint.pprint(tp_mph_ext)
+        # =====================================================================
+
+        str_msg += "moon phase:\n"
+        prev_phase = tp_mph_ext["prev"] + "_loc"
+        next_phase = tp_mph_ext["next"] + "_loc"
+        str_msg += "prev: " + tp_mph_ext[prev_phase].strftime(format) + "\n"
+        str_msg += "next: " + tp_mph_ext[next_phase].strftime(format) + "\n"
+        #----------------------------------------------------------------------
+
+
+
 
 
         #======================================================================
@@ -92,7 +105,7 @@ def email_reminder():
 
 
         print "Q"*80
-        my_email(str_subject, str_msg, list_emails)
+        # my_email(str_subject, str_msg, list_emails)
         # my_mail2("Reminder", "test1", "test2")
 
 
