@@ -231,6 +231,9 @@ def get_moon_phase(in_date_utc):
     elif (curr_date - ephem.previous_last_quarter_moon(curr_date)) < 8:
         mph_dict["prev"] = "prev_LQ"
         mph_dict["prev_LQ_utc"] = ephem.previous_last_quarter_moon(curr_date)
+    #==========================================================================
+    mph_dict["prev"] = "prev_LQ"
+    mph_dict["prev_LQ_utc"] = ephem.previous_last_quarter_moon(curr_date)
 
 
     if (ephem.next_new_moon(curr_date) - curr_date) < 8:
@@ -245,6 +248,10 @@ def get_moon_phase(in_date_utc):
     elif (ephem.next_last_quarter_moon(curr_date) - curr_date) < 8:
         mph_dict["next"] = "next_LQ"
         mph_dict["next_LQ_utc"] = ephem.next_last_quarter_moon(curr_date)
+    #==========================================================================
+    mph_dict["next"] = "next_LQ"
+    mph_dict["next_LQ_utc"] = ephem.next_last_quarter_moon(curr_date)
+
 
     return mph_dict
 
