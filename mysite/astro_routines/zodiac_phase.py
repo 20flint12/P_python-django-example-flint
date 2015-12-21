@@ -10,8 +10,8 @@ import datetime
 import ephem
 import pprint
 
-import mysite.config_ASR as conf
-import mysite.astro_routines.geo_place as geo
+# import mysite.config_ASR as conf
+# import mysite.astro_routines.geo_place as geo
 
 
 
@@ -141,19 +141,20 @@ while stop_date >= cur_date:
     ma = ephem.Equatorial(body.ra, body.dec, epoch=cur_date)
     me = ephem.Ecliptic(ma)
 
-    print body, "deg=", deg(body.ra), \
-        ephem.constellation(body)[0], "|||", Ecliptic(body).long, ma.epoch, ma.ra, ma.dec
+    str_out = ""
+    str_out += str(body) + str(ma.epoch)
+    str_out += "=" + ephem.constellation(body)[0]
 
-    print('%s %s' % (me.lon, me.lat))
+    str_out += " deg=" + str(deg(body.ra))
+    str_out += " & deg={:7.3f}".format(body.ra * 180 / 3.14) + " - "
+    str_out += " ||| " + str(Ecliptic(body).long)
+    str_out += "=" + str(ma.ra) + "=" + str(ma.dec)
+    # print('%s %s' % (me.lon, me.lat))
 
     # body.compute(cur_date, cur_date)
     # print format_zodiacal_longitude(Ecliptic(body, epoch='2000').long)
 
-
-
-    str_pr = str(body) + " "
-    str_pr += "deg={:7.3f}".format(body.ra * 180 / 3.14) + " - "
-    print str_pr
+    print str_out
 
 
     cur_date = ephem.Date(cur_date + 0.5)
