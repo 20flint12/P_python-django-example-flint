@@ -92,8 +92,8 @@ def email_reminder():
         str_msg += "moon phase:\n"
         prev_phase = tp_mph_ext["prev"] + "_loc"
         next_phase = tp_mph_ext["next"] + "_loc"
-        str_msg += "prev: " + tp_mph_ext[prev_phase].strftime(format) + "\n"
-        str_msg += "next: " + tp_mph_ext[next_phase].strftime(format) + "\n"
+        str_msg += tp_mph_ext["prev"] + " " + tp_mph_ext[prev_phase].strftime(format) + "\n"
+        str_msg += tp_mph_ext["next"] + " " + tp_mph_ext[next_phase].strftime(format) + "\n"
         #----------------------------------------------------------------------
 
 
@@ -105,7 +105,7 @@ def email_reminder():
 
 
         print "Q"*80
-        # my_email(str_subject, str_msg, list_emails)
+        my_email(str_subject, str_msg, list_emails)
         # my_mail2("Reminder", "test1", "test2")
 
 

@@ -255,7 +255,7 @@ def get_moon_phase(in_date_utc):
     if delta_next > delta_next_FQ:
         delta_next = delta_next_FQ
         mph_dict["next"] = "next_FQ"
-        mph_dict["prev_FQ_utc"] = next_FQ
+        mph_dict["next_FQ_utc"] = next_FQ
 
     if delta_next > delta_next_FM:
         delta_next = delta_next_FM
