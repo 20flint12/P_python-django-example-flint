@@ -206,51 +206,67 @@ def get_moon_phase(in_date_utc):
     #####################################################################
     curr_date = ephem.Date(in_date_utc)
 
-    # prev_NM = ephem.previous_new_moon(curr_date)
-    # prev_FQ = ephem.previous_first_quarter_moon(curr_date)
-    # prev_FM = ephem.previous_full_moon(curr_date)
-    # prev_LQ = ephem.previous_last_quarter_moon(curr_date)
-    #
-    # next_NM = ephem.next_new_moon(curr_date)
-    # next_FQ = ephem.next_first_quarter_moon(curr_date)
-    # next_FM = ephem.next_full_moon(curr_date)
-    # next_LQ = ephem.next_last_quarter_moon(curr_date)
+    prev_NM = ephem.previous_new_moon(curr_date)
+    prev_FQ = ephem.previous_first_quarter_moon(curr_date)
+    prev_FM = ephem.previous_full_moon(curr_date)
+    prev_LQ = ephem.previous_last_quarter_moon(curr_date)
+    delta_prev_NM = curr_date - prev_NM
+    delta_prev_FQ = curr_date - prev_FQ
+    delta_prev_FM = curr_date - prev_FM
+    delta_prev_LQ = curr_date - prev_LQ
+
+    next_NM = ephem.next_new_moon(curr_date)
+    next_FQ = ephem.next_first_quarter_moon(curr_date)
+    next_FM = ephem.next_full_moon(curr_date)
+    next_LQ = ephem.next_last_quarter_moon(curr_date)
+    delta_next_NM = next_NM - curr_date
+    delta_next_FQ = next_FQ - curr_date
+    delta_next_FM = next_FM - curr_date
+    delta_next_LQ = next_LQ - curr_date
 
     mph_dict = {}
     mph_dict["date_utc"] = curr_date
+    #==========================================================================
 
-    if (curr_date - ephem.previous_new_moon(curr_date)) < 8:
-        mph_dict["prev"] = "prev_NM"
-        mph_dict["prev_NM_utc"] = ephem.previous_new_moon(curr_date)
-    elif (curr_date - ephem.previous_first_quarter_moon(curr_date)) < 8:
+    delta_prev = delta_prev_NM
+    mph_dict["prev"] = "prev_NM"
+    mph_dict["prev_NM_utc"] = prev_NM
+
+    if delta_prev > delta_prev_FQ:
+        delta_prev = delta_prev_FQ
         mph_dict["prev"] = "prev_FQ"
-        mph_dict["prev_FQ_utc"] = ephem.previous_first_quarter_moon(curr_date)
-    elif (curr_date - ephem.previous_full_moon(curr_date)) < 8:
+        mph_dict["prev_FQ_utc"] = prev_FQ
+
+    if delta_prev > delta_prev_FM:
+        delta_prev = delta_prev_FM
         mph_dict["prev"] = "prev_FM"
-        mph_dict["prev_FM_utc"] = ephem.previous_full_moon(curr_date)
-    elif (curr_date - ephem.previous_last_quarter_moon(curr_date)) < 8:
+        mph_dict["prev_FM_utc"] = prev_FM
+
+    if delta_prev > delta_prev_LQ:
+        # delta_prev = delta_prev_LQ
         mph_dict["prev"] = "prev_LQ"
-        mph_dict["prev_LQ_utc"] = ephem.previous_last_quarter_moon(curr_date)
+        mph_dict["prev_LQ_utc"] = prev_LQ
     #==========================================================================
-    mph_dict["prev"] = "prev_LQ"
-    mph_dict["prev_LQ_utc"] = ephem.previous_last_quarter_moon(curr_date)
 
+    delta_next = delta_next_NM
+    mph_dict["next"] = "next_NM"
+    mph_dict["next_NM_utc"] = next_NM
 
-    if (ephem.next_new_moon(curr_date) - curr_date) < 8:
-        mph_dict["next"] = "next_NM"
-        mph_dict["next_NM_utc"] = ephem.next_new_moon(curr_date)
-    elif (ephem.next_first_quarter_moon(curr_date) - curr_date) < 8:
+    if delta_next > delta_next_FQ:
+        delta_next = delta_next_FQ
         mph_dict["next"] = "next_FQ"
-        mph_dict["next_FQ_utc"] = ephem.next_first_quarter_moon(curr_date)
-    elif (ephem.next_full_moon(curr_date) - curr_date) < 8:
+        mph_dict["prev_FQ_utc"] = next_FQ
+
+    if delta_next > delta_next_FM:
+        delta_next = delta_next_FM
         mph_dict["next"] = "next_FM"
-        mph_dict["next_FM_utc"] = ephem.next_full_moon(curr_date)
-    elif (ephem.next_last_quarter_moon(curr_date) - curr_date) < 8:
+        mph_dict["next_FM_utc"] = next_FM
+
+    if delta_next > delta_next_LQ:
+        # delta_next = delta_next_LQ
         mph_dict["next"] = "next_LQ"
-        mph_dict["next_LQ_utc"] = ephem.next_last_quarter_moon(curr_date)
+        mph_dict["next_LQ_utc"] = next_LQ
     #==========================================================================
-    mph_dict["next"] = "next_LQ"
-    mph_dict["next_LQ_utc"] = ephem.next_last_quarter_moon(curr_date)
 
 
     return mph_dict
