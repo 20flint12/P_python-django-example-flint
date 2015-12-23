@@ -2,8 +2,6 @@
 #!/usr/bin/python
 
 
-# http://lyna.info/
-
 import sys
 
 import datetime
@@ -16,34 +14,22 @@ import time
 # import mysite.astro_routines.geo_place as geo
 
 
-
-
-
-# boston = ephem.city('Kharkiv')
-# print('%s %s' % (boston.lat, boston.lon))
-# 42:21:30.4 -71:03:35.2
-
-
-
-# m = ephem.Moon('1980/6/1')
-# print(ephem.constellation(m))
-# # ('Sgr', 'Sagittarius')
-#
-# print m.a_ra
-
-
-
-
-# deg = ephem.degrees
-# >>> print deg(deg('270') + deg('180'))
-
 from ephem import *
 import datetime
 import itertools
 import math
 
+
+
+
+
+
+
+
 # zodiac = 'AR TA GE CN LE VI LI SC SG CP AQ PI'.split()
 zodiac = 'Овен Телец Близнецы Рак Лев Дева Весы Скорпион Стрелец Козерог Водолей Рыбы'.split()
+
+
 
 def format_zodiacal_longitude(longitude):
     "Format longitude in zodiacal form (like '00AR00') and return as a string."
@@ -171,6 +157,42 @@ stop_date  = ephem.Date('2016/02/21 15:00')
 
 
 
+def getInfo(body):
+
+    str_out = "\n"
+    str_out += str(body)
+    str_out += " " + ephem.constellation(body)[0]
+    # -----------------------------------------------------
+
+
+    ma = ephem.Equatorial(body.ra, body.dec)
+    me = ephem.Ecliptic(ma)
+
+    ecl = ephem.Ecliptic(body, epoch=cur_date)
+
+
+    str_out += "\n" + str(ma.epoch)
+
+    str_out += " body.ra =" + str(deg(body.ra)) + " / " + str(deg(body.dec))
+    str_out += " & deg={:7.3f}".format(body.ra * 180 / 3.14) + " - "
+    # str_out += " ||| " + str(Ecliptic(body).long)
+
+
+    str_out += " Equatorial ma.ra=" + str(ma.ra) + "=" + str(ma.dec)
+
+
+
+    str_out += "\n" + str(ecl.epoch)
+    str_out += " ecl.lon =" + str(ecl.lon) + " / " + str(ecl.lat)
+    str_out += " & deg={:7.3f}".format(ecl.lon * 180 / 3.14) + " - "
+    # ---------------------------------------------------------------------
+
+    # body.compute(cur_date, cur_date)
+    # print format_zodiacal_longitude(Ecliptic(body, epoch='2000').long)
+
+    return str_out
+
+
 
 
 
@@ -185,71 +207,19 @@ if __name__ == "__main__":
     while True:
 
         cur_date = ephem.Date(datetime.datetime.now())
-
         # print cur_date
+
         body = ephem.Moon(cur_date)
-
-        ma = ephem.Equatorial(body.ra, body.dec, epoch=cur_date)
-        me = ephem.Ecliptic(ma)
-
-        ecl = ephem.Ecliptic(body, epoch=cur_date)
-
-
+        # ---------------------------------------------------------------------
 
         str_out = ""
-        str_out += str(body)
-        str_out += " " + ephem.constellation(body)[0]
-
-        str_out += "\n" + str(ma.epoch)
-        str_out += " body.ra =" + str(deg(body.ra)) + " / " + str(deg(body.dec))
-        str_out += " & deg={:7.3f}".format(body.ra * 180 / 3.14) + " - "
-        # str_out += " ||| " + str(Ecliptic(body).long)
-
-        str_out += " Equatorial ma.ra=" + str(ma.ra) + "=" + str(ma.dec)
-
-
-
-        str_out += "\n" + str(ecl.epoch)
-        str_out += " ecl.lon =" + str(ecl.lon) + " / " + str(ecl.lat)
-        str_out += " & deg={:7.3f}".format(ecl.lon * 180 / 3.14) + " - "
-        # ---------------------------------------------------------------------
+        str_out += getInfo(body)
 
 
         body = ephem.Sun(cur_date)
         # body.compute(cur_date, cur_date)
 
-        ma = ephem.Equatorial(body.ra, body.dec, epoch=cur_date)
-        # ma = ephem.Equatorial(body.ra, body.dec, epoch="2000")
-        me = ephem.Ecliptic(ma)
-
-        ecl = ephem.Ecliptic(body, epoch=cur_date)
-
-        body.compute(cur_date, cur_date)
-
-
-        str_out += "\n"
-        str_out += str(body)
-        str_out += " " + ephem.constellation(body)[0]
-
-        str_out += "\n" + str(ma.epoch)
-        str_out += " body.ra =" + str(deg(body.ra)) + " / " + str(deg(body.dec))
-        str_out += " & deg={:7.3f}".format(body.ra * 180 / 3.14) + " - "
-        # str_out += " ||| " + str(Ecliptic(body).long)
-
-        str_out += " Equatorial ma.ra=" + str(ma.ra) + "=" + str(ma.dec)
-
-
-
-        str_out += "\n" + str(ecl.epoch)
-        str_out += " ecl.lon =" + str(ecl.lon) + " / " + str(ecl.lat)
-        str_out += " & deg={:7.3f}".format(ecl.long * 180 / 3.14) + " - "
-
-
-
-
-
-        # body.compute(cur_date, cur_date)
-        # print format_zodiacal_longitude(Ecliptic(body, epoch='2000').long)
+        str_out += getInfo(body)
 
         print str_out
 
@@ -268,6 +238,7 @@ if __name__ == "__main__":
 print("=============== END ====================")
 
 
+# http://lyna.info/
 
 
 # http://time.unitarium.com/moon/where.html
