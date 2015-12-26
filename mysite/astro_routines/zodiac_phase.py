@@ -182,6 +182,11 @@ def getInfo(body):
 
 
 
+    str_out += " me.lon =" + str(deg(me.lon))
+    str_out += " & deg={:7.3f}".format(me.lon * 180 / 3.14) + " - "
+
+
+
     str_out += "\n" + str(ecl.epoch)
     str_out += " ecl.lon =" + str(ecl.lon) + " / " + str(ecl.lat)
     str_out += " & deg={:7.3f}".format(ecl.lon * 180 / 3.14) + " - "
