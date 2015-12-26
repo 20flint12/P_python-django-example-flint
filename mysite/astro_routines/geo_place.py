@@ -8,7 +8,7 @@
 
 from datetime import datetime
 
-
+import pytz
 
 
 
@@ -41,8 +41,6 @@ def get_tz_name(in_coord):
 
 def set_tz_to_unaware_time(in_tz_name, in_unaware):
 
-    import pytz
-
     local_tz = pytz.timezone(in_tz_name)  # 'Europe/Kiev'
     loc_aware = local_tz.localize(in_unaware)
 
@@ -63,8 +61,6 @@ def set_tz_to_unaware_time(in_tz_name, in_unaware):
 
 def aware_time_to_utc(in_aware):
 
-    import pytz
-
     utc_aware = in_aware.astimezone(pytz.timezone('UTC'))
 
     # print "utc_aware=", utc_aware
@@ -76,8 +72,6 @@ def aware_time_to_utc(in_aware):
 
 def utc_to_loc_time(in_tz_name, in_utc_time):
 
-    import pytz
-
     local_timezone = pytz.timezone(in_tz_name)  # 'Europe/Kiev'
     loc_time = in_utc_time.replace(tzinfo=pytz.utc).astimezone(local_timezone)
 
@@ -87,8 +81,6 @@ def utc_to_loc_time(in_tz_name, in_utc_time):
 
 
 def loc_to_utc_time(in_tz_name, in_loc_time):
-
-    import pytz
 
     loc_timezone = pytz.timezone(in_tz_name)
     loc_time = loc_timezone.localize(in_loc_time)

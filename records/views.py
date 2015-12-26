@@ -252,14 +252,15 @@ def weather_chart(request):
 
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    max = len(WeatherData.objects.all())
+    if max > 5000: max = 5000
+    #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     WeatherData.objects.filter(pressure_stn=0).delete()
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     cnt = WeatherData.objects.count()
-    sel = WeatherData.objects.all()[cnt-5000:cnt]   # last 1000
-
+    sel = WeatherData.objects.all()[cnt-max:cnt]   # last 1000
     # sel = WeatherData.reverse()[:10000]   # last 1000
-
 
     x = sel.values_list("weather_datetime")
     # print x[:]
