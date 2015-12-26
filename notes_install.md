@@ -71,6 +71,19 @@ cctrlapp testastroflint/default details
 cctrlapp testastroflint/default deploy
 cctrlapp testastroflint/default addon.list
 
+cctrlapp testastroflint4/default run bash
+$ cctrlapp APP_NAME/default run bash
+Connecting...
+USER@HOSTNAME:~/www$ celery --broker=$CLOUDAMQP_URL status
+-> WORKER_HOSTNAME: OK
+
+1 node online.
+USER@HOSTNAME:~/www$ exit
+Connection to ssh.cloudcontrolled.net closed.
+
+
+
+
 итого это только в ветке master !!!
 
 git push cloudcontrol master

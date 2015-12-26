@@ -48,6 +48,16 @@ EMAIL_SET = {
             '20flint12@gmail.com',
             # '380688845064@sms.kyivstar.net',
         ],
+    "Moscow":
+        [
+            '20flint12@gmail.com',
+            # '380688845064@sms.kyivstar.net',
+        ],
+    "London":
+        [
+            '20flint12@gmail.com',
+            # '380688845064@sms.kyivstar.net',
+        ],
 }
 
 
