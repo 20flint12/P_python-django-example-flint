@@ -108,7 +108,7 @@ def email_reminder():
 
 
         #======================================================================
-        print str_msg, " |||"*5, len(str_msg)
+        # print str_msg, " |||"*5, len(str_msg)
 
 
         print "Q"*80
