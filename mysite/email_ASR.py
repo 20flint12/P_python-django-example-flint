@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
+import sys
 import pprint
 from datetime import *
 
@@ -14,7 +14,7 @@ import astro_routines.moon_day as md
 
 import mysite.astro_routines.geo_place as geo
 import mysite.astro_routines.sun_rise_sett as srs
-
+import mysite.astro_routines.zodiac_phase as zod
 
 
 
@@ -76,7 +76,6 @@ def email_reminder():
         tp_srs_ext = srs.get_sun_rise_sett_local12place(cur_date_loc, cur_place)
         # print "tp_srs_ext=", pprint.pprint(tp_srs_ext)
         # =====================================================================
-
         str_msg += "sunrise - sunsett:\n"
         str_msg += "rise " + tp_srs_ext["day_rise_loc"].strftime(format) + "\n"
         str_msg += "sett " + tp_srs_ext["day_sett_loc"].strftime(format) + "\n"
@@ -86,9 +85,8 @@ def email_reminder():
 
 
         tp_mph_ext = md.get_moon_phase_local12place(cur_date_loc, cur_place)
-        print "tp_mph_ext=", pprint.pprint(tp_mph_ext)
+        # print "tp_mph_ext=", pprint.pprint(tp_mph_ext)
         # =====================================================================
-
         str_msg += "moon phase:\n"
         prev_phase = tp_mph_ext["prev"] + "_loc"
         next_phase = tp_mph_ext["next"] + "_loc"
@@ -97,6 +95,15 @@ def email_reminder():
         #----------------------------------------------------------------------
 
 
+        import ephem
+        body = ephem.Moon(cur_date_loc)
+        ecl_dict_ext = zod.get_zodiac_local12place(cur_date_loc, body, cur_place)
+        print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
+        # =====================================================================
+        str_msg += " Moon:\n"
+        str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
+        str_msg += ecl_dict_ext["zod_lat"] + "\n"
+        #----------------------------------------------------------------------
 
 
 

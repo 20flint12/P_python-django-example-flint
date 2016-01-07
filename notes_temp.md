@@ -87,3 +87,6 @@ astroreminder
 
 380688845064@sms.kyivstar.net
 380688845064@mms.kyivstar.net
+
+
+20adel16    63933adel

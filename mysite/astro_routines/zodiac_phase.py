@@ -11,7 +11,9 @@ import pprint
 import time
 
 # import mysite.config_ASR as conf
-# import mysite.astro_routines.geo_place as geo
+import mysite.astro_routines.geo_place as geo
+import mysite.astro_routines.geo_preload as geopr
+
 
 
 from ephem import *
@@ -27,17 +29,18 @@ import math
 
 
 # zodiac = 'AR TA GE CN LE VI LI SC SG CP AQ PI'.split()
-zodiac = 'Овен Телец Близнецы Рак Лев Дева Весы Скорпион Стрелец Козерог Водолей Рыбы'.split()
+zodiac = u'Овен Телец Близнецы Рак Лев Дева Весы Скорпион Стрелец Козерог Водолей Рыбы'.split()
 
 
 
 def format_zodiacal_longitude(longitude):
     "Format longitude in zodiacal form (like '00AR00') and return as a string."
+    # print longitude
     l = math.degrees(longitude.norm)
     degrees = int(l % 30)
     sign = zodiac[int(l / 30)]
     minutes = int(round((l % 1) * 60))
-    return '{0:02}{1}{2:02}'.format(degrees, sign, minutes)
+    return u'{0:02}{1}{2:02}'.format(degrees, sign, minutes)
 
 def format_angle_as_time(a):
     """Format angle as hours:minutes:seconds and return it as a string."""
@@ -121,38 +124,74 @@ stop_date  = ephem.Date('2016/02/21 15:00')
 
 
 
+def get_zodiac(in_date_utc, body):
+
+    '''
+    Input:  body
+    Returns:
+    Format longitude in zodiacal form (like '00AR00') and return as a string.
+    '''
+
+    #####################################################################
+    curr_date = ephem.Date(in_date_utc)
+
+    ecl = ephem.Ecliptic(body, epoch=in_date_utc)
+    # str_out += "\n" + str(ecl.epoch)
+    # str_out += " ecl2 =" + str(deg(ecl.lon)) + " ; " + str(deg(ecl.lat))
+    # str_out += " [{:7.3f}".format(ecl.lon * 180 / 3.14) + ";"
+    # str_out += " {:7.3f}]".format(ecl.lat * 180 / 3.14)
+    # ---------------------------------------------------------------------
+
+
+    ecl_dict = {}
+    ecl_dict["date_utc"] = curr_date
+    ecl_dict["ecl.lon"] = ecl.lon * 180 / 3.14
+    ecl_dict["ecl.lat"] = ecl.lat * 180 / 3.14
+
+    ecl_dict["zod_lat"] = format_zodiacal_longitude(ecl.long)
+    #==========================================================================
+
+    return ecl_dict
 
 
 
 
-#     >>> import ephem
-#     >>> m = ephem.Mars('1990/12/13')
-#     >>> print('%s %s' % (m.a_ra, m.a_dec))
-#     3:51:20.54 22:12:49.4
-#
-#     >>> ecl = ephem.Ecliptic(m)
-#     >>> print('%s %s' % (ecl.lon, ecl.lat))
-#     60:27:09.2 2:00:47.5
-#
-#     >>> gal = ephem.Galactic(m)
-#     >>> print('%s %s' % (gal.lon, gal.lat))
-#     168:47:15.2 -24:14:01.8
-#
-#     The epoch of the resulting coordinates is the same as that used by the body for its astrometric coordinates:
-#
-#     >>> print(ecl.epoch)
-#     2000/1/1 12:00:00
-#
-# Using Another Right Ascension and Declination
-#
-#     In the first above example, when we passed a body directly to Ecliptic() and Galactic(), they automatically used the body’s astrometric right ascension and declination. If for some particular application you want to use the apparent version of the coordinates instead, then use the alternative right ascension and declination to build your own Equatorial object:
-#
-#     >>> import ephem
-#     >>> m = ephem.Mars('1980/2/25')
-#     >>> ma = ephem.Equatorial(m.ra, m.dec, epoch='1980/2/25')
-#     >>> me = ephem.Ecliptic(ma)
-#     >>> print('%s %s' % (me.lon, me.lat))
-#     155:52:22.4 4:22:08.7
+def get_zodiac_local12place(in_date_loc, in_body, place):
+    """
+    Input: local unaware time and place
+    Returns coord for local time and place
+    """
+
+    tz_name, coord = geopr.set_tz(place)
+    print "place=", place, coord, tz_name
+
+
+    format = "%Y-%m-%d %H:%M:%S %z"
+    ###########################################################################
+    cur_date_loc = in_date_loc  # datetime.datetime.today()
+    print "cur_date_loc=", cur_date_loc.strftime(format)
+
+    # Calculate utc date on local noon for selected place #####################
+    cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
+    print "cur_noon_loc=", cur_noon_loc
+    # -------------------------------------------------------------------------
+
+    aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
+    print "aware_loc=", aware_loc.strftime(format)
+    # -------------------------------------------------------------------------
+
+    cur_date_utc = geo.aware_time_to_utc(aware_loc)
+    # print "aware_utc=",    cur_date_utc.strftime(format)
+    print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
+    # -------------------------------------------------------------------------
+
+    ecl_dict_ext = get_zodiac(cur_date_utc, in_body)
+    # =========================================================================
+
+    ecl_dict_ext.update({"date_utc": cur_date_utc})
+    ecl_dict_ext.update({"aware_loc": aware_loc})
+
+    return ecl_dict_ext
 
 
 
@@ -165,35 +204,51 @@ def getInfo(body):
     # -----------------------------------------------------
 
 
-    ma = ephem.Equatorial(body.ra, body.dec)
-    me = ephem.Ecliptic(ma)
 
-    ecl = ephem.Ecliptic(body, epoch=cur_date)
-
-
-    str_out += "\n" + str(ma.epoch)
-
-    str_out += " body.ra =" + str(deg(body.ra)) + " / " + str(deg(body.dec))
-    str_out += " & deg={:7.3f}".format(body.ra * 180 / 3.14) + " - "
-    # str_out += " ||| " + str(Ecliptic(body).long)
-
-
-    str_out += " Equatorial ma.ra=" + str(ma.ra) + "=" + str(ma.dec)
-
-
-
-    str_out += " me.lon =" + str(deg(me.lon))
-    str_out += " & deg={:7.3f}".format(me.lon * 180 / 3.14) + " - "
-
-
-
-    str_out += "\n" + str(ecl.epoch)
-    str_out += " ecl.lon =" + str(ecl.lon) + " / " + str(ecl.lat)
-    str_out += " & deg={:7.3f}".format(ecl.lon * 180 / 3.14) + " - "
+    ###########################################################################
+    str_out += "\n"
+    str_out += " body.ra =" + str(deg(body.ra)) + ";" + str(deg(body.dec))
+    str_out += " [{:7.3f}".format(body.ra * 180 / 3.14) + ";"
+    str_out += " {:7.3f}]".format(body.dec * 180 / 3.14)
     # ---------------------------------------------------------------------
 
+
+
+    ma = ephem.Equatorial(body.ra, body.dec)
+    me = ephem.Ecliptic(ma)
+    # str_out += "\n" + str(ma.epoch)
+
+    # str_out += " Equatorial ma.ra=" + str(ma.ra) + "=" + str(ma.dec)
+    #
+    # str_out += " me.lon =" + str(deg(me.lon))
+    # str_out += " & deg={:7.3f}".format(me.lon * 180 / 3.14) + " - "
+
+
+
+    ###########################################################################
+    ecl = ephem.Ecliptic(body, epoch=cur_date)
+
+    str_out += "\n" + str(ecl.epoch)
+    str_out += " ecl =" + str(deg(ecl.lon)) + " ; " + str(deg(ecl.lat))
+    str_out += " [{:7.3f}".format(ecl.lon * 180 / 3.14) + ";"
+    str_out += " {:7.3f}]".format(ecl.lat * 180 / 3.14)
+    # ---------------------------------------------------------------------
+
+
+    ###########################################################################
+    ecl = ephem.Ecliptic(body, epoch='2000')
+
+    str_out += "\n" + str(ecl.epoch)
+    str_out += " ecl2 =" + str(deg(ecl.lon)) + " ; " + str(deg(ecl.lat))
+    str_out += " [{:7.3f}".format(ecl.lon * 180 / 3.14) + ";"
+    str_out += " {:7.3f}]".format(ecl.lat * 180 / 3.14)
+    # ---------------------------------------------------------------------
+
+
+
     # body.compute(cur_date, cur_date)
-    # print format_zodiacal_longitude(Ecliptic(body, epoch='2000').long)
+    str_out += "\n"
+    str_out += " ecl3 =" + format_zodiacal_longitude(Ecliptic(body, epoch='2000').long)
 
     return str_out
 
@@ -211,22 +266,28 @@ if __name__ == "__main__":
     # while stop_date >= cur_date:
     while True:
 
-        cur_date = ephem.Date(datetime.datetime.now())
+        cur_date = datetime.datetime.now()
         # print cur_date
 
         body = ephem.Moon(cur_date)
         # ---------------------------------------------------------------------
 
-        str_out = ""
-        str_out += getInfo(body)
+        pprint.pprint(get_zodiac(cur_date, body))
+
+        place = "Kiev"
+        pprint.pprint(get_zodiac_local12place(cur_date, body, place))
 
 
-        body = ephem.Sun(cur_date)
-        # body.compute(cur_date, cur_date)
-
-        str_out += getInfo(body)
-
-        print str_out
+        # str_out = ""
+        # str_out += getInfo(body)
+        #
+        #
+        # body = ephem.Sun(cur_date)
+        # # body.compute(cur_date, cur_date)
+        #
+        # str_out += getInfo(body)
+        #
+        # print str_out
 
         time.sleep(1)
 
