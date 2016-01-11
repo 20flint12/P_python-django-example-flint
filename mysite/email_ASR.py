@@ -75,7 +75,7 @@ def email_reminder():
         tp_srs_ext = srs.get_sun_rise_sett_local12place(cur_date_loc, cur_place)
         # print "tp_srs_ext=", pprint.pprint(tp_srs_ext)
         # =====================================================================
-        out_str_msg += u"### Солнце ###\n"
+        out_str_msg += u"\n### Солнце ###\n"
         out_str_msg += u"восход " + tp_srs_ext["day_rise_loc"].strftime(format2) + "\n"
         out_str_msg += u"закат  " + tp_srs_ext["day_sett_loc"].strftime(format2) + "\n"
         #----------------------------------------------------------------------
