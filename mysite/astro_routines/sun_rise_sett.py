@@ -60,26 +60,26 @@ def get_sun_rise_sett_local12place(in_date_loc, place):
     """
 
     tz_name, coord = geopr.set_tz(place)
-    print "place=", place, coord, tz_name
+    # print "place=", place, coord, tz_name
 
 
     format = "%Y-%m-%d %H:%M:%S %z"
     ###########################################################################
     cur_date_loc = in_date_loc  # datetime.datetime.today()
-    print "cur_date_loc=", cur_date_loc.strftime(format)
+    # print "cur_date_loc=", cur_date_loc.strftime(format)
 
     # Calculate utc date on local noon for selected place #####################
     cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
-    print "cur_noon_loc=", cur_noon_loc
+    # print "cur_noon_loc=", cur_noon_loc
     # -------------------------------------------------------------------------
 
     aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
-    print "aware_loc=", aware_loc.strftime(format)
+    # print "aware_loc=", aware_loc.strftime(format)
     # -------------------------------------------------------------------------
 
     cur_date_utc = geo.aware_time_to_utc(aware_loc)
     # print "aware_utc=",    cur_date_utc.strftime(format)
-    print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
+    # print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
     # -------------------------------------------------------------------------
 
     tp_srs = get_sun_rise_sett(cur_date_utc, coord)

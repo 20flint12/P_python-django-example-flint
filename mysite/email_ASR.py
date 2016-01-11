@@ -48,27 +48,26 @@ def email_reminder():
 
         cur_date_loc = datetime.today() ### server time
 
-        tp_md_ext = md.get_moon_day_local12place(cur_date_loc, cur_place)
-        # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
-        # =====================================================================
+        cur12_aware_loc, cur12_unaware_utc = \
+            geo.aware_loc_unaware_utc_for_local12place(cur_date_loc, cur_place)
+
 
         # str_on = aware_loc.strftime("%d %b %H:%M%z")[:-2]
-        str_on = tp_md_ext["aware_loc"].strftime("%d %b %H:%M%z")[:-2]
+        # str_on = tp_md_ext["aware_loc"].strftime("%d %b %H:%M%z")[:-2]
+        str_on = cur12_aware_loc.strftime("%d %b %H:%M%z")[:-2]
         # print "str_on=", str_on
 
-        # time_stamp = today.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
-        format = "%d %b %H:%M"
+        format  = "%d %b %H:%M"
+        format2 = "%H:%M"
 
-        # Kremenchug on 25 Nov 12:00+02
-        # 25 Nov 12:00+02 Kremenchug
+        out_str_msg = u""
+        # *********************************************************************
 
-        str_subject = str_on + " " + cur_place
-        print "str_subject=", str_subject
 
-        str_msg = str(tp_md_ext["moon_day"]) + " moon day:\n"
-        str_msg += "rise " + tp_md_ext["day_rise_loc"].strftime(format) + "\n"
-        str_msg += "sett " + tp_md_ext["day_sett_loc"].strftime(format) + "\n"
-        str_msg += "next " + tp_md_ext["new_rise_loc"].strftime(format) + "\n"
+        # out_str_subject = str_on + " " + cur_place
+        out_str_subject = cur_place + " " + str_on
+        print "out_str_subject=", out_str_subject
+        # out_str_msg += out_str_subject + "\n"
         #----------------------------------------------------------------------
 
 
@@ -76,9 +75,30 @@ def email_reminder():
         tp_srs_ext = srs.get_sun_rise_sett_local12place(cur_date_loc, cur_place)
         # print "tp_srs_ext=", pprint.pprint(tp_srs_ext)
         # =====================================================================
-        str_msg += "sunrise - sunsett:\n"
-        str_msg += "rise " + tp_srs_ext["day_rise_loc"].strftime(format) + "\n"
-        str_msg += "sett " + tp_srs_ext["day_sett_loc"].strftime(format) + "\n"
+        out_str_msg += u"### Солнце ###\n"
+        out_str_msg += u"восход " + tp_srs_ext["day_rise_loc"].strftime(format2) + "\n"
+        out_str_msg += u"закат  " + tp_srs_ext["day_sett_loc"].strftime(format2) + "\n"
+        #----------------------------------------------------------------------
+
+        ecl_dict_ext = zod.get_zodiac_local12place(cur_date_loc, "Sun", cur_place)
+        # print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
+        # =====================================================================
+        # out_str_msg += "Sun:\n"
+        # out_str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
+        out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
+        #----------------------------------------------------------------------
+
+
+
+
+        tp_md_ext = md.get_moon_day_ext(cur12_aware_loc, cur12_unaware_utc, cur_place)
+        # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
+        # =====================================================================
+        out_str_msg += u"\n### Луна ###\n"
+        out_str_msg += unicode(tp_md_ext["moon_day"]) + u" лунный день\n"
+        out_str_msg += u"восход  " + tp_md_ext["day_rise_loc"].strftime(format) + "\n"
+        out_str_msg += u"заход   " + tp_md_ext["day_sett_loc"].strftime(format) + "\n"
+        out_str_msg += u"сл.восх " + tp_md_ext["new_rise_loc"].strftime(format) + "\n"
         #----------------------------------------------------------------------
 
 
@@ -87,32 +107,92 @@ def email_reminder():
         tp_mph_ext = md.get_moon_phase_local12place(cur_date_loc, cur_place)
         # print "tp_mph_ext=", pprint.pprint(tp_mph_ext)
         # =====================================================================
-        str_msg += "moon phase:\n"
+        # out_str_msg += "\n"
         prev_phase = tp_mph_ext["prev"] + "_loc"
         next_phase = tp_mph_ext["next"] + "_loc"
-        str_msg += tp_mph_ext["prev"] + " " + tp_mph_ext[prev_phase].strftime(format) + "\n"
-        str_msg += tp_mph_ext["next"] + " " + tp_mph_ext[next_phase].strftime(format) + "\n"
+
+        prev_mom = tp_mph_ext["prev"][-2:]
+        next_mom = tp_mph_ext["next"][-2:]
+
+        out_str_msg += u"пред. "
+        if prev_mom == "NM":
+            out_str_msg += u"новолуние"
+        elif prev_mom == "FQ":
+            out_str_msg += u"перв.четв"
+        elif prev_mom == "FM":
+            out_str_msg += u"полная л."
+        elif prev_mom == "LQ":
+            out_str_msg += u"трет.четв"
+        out_str_msg += " " + tp_mph_ext[prev_phase].strftime(format) + "\n"
+
+        out_str_msg += u"след. "
+        if next_mom == "NM":
+            out_str_msg += u"новолуние"
+        elif next_mom == "FQ":
+            out_str_msg += u"перв.четв"
+        elif next_mom == "FM":
+            out_str_msg += u"полная л."
+        elif next_mom == "LQ":
+            out_str_msg += u"трет.четв"
+        out_str_msg += " " + tp_mph_ext[next_phase].strftime(format) + "\n"
         #----------------------------------------------------------------------
 
 
-        import ephem
-        body = ephem.Moon(cur_date_loc)
-        ecl_dict_ext = zod.get_zodiac_local12place(cur_date_loc, body, cur_place)
-        print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
+
+        ecl_dict_ext = zod.get_zodiac_local12place(cur_date_loc, "Moon", cur_place)
+        # print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
         # =====================================================================
-        str_msg += " Moon:\n"
-        str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
-        str_msg += ecl_dict_ext["zod_lat"] + "\n"
+        # out_str_msg += "\n"
+        # out_str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
+        out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
         #----------------------------------------------------------------------
 
 
+
+
+
+        # Kremenchug on 25 Nov 12:00+02
+        # 25 Nov 12:00+02 Kremenchug
+
+        # 11 Jan 12:00+02 Kharkiv
+        # 3 moon day:
+        # rise 11 Jan 07:58
+        # sett 11 Jan 17:53
+        # next 12 Jan 08:36
+        # sunrise - sunsett:
+        # rise 11 Jan 07:30
+        # sett 11 Jan 15:55
+        # moon phase:
+        # prev_NM 10 Jan 03:30
+        # next_FQ 17 Jan 01:26
+        # Moon:
+        # 310.253255638
+        # 10Водолей06
+        # Sun:
+        # 290.91810637
+        # 20Козерог46
+
+
+        # ### Солнце ###
+        # восход 07:30
+        # закат  15:55
+        # 20Козерог53
+        #
+        # ### Луна ###
+        # 3 лунный день
+        # восход  11 Jan 07:58
+        # заход   11 Jan 17:53
+        # сл.восх 12 Jan 08:36
+        # пред. новолуние 10 Jan 03:30
+        # след. перв.четв 17 Jan 01:26
+        # 11Водолей42
 
         #======================================================================
-        print str_msg, " |||"*5, len(str_msg)
+        print "out_str_msg=", out_str_msg, " |||"*5, len(out_str_msg)
 
 
         print "Q"*80
-        my_email(str_subject, str_msg, list_emails)
+        my_email(out_str_subject, out_str_msg, list_emails)
         # my_mail2("Reminder", "test1", "test2")
 
 

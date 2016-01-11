@@ -108,48 +108,33 @@ def _form_str_moon_day(cur_day,
 
 
 
-def get_moon_day_local12place(in_date_loc, place):
+# def get_moon_day_local12place(in_date_loc, place):
+def get_moon_day_ext(in_aware_loc, in_unaware_utc, place):
+
     """
     Input: local unaware time and place
     Returns tuple in utc for local time and place
     """
 
     tz_name, coord = geopr.set_tz(place)
-    print "place=", place, coord, tz_name
+    # print "place=", place, coord, tz_name
 
-
-    format = "%Y-%m-%d %H:%M:%S %z"
-    ###########################################################################
-    cur_date_loc = in_date_loc  # datetime.datetime.today()
-    print "cur_date_loc=", cur_date_loc.strftime(format)
-
-    # Calculate utc date on local noon for selected place #####################
-    cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
-    print "cur_noon_loc=", cur_noon_loc
+    # print "in_aware_loc=", in_aware_loc.strftime(format), "utcoffset=", in_aware_loc.utcoffset()
     # -------------------------------------------------------------------------
 
-    aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
-    print "aware_loc=", aware_loc.strftime(format)
-    # -------------------------------------------------------------------------
-
-    cur_date_utc = geo.aware_time_to_utc(aware_loc)
-    # print "aware_utc=",    cur_date_utc.strftime(format)
-    print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
-    # -------------------------------------------------------------------------
-
-    tp_md, ctx2 = get_moon_day(cur_date_utc, coord)
+    tp_md_ext, ctx2 = get_moon_day(in_unaware_utc, coord)
     # =========================================================================
 
 
-    tp_md.update({"date_utc": cur_date_utc})
-    tp_md.update({"aware_loc": aware_loc})
+    tp_md_ext.update({"date_utc": in_unaware_utc})
+    tp_md_ext.update({"aware_loc": in_aware_loc})
 
-    day_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md["day_rise"]).datetime())
-    day_sett_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md["day_sett"]).datetime())
-    new_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md["new_rise"]).datetime())
-    tp_md.update({"day_rise_loc": day_rise_loc})
-    tp_md.update({"day_sett_loc": day_sett_loc})
-    tp_md.update({"new_rise_loc": new_rise_loc})
+    day_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md_ext["day_rise"]).datetime())
+    day_sett_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md_ext["day_sett"]).datetime())
+    new_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md_ext["new_rise"]).datetime())
+    tp_md_ext.update({"day_rise_loc": day_rise_loc})
+    tp_md_ext.update({"day_sett_loc": day_sett_loc})
+    tp_md_ext.update({"new_rise_loc": new_rise_loc})
 
     # 'aware_loc': datetime.datetime(2015, 12, 4, 12, 0, tzinfo=<DstTzInfo 'Europe/Kiev' EET+2:00:00 STD>),
     # 'day_rise': 42340.40295680378,
@@ -160,7 +145,7 @@ def get_moon_day_local12place(in_date_loc, place):
     # 'new_rise': 42341.44557255306,
     # 'new_rise_loc': datetime.datetime(2015, 12, 5, 0, 41, 37, 468584, tzinfo=<DstTzInfo 'Europe/Kiev' EET+2:00:00 STD>)}
 
-    return tp_md
+    return tp_md_ext
 
 
 
@@ -281,31 +266,31 @@ def get_moon_phase_local12place(in_date_loc, place):
     """
 
     tz_name, coord = geopr.set_tz(place)
-    print "place=", place, coord, tz_name
+    # print "place=", place, coord, tz_name
 
 
     format = "%Y-%m-%d %H:%M:%S %z"
     ###########################################################################
     cur_date_loc = in_date_loc  # datetime.datetime.today()
-    print "cur_date_loc=", cur_date_loc.strftime(format)
+    # print "cur_date_loc=", cur_date_loc.strftime(format)
 
     # Calculate utc date on local noon for selected place #####################
     cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
-    print "cur_noon_loc=", cur_noon_loc
+    # print "cur_noon_loc=", cur_noon_loc
     # -------------------------------------------------------------------------
 
     aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
-    print "aware_loc=", aware_loc.strftime(format)
+    # print "aware_loc=", aware_loc.strftime(format)
     # -------------------------------------------------------------------------
 
     cur_date_utc = geo.aware_time_to_utc(aware_loc)
     # print "aware_utc=",    cur_date_utc.strftime(format)
-    print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
+    # print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
     # -------------------------------------------------------------------------
 
     tp_mph = get_moon_phase(cur_date_utc)
     # =========================================================================
-    print "tp_mph=", pprint.pprint(tp_mph)
+    # print "tp_mph=", pprint.pprint(tp_mph)
 
 
     for k in tp_mph.keys():
