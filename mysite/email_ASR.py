@@ -63,8 +63,6 @@ def email_reminder():
         out_str_msg = u""
         # *********************************************************************
 
-        str_subject = str_on + " " + cur_place
-        print "str_subject=", str_subject
 
         # out_str_subject = str_on + " " + cur_place
         out_str_subject = cur_place + " " + str_on
@@ -112,8 +110,31 @@ def email_reminder():
         # out_str_msg += "\n"
         prev_phase = tp_mph_ext["prev"] + "_loc"
         next_phase = tp_mph_ext["next"] + "_loc"
-        str_msg += tp_mph_ext["prev"] + " " + tp_mph_ext[prev_phase].strftime(format) + "\n"
-        str_msg += tp_mph_ext["next"] + " " + tp_mph_ext[next_phase].strftime(format) + "\n"
+
+        prev_mom = tp_mph_ext["prev"][-2:]
+        next_mom = tp_mph_ext["next"][-2:]
+
+        out_str_msg += u"пред. "
+        if prev_mom == "NM":
+            out_str_msg += u"новолуние"
+        elif prev_mom == "FQ":
+            out_str_msg += u"перв.четв"
+        elif prev_mom == "FM":
+            out_str_msg += u"полная л."
+        elif prev_mom == "LQ":
+            out_str_msg += u"трет.четв"
+        out_str_msg += " " + tp_mph_ext[prev_phase].strftime(format) + "\n"
+
+        out_str_msg += u"след. "
+        if next_mom == "NM":
+            out_str_msg += u"новолуние"
+        elif next_mom == "FQ":
+            out_str_msg += u"перв.четв"
+        elif next_mom == "FM":
+            out_str_msg += u"полная л."
+        elif next_mom == "LQ":
+            out_str_msg += u"трет.четв"
+        out_str_msg += " " + tp_mph_ext[next_phase].strftime(format) + "\n"
         #----------------------------------------------------------------------
 
 
@@ -167,7 +188,7 @@ def email_reminder():
         # 11Водолей42
 
         #======================================================================
-        #print "out_str_msg=", out_str_msg, " |||"*5, len(out_str_msg)
+        # print "out_str_msg=", out_str_msg, " |||"*5, len(out_str_msg)
 
 
         print "Q"*80
