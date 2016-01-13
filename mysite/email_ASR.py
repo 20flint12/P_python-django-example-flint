@@ -80,14 +80,23 @@ def email_reminder():
         out_str_msg += u"закат  " + tp_srs_ext["day_sett_loc"].strftime(format2) + "\n"
         #----------------------------------------------------------------------
 
-        ecl_dict_ext = zod.get_zodiac_local12place(cur_date_loc, "Sun", cur_place)
+
+
+        td = timedelta(hours=12)
+        # ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc-td, cur12_unaware_utc-td, "Sun", cur_place)
+        # out_str_msg += ecl_dict_ext["zod_lat"] + "-"
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc, cur12_unaware_utc,
+                                                   "Sun", cur_place)
         # print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
         # =====================================================================
         # out_str_msg += "Sun:\n"
         # out_str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
         out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc+td, cur12_unaware_utc+td, "Sun", cur_place)
+        # out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
         #----------------------------------------------------------------------
-
 
 
 
@@ -100,7 +109,6 @@ def email_reminder():
         out_str_msg += u"заход   " + tp_md_ext["day_sett_loc"].strftime(format) + "\n"
         out_str_msg += u"сл.восх " + tp_md_ext["new_rise_loc"].strftime(format) + "\n"
         #----------------------------------------------------------------------
-
 
 
 
@@ -139,53 +147,37 @@ def email_reminder():
 
 
 
-        ecl_dict_ext = zod.get_zodiac_local12place(cur_date_loc, "Moon", cur_place)
+        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc-td, cur12_unaware_utc-td, "Moon", cur_place)
+        out_str_msg += ecl_dict_ext["zod_lat"] + "-"
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc, cur12_unaware_utc,
+                                                   "Moon", cur_place)
         # print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
         # =====================================================================
         # out_str_msg += "\n"
         # out_str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
+        out_str_msg += ecl_dict_ext["zod_lat"] + "-"
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc+td, cur12_unaware_utc+td, "Moon", cur_place)
         out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
         #----------------------------------------------------------------------
 
 
 
-
-
-        # Kremenchug on 25 Nov 12:00+02
-        # 25 Nov 12:00+02 Kremenchug
-
-        # 11 Jan 12:00+02 Kharkiv
-        # 3 moon day:
-        # rise 11 Jan 07:58
-        # sett 11 Jan 17:53
-        # next 12 Jan 08:36
-        # sunrise - sunsett:
-        # rise 11 Jan 07:30
-        # sett 11 Jan 15:55
-        # moon phase:
-        # prev_NM 10 Jan 03:30
-        # next_FQ 17 Jan 01:26
-        # Moon:
-        # 310.253255638
-        # 10Водолей06
-        # Sun:
-        # 290.91810637
-        # 20Козерог46
-
-
         # ### Солнце ###
-        # восход 07:30
-        # закат  15:55
-        # 20Козерог53
+        # восход 07:29
+        # закат  15:58
+        # 22Коз-22Коз-23Коз
         #
         # ### Луна ###
-        # 3 лунный день
-        # восход  11 Jan 07:58
-        # заход   11 Jan 17:53
-        # сл.восх 12 Jan 08:36
+        # 5 лунный день
+        # восход  13 Jan 09:09
+        # заход   13 Jan 20:20
+        # сл.восх 14 Jan 09:40
         # пред. новолуние 10 Jan 03:30
         # след. перв.четв 17 Jan 01:26
-        # 11Водолей42
+        # 28Вод-05Рыб-13Рыб
+
 
         #======================================================================
         # print "out_str_msg=", out_str_msg, " |||"*5, len(out_str_msg)

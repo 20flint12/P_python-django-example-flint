@@ -29,7 +29,8 @@ import math
 
 
 # zodiac = 'AR TA GE CN LE VI LI SC SG CP AQ PI'.split()
-zodiac = u'Овен Телец Близнецы Рак Лев Дева Весы Скорпион Стрелец Козерог Водолей Рыбы'.split()
+# zodiac = u'Овен Телец Близнецы Рак Лев Дева Весы Скорпион Стрелец Козерог Водолей Рыбы'.split()
+zodiac = u'Овн Тлц Блз Рак Лев Дев Вес Скп Стр Коз Вод Рыб'.split()
 
 
 
@@ -40,7 +41,8 @@ def format_zodiacal_longitude(longitude):
     degrees = int(l % 30)
     sign = zodiac[int(l / 30)]
     minutes = int(round((l % 1) * 60))
-    return u'{0:02}{1}{2:02}'.format(degrees, sign, minutes)
+    # return u'{0:02}{1}{2:02}'.format(degrees, sign, minutes)
+    return u'{0:02}{1}'.format(degrees, sign)
 
 def format_angle_as_time(a):
     """Format angle as hours:minutes:seconds and return it as a string."""
@@ -159,46 +161,25 @@ def get_zodiac(in_date_utc, body):
 
 
 
-def get_zodiac_local12place(in_date_loc, in_str_body, place):
+def get_zodiac_local12place(in_aware_loc, in_unaware_utc, in_str_body, place):
     """
     Input: local unaware time and place, "Moon", "Sun"
     Returns coord for local time and place
     """
-
     tz_name, coord = geopr.set_tz(place)
     # print "place=", place, coord, tz_name
 
-
-    format = "%Y-%m-%d %H:%M:%S %z"
-    ###########################################################################
-    cur_date_loc = in_date_loc  # datetime.datetime.today()
-    # print "cur_date_loc=", cur_date_loc.strftime(format)
-
-    # Calculate utc date on local noon for selected place #####################
-    cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
-    # print "cur_noon_loc=", cur_noon_loc
-    # -------------------------------------------------------------------------
-
-    aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
-    # print "aware_loc=", aware_loc.strftime(format)
-    # -------------------------------------------------------------------------
-
-    cur_date_utc = geo.aware_time_to_utc(aware_loc)
-    # print "aware_utc=",    cur_date_utc.strftime(format)
-    # print "cur_date_utc=", cur_date_utc.strftime(format), "utcoffset=", cur_date_utc.utcoffset()
-    # -------------------------------------------------------------------------
-
     body = None
     if in_str_body == "Moon":
-        body = ephem.Moon(cur_date_utc)
+        body = ephem.Moon(in_unaware_utc)
     elif in_str_body == "Sun":
-        body = ephem.Sun(cur_date_utc)
+        body = ephem.Sun(in_unaware_utc)
 
-    ecl_dict_ext = get_zodiac(cur_date_utc, body)
+    ecl_dict_ext = get_zodiac(in_unaware_utc, body)
     # =========================================================================
 
-    ecl_dict_ext.update({"date_utc": cur_date_utc})
-    ecl_dict_ext.update({"aware_loc": aware_loc})
+    ecl_dict_ext.update({"date_utc": in_unaware_utc})
+    ecl_dict_ext.update({"aware_loc": in_aware_loc})
 
     return ecl_dict_ext
 
@@ -213,14 +194,12 @@ def getInfo(body):
     # -----------------------------------------------------
 
 
-
     ###########################################################################
     str_out += "\n"
     str_out += " body.ra =" + str(deg(body.ra)) + ";" + str(deg(body.dec))
     str_out += " [{:7.3f}".format(body.ra * 180 / 3.14) + ";"
     str_out += " {:7.3f}]".format(body.dec * 180 / 3.14)
     # ---------------------------------------------------------------------
-
 
 
     ma = ephem.Equatorial(body.ra, body.dec)

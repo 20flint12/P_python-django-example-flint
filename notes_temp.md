@@ -90,3 +90,6 @@ astroreminder
 
 
 20adel16    63933adel
+
+
+sudo apt-get install libopencv-dev python-opencv
