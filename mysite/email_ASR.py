@@ -112,6 +112,23 @@ def email_reminder():
 
 
 
+        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc-td, cur12_unaware_utc-td, "Moon", cur_place)
+        out_str_msg += ecl_dict_ext["zod_lat"] + "-"
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc, cur12_unaware_utc,
+                                                   "Moon", cur_place)
+        # print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
+        # =====================================================================
+        # out_str_msg += "\n"
+        # out_str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
+        out_str_msg += ecl_dict_ext["zod_lat"] + "-"
+        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc+td, cur12_unaware_utc+td, "Moon", cur_place)
+        out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
+        #----------------------------------------------------------------------
+
+
+
         tp_mph_ext = md.get_moon_phase_local12place(cur_date_loc, cur_place)
         # print "tp_mph_ext=", pprint.pprint(tp_mph_ext)
         # =====================================================================
@@ -147,27 +164,10 @@ def email_reminder():
 
 
 
-        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc-td, cur12_unaware_utc-td, "Moon", cur_place)
-        out_str_msg += ecl_dict_ext["zod_lat"] + "-"
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc, cur12_unaware_utc,
-                                                   "Moon", cur_place)
-        # print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
-        # =====================================================================
-        # out_str_msg += "\n"
-        # out_str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
-        out_str_msg += ecl_dict_ext["zod_lat"] + "-"
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc+td, cur12_unaware_utc+td, "Moon", cur_place)
-        out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
-        #----------------------------------------------------------------------
-
-
-
         # ### Солнце ###
         # восход 07:29
         # закат  15:58
-        # 22Коз-22Коз-23Коз
+        # 22Коз
         #
         # ### Луна ###
         # 5 лунный день
