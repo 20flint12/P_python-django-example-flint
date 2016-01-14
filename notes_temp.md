@@ -93,3 +93,5 @@ astroreminder
 
 
 sudo apt-get install libopencv-dev python-opencv
+
+https://www.howtoforge.com/tutorial/sync-documents-with-google-drive-on-ubuntu-linux/
