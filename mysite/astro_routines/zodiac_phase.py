@@ -42,7 +42,8 @@ def format_zodiacal_longitude(longitude):
     sign = zodiac[int(l / 30)]
     minutes = int(round((l % 1) * 60))
     # return u'{0:02}{1}{2:02}'.format(degrees, sign, minutes)
-    return u'{0:02}{1}'.format(degrees, sign)
+    # return u'{0:02}{1}'.format(degrees, sign)
+    return u'{1}{0:02}'.format(degrees, sign)
 
 def format_angle_as_time(a):
     """Format angle as hours:minutes:seconds and return it as a string."""
