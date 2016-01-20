@@ -177,6 +177,7 @@ def email_reminder():
         # пред. новолуние 10 Jan 03:30
         # след. перв.четв 17 Jan 01:26
         # 28Вод-05Рыб-13Рыб
+        # Вод28-Рыб05-Рыб13
 
 
         #======================================================================
@@ -184,7 +185,7 @@ def email_reminder():
 
 
         print "Q"*80
-        my_email(out_str_subject, out_str_msg, list_emails)
+        # my_email(out_str_subject, out_str_msg, list_emails)
         # my_mail2("Reminder", "test1", "test2")
 
 

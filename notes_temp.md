@@ -95,3 +95,28 @@ astroreminder
 sudo apt-get install libopencv-dev python-opencv
 
 https://www.howtoforge.com/tutorial/sync-documents-with-google-drive-on-ubuntu-linux/
+
+
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/20flint12/P_test_py_web.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[branch "development"]
+	remote = origin
+	merge = refs/heads/development
+[user]
+	email = 20flint12@gmail.com
+	name = Sergey
+[http]
+	sslverify = false
+
+[credential]
+        username = 20flint12
+        helper = cache --timeout=3600   
