@@ -23,6 +23,31 @@ git remote add ccOrigin4 ssh://testastroflint4@cloudcontrolled.com/repository.gi
 git remote -v
 
 
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/20flint12/P_test_py_web.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[branch "development"]
+	remote = origin
+	merge = refs/heads/development
+[user]
+	email = 20flint12@gmail.com
+	name = Sergey
+[http]
+	sslverify = false
+
+[credential]
+        username = 20flint12
+        helper = cache --timeout=3600
+
+
 
 # https://www.cloudcontrol.com/dev-center/Guides/Python/Django
 
