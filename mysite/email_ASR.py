@@ -139,7 +139,7 @@ def email_reminder():
         prev_mom = tp_mph_ext["prev"][-2:]
         next_mom = tp_mph_ext["next"][-2:]
 
-        out_str_msg += u"пред. "
+        out_str_msg += u"пред: "
         if prev_mom == "NM":
             out_str_msg += u"новолуние"
         elif prev_mom == "FQ":
@@ -150,7 +150,7 @@ def email_reminder():
             out_str_msg += u"трет.четв"
         out_str_msg += " " + tp_mph_ext[prev_phase].strftime(format) + "\n"
 
-        out_str_msg += u"след. "
+        out_str_msg += u"след: "
         if next_mom == "NM":
             out_str_msg += u"новолуние"
         elif next_mom == "FQ":
