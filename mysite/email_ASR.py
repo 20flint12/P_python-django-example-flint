@@ -184,9 +184,9 @@ def email_reminder():
         # print "out_str_msg=", out_str_msg, " |||"*5, len(out_str_msg)
 
 
+        my_email(out_str_subject, out_str_msg, list_emails)
+        #end_mail2("Reminder", "test1", "test2")
         print "Q"*80
-        # my_email(out_str_subject, out_str_msg, list_emails)
-        send_mail2("Reminder", "test1", "test2")
 
 
 
