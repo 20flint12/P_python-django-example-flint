@@ -52,6 +52,7 @@ import astro_routines.moon_day as md
 import mysite.astro_routines.geo_place as geo
 import mysite.astro_routines.geo_preload as geopr
 
+import mysite.email_ASR as reminder
 
 
 
@@ -205,9 +206,15 @@ def json_req(request):
 
 def main_index(request):
 
-    # return HttpResponse('index.html')
-    return render_to_response('index.html',
-                                {'#isCurrentDay':1})
+    reminder.email_reminder()   ###############################################
+
+    s_out = "reminder.email_reminder()================"
+    # for path in sys.path:
+    #     print path
+        # s_out += path + "\n"
+
+    return render_to_response('Current_date_time.html', {'current_date': s_out})
+
 
 
 # from django.http import JsonResponse
@@ -221,40 +228,6 @@ def main_index(request):
 
 
 # file charts.py
-
-def my_simple(request):
-
-    import random
-    import django
-    import datetime
-
-    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-    from matplotlib.figure import Figure
-    from matplotlib.dates import DateFormatter
-
-    # print "!" * 100
-
-    fig=Figure()
-    ax=fig.add_subplot(111)
-    x=[]
-    y=[]
-    now=datetime.datetime.now()
-    delta=datetime.timedelta(days=4)
-    for i in range(30):
-        x.append(now)
-        now+=delta
-        y.append(random.randint(0, 1000))
-    ax.plot_date(x, y, '-')
-    ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
-    fig.autofmt_xdate()
-
-    canvas=FigureCanvas(fig)
-    response=django.http.HttpResponse(content_type='image/png')
-    canvas.print_png(response)
-    return response
-
-
-
 
 
 

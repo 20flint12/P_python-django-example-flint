@@ -15,21 +15,21 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^polls/', include('polls.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    # url(r'^polls/', include('polls.urls')),
+    # url(r'^admin/', include(admin.site.urls)),
 )
 
 
-urlpatterns += patterns('',
-
-    (r'^search-form/$', 'records.views.search_form'),
-    (r'^search/$',      'records.views.search'),
-    (r'^search2/$',     'records.views.search2'),
-    (r'^news/$',        'records.views.news'),
-    (r'^weather/$',     'records.views.weather'),
-
-    (r'^wchart/$',      'records.views.weather_chart'),
-)
+# urlpatterns += patterns('',
+#
+#     (r'^search-form/$', 'records.views.search_form'),
+#     (r'^search/$',      'records.views.search'),
+#     (r'^search2/$',     'records.views.search2'),
+#     (r'^news/$',        'records.views.news'),
+#     (r'^weather/$',     'records.views.weather'),
+#
+#     (r'^wchart/$',      'records.views.weather_chart'),
+# )
 
 
 urlpatterns += patterns('',
@@ -43,8 +43,7 @@ urlpatterns += patterns('',
 
     (r'^main/$',    views.main_index),
 
-    # (r'^charts/simple.png$', 'myapp.views.charts.simple'),
-    (r'^charts/$',  views.my_simple),
+    # (r'^charts/$',  views.my_simple),
 
     # (r'^email/$',   views.my_email),
 
