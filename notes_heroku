@@ -1,0 +1,13 @@
+git push heroku -u reminder:master
+
+
+
+Destroy the app:
+heroku apps:destroy --app example
+
+Create a new one:
+heroku create example
+
+Push to it:
+git push heroku -u master
+
