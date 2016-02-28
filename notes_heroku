@@ -11,3 +11,9 @@ heroku create example
 Push to it:
 git push heroku -u master
 
+
+
+
+
+
+heroku logs --tail
