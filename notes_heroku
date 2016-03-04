@@ -17,3 +17,7 @@ git push heroku -u master
 
 
 heroku logs --tail
+
+
+
+python manage.py runserver
