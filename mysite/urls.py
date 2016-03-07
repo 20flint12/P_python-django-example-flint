@@ -34,7 +34,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('',
 
-    # (r'^hello/$',   views.hello),  ##############################
+    ###############################
     (r'^time/$',    views.current_datetime),
     (r'^scrape/$',  views.scrape_data_req),
     (r'^astro/$',   views.astro_req),
@@ -44,7 +44,6 @@ urlpatterns += patterns('',
     (r'^main/$',    views.main_index),
 
     # (r'^charts/$',  views.my_simple),
-
     # (r'^email/$',   views.my_email),
 
 )
@@ -67,14 +66,15 @@ from apscheduler.schedulers.background import BackgroundScheduler
 # sched = BlockingScheduler()
 sched = BackgroundScheduler()
 
-@sched.scheduled_job('interval', minutes=3)
+@sched.scheduled_job('interval', minutes=10)
 def timed_job():
     print('This job is run every three hundreds minutes.')
-    mail.email_reminder()
+    # mail.email_reminder()
 
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=5)
 def scheduled_job():
     print('This job is run every weekday at 5pm.')
+    mail.email_reminder()
 
 
 # sched.configure(options_from_ini_file)

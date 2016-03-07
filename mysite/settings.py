@@ -32,7 +32,6 @@ MANAGERS = ADMINS
 
 
 # Update database configuration with $DATABASE_URL.
-import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(db_from_env)
 DATABASES = { 'default': db_from_env }
@@ -171,6 +170,7 @@ TEMPLATES = (
     },
 )
 
+
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
@@ -192,7 +192,7 @@ INSTALLED_APPS = (
     #'djcelery',
     # 'kombu.transport.django',
 
-    'mysite',
+    # 'mysite',
 
 )
 
