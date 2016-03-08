@@ -192,7 +192,7 @@ INSTALLED_APPS = (
     #'djcelery',
     # 'kombu.transport.django',
 
-    # 'mysite',
+    'mysite',
 
 )
 
