@@ -1,0 +1,40 @@
+git push heroku -u collector:master
+
+heroku logs --tail
+
+python manage.py runserver
+
+
+
+
+heroku pg:info
+
+# To continuously monitor the status of your database
+watch heroku pg:info
+
+# To establish a psql session with your remote database use
+heroku pg:psql
+
+# pg:push and pg:pull
+heroku pg:pull HEROKU_POSTGRESQL_MAGENTA mylocaldb --app sushi
+
+# If providing a Postgres user or password for your local DB is necessary
+PGUSER=postgres PGPASSWORD=password heroku pg:pull HEROKU_POSTGRESQL_MAGENTA mylocaldb --app sushi
+
+heroku pg:push mylocaldb HEROKU_POSTGRESQL_MAGENTA --app sushi
+
+# command queries the pg_stat_statements table in Postgres
+heroku pg:ps
+
+# Heroku Postgres provides convenient access to the credentials and location of your database
+heroku pg:credentials DATABASE
+heroku pg:credentials HEROKU_POSTGRESQL_GRAY_URL --reset
+
+
+
+
+admin
+12345trewq
+
+https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04
+manage.py migrate --run-syncdb
