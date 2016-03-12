@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <script type="text/javascript" id="month-template">
+        var gloabl.monthtemplate = '<div class="curr-day">{{CurrentDay}}</div>\
+            <li>{{name}} - {{phase}}</li>\
+    </script>
+</head>
+<body>
+<!--mustache.render($('#month-template').html(), model);-->
+<h1>Мой сайт точного времени</h1>
+{% block content %}{% endblock %}
+<hr>
+{% block content2 %}{% endblock %}
+<hr>
+{% block footer %}
+<p>Спасибо, что посетили мой сайт.</p>
+
+{% endblock %}
+
+</body>
+</html>

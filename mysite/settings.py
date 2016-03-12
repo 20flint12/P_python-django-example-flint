@@ -8,73 +8,15 @@ import os
 
 
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-###############################################################################
-#
-# # redis server address
-# # BROKER_URL = 'redis://localhost:6379/0'
-# # store task results in redis
-# # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-# task result life time until they will be deleted
-
-CELERY_TASK_RESULT_EXPIRES = 7*86400  # 7 days
-# needed for worker monitoring
-CELERY_SEND_EVENTS = True
-# where to store periodic tasks (needed for scheduler)
-CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
-CELERY_RESULT_BACKEND = "djcelery.backends.database:DatabaseBackend"
-
-
-# BROKER_URL = "amqp://guest:guest@localhost:5672//"
-# BROKER_URL = 'amqp://guest:guest@localhost:15711//'
-# BROKER_URL = 'django://'
-# BROKER_URL = "amqp://guest@localhost//"
-
-
-
-###############################################################################
-# add following lines to the end of settings.py
-import djcelery
-djcelery.setup_loader()
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 ###############################################################################
 
-
-# https://www.cloudcontrol.com/dev-center/guides/python/add-on-credentials
-
-try:
-    # production settings
-    f = os.environ['CRED_FILE']
-    print "f=", f
-    db_data = json.load(open(f))['MYSQLS']
-    print "db_data=", db_data
-
-    db_config = {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': db_data['MYSQLS_DATABASE'],
-        'USER': db_data['MYSQLS_USERNAME'],
-        'PASSWORD': db_data['MYSQLS_PASSWORD'],
-        'HOST': db_data['MYSQLS_HOSTNAME'],
-        'PORT': db_data['MYSQLS_PORT'],
-        'OPTIONS': {
-            'sql_mode': 'TRADITIONAL',
-            'charset': 'utf8',
-            'init_command': 'SET '
-                'storage_engine=INNODB,'
-                'character_set_connection=utf8,'
-                'collation_connection=utf8_bin'
-                    }
-    }
-except KeyError, IOError:
-    # development/test settings:
-    db_config = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '{0}/mysite.sqlite3'.format(PROJECT_ROOT),
-    }
-
-
-
+import dj_database_url
 
 
 
@@ -89,20 +31,51 @@ ADMINS = (
 MANAGERS = ADMINS
 
 
-DATABASES = {
-    'default': db_config,
-}
+ON_HEROKU = os.environ.get('ON_HEROKU')
+HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
 
-print "DATABASES=", DATABASES
+
+if ON_HEROKU:
+    DATABASE_URL = 'postgresql:///postgresql'
+else:
+    DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
+
+# DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
+
+
+
+# Update database configuration with $DATABASE_URL.
+db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
+DATABASES = { 'default': db_from_env }
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'OPTIONS': {
-#             'read_default_file': 'mysql.cnf',
-#         },
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+print "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ DATABASES=", DATABASES
+
+
+
+AUTH_PASSWORD_VALIDATORS = (
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+)
+
+
 
 
 # Local time zone for this installation. Choices can be found here:
@@ -142,7 +115,8 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+#STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -163,8 +137,10 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '_rs%0pq1+b#@-&amp;lbd0y%hb_t9w(tz5n-hpv1b!k=&amp;0=@ve*t7n'
+
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -187,36 +163,45 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'mysite.urls'
 
+TEMPLATES = (
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            '{0}/templates/'.format(PROJECT_ROOT),
+            '{0}/my_templates/'.format(PROJECT_ROOT),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'debug': DEBUG,
+        },
+    },
+)
+
+
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-TEMPLATE_DIRS = (
-    '{0}/templates/'.format(PROJECT_ROOT),
-    '{0}/my_templates/'.format(PROJECT_ROOT),
-    '{0}/front-end/'.format(PROJECT_ROOT),
-
-)
 
 INSTALLED_APPS = (
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
-    'gunicorn',
+    'mysite',
+
     'polls',
     'records',
-
-    'djcelery',
-    'kombu.transport.django',
-
-    # 'celerytest',
-
 )
 
 # INSTALLED_APPS += ['tastypie']
@@ -257,32 +242,6 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 
 #==============================================================================
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'astroreminder@gmail.com'
-DEFAULT_FROM_EMAIL = 'astroreminder@gmail.com'
-SERVER_EMAIL = 'astroreminder@gmail.com'
-EMAIL_HOST_PASSWORD = '95dd2d30'
-
-
-#==============================================================================
-
-import mysite.config_ASR as conf
-import mysite.astro_routines.geo_preload as geopr
-import pprint
-
-
-# For cron
-# PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-path_geo_file = os.path.dirname(os.path.abspath(__file__)) + "/" + conf.GEO_FILE
-
-
-geopr.GEO_PLACE_dict = geopr.read_config_to_geo(path_geo_file)
-print "conf.GEO_PLACE_dict=\n", pprint.pprint(geopr.GEO_PLACE_dict)
 
 
 

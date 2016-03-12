@@ -24,10 +24,6 @@ from records.models import WeatherData
 import mysite.scrapes.scrape_data3 as scr3
 import mysite.scrapes.scrape_data2 as scr2
 
-import multiprocessing as mp
-
-
-import mysite.email_ASR as reminder
 
 
 
@@ -144,24 +140,7 @@ def news(request):
 
 
 
-my_proc_exec = mp.Process()
-
 def weather(request):
-
-    global my_proc_exec
-
-    reminder.email_reminder()   ###############################################
-
-    if my_proc_exec.is_alive():
-        print "my_proc_exec is alive"
-    else:
-        my_proc_exec = mp.Process(target=my_proc_weather,
-                                  args=(3,) )
-        my_proc_exec.start()
-        print "my_proc_exec is started"
-
-    print "my_proc_exec=", my_proc_exec
-
 
     # dt = datetime.datetime.today()
     # str_date_stamp = dt.strftime('%YYYY-%MM-%DD')
@@ -183,51 +162,51 @@ def weather(request):
 
 
 
-def my_proc_weather(repeat_counter):
-
-    # repeat = 1
-
-    begin_time = datetime.datetime.now()
-    print "\nBegin time:", str(begin_time)[:-7]
-    cur_time = begin_time
-    delta_time = datetime.timedelta(days=30,
-                                    hours=10,
-                                    minutes=3,
-                                    seconds=10)
-    checkout_time = begin_time + delta_time
-
-    try:
-        while True:
-
-            if datetime.datetime.now() > checkout_time:
-                break
-                checkout_time = datetime.datetime.now() + delta_time
-
-
-            dt = datetime.datetime.today()
-            ctx = scr2.parse_temperature(scr2.get_temperature())
-            # ctx = [u'20:00', 23, 25, 10, 44, 768, 754]
-            print "weather-" * 5, ctx
-
-            if ctx:
-                w = WeatherData(weather_datetime = dt,
-                                check_time      = ctx[0],
-                                temperature_air = ctx[1],
-                                temperature_com = ctx[2],
-                                temperature_dew = ctx[3],
-                                temperature_hum = ctx[4],
-                                pressure_sea    = ctx[5],
-                                pressure_stn    = ctx[6])
-                w.save()
-                print "+" * 80
-
-            time.sleep(60)
-
-        print "my_proc_exec is finished"
-
-    except KeyboardInterrupt:
-
-        print '^C received, break'
+# def my_proc_weather(repeat_counter):
+#
+#     # repeat = 1
+#
+#     begin_time = datetime.datetime.now()
+#     print "\nBegin time:", str(begin_time)[:-7]
+#     cur_time = begin_time
+#     delta_time = datetime.timedelta(days=30,
+#                                     hours=10,
+#                                     minutes=3,
+#                                     seconds=10)
+#     checkout_time = begin_time + delta_time
+#
+#     try:
+#         while True:
+#
+#             if datetime.datetime.now() > checkout_time:
+#                 break
+#                 checkout_time = datetime.datetime.now() + delta_time
+#
+#
+#             dt = datetime.datetime.today()
+#             ctx = scr2.parse_temperature(scr2.get_temperature())
+#             # ctx = [u'20:00', 23, 25, 10, 44, 768, 754]
+#             print "weather-" * 5, ctx
+#
+#             if ctx:
+#                 w = WeatherData(weather_datetime = dt,
+#                                 check_time      = ctx[0],
+#                                 temperature_air = ctx[1],
+#                                 temperature_com = ctx[2],
+#                                 temperature_dew = ctx[3],
+#                                 temperature_hum = ctx[4],
+#                                 pressure_sea    = ctx[5],
+#                                 pressure_stn    = ctx[6])
+#                 w.save()
+#                 print "+" * 80
+#
+#             time.sleep(60)
+#
+#         print "my_proc_exec is finished"
+#
+#     except KeyboardInterrupt:
+#
+#         print '^C received, break'
 
 
 
