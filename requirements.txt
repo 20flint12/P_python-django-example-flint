@@ -1,7 +1,8 @@
 gunicorn==19.4.5
 Django==1.9.2
-beautifulsoup4==4.3.2
 dj-database-url==0.4.0
+
+beautifulsoup4==4.3.2
 geopy==1.11.0
 httplib2==0.9
 numpy==1.9.2
@@ -12,4 +13,7 @@ pytz==2015.7
 requests==2.2.1
 tzwhere==2.2
 whitenoise==2.0.6
+
 APScheduler==3.0.5
+
+matplotlib==1.4.3

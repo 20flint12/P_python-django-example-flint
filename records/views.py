@@ -8,6 +8,7 @@ import datetime
 
 from django.shortcuts import render
 
+
 # Create your views here.
 
 from django.shortcuts import render_to_response
@@ -141,18 +142,6 @@ def news(request):
 
 
 def weather(request):
-
-    # dt = datetime.datetime.today()
-    # str_date_stamp = dt.strftime('%YYYY-%MM-%DD')
-    # print dt, str_date_stamp
-
-    # ctx = scr2.get_temperature()
-    # ctx = "efwoefлдо   ывдпалырвплы"
-    # # ctx = scr3.get_news()
-    #
-    # # ustring = unicode(read_string, encoding=...)
-    # n1 = RecNews(news_date=dt, news_contents=ctx)
-    # n1.save()
 
     wdata = WeatherData.objects.all()
     # print wdata
