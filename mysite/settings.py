@@ -31,15 +31,17 @@ ADMINS = (
 MANAGERS = ADMINS
 
 
-# ON_HEROKU = os.environ.get('ON_HEROKU')
-# HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
-#
-#
-# if ON_HEROKU:
-#     DATABASE_URL = 'postgresql:///postgresql'
-# else:
-#     DATABASE_URL = 'postgresql:///postgresql'
-#     # DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
+ON_HEROKU = os.environ.get('ON_HEROKU')
+HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
+
+
+if ON_HEROKU:
+    print "ON_HEROKU"
+    # DATABASE_URL = 'postgresql:///postgresql'
+else:
+    print "ON_LOCAL"
+    DATABASE_URL = 'postgresql:///postgresql'
+    # DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
 
 # DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 

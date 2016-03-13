@@ -7,7 +7,7 @@ heroku logs -p postgres -t
 
 python manage.py runserver
 
-
+export DATABASE_URL=postgres:///$(whoami)
 
 
 heroku pg:info
