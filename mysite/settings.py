@@ -31,15 +31,15 @@ ADMINS = (
 MANAGERS = ADMINS
 
 
-ON_HEROKU = os.environ.get('ON_HEROKU')
-HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
-
-
-if ON_HEROKU:
-    DATABASE_URL = 'postgresql:///postgresql'
-else:
-    DATABASE_URL = 'postgresql:///postgresql'
-    # DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
+# ON_HEROKU = os.environ.get('ON_HEROKU')
+# HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
+#
+#
+# if ON_HEROKU:
+#     DATABASE_URL = 'postgresql:///postgresql'
+# else:
+#     DATABASE_URL = 'postgresql:///postgresql'
+#     # DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
 
 # DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
@@ -48,18 +48,18 @@ else:
 # Update database configuration with $DATABASE_URL.
 db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
 
-# DATABASES = { 'default': db_from_env }
+DATABASES = { 'default': db_from_env }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'myproject',
+#         'USER': 'myprojectuser',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 # DATABASES = {

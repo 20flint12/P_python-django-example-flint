@@ -1,6 +1,9 @@
 git push heroku -u collector:master
 
 heroku logs --tail
+heroku logs -t
+heroku logs -p postgres -t
+
 
 python manage.py runserver
 
@@ -8,6 +11,7 @@ python manage.py runserver
 
 
 heroku pg:info
+heroku pg:diagnose
 
 # To continuously monitor the status of your database
 watch heroku pg:info
@@ -38,3 +42,7 @@ admin
 
 https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04
 manage.py migrate --run-syncdb
+
+
+heroku run python manage.py migrate
+heroku run python manage.py createsuperuser
