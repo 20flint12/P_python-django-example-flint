@@ -1,7 +1,6 @@
 
 from django.core.management.base import BaseCommand, CommandError
 
-# import mysite.email_ASR as email
 import records.views as vs
 
 
