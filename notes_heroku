@@ -9,6 +9,9 @@ python manage.py runserver
 
 export DATABASE_URL=postgres:///$(whoami)
 
+pip install -r requirements.txt
+pip freeze > requirements.txt
+
 
 heroku pg:info
 heroku pg:diagnose
@@ -47,3 +50,14 @@ heroku run manage.py migrate --run-syncdb
 heroku run python manage.py migrate
 heroku run python manage.py createsuperuser
 
+
+
+
+sudo dd if=./ubuntu-iso-name.iso of=/dev/sdc
+sudo dd if=/home/flint/Downloads/kubuntu-14.04.4-desktop-amd64.iso of=/dev/sdc
+
+sudo eject /dev/sdX
+
+
+https://docs.djangoproject.com/en/1.9/howto/custom-management-commands/
+python manage.py perform_collector 1

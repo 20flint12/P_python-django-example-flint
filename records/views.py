@@ -143,12 +143,16 @@ def news(request):
 
 def weather(request):
 
+    weather_collect()
+
     wdata = WeatherData.objects.all()
     # print wdata
     return render_to_response('news_search_results.html',
         {'books': wdata})
 
 
+def weather_collect():
+    print"ewrfwerfw"
 
 
 # def my_proc_weather(repeat_counter):

@@ -8,7 +8,6 @@ from django.http import HttpResponse
 
 
 import datetime
-import ephem
 
 import os
 import sys
@@ -37,8 +36,8 @@ def current_datetime(request):
 def scrape_data_req(request):
     now = datetime.datetime.now()
     # cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    # news = scr.get_news()
-    news = scr2.get_temperature()
+    news = scr.get_news()
+    # news = scr2.get_temperature()
     # print unicode(news)
     return render_to_response('scrape_data.html',
                               {'current_site':now,

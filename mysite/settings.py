@@ -13,6 +13,10 @@ BASE_DIR     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+print "### BASE_DIR=", BASE_DIR
+print "PROJECT_ROOT=", PROJECT_ROOT
+
+
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 ###############################################################################
 
@@ -213,10 +217,12 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
+    'records',
+    # '{0}/records'.format(BASE_DIR),
+
     'mysite',
 
     'polls',
-    'records',
 )
 
 # INSTALLED_APPS += ['tastypie']
