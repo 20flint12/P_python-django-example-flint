@@ -4,8 +4,7 @@ from polls.models import Poll
 
 import polls.views
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$',
         ListView.as_view(
             queryset=Poll.objects.order_by('-pub_date')[:5],
@@ -21,4 +20,4 @@ urlpatterns = patterns(
             template_name='polls/results.html'),
         name='poll_results'),
     url(r'^(?P<poll_id>\d+)/vote/$', polls.views.vote),
-)
+]

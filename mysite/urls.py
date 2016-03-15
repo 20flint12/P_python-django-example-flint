@@ -18,39 +18,40 @@ import polls.urls
 admin.autodiscover()
 
 
-urlpatterns = patterns('',
-                       url(r'^polls/', include(polls.urls)),
-                       url(r'^admin/', include(admin.site.urls)),
-                       )
+# urlpatterns = patterns('',
+#                        url(r'^polls/', include(polls.urls)),
+#                        url(r'^admin/', include(admin.site.urls)),
+#                        )
+
+urlpatterns = [
+    url(r'^polls/', include(polls.urls)),
+    url(r'^admin/', include(admin.site.urls)),
+]
+
+urlpatterns += [
+
+    url(r'^search-form/$', records.views.search_form),
+    url(r'^search/$',      records.views.search),
+    url(r'^search2/$',     records.views.search2),
+    url(r'^news/$',        records.views.news),
+    url(r'^weather/$',     records.views.weather),
+
+    url(r'^wchart/$',      records.views.weather_chart),
+]
 
 
-urlpatterns += patterns('',
-
-    (r'^search-form/$', records.views.search_form),
-    (r'^search/$',      records.views.search),
-    (r'^search2/$',     records.views.search2),
-    (r'^news/$',        records.views.news),
-    (r'^weather/$',     records.views.weather),
-
-    (r'^wchart/$',      records.views.weather_chart),
-)
-
-
-urlpatterns += patterns('',
+urlpatterns += [
 
     # (r'^hello/$',   views.hello),  ##############################
-    (r'^time/$',    views.current_datetime),
-    (r'^scrape/$',  views.scrape_data_req),
-    (r'^meta/$',    views.display_meta),
+    url(r'^time/$',    views.current_datetime),
+    url(r'^scrape/$',  views.scrape_data_req),
+    url(r'^meta/$',    views.display_meta),
 
-    (r'^main/$',    views.main_index),
+    url(r'^main/$',    views.main_index),
 
     # (r'^charts/simple.png$', 'myapp.views.charts.simple'),
-    (r'^charts/$',  views.my_simple),
-
-    # (r'^email/$',   views.my_email),
-
-)
+    url(r'^charts/$',  views.my_simple),
+]
 
 
 urlpatterns += staticfiles_urlpatterns()
