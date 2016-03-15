@@ -61,3 +61,42 @@ sudo eject /dev/sdX
 
 https://docs.djangoproject.com/en/1.9/howto/custom-management-commands/
 python manage.py perform_collector 1
+
+
+
+
+
+
+
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/20flint12/P_python-django-example-flint.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = heroku
+	merge = refs/heads/reminder
+[user]
+	email = 20flint12@gmail.com
+	name = 20flint12
+[http]
+	sslverify = false
+[branch "development"]
+	remote = origin
+	merge = refs/heads/development
+
+[credential]
+        username = 20flint12@gmail.com
+        helper = cache --timeout=3600
+[remote "heroku"]
+	url = https://git.heroku.com/astro-collector.git
+	fetch = +refs/heads/*:refs/remotes/heroku/*
+[branch "reminder"]
+	remote = heroku
+	merge = refs/heads/master
+[branch "collector"]
+	remote = heroku
+	merge = refs/heads/master

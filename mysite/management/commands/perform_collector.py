@@ -2,6 +2,7 @@
 from django.core.management.base import BaseCommand, CommandError
 
 import records.views as vs
+import polls.urls as pvs
 
 
 
@@ -26,7 +27,7 @@ class Command(BaseCommand):
         for poll_id in options['collect_id']:
 
             vs.weather_collect()
-
+            # pvs.urlpatterns
             # email.email_reminder()
             print "options['collect_id']"
 

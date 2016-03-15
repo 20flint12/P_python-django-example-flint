@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import DetailView, ListView
 from polls.models import Poll
 
+import polls.views
 
 urlpatterns = patterns(
     '',
@@ -19,5 +20,5 @@ urlpatterns = patterns(
             model=Poll,
             template_name='polls/results.html'),
         name='poll_results'),
-    url(r'^(?P<poll_id>\d+)/vote/$', 'polls.views.vote'),
+    url(r'^(?P<poll_id>\d+)/vote/$', polls.views.vote),
 )

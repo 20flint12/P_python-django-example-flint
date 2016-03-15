@@ -13,8 +13,8 @@ import os
 import sys
 
 
-import scrapes.scrape_data2 as scr2
-import scrapes.scrape_data3 as scr
+import records.scrapes.scrape_data2 as scr2
+import records.scrapes.scrape_data3 as scr
 
 
 

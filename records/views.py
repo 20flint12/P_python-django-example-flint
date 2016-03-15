@@ -22,8 +22,8 @@ from records.models import Publisher
 from records.models import RecNews
 from records.models import WeatherData
 
-import mysite.scrapes.scrape_data3 as scr3
-import mysite.scrapes.scrape_data2 as scr2
+import records.scrapes.scrape_data3 as scr3
+import records.scrapes.scrape_data2 as scr2
 
 
 
@@ -151,8 +151,26 @@ def weather(request):
         {'books': wdata})
 
 
+
 def weather_collect():
-    print"ewrfwerfw"
+
+    dt = datetime.datetime.today()
+    ctx = scr2.parse_temperature(scr2.get_temperature())
+    # ctx = [u'20:00', 23, 25, 10, 44, 768, 754]
+    print "weather-!-" * 5, ctx
+
+    if ctx:
+        w = WeatherData(weather_datetime = dt,
+                        check_time      = ctx[0],
+                        temperature_air = ctx[1],
+                        temperature_com = ctx[2],
+                        temperature_dew = ctx[3],
+                        temperature_hum = ctx[4],
+                        pressure_sea    = ctx[5],
+                        pressure_stn    = ctx[6])
+        w.save()
+        print "+" * 80
+
 
 
 # def my_proc_weather(repeat_counter):

@@ -6,6 +6,10 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 ##############################################################
 # from mysite import views
 import views
+
+import records.views
+import polls.urls
+
 # from polls.models import Poll
 # from my_tests import views
 ##############################################################
@@ -15,20 +19,20 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^polls/', include('polls.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-)
+                       url(r'^polls/', include(polls.urls)),
+                       url(r'^admin/', include(admin.site.urls)),
+                       )
 
 
 urlpatterns += patterns('',
 
-    (r'^search-form/$', 'records.views.search_form'),
-    (r'^search/$',      'records.views.search'),
-    (r'^search2/$',     'records.views.search2'),
-    (r'^news/$',        'records.views.news'),
-    (r'^weather/$',     'records.views.weather'),
+    (r'^search-form/$', records.views.search_form),
+    (r'^search/$',      records.views.search),
+    (r'^search2/$',     records.views.search2),
+    (r'^news/$',        records.views.news),
+    (r'^weather/$',     records.views.weather),
 
-    (r'^wchart/$',      'records.views.weather_chart'),
+    (r'^wchart/$',      records.views.weather_chart),
 )
 
 
