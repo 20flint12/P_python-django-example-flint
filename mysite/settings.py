@@ -43,8 +43,9 @@ if ON_HEROKU:
     # DATABASE_URL = 'postgresql:///postgresql'
 else:
     print "ON_LOCAL"
-    DATABASE_URL = 'postgresql:///postgresql'
-    # DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
+
+DATABASE_URL = 'postgresql:///postgresql'
+# DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
 
 # DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 

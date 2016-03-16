@@ -1,4 +1,4 @@
-git push heroku -u collector:master
+git push heroku collector:master
 
 heroku logs --tail
 heroku logs -t
