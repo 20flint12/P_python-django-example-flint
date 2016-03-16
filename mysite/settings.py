@@ -36,7 +36,6 @@ MANAGERS = ADMINS
 
 
 ON_HEROKU = os.environ.get('ON_HEROKU')
-HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
 
 
 if ON_HEROKU:

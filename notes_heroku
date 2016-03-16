@@ -55,6 +55,8 @@ heroku run python manage.py createsuperuser
 
 sudo dd if=./ubuntu-iso-name.iso of=/dev/sdc
 sudo dd if=/home/flint/Downloads/kubuntu-14.04.4-desktop-amd64.iso of=/dev/sdc
+sudo dd if=/home/flint/Downloads/kubuntu-15.10-desktop-amd64.iso of=/dev/sdc
+
 
 sudo eject /dev/sdX
 

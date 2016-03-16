@@ -94,50 +94,6 @@ def news(request):
 
 
 
-# def my_proc_news(repeat_counter):
-#
-#     # repeat = 1
-#
-#     begin_time = datetime.datetime.now()
-#     print "\nBegin time:", str(begin_time)[:-7]
-#     cur_time = begin_time
-#     delta_time = datetime.timedelta(hours=0, minutes=20, seconds=30)
-#     checkout_time = begin_time + delta_time
-#
-#     try:
-#         while True:
-#
-#             # if repeat > repeat_counter:
-#             #     break
-#             #
-#             # repeat += 1
-#
-#             if datetime.datetime.now() > checkout_time:
-#
-#                 break
-#                 # Save full_str to file
-#                 checkout_time = datetime.datetime.now() + delta_time
-#
-#
-#             dt = datetime.datetime.today()
-#             # ctx = scr2.get_temperature()
-#             ctx = scr3.get_news()
-#
-#             if ctx:
-#                 n1 = RecNews(news_date=dt, news_contents=ctx)
-#                 n1.save()
-#
-#             print "+" * 100
-#             # break
-#             time.sleep(60)
-#
-#     except KeyboardInterrupt:
-#
-#         print '^C received, break'
-
-
-
-
 
 def weather(request):
 
@@ -182,14 +138,25 @@ def weather_chart(request):
 
     print ".'" * 20, "weather_chart", ".'" * 20
 
-    # fig=Figure()
+    #**************************************************************************
+    #  x = np.arange(0, 10, 0.1)
+    # y1 = 0.05 * x**2
+    # y2 = -1 *y1
+    #
+    # fig, ax1 = plt.subplots()
+    #
+    # ax2 = ax1.twinx()
+    # ax1.plot(x, y1, 'g-')
+    # ax2.plot(x, y2, 'b-')
+    #
+    # ax1.set_xlabel('X data')
+    # ax1.set_ylabel('Y1 data', color='g')
+    # ax2.set_ylabel('Y2 data', color='b')
+    #**************************************************************************
+
     fig=Figure(figsize=(15, 10), dpi=80, facecolor='w', edgecolor='k')
-    # fig(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
-
-    ax=fig.add_subplot(111)
-    x=[]
-    y=[]
-
+    ax1=fig.add_subplot(111)
+    # ax1=fig.subplots_adjust(bottom=0.2)
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     max = len(WeatherData.objects.all())
@@ -206,24 +173,33 @@ def weather_chart(request):
     # print x[:]
     # x = [(21,), (20,), (15,)]
 
-    # y = sel.values_list("temperature_air")
-    y = sel.values_list("pressure_stn")
-    # print y[:]
+    y1 = sel.values_list("pressure_sea")
+    y2 = sel.values_list("pressure_stn")
+    # print y2[:]
 
+    ax1.plot(x, y1, 'p-')
+    ax1.plot(x, y2, 'g-')
 
-    ax.plot(x, y, '-')
-    # ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
-    xfmt = DateFormatter('%Y-%m-%d %H:%M')
-    ax.xaxis.set_major_formatter(xfmt)
+    xfmt = DateFormatter('%d %b %H:%M') # xfmt = DateFormatter('%Y-%m-%d %H:%M')
+    ax1.xaxis.set_major_formatter(xfmt)
     fig.autofmt_xdate()
-
 
     # plt.subplots_adjust(bottom=0.2)
     # plt.xticks( rotation=25 )
-    # ax=plt.gca()
-    # xfmt = md.DateFormatter('%Y-%m-%d %H:%M:%S')
-    # ax.xaxis.set_major_formatter(xfmt)
+    # ax1=plt.gca()
     # plt.plot(dates,values)
+
+
+    y3 = sel.values_list("temperature_air")
+    y4 = sel.values_list("temperature_com")
+    y5 = sel.values_list("temperature_dew")
+
+    ax2 = ax1.twinx()
+    ax2.plot(x, y3, 'b--')
+    ax2.plot(x, y4, 'y--')
+    ax2.plot(x, y5, 'r--')
+
+
 
 
     canvas=FigureCanvas(fig)
