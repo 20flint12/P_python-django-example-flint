@@ -16,6 +16,8 @@ import mysite.astro_routines.geo_place as geo
 import mysite.astro_routines.sun_rise_sett as srs
 import mysite.astro_routines.zodiac_phase as zod
 
+import mysite.scrapes.scrape_solar_activity as sa
+
 
 
 
@@ -100,6 +102,28 @@ def email_reminder():
 
 
 
+        solar_lst = sa.get_solar_activity()
+        print "solar_lst=", pprint.pprint(solar_lst)
+        # =====================================================================
+        # out_str_msg += "\n"
+        out_str_msg += solar_lst[0][0] + ": "   # ACTIVE
+        out_str_msg += solar_lst[0][1] + "-"
+        out_str_msg += solar_lst[0][2] + "%\n"
+
+        # out_str_msg += solar_lst[1][0] + ": "   # MINOR
+        # out_str_msg += solar_lst[1][1] + "-"
+        # out_str_msg += solar_lst[1][2] + "%\n"
+
+        out_str_msg += solar_lst[2][0] + ": "   # SEVERE
+        out_str_msg += solar_lst[2][1] + "-"
+        out_str_msg += solar_lst[2][2] + "%\n"
+
+
+
+
+
+
+
         tp_md_ext = md.get_moon_day_ext(cur12_aware_loc, cur12_unaware_utc, cur_place)
         # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
         # =====================================================================
@@ -163,11 +187,13 @@ def email_reminder():
         #----------------------------------------------------------------------
 
 
-
         # ### Солнце ###
         # восход 07:29
         # закат  15:58
         # 22Коз
+        # ACTIVE: 10-10%
+        # MINOR_: 01-01%
+        # SEVERE: 01-01%
         #
         # ### Луна ###
         # 5 лунный день
@@ -178,6 +204,10 @@ def email_reminder():
         # след. перв.четв 17 Jan 01:26
         # 28Вод-05Рыб-13Рыб
         # Вод28-Рыб05-Рыб13
+
+
+
+
 
 
         #======================================================================

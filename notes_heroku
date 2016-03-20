@@ -19,3 +19,6 @@ heroku logs --tail
 
 
 python manage.py runserver
+
+
+python manage.py perform_reminder 1
