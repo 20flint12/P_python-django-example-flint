@@ -154,9 +154,27 @@ def weather_chart(request):
     # ax2.set_ylabel('Y2 data', color='b')
     #**************************************************************************
 
-    fig=Figure(figsize=(15, 10), dpi=80, facecolor='w', edgecolor='k')
-    ax1=fig.add_subplot(111)
+    fig = Figure(figsize=(15, 10), dpi=80, facecolor='w', edgecolor='k')
+    # ax1 = fig.add_subplot(211)
+    # ax2 = fig.add_subplot(212)
     # ax1=fig.subplots_adjust(bottom=0.2)
+
+
+
+
+    textsize = 9
+    left, width = 0.1, 0.8
+    rect1 = [left, 0.7, width, 0.2]
+    rect2 = [left, 0.3, width, 0.4]
+    rect3 = [left, 0.1, width, 0.2]
+
+    axescolor = '#f6f6f6'  # the axes background color
+    ax1 = fig.add_axes(rect1, axisbg=axescolor)  # left, bottom, width, height
+    ax2 = fig.add_axes(rect2, axisbg=axescolor, sharex=ax1)
+    ax2t = ax2.twinx()
+    ax3 = fig.add_axes(rect3, axisbg=axescolor, sharex=ax1)
+
+
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     max = len(WeatherData.objects.all())
