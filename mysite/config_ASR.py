@@ -41,8 +41,10 @@ EMAIL_SET = {
             '380688846025@sms.kyivstar.net',    # Инна
             '380975135252@sms.kyivstar.net',    # Володя-планетарий
             '380973497865@sms.kyivstar.net',    # Юра-планетарий
+            '380988521183@sms.kyivstar.net',    # Лена-планетарий
 
             '380966140196@sms.kyivstar.net',    # Костя Нечаев
+            '380675946107@sms.kyivstar.net',    # Гриша Вакуленко
 
         ],
     "Kremenchug":
