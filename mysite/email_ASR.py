@@ -52,6 +52,7 @@ def email_reminder():
 
         cur12_aware_loc, cur12_unaware_utc = \
             geo.aware_loc_unaware_utc_for_local12place(cur_date_loc, cur_place)
+        # print "cur12_aware_loc, cur12_unaware_utc =", cur12_aware_loc, cur12_unaware_utc
 
 
         # str_on = aware_loc.strftime("%d %b %H:%M%z")[:-2]

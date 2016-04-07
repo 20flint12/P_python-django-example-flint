@@ -35,7 +35,7 @@ EMAIL_SET = {
 
     "Kharkiv":
         [
-            # '20flint12@gmail.com',
+            '20flint12@gmail.com',
             '380688845064@sms.kyivstar.net',
             #-------------------------------
             '380688846025@sms.kyivstar.net',    # Инна
@@ -45,14 +45,13 @@ EMAIL_SET = {
 
             '380966140196@sms.kyivstar.net',    # Костя Нечаев
             '380675946107@sms.kyivstar.net',    # Гриша Вакуленко
-
         ],
     "Kremenchug":
         [
             '20flint12@gmail.com',
             #-------------------------------
             '380678986620@sms.kyivstar.net',    # мама
-            # '380681546330@sms.kyivstar.net',    # тёща
+            '380681546330@sms.kyivstar.net',    # тёща
         ],
     "Boston":
         [

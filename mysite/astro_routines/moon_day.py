@@ -7,8 +7,8 @@ import ephem
 import pprint
 import re
 
-import mysite.astro_routines.geo_place as geo
-import mysite.astro_routines.geo_preload as geopr
+import geo_place as geo
+import geo_preload as geopr
 
 
 
@@ -39,6 +39,8 @@ def get_moon_day(in_date_utc, coord):
     place = _set_Observer(coord)
     moon = ephem.Moon()
 
+    # print "in_date_utc=", in_date_utc
+
     #####################################################################
     curr_date = ephem.Date(in_date_utc)
     prev_NM = ephem.previous_new_moon(in_date_utc)
@@ -50,20 +52,28 @@ def get_moon_day(in_date_utc, coord):
     str_head += "next_NM : {:<18}\n".format(str(next_NM))
     str_head += ">" * 80 + "\n"
 
-    cur_mday = 0
+    cur_mday = 1
     place.date = prev_NM
+    day_rise = place.previous_rising(moon)
+    day_sett = place.previous_setting(moon)
     new_rise = place.next_rising(moon)
 
+    # print "curr_date > new_rise", curr_date, new_rise
+
     md_dict = {}
+    md_dict["moon_day"] = cur_mday
+    md_dict["day_rise"] = day_rise
+    md_dict["day_sett"] = day_sett
+    md_dict["new_rise"] = new_rise
+
     while curr_date > new_rise:
         str_mark = ""
-        cur_mday += 1    # prepare for next moon day
+
         if cur_mday == 1:
             day_rise = place.previous_rising(moon)
             day_sett = place.previous_setting(moon)
             if day_rise > day_sett:
                 day_sett = place.next_setting(moon)
-            day_rise = place.previous_rising(moon)
             str_mark = " new moon >>>"
         else:
             day_rise = place.next_rising(moon)
@@ -75,10 +85,15 @@ def get_moon_day(in_date_utc, coord):
             if next_NM < new_rise:
                 str_mark = " >>> new moon"
 
+        # print "day_rise=", day_rise
+
         str_out, md_dict = _form_str_moon_day(cur_mday,
                                              day_rise, day_sett, new_rise,
                                              str_mark)
+        cur_mday += 1  # prepare for next moon day
+
         str_head += str_out + "\n"
+        # print str_head
 
     str_head += "<" * 80
 
@@ -120,14 +135,18 @@ def get_moon_day_ext(in_aware_loc, in_unaware_utc, place):
     # print "place=", place, coord, tz_name
 
     # print "in_aware_loc=", in_aware_loc.strftime(format), "utcoffset=", in_aware_loc.utcoffset()
+    # print "in_unaware_utc=", in_unaware_utc
     # -------------------------------------------------------------------------
 
     tp_md_ext, ctx2 = get_moon_day(in_unaware_utc, coord)
     # =========================================================================
-
+    # print "&^%$"*20, "\ntp_md_ext", tp_md_ext, ctx2
 
     tp_md_ext.update({"date_utc": in_unaware_utc})
     tp_md_ext.update({"aware_loc": in_aware_loc})
+
+
+
 
     day_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md_ext["day_rise"]).datetime())
     day_sett_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md_ext["day_sett"]).datetime())

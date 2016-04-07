@@ -9,7 +9,7 @@ import pprint
 import datetime
 
 
-import mysite.astro_routines.geo_place as geo
+import geo_place as geo
 
 
 
