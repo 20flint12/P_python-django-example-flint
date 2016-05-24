@@ -128,7 +128,7 @@ def weather_collect():
 
 
 
-def weather_chart(request):
+def weather_chart(request, num_str ="1000"):
 
     import django
 
@@ -139,21 +139,6 @@ def weather_chart(request):
     print ".'" * 20, "weather_chart", ".'" * 20
 
     #**************************************************************************
-    #  x = np.arange(0, 10, 0.1)
-    # y1 = 0.05 * x**2
-    # y2 = -1 *y1
-    #
-    # fig, ax1 = plt.subplots()
-    #
-    # ax2 = ax1.twinx()
-    # ax1.plot(x, y1, 'g-')
-    # ax2.plot(x, y2, 'b-')
-    #
-    # ax1.set_xlabel('X data')
-    # ax1.set_ylabel('Y1 data', color='g')
-    # ax2.set_ylabel('Y2 data', color='b')
-    #**************************************************************************
-
     fig = Figure(figsize=(15, 10), dpi=80, facecolor='w', edgecolor='k')
     # ax1 = fig.add_subplot(211)
     # ax2 = fig.add_subplot(212)
@@ -182,9 +167,16 @@ def weather_chart(request):
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     WeatherData.objects.filter(pressure_stn=0).delete()
 
+
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    cnt = WeatherData.objects.count()
-    sel = WeatherData.objects.all()[cnt-max:cnt]   # last 1000
+    # num = int(num_str)
+    # if num == "1000":
+    #     pass
+    num = WeatherData.objects.count()
+    print "num=", num, num_str
+
+
+    sel = WeatherData.objects.all()[num - max:num]   # last 1000
     # sel = WeatherData.reverse()[:10000]   # last 1000
 
     x = sel.values_list("weather_datetime")

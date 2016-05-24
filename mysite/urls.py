@@ -36,7 +36,8 @@ urlpatterns += [
     url(r'^news/$',        records.views.news),
     url(r'^weather/$',     records.views.weather),
 
-    url(r'^wchart/$',      records.views.weather_chart),
+    url(r'^wchart/$',                   records.views.weather_chart),
+    url(r'^wchart/(?P<num>[0-9]{4})/$', records.views.weather_chart),
 ]
 
 
