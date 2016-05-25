@@ -128,9 +128,9 @@ def weather_collect():
 
 
 
-def weather_chart(request, num_str ="1000"):
+def weather_chart(request, num ="1000"):
 
-    import django
+    # import django
 
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
     from matplotlib.figure import Figure
@@ -169,14 +169,14 @@ def weather_chart(request, num_str ="1000"):
 
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    # num = int(num_str)
-    # if num == "1000":
+    # num_int = int(num_str)
+    # if num_int == "1000":
     #     pass
-    num = WeatherData.objects.count()
-    print "num=", num, num_str
+    num_int = WeatherData.objects.count()
+    print "num_int=", num_int, "num=", num
 
 
-    sel = WeatherData.objects.all()[num - max:num]   # last 1000
+    sel = WeatherData.objects.all()[num_int - max:num_int]   # last 1000
     # sel = WeatherData.reverse()[:10000]   # last 1000
 
     x = sel.values_list("weather_datetime")
@@ -212,11 +212,23 @@ def weather_chart(request, num_str ="1000"):
 
 
 
-    canvas=FigureCanvas(fig)
-    response=django.http.HttpResponse(content_type='image/png')
+    canvas = FigureCanvas(fig)
+    response = HttpResponse(content_type='image/png')
     canvas.print_png(response)
     return response
 
+
+
+
+def clear_weather_data(request, numfirst ="0", num_last ="10"):
+
+    # print ".'" * 20, "clear numbers=", num
+
+    text = "<h2>HttpResponse:</h2>"
+    text += "From"
+    text += "<h3>num_first= " + numfirst + "</h3> to <h3>num_last= " + num_last + "</h3>"
+
+    return HttpResponse(text)
 
 
 
