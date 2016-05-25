@@ -220,13 +220,13 @@ def weather_chart(request, num ="1000"):
 
 
 
-def clear_weather_data(request, numfirst ="0", num_last ="10"):
+def clear_weather_data(request, numf="0", num_last="10", qw= True):
 
     # print ".'" * 20, "clear numbers=", num
 
     text = "<h2>HttpResponse:</h2>"
     text += "From"
-    text += "<h3>num_first= " + numfirst + "</h3> to <h3>num_last= " + num_last + "</h3>"
+    text += "<h3>num_first= " + numf + "</h3> to <h3>num_last= " + num_last + "</h3>"
 
     return HttpResponse(text)
 
