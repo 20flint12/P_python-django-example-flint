@@ -287,6 +287,8 @@ def send_mail2(mail_subject, str_plain, str_html):
         server.sendmail(fromaddr, toaddrs, msg.as_string())
         server.quit()
 
+        # http://joequery.me/guides/python-smtp-authenticationerror/
+
         print "\n### mail to {:s} sent.".format(email)
 
 
