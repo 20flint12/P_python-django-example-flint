@@ -7,9 +7,8 @@ import json
 import os
 
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,8 +20,6 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 ###############################################################################
 
 import dj_database_url
-
-
 
 
 DEBUG = True
@@ -54,18 +51,18 @@ DATABASE_URL = 'postgresql:///postgresql'
 # Update database configuration with $DATABASE_URL.
 db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
 
-DATABASES = { 'default': db_from_env }
+# DATABASES = {'default': db_from_env}
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'myproject',
-#         'USER': 'myprojectuser',
-#         'PASSWORD': 'password',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'flint',
+        'USER': 'flint',
+        'PASSWORD': '63933',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 
 # DATABASES = {
@@ -75,7 +72,7 @@ DATABASES = { 'default': db_from_env }
 #     }
 # }
 
-print "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ DATABASES=", DATABASES
+print "DATABASES=", DATABASES
 
 
 
@@ -217,10 +214,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
+    'mysite',
+
     'records',
     # '{0}/records'.format(BASE_DIR),
-
-    'mysite',
 
     'polls',
 )

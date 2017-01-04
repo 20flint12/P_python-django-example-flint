@@ -1,0 +1,29 @@
+
+sudo apt-get install python-setuptools
+sudo apt-get install postgresql
+sudo apt-get install python-psycopg2
+sudo apt-get install libpq-dev
+
+sudo pip install -r requirements.txt
+
+sudo apt-get install pgadmin3
+
+***********************************************************
+sudo -u postgres -i
+
+CREATE DATABASE flint;
+CREATE USER flint WITH password ‘63933';
+GRANT ALL ON DATABASE flint TO flint;
+
+CREATE ROLE flint;
+ALTER USER flint WITH SUPERUSER LOGIN;
+CREATE ROLE flint WITH LOGIN SUPERUSER;
+ALTER USER flint PASSWORD '63933';
+
+psql -l     # show all databases
+\du;
+\l;  List of databases
+psql -h localhost -p 5432 -U flint flint
+***********************************************************
+
+20flint12@gmail.com 20flint12@gmail.com f88888878
