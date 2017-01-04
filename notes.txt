@@ -26,4 +26,9 @@ psql -l     # show all databases
 psql -h localhost -p 5432 -U flint flint
 ***********************************************************
 
+python manage.py makemigrations
+python manage.py makemigrations polls
+python manage.py makemigrations records
+python manage.py migrate
+python manage.py createsuperuser
 20flint12@gmail.com 20flint12@gmail.com f88888878
