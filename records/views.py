@@ -123,7 +123,7 @@ def weather_collect():
                         pressure_sea    = ctx[5],
                         pressure_stn    = ctx[6])
         w.save()
-        print "+" * 80
+        print "+=!d" * 80
 
 
 

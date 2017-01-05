@@ -41,11 +41,12 @@ if ON_HEROKU:
 else:
     print "ON_LOCAL"
 
-DATABASE_URL = 'postgresql:///postgresql'
+# DATABASE_URL = 'postgresql:///postgresql'
+DATABASE_URL = 'postgresql:///flint'
+
 # DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
 
-# DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
-
+DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
 
 # Update database configuration with $DATABASE_URL.
@@ -53,16 +54,16 @@ db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
 
 # DATABASES = {'default': db_from_env}
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'flint',
-        'USER': 'flint',
-        'PASSWORD': '63933',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'flint',
+#         'USER': 'flint',
+#         'PASSWORD': '63933',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 # DATABASES = {
@@ -77,18 +78,10 @@ print "DATABASES=", DATABASES
 
 
 AUTH_PASSWORD_VALIDATORS = (
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 )
 
 
@@ -194,7 +187,7 @@ TEMPLATES = (
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'debug': DEBUG,
+            # 'debug': DEBUG,
         },
     },
 )
