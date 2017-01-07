@@ -2,12 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
-
 from django.db import models
 
-
-
-# Create your models here.
 
 class Publisher(models.Model):
 
@@ -41,14 +37,12 @@ class Book(models.Model):
         return self.title
 
 
-
 class RecNews(models.Model):
     news_date = models.DateField()
     news_contents = models.CharField(max_length=100)
 
     def __unicode__(self):
         return u'%s %s' % (self.news_date, self.news_contents)
-
 
 
 class WeatherData(models.Model):

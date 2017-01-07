@@ -11,13 +11,13 @@ logger = logging.getLogger(__name__)
 
 class MadcramAdminSite(AdminSite):
     # Text to put at the end of each page's <title>.
-    site_title = ugettext_lazy('Madcram admin')
+    site_title = ugettext_lazy('Astro-factor admin')
 
     # Text to put in each page's <h1>.
-    site_header = ugettext_lazy('Madcram administration')
+    site_header = ugettext_lazy('Astro-factor administration')
 
     # Text to put at the top of the admin index page.
-    index_title = ugettext_lazy('Madcram site administration')
+    index_title = ugettext_lazy('Astro-factor site administration')
 
 
 def push_to_mailchimp(modeladmin, request, queryset):
@@ -55,8 +55,8 @@ class UserAdmin(admin.ModelAdmin):
         # 'net_revenue'
     )
     exclude = ('password',)
-    actions = [push_to_mailchimp]
+    # actions = [push_to_mailchimp]
 
 
-admin.site = MadcramAdminSite()
+# admin.site = MadcramAdminSite()
 admin.site.register(User, UserAdmin)
