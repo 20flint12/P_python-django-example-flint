@@ -9,15 +9,15 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 
-class MadcramAdminSite(AdminSite):
+class AstroFactorAdminSite(AdminSite):
     # Text to put at the end of each page's <title>.
-    site_title = ugettext_lazy('Astro-factor admin')
+    site_title = ugettext_lazy('AstroFactor admin')
 
     # Text to put in each page's <h1>.
-    site_header = ugettext_lazy('Astro-factor administration')
+    site_header = ugettext_lazy('AstroFactor administration')
 
     # Text to put at the top of the admin index page.
-    index_title = ugettext_lazy('Astro-factor site administration')
+    index_title = ugettext_lazy('AstroFactor site administration')
 
 
 def push_to_mailchimp(modeladmin, request, queryset):
@@ -47,16 +47,10 @@ class UserAdmin(admin.ModelAdmin):
         'email',
         'date_joined',
         'last_login',
-        # 'study_modules',
-        # 'amount_outstanding',
-        # 'amount_paid_out',
-        # 'amount_revenue',
-        # 'processing_fee',
-        # 'net_revenue'
     )
     exclude = ('password',)
-    # actions = [push_to_mailchimp]
+    actions = [push_to_mailchimp]
 
 
-# admin.site = MadcramAdminSite()
+admin.site = AstroFactorAdminSite()
 admin.site.register(User, UserAdmin)

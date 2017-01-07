@@ -53,12 +53,11 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     'astro',
+    'astrouser',
     'records',
-    # '{0}/records'.format(BASE_DIR),
     'polls',
     'grabber',
     'engine',
-    'astrouser',
     'reminder',
 )
 
