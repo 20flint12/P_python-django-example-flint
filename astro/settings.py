@@ -25,6 +25,12 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+ADMIN_EMAIL = '20flint12@gmail.com'
+APP_EMAIL = '20flint12@gmail.com'
+
+
+
+
 ON_HEROKU = os.environ.get('ON_HEROKU')
 
 
@@ -52,6 +58,7 @@ INSTALLED_APPS = (
     'polls',
     'grabber',
     'engine',
+    'astrouser',
 )
 
 # INSTALLED_APPS += ['tastypie']
@@ -80,10 +87,11 @@ MIDDLEWARE_CLASSES = (
 TEMPLATES = (
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            '{0}/templates/'.format(PROJECT_ROOT),
-            '{0}/my_templates/'.format(PROJECT_ROOT),
-        ],
+        # 'DIRS': [
+        #     '{0}/templates/'.format(PROJECT_ROOT),
+        #     '{0}/my_templates/'.format(PROJECT_ROOT),
+        # ],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -97,6 +105,8 @@ TEMPLATES = (
     },
 )
 
+AUTH_USER_MODEL = 'astrouser.User'
+LOGIN_URL = '/account/sign-in/'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'astro.wsgi.application'
@@ -135,10 +145,10 @@ db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
 # print "DATABASES=", DATABASES
 
 AUTH_PASSWORD_VALIDATORS = (
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+    # {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
     # {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
+    # {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 )
 
 TIME_ZONE = 'Europe/Kiev'
