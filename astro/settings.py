@@ -50,6 +50,8 @@ INSTALLED_APPS = (
     'records',
     # '{0}/records'.format(BASE_DIR),
     'polls',
+    'grabber',
+    'engine',
 )
 
 # INSTALLED_APPS += ['tastypie']

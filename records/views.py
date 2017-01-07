@@ -1,29 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import time
 import datetime
 
-
-
-from django.shortcuts import render
-
-
-# Create your views here.
-
+import grabber.scrapes.scrape_data2 as scr2
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
-from django.http import HttpResponse
-
+import grabber.scrapes.scrape_data3 as scr3
 from records.models import Book
-
-from records.models import Publisher
-
 from records.models import RecNews
 from records.models import WeatherData
-
-import records.scrapes.scrape_data3 as scr3
-import records.scrapes.scrape_data2 as scr2
 
 
 

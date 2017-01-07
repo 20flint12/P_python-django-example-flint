@@ -2,21 +2,13 @@
 # -*- coding: utf-8 -*-
 
 
-
-from django.shortcuts import render_to_response
-from django.http import HttpResponse
-
-
 import datetime
-
-import os
 import sys
 
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
 
-import records.scrapes.scrape_data2 as scr2
-import records.scrapes.scrape_data3 as scr
-
-
+import grabber.scrapes.scrape_data3 as scr
 
 
 def current_datetime(request):
@@ -30,9 +22,6 @@ def current_datetime(request):
     return render_to_response('Current_date_time.html', {'current_date': s_out})
 
 
-
-
-
 def scrape_data_req(request):
     now = datetime.datetime.now()
     # cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,9 +31,6 @@ def scrape_data_req(request):
     return render_to_response('scrape_data.html',
                               {'current_site':now,
                                'data_context':news})
-
-
-
 
 
 def display_meta(request):
@@ -58,15 +44,11 @@ def display_meta(request):
     return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
 
-
-
 def main_index(request):
 
     # return HttpResponse('index.html')
     return render_to_response('index.html',
                                 {'#isCurrentDay':1})
-
-
 
 
 # file charts.py
