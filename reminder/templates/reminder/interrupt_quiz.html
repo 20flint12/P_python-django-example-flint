@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand">{{ module.name }}</span>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href="#">Feedback</a></li>
+                <li><a class="navbar-link" href="{% url 'dashboard' %}">Exit to dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock header %}
+
+{% block main_container %}
+    <div id="score-block">
+        <h3>You answered {{ incorrect_count }} questions incorrectly in a row</h3>
+        <p class="marg-t50"><a href="{{ url_next }}" class="btn btn-info">Work through incorrect...</a></p>
+    </div>
+{% endblock main_container %}

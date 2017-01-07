@@ -1,0 +1,23 @@
+<div class="flex-row">
+    <div class="handle-list">
+        <div></div> <div></div> <div></div>
+    </div>
+    <div class="answer-text">{{ answer_form.title }}</div>
+    <div class="is-correct">
+        {% if page_type.answer == 'radio' %}
+            <span class="hidden">{{ answer_form.is_correct }}</span>
+            <label>
+                <input type="radio" name="corrent_answer" class="radio-correct-answer">
+                {{ answer_form.is_correct.label }}
+            </label>
+        {% elif  page_type.answer == 'checkbox' %}
+            {{ answer_form.is_correct }} {{ answer_form.is_correct.label_tag }}
+        {% endif %}
+    </div>
+    <div class="hidden">
+        {% if answer_form.id %} {{ answer_form.id }} {% endif %}
+        {{ answer_form.order }}
+        {% if answer_formset.can_delete %} {{ answer_form.DELETE }} {% endif %}
+    </div>
+    <button class="answer-delete" type="button">x</button>
+</div>

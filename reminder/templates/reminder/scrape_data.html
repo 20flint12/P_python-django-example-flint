@@ -1,0 +1,25 @@
+
+{% extends "inner_layout.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Сбор данных с тематических сайтов{% endblock %}
+
+{% block main_container %}
+
+<p>Содрано с сайта {{ current_site }}</p>
+    сами данные: {{ data_context|linebreaks }}
+
+
+{% endblock main_container %}
+
+{% block js %}
+
+    <script src="{% static 'madquiz/js/dashboard.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+{% endblock js %}

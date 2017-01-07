@@ -3,8 +3,8 @@ from django.contrib.admin import AdminSite
 from django.utils.translation import ugettext_lazy
 from models import User, update_member
 import logging
-# from astro import settings
 from django.conf import settings
+
 
 logger = logging.getLogger(__name__)
 
@@ -47,12 +47,12 @@ class UserAdmin(admin.ModelAdmin):
         'email',
         'date_joined',
         'last_login',
-        'study_modules',
-        'amount_outstanding',
-        'amount_paid_out',
-        'amount_revenue',
-        'processing_fee',
-        'net_revenue'
+        # 'study_modules',
+        # 'amount_outstanding',
+        # 'amount_paid_out',
+        # 'amount_revenue',
+        # 'processing_fee',
+        # 'net_revenue'
     )
     exclude = ('password',)
     actions = [push_to_mailchimp]

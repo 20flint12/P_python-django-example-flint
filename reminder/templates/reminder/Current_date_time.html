@@ -1,0 +1,21 @@
+{% extends "inner_layout.html" %}
+
+{% load staticfiles %}
+
+{% block main_container %}
+
+<p>Сейчас {{ current_date|linebreaks }}</p>
+
+
+{% endblock main_container %}
+
+{% block js %}
+
+    <script src="{% static 'madquiz/js/dashboard.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+{% endblock js %}

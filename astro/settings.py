@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'grabber',
     'engine',
     'astrouser',
+    'reminder',
 )
 
 # INSTALLED_APPS += ['tastypie']

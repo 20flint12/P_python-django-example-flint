@@ -73,8 +73,8 @@ class User(AbstractBaseUser):
     def is_staff(self):
         return self.is_admin
 
-    def study_modules(self):
-        return len(StudyModule.objects.filter(user=self))
+    # def study_modules(self):
+    #     return len(StudyModule.objects.filter(user=self))
 
     def amount_outstanding(self):
         summ = Payout.objects.filter(user=self, ready_for_payment=True, paid=False).aggregate(Sum('amount_outstanding'))['amount_outstanding__sum']

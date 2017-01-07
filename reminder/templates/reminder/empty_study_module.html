@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block header %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand">{{ module.name }}</span>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href="#">Feedback</a></li>
+                <li><a class="navbar-link" href="{% url 'dashboard' %}">Exit to dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock header %}
+{% block main_container %}
+    <h2>{{ page.title }}</h2>
+    <div class="alert alert-warning" role="alert">
+        Your study module has no pages!
+    </div>
+    <div class="align-center">
+        {% if request.user.is_authenticated %}
+            {% if module.user == request.user %}
+                <a href="{% url 'edit_module' module_id=module.id %}"
+                   class="btn btn-info">Add Page</a>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock main_container %}

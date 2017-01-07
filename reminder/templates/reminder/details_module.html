@@ -1,0 +1,70 @@
+{% extends "inner_layout.html" %}
+
+{% load staticfiles %}
+
+{% block title %} {{ object.name }} {% endblock title %}
+
+{% block mc_header_left %} Details: {{ object.name }} {% endblock mc_header_left %}
+
+{% block mc_header_right %}{% endblock mc_header_right %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'lib/jasny-bootstrap/css/jasny-bootstrap.min.css' %}">
+{% endblock css %}
+
+{% block mc_body %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="details-module-image">
+                <div style="margin: 10px;">
+                    {% if object.image %}
+                        <img id="initial-img" src="{{ object.image.url }}" width="300">
+                    {% else %}
+                        <img id="initial-img" src="{% static 'img/default_cover_image.jpg' %}" width="300">
+                    {% endif %}
+                    <span class="btn btn-default btn-file" style="display:none">
+                        {{ object.image }}
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="align-left" style="margin: 10px;">
+                {% if request.user.is_authenticated %}
+                    {% if module.user == request.user %}
+                        <a class="btn btn-simple grey"
+                           disabled="disabled"
+                           title="You are the owner of this module"
+                           data-toggle="tooltip">${{ object.price }}</a>
+                    {% else %}
+                        <a class="btn btn-simple grey"
+                                {% if object.purchased_flag %}
+                           disabled="disabled"
+                           title="You already purchased this module"
+                           data-toggle="tooltip"
+                                {% endif %}
+                           href="{% url 'module_payment' module_id=object.id %}">
+                            ${{ object.price }}</a>
+                    {% endif %}
+                {% else %}
+                    <a class="btn btn-default grey" href="{% url 'sign_in' %}">${{ object.price }}</a>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="text-details">
+                <p>{{ object.name }}</p>
+                {% if object.category %}
+                    <span class=" " style="color:#cecece">{{ object.category }} | {{ object.isbn }} </span>
+                {% endif %}
+            </div>
+
+            <div class="text-img-block">
+                {{ object.description|safe }}
+            </div>
+        </div>
+    </div>
+{% endblock mc_body %}

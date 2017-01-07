@@ -1,0 +1,32 @@
+<div class="modal fade" id="study-settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="go-study" action="" style="display:inline" method="get">
+                <div class="modal-body">
+                    <label>
+                        <input name="display_correct_answer" type="checkbox">
+                        Display correct answer if answered incorrectly
+                    </label>
+                    <p>
+                        Stop-&-Repeat after
+                        <select name="stop_after">
+                            <option value="0">-</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                        questions answered incorrectly
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+                    <button type="submit" class="btn btn-info btn-ok">Go Study</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

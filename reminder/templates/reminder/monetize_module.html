@@ -1,0 +1,123 @@
+<form action="" id="monetize-module-form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-errors">
+        {% for error in form.non_field_errors %}
+            <p class="form-error-list">{{ error }}</p>
+        {% endfor %}
+        {{ form.errors }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                {% if form.published_at.value %}
+                    <label for="id_direct_store_url">Direct store URL:</label>
+                    <input class="form-control" id="id_direct_store_url" maxlength="50"
+                           type="text" value="{{ direct_store_url }}" readonly="">
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.name.errors }}
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+        </div>
+
+        <div class="col-md-4 align-right">
+            <div class="monetize_btn">
+                {% if not form.published_at.value %}
+                    <button class="btn btn-info" name="btn_pub_to_store" type="submit">
+                        Publish to Store
+                    </button>
+                {% else %}
+                    {% if object.store_version == True %}
+                        <button class="btn btn-info" name="btn_pub_changes" type="submit">
+                            Publish Changes
+                        </button>
+                    {% else %}
+                        {# Has no changes! #}
+                    {% endif %}
+                    <button class="btn btn-danger" name="btn_remove_from_store" type="submit">
+                        Remove from store
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="text-img-block">
+                {{ form.description.errors }}
+                {{ form.description.label_tag }}
+                {{ form.description }}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div>Cover Image:</div>
+            <div class="fileinput {% if form.instance.image %} fileinput-exists {% else %} fileinput-new {% endif %}"
+                 data-provides="fileinput">
+                {% if form.instance.image %}
+                    <img id="initial-img" src="{{ form.instance.image.url }}" alt="">
+                {% endif %}
+                <span class="btn btn-default btn-file" style="display:none">
+                    {{ form.image }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                {{ form.category.errors }}
+                {{ form.category.label_tag }}
+                <input class="form-control" id="id_category" maxlength="50"
+                       name="category" type="text" value="{{ form.category.value }}" readonly="">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                {{ form.isbn.errors }}
+                {{ form.isbn.label_tag }}
+                {{ form.isbn }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            {{ form.price.errors }}
+            {{ form.price.label_tag }}
+            <div class="input-group">
+                <span class="input-group-addon">USD</span>
+                <input type="number"
+                        {# pattern="[0-9]+([\.,][0-9]+)?" #}
+                       step="0.01"
+                       name="price"
+                       class="form-control text-right"
+                       id="id_price" maxlength="50"
+                       value="{% if not form.price.value %}{{ recommended }}{% else %}{{ form.price.value }}{% endif %}"
+                />
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="id_revenue_share">Revenue share:</label>
+            <div class="input-group">
+                <span class="input-group-addon">USD</span>
+                <input type="text"
+                       class="form-control text-right"
+                       id="id_revenue_share" maxlength="50"
+                       name="revenue_share"
+                       value="{{ revenue_shared }}" readonly=""
+                />
+            </div>
+        </div>
+    </div>
+    <br>
+</form>

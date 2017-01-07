@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand">{{ module.name }}</span>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href="#">Feedback</a></li>
+                <li><a class="navbar-link" href="{% url 'dashboard' %}">Exit to dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock header %}
+
+{% block main_container %}
+    <div id="score-block">
+        <h3>Your Score</h3>
+        <p id="score">{{ score }}%</p>
+        <p>
+            <input type="checkbox" id="display_correct_answer"{% if request.session.quiz.display_correct == True %} checked="checked"{% endif %} />
+            <label for="display_correct_answer">Display correct answer if answered incorrectly</label>
+        </p>
+        {% if improve_score_url %}
+            <p><a href="{{ improve_score_url }}{% if request.session.quiz.display_correct == True %}&display_correct_answer=on{% endif %}"
+                  data-display="{{ improve_score_url }}&display_correct_answer=on"
+                  data-hide="{{ improve_score_url }}"
+                  class="btn btn-info" id="improve_your_score">Improve Your Score</a></p>
+        {% endif %}
+        <p><a href="{% url 'study_module_start' module_id=module.id %}" class="btn btn-info">Start Over</a></p>
+        <p><a href="{% url 'dashboard' %}" class="btn btn-info">Back To Dashboard</a></p>
+    </div>
+{% endblock main_container %}
+
+{% block js %}
+    <script>
+        {# TODO : extract js to js file #}
+        $(document).ready(function () {
+            var $checkbox = $('#display_correct_answer'),
+                    $button = $('#improve_your_score');
+
+            $checkbox.on('click', function () {
+                var $this = $(this);
+                $button.prop(
+                        'href',
+                        $this.prop('checked') ? $button.data('display') : $button.data('hide')
+                );
+            });
+        });
+    </script>
+{% endblock js %}

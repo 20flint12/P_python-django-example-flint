@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block header %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand">{{ module.name }}</span>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href="#">Feedback</a></li>
+                <li><a class="navbar-link" href="{% url 'dashboard' %}">Exit to dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="study-progress" class="flex-rw fx-jcsb">
+        <div class="progress fx-g1 marg5">
+            <div class="progress-bar" role="progressbar" style="width: {{ percent }}%">
+                <div style="margin-left: 50px">{{ percent }}%</div>
+            </div>
+        </div>
+        <button id="next-btn" data-href="{{ url_next }}" class="btn btn-info marg5"
+                {% if page.type_info.answer and not page.type_info.answer == 'video' %} disabled {% endif %}>
+            {% if page.type_info.answer and not page.type_info.answer == 'video' %} Submit {% else %} Next {% endif %}
+        </button>
+    </div>
+{% endblock header %}
+
+{% block main_container %}
+    <div id="quiz-content">
+        <h2 id="page_title">
+            {{ page.title }}
+            <button class="butt js--triggerAnimation" onclick="responsiveVoice.speak($('#page_title').text(), 'US English Male');" type="button" value="Play">
+                <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+            </button>
+        </h2>
+
+        {% if page.image %}
+            <img src="{{ page.image.url }}">
+        {% endif %}
+
+        {% if page.text %}
+            <div id="page_text">
+                {{ page.text|safe }}
+            </div>
+            <button class="butt js--triggerAnimation" onclick="responsiveVoice.speak($('#page_text').text(), 'US English Male');" type="button" value="Play">
+                <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+            </button>
+        {% endif %}
+
+        {% if answers %}
+            <div id="answer">
+                {% if page.type_info.answer %}
+                    {% if page.type_info.answer == 'checkbox' %}
+                        {% for answer in answers %}
+                            <p>
+                                {# TODO : div is not allowed to be in p tag #}
+                            <div id="answer_title">
+                                <input name="answer" type="checkbox" value="{{ answer.id }}"/>
+                                <label id="label_{{ answer.id }}">{{ answer.title }}</label>
+                                <button class="butt js--triggerAnimation"
+                                        onclick="responsiveVoice.speak($('#label_{{ answer.id }}').text(), 'US English Male');"
+                                        type="button" value="Play">
+                                    <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <span class="incorrect hidden">Incorrect</span>
+                            </p>
+                        {% endfor %}
+                    {% elif page.type_info.answer == 'radio' %}
+                        {% for answer in answers %}
+                            <p>
+                                <label>
+                                    {# TODO : div is not allowed to be in label tag #}
+                                    <div id="answer_title">
+                                        <input name="answer" type="radio" value="{{ answer.id }}">
+
+                                        <label id="label_{{ answer.id }}">
+                                            {{ answer.title }}
+                                        </label>
+                                        <button class="butt js--triggerAnimation"
+                                                onclick="responsiveVoice.speak($('#label_{{ answer.id }}').text(), 'US English Male');"
+                                                type="button" value="Play">
+                                            <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </label>
+                                <span class="incorrect hidden">Incorrect</span>
+                            </p>
+                        {% endfor %}
+                    {% elif page.type_info.answer == 'text' %}
+                        {% for answer in answers %}
+                            <p class="form-group mt40">
+                                <label for="correct-answer">Correct Answer</label><br/>
+                                <input name="answer" type="text" class="form-control" id="correct-answer"/>
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% elif page.type_info.answer == 'video' %}
+            {% if page.video_type == 0 %}
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ page.video_embed }}" frameborder="0" allowfullscreen></iframe>
+            {% elif page.video_type == 1 %}
+                <iframe src="https://player.vimeo.com/video/{{ page.video_vimeo_embed }}" width="640"
+                        height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            {% endif %}
+        {% elif page.type_info.answer %}
+            <div class="alert alert-danger" role="alert">Answers not provided!</div>
+        {% endif %}
+
+        <div id="answer-response" class="panel hidden">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+                <ul class="lstyle-no"></ul>
+            </div>
+        </div>
+    </div>
+{% endblock main_container %}
+
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        var acceptAnswerUrl = '{{ url_accept_answer }}';
+    </script>
+    <script src="{% static 'madquiz/js/study_module.js' %}"></script>
+{% endblock js %}

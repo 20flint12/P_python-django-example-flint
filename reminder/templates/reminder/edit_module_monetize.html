@@ -1,0 +1,72 @@
+{% extends "inner_layout.html" %}
+
+{% load staticfiles %}
+
+{% block title %} {{ object.name }} {% endblock title %}
+
+{% block mc_header_left %} Editing: {{ object.name }}
+    {% if object.check_hash %} {% else %} *{% endif %}
+    {% if object.published_at %} (published){% else %}{% endif %}
+{% endblock mc_header_left %}
+
+{% block mc_header_right %}{% endblock mc_header_right %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'lib/jasny-bootstrap/css/jasny-bootstrap.min.css' %}">
+{% endblock css %}
+
+{% block mc_body %}
+    <ul class="nav nav-tabs">
+        <li><a class="tab_pages" href="{% url 'edit_module' object.id %}#!pages">Pages</a></li>
+        <li><a class="tab_settings" href="{% url 'edit_module' object.id %}#!settings">Settings</a></li>
+        <li><a class="tab_share" href="{% url 'edit_module' object.id %}#!share">Share</a></li>
+        <li class="active">
+            <a class="tab_monetize" data-toggle="tab" href="">Monetize</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="monetize" class="tab-pane fade in active">
+            {% include "madquiz/monetize_module.html" %}
+            <div class="row">
+                <div class="col-md-8">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr class="info">
+                            <th></th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Minimum</td>
+                            <td>5.00 USD</td>
+                        </tr>
+                        <tr>
+                            <td>Recommended Min</td>
+                            <td>{{ recommended_min }} USD</td>
+                        </tr>
+                        <tr>
+                            <td>Recommended Max</td>
+                            <td>{{ recommended_max }} USD</td>
+                        </tr>
+                        <tr>
+                            <td>Recommended</td>
+                            <td>{{ recommended }} USD</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p>The revenue share is 50%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock mc_body %}
+
+{% block js %}
+    <script src="{% static 'lib/Sortable.min.js' %}"></script>
+    <script src="{% static 'lib/ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'lib/jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>
+    <script src="{% static 'madquiz/js/module_monetize.js' %}"></script>
+{% endblock js %}
