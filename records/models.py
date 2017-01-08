@@ -62,7 +62,7 @@ class WeatherData(models.Model):
         return u'{:s} on:{:s} temperature_air:{:2.0f} ' \
                u'{:d} {:d} {:d} ' \
                u'pressure_sea:{:d} ' \
-               u'pressure_stn:{:d}'.format(str(self.weather_datetime), self.check_time,
+               u'pressure_stn:{:d}'.format(str(self.grabbed_at), self.check_timestamp,
                                            self.temperature_air, self.temperature_com,
                                            self.temperature_dew, self.temperature_hum,
                                            self.pressure_sea, self.pressure_stn)
