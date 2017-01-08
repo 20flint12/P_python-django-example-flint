@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -111,7 +110,7 @@ import re
 #
 #
 #     time.sleep(5)
-#
+
 
 
 str_last_time = ""
@@ -135,7 +134,6 @@ def get_temperature():
     for tr in trTags:
         # print tr.text
         out_str += tr.text + "\n"
-
 
     # out_str = trTags[1].text
 
@@ -179,12 +177,11 @@ def parse_temperature(str_in):
              u"Давление \(на станции\) (.*) мм.рт.ст. " \
              u"Ветер (.*)"
 
-
     res = re.search(str_re, str_in, flags=re.UNICODE)
     # print "=" * 50, "\n", res
 
     if res:
-        # print "1)", res.group(1)  # time
+        # print "1)", res.group(1)  # timestamp
         # print "2)", res.group(2)  # t_air
         # print "3)", res.group(3)  # t_com
         # print res.group(4)  #   t_dew
@@ -192,7 +189,7 @@ def parse_temperature(str_in):
         # print res.group(6)  #   p_sea
         # print res.group(7)  #   p_stn
 
-        time = res.group(1)
+        timestamp = res.group(1)
         t_air = int(res.group(2))
         t_com = int(res.group(3))
         t_dew = int(res.group(4))
@@ -201,7 +198,7 @@ def parse_temperature(str_in):
         p_stn = int(res.group(7))
 
         tmp_lst = []
-        tmp_lst.append(time)
+        tmp_lst.append(timestamp)
         tmp_lst.append(t_air)
         tmp_lst.append(t_com)
         tmp_lst.append(t_dew)

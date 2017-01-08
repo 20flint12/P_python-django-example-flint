@@ -14,13 +14,13 @@ import re
 
 str_last_time = u""
 
+
 def get_solar_activity():
 
     global str_last_time
 
     r = requests.get("http://www.spaceweather.com/")
     # print r.content
-
 
     soup = BeautifulSoup(r.content)
     # print( soup.prettify() )
@@ -40,16 +40,16 @@ def get_solar_activity():
         # print item.text
 
         slst = []
-        trTags = item.find_all("tr")
-        for tr in trTags:
+        tr_tags = item.find_all("tr")
+        for tr in tr_tags:
             # print tr
             # print tr.text
 
             cnt = 0
             # sumt = "---"
             tlst = []
-            tdTags = tr.find_all("td")
-            for td in tdTags:
+            td_tags = tr.find_all("td")
+            for td in td_tags:
                 txt = td.text
                 txt = txt.replace("%","")
                 txt = txt.rstrip("\n")
@@ -61,7 +61,7 @@ def get_solar_activity():
                     # print cnt, txt
                     tlst.append(txt)
                 else:
-                    if cnt > 0 and cnt < 3:
+                    if 0 < cnt < 3:
                         cnt += 1
                         # print cnt, pprint.pprint(txt)
                         # print cnt, txt
@@ -76,14 +76,12 @@ def get_solar_activity():
         # pprint.pprint(slst)
         total.append(slst)
 
-    return total[0] # take first table
-
-
-
+    return total[0]  # take first table
 
 
 if __name__ == '__main__':
 
     print get_solar_activity()
+    # [[u'ACTIVE', u'25', u'20'], [u'MINOR', u'10', u'05'], [u'SEVERE', u'01', u'01']]
 
 

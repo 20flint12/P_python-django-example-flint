@@ -80,11 +80,8 @@ def get_images():
     img_url = g_data[0].get('src')
     # print "img_url:", img_url
 
-
     if last_image_url == img_url:
-
         return False
-
     else:
         last_image_url = img_url
 

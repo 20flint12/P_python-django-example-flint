@@ -3,6 +3,7 @@
 
 
 from django.db import models
+from django.utils import timezone
 
 
 class Publisher(models.Model):
@@ -47,16 +48,9 @@ class RecNews(models.Model):
 
 class WeatherData(models.Model):
 
-    weather_datetime = models.DateTimeField()
-    check_time = models.CharField(max_length=5)
+    grabbed_at = models.DateTimeField(default=timezone.now())
 
-    # tmp_lst.append(time)
-    # tmp_lst.append(t_air)
-    # tmp_lst.append(t_com)
-    # tmp_lst.append(t_dew)
-    # tmp_lst.append(t_hum)
-    # tmp_lst.append(p_sea)
-    # tmp_lst.append(p_stn)
+    check_timestamp = models.CharField(max_length=5)
     temperature_air = models.FloatField()
     temperature_com = models.IntegerField()
     temperature_dew = models.IntegerField()
@@ -64,17 +58,20 @@ class WeatherData(models.Model):
     pressure_sea = models.IntegerField()
     pressure_stn = models.IntegerField()
 
-
     def __unicode__(self):
-        # return u'%s %s' % (self.weather_datetime, self.check_time, )
         return u'{:s} on:{:s} temperature_air:{:2.0f} ' \
                u'{:d} {:d} {:d} ' \
                u'pressure_sea:{:d} ' \
-               u'pressure_stn:{:d}'.format(str(self.weather_datetime),
-                               self.check_time,
-                               self.temperature_air,
-                               self.temperature_com,
-                               self.temperature_dew,
-                               self.temperature_hum,
-                               self.pressure_sea,
-                               self.pressure_stn)
+               u'pressure_stn:{:d}'.format(str(self.weather_datetime), self.check_time,
+                                           self.temperature_air, self.temperature_com,
+                                           self.temperature_dew, self.temperature_hum,
+                                           self.pressure_sea, self.pressure_stn)
+
+
+class SpaceWeatherData(models.Model):
+    grabbed_at = models.DateTimeField(default=timezone.now())
+
+    # Mid - latitudes
+    activity_level = models.CharField(max_length=50)
+    p_00_24_hr = models.IntegerField()
+    p_24_48_hr = models.IntegerField()

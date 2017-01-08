@@ -39,7 +39,8 @@ heroku run python manage.py migrate astrouser
 heroku run python manage.py createsuperuser
 
 
-
+### scheduler ###
+python manage.py perform_collector 22
 
 
 

@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^news/$', views.news),
     url(r'^weather/$', views.weather),
 
-    url(r'^wchart/$', views.weather_chart),
+    url(r'^wchart/$', views.weather_chart, name='wchart'),
     # url(r'^wchart/(?P<num>[0-9]{4})/$', records.views.weather_chart),
     # url(r'^wchart/(?P<num>[0-9]{2})/$', records.views.weather_chart),
 
