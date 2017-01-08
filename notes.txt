@@ -34,3 +34,93 @@ python manage.py createsuperuser
 20flint12@gmail.com 20flint12@gmail.com f88888878
 20lustrat14@gmail.com   20lustrat14@gmail.com   20lustrat14@gmail.com
 
+
+heroku run python manage.py migrate astrouser
+heroku run python manage.py createsuperuser
+
+
+
+
+
+
+
+
+
+
+
+git push heroku -u plechan121:master
+
+heroku logs --tail
+heroku logs -t
+heroku logs -p postgres -t
+
+
+python manage.py runserver
+
+export DATABASE_URL=postgres:///$(whoami)
+
+pip install -r requirements.txt
+pip freeze > requirements.txt
+
+
+heroku pg:info
+heroku pg:diagnose
+
+# To continuously monitor the status of your database
+watch heroku pg:info
+
+# To establish a psql session with your remote database use
+heroku pg:psql
+
+# pg:push and pg:pull
+heroku pg:pull HEROKU_POSTGRESQL_MAGENTA mylocaldb --app sushi
+
+# If providing a Postgres user or password for your local DB is necessary
+PGUSER=postgres PGPASSWORD=password heroku pg:pull HEROKU_POSTGRESQL_MAGENTA mylocaldb --app sushi
+
+heroku pg:push mylocaldb HEROKU_POSTGRESQL_MAGENTA --app sushi
+
+# command queries the pg_stat_statements table in Postgres
+heroku pg:ps
+
+# Heroku Postgres provides convenient access to the credentials and location of your database
+heroku pg:credentials DATABASE
+heroku pg:credentials HEROKU_POSTGRESQL_GRAY_URL --reset
+
+
+
+
+
+heroku pg:reset DATABASE_URL
+heroku run python manage.py makemigrations --app plekhanovskaya121
+heroku run python manage.py migrate --app plekhanovskaya121
+
+heroku run python manage.py makemigrations --app plechan121
+heroku run python manage.py migrate --app plechan121
+
+heroku run python manage.py createsuperuser --app plechan121
+
+@@@
+http://stackoverflow.com/questions/14285854/cannot-create-a-new-table-after-drop-schema-public
+
+
+
+sudo dd if=./ubuntu-iso-name.iso of=/dev/sdc
+sudo dd if=/home/flint/Downloads/kubuntu-14.04.4-desktop-amd64.iso of=/dev/sdc
+sudo eject /dev/sdX
+
+sudo dd if=./linuxmint-18-mate-64bit.iso of=/dev/sdc
+
+
+https://docs.djangoproject.com/en/1.9/howto/custom-management-commands/
+http://stackoverflow.com/questions/11864580/rendering-a-list-as-a-2-column-html-table-in-a-django-template
+
+
+
+heroku login
+git push heroku_plekhanovskaya121  plekhanovskaya121:master
+
+git push heroku plekhanovskaya121:master
+
+
+
