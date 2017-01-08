@@ -3,7 +3,7 @@
 
 
 from django.contrib import admin
-from models import Publisher, Author, Book, RecNews, WeatherData
+from models import Publisher, Author, Book, RecNews, WeatherData, SpaceWeatherData
 
 
 # Register your models here.
@@ -25,3 +25,4 @@ admin.site.register(Book)
 
 admin.site.register(RecNews)
 admin.site.register(WeatherData)
+admin.site.register(SpaceWeatherData)
