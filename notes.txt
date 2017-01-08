@@ -51,6 +51,7 @@ heroku run python manage.py migrate --fake-inital
 python manage.py perform_collector 22
 
 
+***********************************************************
 git push heroku  collector:master
 
 
