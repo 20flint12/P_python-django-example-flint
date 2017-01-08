@@ -199,12 +199,17 @@ ROOT_URLCONF = 'astro.urls'
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
+# =============================================================================
+
+import astro.config_ASR as conf
+import engine.astro_routines.geo_preload as geopr
+import pprint
 
 
-#==============================================================================
+path_geo_file = PROJECT_ROOT + "/" + conf.GEO_FILE
 
-
-
+geopr.GEO_PLACE_dict = geopr.read_config_to_geo(path_geo_file)
+print "conf.GEO_PLACE_dict=\n", pprint.pprint(geopr.GEO_PLACE_dict)
 
 
 
