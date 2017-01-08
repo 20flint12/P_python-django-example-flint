@@ -1,7 +1,24 @@
-{% extends "my_base.html" %}
+
+{% extends "inner_layout.html" %}
+
+{% load staticfiles %}
+
 {% block title %}Сбор astro данных{% endblock %}
 
-{% block content2 %}
+{% block main_container %}
+
 <p>Source site: {{ current_site }}</p>
     content: <code>{{ data_context|linebreaks }}</code>
-{% endblock %}
+
+{% endblock main_container %}
+
+{% block js %}
+
+    <script src="{% static 'madquiz/js/dashboard.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+{% endblock js %}

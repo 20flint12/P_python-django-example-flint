@@ -17,4 +17,6 @@ urlpatterns = [
     # (r'^charts/simple.png$', 'myapp.views.charts.simple'),
     url(r'^charts/$', views.my_simple, name='charts'),
 
+    url(r'^astro/$', views.astro_req, name='astro'),
+
 ]

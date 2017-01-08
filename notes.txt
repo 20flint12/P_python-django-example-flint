@@ -33,3 +33,4 @@ python manage.py migrate
 python manage.py createsuperuser
 20flint12@gmail.com 20flint12@gmail.com f88888878
 20lustrat14@gmail.com   20lustrat14@gmail.com   20lustrat14@gmail.com
+

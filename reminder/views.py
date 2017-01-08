@@ -8,8 +8,13 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import View, TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
 
+import engine.astro_routines.moon_day as md
+
+import engine.astro_routines.geo_place as geo
+import engine.astro_routines.geo_preload as geopr
 
 import grabber.scrapes.scrape_data3 as scr
+import grabber.scrapes.scrape_data2 as scr2
 
 
 class ReminderView(View):
@@ -34,12 +39,55 @@ def current_datetime(request):
 def scrape_data_req(request):
     now = datetime.datetime.now()
     # cur_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    news = scr.get_news()
-    # news = scr2.get_temperature()
+    # news = scr.get_news()
+    news = scr2.get_temperature()
     # print unicode(news)
     return render_to_response('reminder/scrape_data.html',
                               {'current_site': now,
                                'data_context': news})
+
+
+def astro_req(request):
+
+    time_loc = datetime.datetime.now()
+
+    # ctx = epph.sun_rise()
+    ctx = "" #epph.moon_rise_set()
+
+    # cur_date_utc = ephem.now()  # current UTC date and time
+    #
+    # coord, tz_name = md.set_tz("Kharkiv")
+    # tp, ctx2 = md.get_phase_on_current_day(cur_date_utc, coord)
+
+    # cur_place = "Boston"
+    cur_place = "Kharkiv"
+    tz_name, coord = geopr.set_tz(cur_place)
+    # print "cur_place=", cur_place, coord, tz_name
+
+    # # Calculate utc date on local noon for selected place ###############
+    format = "%Y-%m-%d %H:%M:%S %z"
+    ###########################################################################
+    cur_date_loc = datetime.datetime.today()
+    # print "cur_date_loc=", cur_date_loc.strftime(format)
+
+    # Calculate utc date on local noon for selected place #####################
+    cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
+    # print "cur_noon_loc=", cur_noon_loc
+
+    # -------------------------------------------------------------------------
+    aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
+    # print "aware_loc=", aware_loc.strftime(format)
+    cur_date_utc = geo.aware_time_to_utc(aware_loc)
+    print "cur_date_utc=", cur_date_utc.strftime(format)
+
+    tp, ctx2 = md.get_moon_day(cur_date_utc, coord)
+
+    ctx += "\n" + ctx2
+    print ctx
+
+    return render_to_response('reminder/astro_data.html',
+                              {'current_site': str(time_loc) + " " + cur_place,
+                               'data_context': ctx})
 
 
 def display_meta(request):
