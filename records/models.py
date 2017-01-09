@@ -48,7 +48,7 @@ class RecNews(models.Model):
 
 class WeatherData(models.Model):
 
-    grabbed_at = models.DateTimeField(default=timezone.now())
+    grabbed_at = models.DateTimeField(auto_now_add=True)    # default=timezone.now()
 
     check_timestamp = models.CharField(max_length=5)
     temperature_air = models.FloatField()
@@ -69,9 +69,15 @@ class WeatherData(models.Model):
 
 
 class SpaceWeatherData(models.Model):
-    grabbed_at = models.DateTimeField(default=timezone.now())
+    grabbed_at = models.DateTimeField(auto_now_add=True)
 
     # Mid - latitudes
     activity_level = models.CharField(max_length=50)
     p_00_24_hr = models.IntegerField()
     p_24_48_hr = models.IntegerField()
+
+    def __unicode__(self):
+        return u'{:s} on:{:s} [{:d} {:d}]'.format(str(self.grabbed_at),
+                                                  self.activity_level,
+                                                  self.p_00_24_hr, self.p_24_48_hr)
+

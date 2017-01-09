@@ -35,7 +35,6 @@ python manage.py makemigrations records
 python manage.py migrate records
 
 
-
 python manage.py createsuperuser
 20flint12@gmail.com 20flint12@gmail.com f88888878
 20lustrat14@gmail.com   20lustrat14@gmail.com   20lustrat14@gmail.com
@@ -47,12 +46,14 @@ heroku run python manage.py createsuperuser
 
 heroku run python manage.py migrate --fake-inital
 
+
 ### scheduler ###
 python manage.py perform_collector 22
 
 
 ***********************************************************
 git push heroku  collector:master
+
 
 
 
