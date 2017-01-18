@@ -10,9 +10,8 @@ from datetime import datetime
 
 import pytz
 
-import geo_preload as geopr
-
-
+# import geo_preload as geopr
+import engine.astro_routines.geo_preload as geopr
 
 
 def get_place_coord(in_place_name):
@@ -101,7 +100,7 @@ def aware_loc_unaware_utc_for_local12place(in_unaware_loc, place):
     """
 
     tz_nam, coord = geopr.set_tz(place)
-    print "place=", place, coord, tz_nam
+    print("place=", place, coord, tz_nam)
 
 
     ###########################################################################
@@ -132,29 +131,29 @@ if __name__ == '__main__':
 
     place_name = 'Boston'
     coord = get_place_coord(place_name)
-    print place_name, coord
+    print(place_name, coord)
 
     tz_name = get_tz_name(coord)
-    print "tz_name=", tz_name
+    print("tz_name=", tz_name)
 
 
     format = "%Y-%m-%d %H:%M:%S %z"
     ###########################################################################
     utc_time = datetime.now()
     # utc_time = datetime.strptime("2011-06-21 02:37:21", "%Y-%m-%d %H:%M:%S")
-    print "\nutc_time=", utc_time.strftime(format)
+    print("\nutc_time=", utc_time.strftime(format))
 
     loc_time = utc_to_loc_time(tz_name, utc_time)
-    print "loc_time=", loc_time.strftime(format), "utcoffset=", loc_time.utcoffset()
+    print("loc_time=", loc_time.strftime(format), "utcoffset=", loc_time.utcoffset())
 
 
 
     ###########################################################################
     loc_time = datetime.now()
-    print "\nloc_time=", loc_time.strftime(format)
+    print("\nloc_time=", loc_time.strftime(format))
 
     utc_time = loc_to_utc_time(tz_name, loc_time)
-    print "utc_time=", utc_time.strftime(format), "utcoffset=", utc_time.utcoffset()
+    print("utc_time=", utc_time.strftime(format), "utcoffset=", utc_time.utcoffset())
 
 
 
@@ -162,11 +161,11 @@ if __name__ == '__main__':
     format = "%Y-%m-%d %H:%M:%S %z"
     ###########################################################################
     loc_time = datetime.now()
-    print "\nloc_time=", loc_time.strftime(format)
+    print("\nloc_time=", loc_time.strftime(format))
 
     aware_loc = set_tz_to_unaware_time(tz_name, loc_time)
-    print "aware_loc=", aware_loc.strftime(format)
-    print "aware_utc=", aware_time_to_utc(aware_loc).strftime(format)
+    print("aware_loc=", aware_loc.strftime(format))
+    print("aware_utc=", aware_time_to_utc(aware_loc).strftime(format))
 
 
 

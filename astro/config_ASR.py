@@ -18,7 +18,7 @@ SERVER_IP = 'localhost'
 EMAIL_LIST = ["20flint12@gmail.com"]
 
 
-print "HOSTNAME   :", HOSTNAME
+print("HOSTNAME   :", HOSTNAME)
 # print "SERVER_NAME:", SERVER_NAME
 # print "SERVER_IP  :", SERVER_IP
 

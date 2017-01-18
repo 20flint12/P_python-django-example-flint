@@ -9,8 +9,8 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-print "### BASE_DIR=", BASE_DIR
-print "PROJECT_ROOT=", PROJECT_ROOT
+print("### BASE_DIR=", BASE_DIR)
+print("PROJECT_ROOT=", PROJECT_ROOT)
 
 
 # Make this unique, and don't share it with anybody.
@@ -35,10 +35,10 @@ ON_HEROKU = os.environ.get('ON_HEROKU')
 
 
 if ON_HEROKU:
-    print "ON_HEROKU"
+    print("ON_HEROKU")
     # DATABASE_URL = 'postgresql:///postgresql'
 else:
-    print "ON_LOCAL"
+    print("ON_LOCAL")
 
 
 # -----------------------------------------------------------------------------

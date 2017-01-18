@@ -4,13 +4,18 @@
 
 import sys
 
-import ConfigParser
+# import ConfigParser
+try:
+    import configparser
+except:
+    from six.moves import configparser
+
 import pprint
 import datetime
 
 
-import geo_place as geo
-
+# import astro.geo_place as geo
+import engine.astro_routines.geo_place as geo
 
 
 
@@ -48,7 +53,6 @@ def set_tz(in_place_name):
     tz_name = ""
     coord = (0,0)
 
-
     if in_place_name in GEO_PLACE_dict:
 
         # From local dict GEO_PLACE
@@ -65,7 +69,7 @@ def set_tz(in_place_name):
             coord = geo.get_place_coord(in_place_name)
         except:
             str_res = "Unexpected error:" + str(sys.exc_info()[0]) + str(sys.exc_info()[1])
-            print str_res
+            print(str_res)
 
         # print in_place_name, coord
 
@@ -90,8 +94,6 @@ def set_tz(in_place_name):
     return tz_name, coord
 
 
-
-
 def write_geo_to_config(in_place_dict):
 
     global cur_path_to_file
@@ -107,7 +109,7 @@ def write_geo_to_config(in_place_dict):
 
         upd = datetime.datetime.now()
 
-        print place, lat, lon, dst, "-"*40
+        print(place, lat, lon, dst, "-"*40)
 
         # # When adding sections or items, add them in the reverse order of
         # # how you want them to be displayed in the actual file.
@@ -134,9 +136,7 @@ def write_geo_to_config(in_place_dict):
     # Writing our configuration file to 'settings.cfg'
     with open(cur_path_to_file, 'wb') as configfile:
         config.write(configfile)
-        print "Configuration saved."
-
-
+        print("Configuration saved.")
 
 
 def as_dict(config):
@@ -154,8 +154,6 @@ def as_dict(config):
     return the_dict
 
 
-
-
 def read_config_to_geo(path_to_file):
 
     global cur_path_to_file
@@ -166,7 +164,7 @@ def read_config_to_geo(path_to_file):
 
         with open(cur_path_to_file, 'r') as configfile:
 
-            config = ConfigParser.RawConfigParser()
+            config = configparser.RawConfigParser()
 
             config.readfp(configfile)
 
@@ -182,18 +180,17 @@ def read_config_to_geo(path_to_file):
             # if config.getboolean('Section', 'a_bool'):
             #     print config.get('Section', 'foo')
 
-            print "\n   Reading config file..."
+            print("\n   Reading config file...")
 
             res_dict = as_dict(config)
             # print "res_dict=", res_dict
 
             return res_dict
 
-
     except IOError:
 
-        print "there is no config file!!!"
-        print "used defaults..."
+        print("there is no config file!!!")
+        print("used defaults...")
 
         return GEO_PLACE_dict
 
@@ -208,8 +205,7 @@ if __name__ == '__main__':
     path_to_file = 'geo_test.cfg'
 
     res_d = read_config_to_geo(path_to_file)
-    print "res_d=\n", pprint.pprint(res_d)
-
+    print("res_d=\n", pprint.pprint(res_d))
 
     write_geo_to_config(res_d)
 
