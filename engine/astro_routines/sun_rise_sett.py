@@ -5,7 +5,10 @@
 import datetime
 
 import ephem
-import mysite.astro_routines.geo_preload as geopr
+# import mysite.astro_routines.geo_preload as geopr
+import engine.astro_routines.geo_place as geo
+import engine.astro_routines.geo_preload as geopr
+
 
 import engine.astro_routines.geo_place as geo
 

@@ -11,6 +11,7 @@ from datetime import datetime
 import pytz
 
 # import geo_preload as geopr
+
 import engine.astro_routines.geo_preload as geopr
 
 
@@ -26,18 +27,14 @@ def get_place_coord(in_place_name):
     return (lat, lng)
 
 
-
 def get_tz_name(in_coord):
 
     from tzwhere import tzwhere
 
     w = tzwhere.tzwhere()
-
     tz_name = w.tzNameAt(in_coord[0], in_coord[1])
-
     # print "tz_name=", tz_name
     return tz_name
-
 
 
 def set_tz_to_unaware_time(in_tz_name, in_unaware):
@@ -59,30 +56,20 @@ def set_tz_to_unaware_time(in_tz_name, in_unaware):
     # dt_aware = localtz.localize(dt_unware)
 
 
-
 def aware_time_to_utc(in_aware):
-
     utc_aware = in_aware.astimezone(pytz.timezone('UTC'))
-
     # print "utc_aware=", utc_aware
     return utc_aware
 
 
-
-
-
 def utc_to_loc_time(in_tz_name, in_utc_time):
-
     local_timezone = pytz.timezone(in_tz_name)  # 'Europe/Kiev'
     loc_time = in_utc_time.replace(tzinfo=pytz.utc).astimezone(local_timezone)
-
     # print "loc_time=", loc_time
     return loc_time
 
 
-
 def loc_to_utc_time(in_tz_name, in_loc_time):
-
     loc_timezone = pytz.timezone(in_tz_name)
     loc_time = loc_timezone.localize(in_loc_time)
     utc_time = loc_time.astimezone(pytz.timezone('UTC'))
@@ -91,17 +78,13 @@ def loc_to_utc_time(in_tz_name, in_loc_time):
     return utc_time
 
 
-
-
 def aware_loc_unaware_utc_for_local12place(in_unaware_loc, place):
     """
     Input: local unaware time and place
     Returns tuple in utc for local time and place
     """
-
     tz_nam, coord = geopr.set_tz(place)
     print("place=", place, coord, tz_nam)
-
 
     ###########################################################################
     cur_date_loc = in_unaware_loc  # datetime.datetime.today()
@@ -123,11 +106,7 @@ def aware_loc_unaware_utc_for_local12place(in_unaware_loc, place):
     return aware_loc, unaware_utc
 
 
-
-
-
 if __name__ == '__main__':
-
 
     place_name = 'Boston'
     coord = get_place_coord(place_name)
@@ -135,7 +114,6 @@ if __name__ == '__main__':
 
     tz_name = get_tz_name(coord)
     print("tz_name=", tz_name)
-
 
     format = "%Y-%m-%d %H:%M:%S %z"
     ###########################################################################
@@ -146,16 +124,12 @@ if __name__ == '__main__':
     loc_time = utc_to_loc_time(tz_name, utc_time)
     print("loc_time=", loc_time.strftime(format), "utcoffset=", loc_time.utcoffset())
 
-
-
     ###########################################################################
     loc_time = datetime.now()
     print("\nloc_time=", loc_time.strftime(format))
 
     utc_time = loc_to_utc_time(tz_name, loc_time)
     print("utc_time=", utc_time.strftime(format), "utcoffset=", utc_time.utcoffset())
-
-
 
     format = "%d %b %H:%M %z"
     format = "%Y-%m-%d %H:%M:%S %z"
@@ -166,10 +140,6 @@ if __name__ == '__main__':
     aware_loc = set_tz_to_unaware_time(tz_name, loc_time)
     print("aware_loc=", aware_loc.strftime(format))
     print("aware_utc=", aware_time_to_utc(aware_loc).strftime(format))
-
-
-
-
 
     # from datetime import *
     # from dateutil import *

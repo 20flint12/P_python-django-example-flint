@@ -1,4 +1,6 @@
 
+#sudo apt-get install python3-dev
+
 APScheduler==3.0.5
 beautifulsoup4==4.3.2
 dj-database-url==0.4.0
