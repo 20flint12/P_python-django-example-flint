@@ -9,3 +9,5 @@ media/*
 static/*
 env/*
 lib/*
+.env
+env/
