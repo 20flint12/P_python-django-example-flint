@@ -135,4 +135,4 @@ git push heroku_plekhanovskaya121  plekhanovskaya121:master
 git push heroku plekhanovskaya121:master
 
 
-
+heroku config:get CONFIG-VAR-NAME -s  >> .env
