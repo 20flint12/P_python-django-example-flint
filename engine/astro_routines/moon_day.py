@@ -7,9 +7,8 @@ import ephem
 import pprint
 import re
 
-import geo_place as geo
-import geo_preload as geopr
-
+import engine.astro_routines.geo_place as geo
+import engine.astro_routines.geo_preload as geopr
 
 
 def _set_Observer(coord):
@@ -173,22 +172,22 @@ def get_moons_in_year(year):
     of either the form (DATE,'full') or the form (DATE,'new')"""
     moons=[]
 
-    date=ephem.Date(datetime.date(year,01,01))
+    date=ephem.Date(datetime.date(year, 1, 1))
     while date.datetime().year==year:
         date=ephem.next_full_moon(date)
         moons.append( (date,'full moon') )
 
-    date=ephem.Date(datetime.date(year,01,01))
+    date=ephem.Date(datetime.date(year, 1, 1))
     while date.datetime().year==year:
         date=ephem.next_new_moon(date)
         moons.append( (date,'new moon') )
 
-    date=ephem.Date(datetime.date(year,01,01))
+    date=ephem.Date(datetime.date(year, 1, 1))
     while date.datetime().year==year:
         date=ephem.next_first_quarter_moon(date)
         moons.append( (date,'first_quarter') )
 
-    date=ephem.Date(datetime.date(year,01,01))
+    date=ephem.Date(datetime.date(year, 1, 1))
     while date.datetime().year==year:
         date=ephem.next_last_quarter_moon(date)
         moons.append( (date,'last_quarter') )
@@ -356,7 +355,7 @@ if __name__ == '__main__':
     # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
 
 
-    print get_moon_phase(loc_date)
+    print(get_moon_phase(loc_date))
 
 
     # for ev in get_moons_in_year(2015):

@@ -2,7 +2,11 @@
 
 import os
 import urllib
-import urllib2
+# import urllib2
+try:
+    import urllib.request as urllib2
+except ImportError:
+    import urllib2
 
 import pprint
 
@@ -81,7 +85,7 @@ def get_solar_activity():
 
 if __name__ == '__main__':
 
-    print get_solar_activity()
+    print(get_solar_activity())
     # [[u'ACTIVE', u'25', u'20'], [u'MINOR', u'10', u'05'], [u'SEVERE', u'01', u'01']]
 
 

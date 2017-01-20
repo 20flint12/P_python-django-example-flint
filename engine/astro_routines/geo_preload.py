@@ -17,10 +17,7 @@ import datetime
 # import astro.geo_place as geo
 import engine.astro_routines.geo_place as geo
 
-
-
 cur_path_to_file = 'geo_test.cfg'
-
 
 GEO_PLACE_dict= \
     {
@@ -41,8 +38,6 @@ GEO_PLACE_dict= \
     }
 
 
-
-
 def set_tz(in_place_name):
 
     '''
@@ -51,7 +46,7 @@ def set_tz(in_place_name):
     '''
 
     tz_name = ""
-    coord = (0,0)
+    coord = (0, 0)
 
     if in_place_name in GEO_PLACE_dict:
 
@@ -61,9 +56,7 @@ def set_tz(in_place_name):
 
         coord = (lat, lon)
         tz_name = GEO_PLACE_dict[in_place_name]["timezone"]
-
     else:
-
         # Update from Google ######################################################
         try:
             coord = geo.get_place_coord(in_place_name)
@@ -86,7 +79,7 @@ def set_tz(in_place_name):
                                                 "latitude": coord[0],
                                                 "longitude": coord[1],
                                                 "timezone": tz_name,
-                                                "dst":"iutuyrdfkhjds"
+                                                "dst": "iutuyrdfkhjds"
                                              }
                                         })
             write_geo_to_config(GEO_PLACE_dict)
@@ -98,7 +91,7 @@ def write_geo_to_config(in_place_dict):
 
     global cur_path_to_file
 
-    config = ConfigParser.RawConfigParser()
+    config = configparser.RawConfigParser()
 
     for place in in_place_dict.keys():
 
@@ -166,7 +159,7 @@ def read_config_to_geo(path_to_file):
 
             config = configparser.RawConfigParser()
 
-            config.readfp(configfile)
+            config.read_file(configfile)
 
             # # print config._sections
             # # getfloat() raises an exception if the value is not a float

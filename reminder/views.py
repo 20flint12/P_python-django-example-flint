@@ -78,12 +78,12 @@ def astro_req(request):
     aware_loc = geo.set_tz_to_unaware_time(tz_name, cur_noon_loc)
     # print "aware_loc=", aware_loc.strftime(format)
     cur_date_utc = geo.aware_time_to_utc(aware_loc)
-    print "cur_date_utc=", cur_date_utc.strftime(format)
+    print("cur_date_utc=", cur_date_utc.strftime(format))
 
     tp, ctx2 = md.get_moon_day(cur_date_utc, coord)
 
     ctx += "\n" + ctx2
-    print ctx
+    print(ctx)
 
     return render_to_response('reminder/astro_data.html',
                               {'current_site': str(time_loc) + " " + cur_place,

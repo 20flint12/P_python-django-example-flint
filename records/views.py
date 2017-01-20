@@ -13,9 +13,9 @@ from django.shortcuts import render_to_response
 
 import grabber.scrapes.scrape_data3 as scr3
 import grabber.scrapes.scrape_solar_activity as spaceweather
-from models import Book, SpaceWeatherData
-from models import RecNews
-from models import WeatherData
+from records.models import Book, SpaceWeatherData
+from records.models import RecNews
+from records.models import WeatherData
 
 
 def search_form(request):
@@ -48,7 +48,7 @@ def search2(request):
         # books = Publisher.objects.all()
         books = Book.objects.all()
         # books = Publisher.objects.all()
-        print books
+        print(books)
         return render_to_response('records_search_results.html',
             {'books': books, 'query': q})
     else:
@@ -67,7 +67,7 @@ def news(request):
         n1 = RecNews(news_date=dt, news_contents=ctx)
         n1.save()
 
-    print "+" * 100    #
+    print("+" * 100)    #
 
     # ustring = unicode(read_string, encoding=...)
     n1 = RecNews(news_date=dt, news_contents=ctx)
@@ -95,7 +95,7 @@ def weather_collect():
 
     ctx = scr2.parse_temperature(scr2.get_temperature())
     # ctx = [u'20:00', 23, 25, 10, 44, 768, 754]
-    print "weather-!-" * 5, ctx
+    print("weather-!-" * 5, ctx)
 
     if ctx:
         w = WeatherData(grabbed_at=dt,
@@ -109,7 +109,7 @@ def weather_collect():
         w.save()
 
     sctx = spaceweather.get_solar_activity()
-    print "weather-!-" * 5, sctx
+    print("weather-!-" * 5, sctx)
     if sctx:
         sw = SpaceWeatherData(grabbed_at=dt,
                               activity_level=sctx[0][0],
@@ -117,7 +117,7 @@ def weather_collect():
                               p_24_48_hr=sctx[0][2])
         sw.save()
 
-    print "+=!d" * 40
+    print("+=!d" * 40)
 
 
 def weather_chart(request, num="1000"):
@@ -126,7 +126,7 @@ def weather_chart(request, num="1000"):
     from matplotlib.figure import Figure
     from matplotlib.dates import DateFormatter
 
-    print ".'" * 20, "weather_chart", ".'" * 20
+    print(".'" * 20, "weather_chart", ".'" * 20)
 
     # *************************************************************************
     fig = Figure(figsize=(20, 10), dpi=80, facecolor='g', edgecolor='k')
@@ -158,7 +158,7 @@ def weather_chart(request, num="1000"):
     # if num_int == "1000":
     #     pass
     num_int = WeatherData.objects.count()
-    print "num_int=", num_int, "num=", num
+    print("num_int=", num_int, "num=", num)
 
     sel = WeatherData.objects.all()[num_int - max:num_int]   # last 1000
     # sel = WeatherData.reverse()[:10000]   # last 1000
@@ -192,7 +192,6 @@ def weather_chart(request, num="1000"):
     ax2.plot(x, y4, 'y--')
     ax2.plot(x, y5, 'r--')
 
-
     canvas = FigureCanvas(fig)
     response = HttpResponse(content_type='image/png')
     canvas.print_png(response)
@@ -208,8 +207,6 @@ def clear_weather_data(request, numf="0", num_last="10", qw= True):
     text += "<h3>num_first= " + numf + "</h3> to <h3>num_last= " + num_last + "</h3>"
 
     return HttpResponse(text)
-
-
 
 
 

@@ -3,7 +3,7 @@
 
 
 from django.contrib import admin
-from models import Publisher, Author, Book, RecNews, WeatherData, SpaceWeatherData
+from records.models import Publisher, Author, Book, RecNews, WeatherData, SpaceWeatherData
 
 
 # Register your models here.

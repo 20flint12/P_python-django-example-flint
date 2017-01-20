@@ -218,9 +218,9 @@ def parse_temperature(str_in):
 if __name__ == '__main__':
 
     get_str = get_temperature()
-    print get_str
+    print(get_str)
 
-    print parse_temperature(get_str)
+    print(parse_temperature(get_str))
 
 
 
