@@ -5,10 +5,10 @@ from django.utils import timezone
 
 
 class Poll(models.Model):
-    question = models.CharField(max_length=200)
+    question = models.CharField(max_length=201)
     pub_date = models.DateTimeField('date published')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.question
 
     def was_published_recently(self):
@@ -24,5 +24,5 @@ class Choice(models.Model):
     choice = models.CharField(max_length=200)
     votes = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.choice

@@ -5,28 +5,23 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-# Create your models here.
 
 '''
 Factor(zodiac,moonday)
-    MoonZodiac(descr, picture)
-        ZodiacContent(descr,source,image)
-        ZodiacContent(descr,source,image)
-    MoonDay(descr, picture)
-        DayContent(descr,source,image)
-        DayContent(descr,source,image)
-        DayContent(descr,source,image)
+    MoonZodiac(descr, picture)              MZodiac     === factor_mzodiac
+        ZodiacContent(descr,source,image)   MZContent   === mzodiac_content
+    MoonDay(descr, picture)                 MDay        === factor_mday
+        DayContent(descr,source,image)      MDContent   === mday_content
 '''
 
 
-class Factor(models.Model):
+class SummaryFactor(models.Model):
 
-    name = models.CharField(max_length=50, default="factor name")
-
+    title = models.CharField(max_length=50, default='')
     serves_pizza = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{} of {}".format(self.moon_zodiac, self.serves_hot_dogs)
+        return "{} of {}".format(self.title, self.serves_pizza)
 
 
 class MoonZodiac(models.Model):
@@ -46,22 +41,22 @@ class MoonZodiac(models.Model):
         (12, 'Рыбы'),
     )
 
-    #TODO OneToOneField
-    moon_zodiac = models.ForeignKey(Factor, related_name="factor_zodiac", on_delete=models.CASCADE, blank=True, null=True)
+    moon_zodiac = models.ForeignKey(SummaryFactor, related_name="factor_zodiac", on_delete=models.CASCADE, blank=True, null=True)
 
-    name = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
     zodiac = models.PositiveSmallIntegerField(blank=False, null=False, choices=MOON_ZODIACS)
 
     def __str__(self):
-        return "{} of {}".format(self.name, self.zodiac)
+        return "{} of {}".format(self.title, self.zodiac)
 
 
 class ZodiacContent(models.Model):
-    zodiac = models.ForeignKey(MoonZodiac, related_name="content_zodiac", on_delete=models.CASCADE, blank=True, null=True)
+
+    zodiac_content = models.ForeignKey(MoonZodiac, related_name="content_zodiac", on_delete=models.CASCADE, blank=True, null=True)
 
     title = models.CharField(max_length=250)
     text = models.TextField()
     image = models.FileField(upload_to='media/zodiac_imgs/%Y/%m/%d/', blank=True, null=True)
 
     def __str__(self):
-        return "[{}] Content: {}".format(self.id, self.title)
+        return "[{}] Content: {}".format(self.title, self.text)
