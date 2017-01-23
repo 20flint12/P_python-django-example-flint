@@ -23,11 +23,10 @@ class MoonZodiacAdmin(admin.ModelAdmin):
 
 class FactorAdmin(admin.ModelAdmin):
     list_display = (
-        'moon_zodiac', 'pk',
-        'serves_hot_dogs',
+        'id',
+        'name',
+        'serves_pizza',
     )
-
-
 
 
 

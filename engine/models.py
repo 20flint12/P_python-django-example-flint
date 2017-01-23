@@ -19,7 +19,18 @@ Factor(zodiac,moonday)
 '''
 
 
+class Factor(models.Model):
+
+    name = models.CharField(max_length=50, default="factor name")
+
+    serves_pizza = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{} of {}".format(self.moon_zodiac, self.serves_hot_dogs)
+
+
 class MoonZodiac(models.Model):
+
     MOON_ZODIACS = (
         (1, 'Овен'),
         (2, 'Телец'),
@@ -35,6 +46,9 @@ class MoonZodiac(models.Model):
         (12, 'Рыбы'),
     )
 
+    #TODO OneToOneField
+    moon_zodiac = models.ForeignKey(Factor, related_name="factor_zodiac", on_delete=models.CASCADE, blank=True, null=True)
+
     name = models.CharField(max_length=50)
     zodiac = models.PositiveSmallIntegerField(blank=False, null=False, choices=MOON_ZODIACS)
 
@@ -42,20 +56,8 @@ class MoonZodiac(models.Model):
         return "{} of {}".format(self.name, self.zodiac)
 
 
-class Factor(models.Model):
-    #TODO OneToOneField
-    moon_zodiac = models.OneToOneField(MoonZodiac, on_delete=models.CASCADE, primary_key=True, )
-    # moon_zodiac = models.OneToOneField(MoonZodiac, on_delete=models.CASCADE, primary_key=True, )
-
-    serves_hot_dogs = models.BooleanField(default=False)
-    serves_pizza = models.BooleanField(default=False)
-
-    def __str__(self):
-        return "{} of {}".format(self.moon_zodiac, self.serves_hot_dogs)
-
-
 class ZodiacContent(models.Model):
-    zodiac = models.ForeignKey(MoonZodiac, related_name="content_zodiac", blank=True, null=True)
+    zodiac = models.ForeignKey(MoonZodiac, related_name="content_zodiac", on_delete=models.CASCADE, blank=True, null=True)
 
     title = models.CharField(max_length=250)
     text = models.TextField()
