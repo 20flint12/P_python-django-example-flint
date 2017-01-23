@@ -15,7 +15,7 @@ class Publisher(models.Model):
     country = models.CharField(max_length=50)
     website = models.URLField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -24,7 +24,7 @@ class Author(models.Model):
     last_name = models.CharField(max_length=40)
     email = models.EmailField()
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s %s' % (self.first_name, self.last_name)
 
 
@@ -34,7 +34,7 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher)
     publication_date = models.DateField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -42,7 +42,7 @@ class RecNews(models.Model):
     news_date = models.DateField()
     news_contents = models.CharField(max_length=100)
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s %s' % (self.news_date, self.news_contents)
 
 
@@ -58,7 +58,7 @@ class WeatherData(models.Model):
     pressure_sea = models.IntegerField()
     pressure_stn = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return u'{:s} on:{:s} temperature_air:{:2.0f} ' \
                u'{:d} {:d} {:d} ' \
                u'pressure_sea:{:d} ' \
@@ -76,7 +76,7 @@ class SpaceWeatherData(models.Model):
     p_00_24_hr = models.IntegerField()
     p_24_48_hr = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return u'{:s} on:{:s} [{:d} {:d}]'.format(str(self.grabbed_at),
                                                   self.activity_level,
                                                   self.p_00_24_hr, self.p_24_48_hr)
