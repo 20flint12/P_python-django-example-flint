@@ -2,11 +2,11 @@ from django.contrib import admin
 
 # Register your models here.
 from engine import models
-from engine.models import MoonZodiac, SummaryFactor
+from engine.models import MoonZodiac, SummaryFactor, MoonDay
 
 
-class ZodiacContentInline(admin.TabularInline):
-    model = models.ZodiacContent
+class MoonZodiacContentInline(admin.TabularInline):
+    model = models.MoonZodiacContent
     extra = 1
 
 
@@ -14,12 +14,29 @@ class MoonZodiacAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'title',
-        'zodiac',
+        'zodiac_choice',
     )
-    list_display_links = (
-        'zodiac',
+    # list_display_links = (
+    #     'zodiac',
+    # )
+    inlines = (MoonZodiacContentInline,)
+
+
+class MoonDayContentInline(admin.TabularInline):
+    model = models.MoonDayContent
+    extra = 1
+
+
+class MoonDayAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'title',
+        'day_choice',
     )
-    inlines = (ZodiacContentInline,)
+    # list_display_links = (
+    #     'zodiac',
+    # )
+    inlines = (MoonDayContentInline,)
 
 
 class SummaryFactorAdmin(admin.ModelAdmin):
@@ -31,4 +48,5 @@ class SummaryFactorAdmin(admin.ModelAdmin):
 
 
 admin.site.register(MoonZodiac, MoonZodiacAdmin)
+admin.site.register(MoonDay, MoonDayAdmin)
 admin.site.register(SummaryFactor, SummaryFactorAdmin)

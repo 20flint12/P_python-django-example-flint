@@ -17,6 +17,9 @@ urlpatterns = [
 
     url(r'^records/', include('records.urls')),
     url(r'^reminder/', include('reminder.urls')),
+
+    url(r'^engine/', include('engine.urls')),
+
 ]
 
 
