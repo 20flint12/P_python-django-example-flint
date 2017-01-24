@@ -26,7 +26,6 @@ class MoonZodiacContentViewSet(viewsets.ModelViewSet):
     {
         "content_title": "Content title",
         "title": "Title4",
-        "text": "some deccription",
     }
     '''
 
@@ -40,14 +39,24 @@ class MoonZodiacViewSet(viewsets.ModelViewSet):
     {
         "content": "http://server/contents/2/"
         "title": "Image1",
-        "image": "path_to_storage",
-        "image_loc": "http://dbe63d5a.ngrok.io/images/axcela_imgs/2017/01/18/images.jpg",
     }
     '''
 
     queryset = models.MoonZodiac.objects.all()
     serializer_class = serializers.MoonZodiacSerializer
 
+
+class SummaryFactorViewSet(viewsets.ModelViewSet):
+    '''
+    Post new image data, like:
+    {
+        "content": "http://server/contents/2/"
+        "title": "Image1",
+    }
+    '''
+
+    queryset = models.SummaryFactor.objects.all()
+    serializer_class = serializers.SummaryFactorSerializer
 
 
 # -----------------------------------------------------------------------------

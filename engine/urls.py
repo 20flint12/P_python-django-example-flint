@@ -10,9 +10,10 @@ router = routers.DefaultRouter()
 
 # router.register(r'users', viewsets.UserViewSet)
 # router.register(r'languages', viewsets.LanguageViewSet)
-# router.register(r'sections', viewsets.SectionViewSet)
+router.register(r'summary-factor', viewsets.SummaryFactorViewSet)
 router.register(r'moon-zodiacs', viewsets.MoonZodiacViewSet)
 router.register(r'moon-zodiac-contents', viewsets.MoonZodiacContentViewSet)
+
 
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------

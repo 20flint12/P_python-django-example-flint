@@ -58,7 +58,7 @@ class MoonZodiacContent(models.Model):
     image = models.FileField(upload_to='media/zodiac_imgs/%Y/%m/%d/', blank=True, null=True)
 
     def __str__(self):
-        return "[{}] Content: {}".format(self.title, self.text)
+        return "[{}] Content: {}".format(self.id, self.title)
 
 
 class MoonDay(models.Model):

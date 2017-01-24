@@ -20,10 +20,12 @@ from . import models
 
 
 class MoonZodiacContentSerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = models.MoonZodiacContent
         fields = (
             'id',
+            'mzcontent',
             'title',
             'text',
             'image',
@@ -31,13 +33,29 @@ class MoonZodiacContentSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class MoonZodiacSerializer(serializers.HyperlinkedModelSerializer):
-    content = MoonZodiacContentSerializer(source='moonzodiaccontent_set', many=True, read_only=True)
+    mzcontent = MoonZodiacContentSerializer(source='mzcontent_set', many=True, read_only=True)
 
     class Meta:
         model = models.MoonZodiac
         fields = (
             'id',
+            'mzodiac',
             'title',
             'zodiac_choice',
-            'content',
+            'mzcontent',
         )
+
+
+class SummaryFactorSerializer(serializers.HyperlinkedModelSerializer):
+    mzodiac = MoonZodiacSerializer(source='mzodiac_set', many=True, read_only=True)
+
+    class Meta:
+        model = models.SummaryFactor
+        fields = (
+            'id',
+            'marked_at',
+            'title',
+            'mzodiac',
+        )
+
+
