@@ -1,22 +1,24 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-import astrouser.models
+# import astrouser.models
+import astrouser
+from astro import settings
 from . import models
 
 
-# class UserSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = astrouser.User
-#         fields = (
-#             'id',
-#             # 'url',
-#             'username',
-#             'first_name',
-#             'email',
-#             'is_staff'
-#         )
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'id',
+            'url',
+            'first_name',
+            'email',
+            'is_staff'
+        )
 
 
 class MoonZodiacContentSerializer(serializers.HyperlinkedModelSerializer):

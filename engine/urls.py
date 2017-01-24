@@ -8,7 +8,7 @@ from . import viewsets
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 
-# router.register(r'users', viewsets.UserViewSet)
+router.register(r'users', viewsets.UserViewSet)
 # router.register(r'languages', viewsets.LanguageViewSet)
 router.register(r'summary-factor', viewsets.SummaryFactorViewSet)
 router.register(r'moon-zodiacs', viewsets.MoonZodiacViewSet)

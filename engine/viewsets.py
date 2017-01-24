@@ -1,4 +1,4 @@
-
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 
 from rest_framework import viewsets
@@ -9,15 +9,15 @@ from rest_framework import permissions
 # from lmcback.permissions import IsOwnerOrReadOnly
 
 
-# class UserViewSet(viewsets.ReadOnlyModelViewSet):
-#     """
-#     This endpoint presents the users in the system.
-#
-#     As you can see, the collection of snippet instances owned by a user are
-#     serialized using a hyperlinked representation.
-#     """
-#     queryset = User.objects.all()
-#     serializer_class = serializers.UserSerializer
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    This endpoint presents the users in the system.
+
+    As you can see, the collection of snippet instances owned by a user are
+    serialized using a hyperlinked representation.
+    """
+    queryset = get_user_model().objects.all()
+    serializer_class = serializers.UserSerializer
 
 
 class MoonZodiacContentViewSet(viewsets.ModelViewSet):
