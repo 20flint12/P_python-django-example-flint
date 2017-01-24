@@ -2,12 +2,13 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
+import astrouser.models
 from . import models
 
 
 # class UserSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:
-#         model = User
+#         model = astrouser.User
 #         fields = (
 #             'id',
 #             # 'url',
