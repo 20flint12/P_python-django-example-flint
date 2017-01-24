@@ -39,9 +39,7 @@ class MoonZodiac(models.Model):
         (11, 'Водолей'),
         (12, 'Рыбы'),
     )
-
     mzodiac = models.ForeignKey(SummaryFactor, related_name="factor_mzodiac", on_delete=models.CASCADE, blank=True, null=True)
-
     title = models.CharField(max_length=50)
     zodiac_choice = models.PositiveSmallIntegerField(blank=False, null=False, choices=MOON_ZODIACS)
 

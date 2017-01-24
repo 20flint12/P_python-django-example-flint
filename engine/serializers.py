@@ -33,7 +33,7 @@ class MoonZodiacContentSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class MoonZodiacSerializer(serializers.HyperlinkedModelSerializer):
-    mzcontent = MoonZodiacContentSerializer(source='mzcontent_set', many=True, read_only=True)
+    # moonzodiaccontents = MoonZodiacContentSerializer(source='moonzodiaccontent_set', many=True, read_only=True)
 
     class Meta:
         model = models.MoonZodiac
@@ -42,12 +42,13 @@ class MoonZodiacSerializer(serializers.HyperlinkedModelSerializer):
             'mzodiac',
             'title',
             'zodiac_choice',
-            'mzcontent',
+            # 'moonzodiaccontents',
+            'mzodiac_content',
         )
 
 
 class SummaryFactorSerializer(serializers.HyperlinkedModelSerializer):
-    mzodiac = MoonZodiacSerializer(source='mzodiac_set', many=True, read_only=True)
+    # moonzodiacs = MoonZodiacSerializer(source='moonzodiac_set', many=True, read_only=True)
 
     class Meta:
         model = models.SummaryFactor
@@ -55,7 +56,8 @@ class SummaryFactorSerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'marked_at',
             'title',
-            'mzodiac',
+            # 'moonzodiacs',
+            'factor_mzodiac',
         )
 
 
