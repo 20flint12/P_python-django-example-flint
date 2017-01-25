@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
+    'debug_toolbar',
     'rest_framework',
 
     'astro',
@@ -63,6 +64,8 @@ INSTALLED_APPS = (
     'reminder',
 )
 
+# DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
 # INSTALLED_APPS += ['tastypie']
 
 MIDDLEWARE_CLASSES = (
@@ -71,6 +74,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # './polls',
@@ -212,8 +218,7 @@ geopr.GEO_PLACE_dict = geopr.read_config_to_geo(PROJECT_ROOT + "/" + conf.GEO_FI
 # print "conf.GEO_PLACE_dict=\n", pprint.pprint(geopr.GEO_PLACE_dict)
 
 
-
-
+INTERNAL_IPS = ['127.0.0.1']
 
 
 
