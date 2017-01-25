@@ -42,7 +42,7 @@ else:
 
 
 # -----------------------------------------------------------------------------
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,7 +52,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
-    'debug_toolbar',
+    # 'debug_toolbar',
     'rest_framework',
 
     'astro',
@@ -62,26 +62,32 @@ INSTALLED_APPS = (
     'grabber',
     'engine',
     'reminder',
-)
+]
 
-# DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 # INSTALLED_APPS += ['tastypie']
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # './polls',
     # './records',
-)
+]
+
+if not True:
+    INSTALLED_APPS += ['debug_toolbar']
+    MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+    INTERNAL_IPS = ['127.0.0.1']
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
 
 # List of callables that know how to import templates from various sources.
 # TEMPLATE_LOADERS = (
@@ -218,7 +224,6 @@ geopr.GEO_PLACE_dict = geopr.read_config_to_geo(PROJECT_ROOT + "/" + conf.GEO_FI
 # print "conf.GEO_PLACE_dict=\n", pprint.pprint(geopr.GEO_PLACE_dict)
 
 
-INTERNAL_IPS = ['127.0.0.1']
 
 
 
