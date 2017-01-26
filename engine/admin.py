@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from engine import models
-from engine.models import MoonZodiac, SummaryFactor, MoonDay
+from engine.models import MoonZodiac, SummaryFactor, MoonDay, Place
 
 
 class MoonZodiacContentInline(admin.TabularInline):
@@ -47,6 +47,22 @@ class SummaryFactorAdmin(admin.ModelAdmin):
     )
 
 
+class PlaceAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'profile',
+        'title',
+        # 'text',
+        'is_active',
+        'timezone',
+        'dst',
+        'latitude',
+        'longitude',
+    )
+
+
 admin.site.register(MoonZodiac, MoonZodiacAdmin)
 admin.site.register(MoonDay, MoonDayAdmin)
 admin.site.register(SummaryFactor, SummaryFactorAdmin)
+admin.site.register(Place, PlaceAdmin)
+

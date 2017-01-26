@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.utils.translation import ugettext_lazy
-from astrouser.models import User, update_member
+from astrouser.models import User, update_member, UserProfile
 import logging
 from django.conf import settings
 
@@ -52,5 +52,15 @@ class UserAdmin(admin.ModelAdmin):
     actions = [push_to_mailchimp]
 
 
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'account',
+        'user_name',
+        'user_surname',
+    )
+
+
 admin.site = AstroFactorAdminSite()
 admin.site.register(User, UserAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)

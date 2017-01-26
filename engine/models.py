@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
+from astrouser.models import UserProfile
 
 '''
 SummaryFactor(zodiac,moonday)
@@ -95,3 +97,22 @@ class MoonDayContent(models.Model):
 
     def __str__(self):
         return "[{}] Content: {}".format(self.title, self.text)
+
+
+class Place(models.Model):
+
+    profile = models.ForeignKey(UserProfile, related_name="place_profile", on_delete=models.CASCADE, blank=True, null=True)
+
+    title = models.CharField(max_length=250)
+    text = models.TextField()
+    is_active = models.BooleanField(default=False)
+
+    timezone = models.CharField(max_length=250, null=True, blank=True, default=None)     # "Europe/Zaporozhye"
+    dst = models.BooleanField(blank=True, default=False)
+    latitude = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(180.0)], null=True, blank=True, default=None)
+    longitude = models.FloatField(validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)], null=True, blank=True, default=None)
+
+    def __str__(self):
+        return "[{}] Place: {} lat:{} lon:{}".format(self.id, self.title, self.latitude, self.longitude)
+
+

@@ -11,6 +11,24 @@ from django.db.models import Sum
 
 logger = logging.getLogger(__name__)
 
+'''
+User
+    first_name
+    email
+    is_active
+    is_admin
+    date_joined
+    randomize
+
+UserProfile
+    account ~ User, verbose_name="related account",
+    user_name
+    user_surname
+    add_email
+    is_active
+
+'''
+
 
 class MyUserManager(BaseUserManager):
     def create_user(self, email, first_name, password=None, **kwargs):
@@ -36,7 +54,7 @@ class User(AbstractBaseUser):
     email = models.EmailField("Email Address", max_length=100, unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    date_joined = models.DateTimeField("Created", default=timezone.now)
+    date_joined = models.DateTimeField("Created", auto_now_add=True)
     randomize = models.BooleanField(default=False)
 
     objects = MyUserManager()
@@ -45,8 +63,7 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = ['first_name']
 
     def __str__(self):
-        return "ID: {}. first_name: {}. email: {}".format(self.id, self.first_name, self.email)
-
+        return "ID: {}. FName: {}. Email: {}".format(self.id, self.first_name, self.email)
 
     class Meta:
         verbose_name = 'user'
@@ -57,9 +74,6 @@ class User(AbstractBaseUser):
 
     def get_short_name(self):
         return self.first_name
-
-    def __unicode__(self):
-        return self.email
 
     def has_perm(self, perm, obj=None):
         """Does the user have a specific permission?"""
@@ -162,3 +176,21 @@ def update_member(user):
         logger.warning('User %s has bad email' % user)
 
     return
+
+
+class UserProfile(models.Model):
+    account = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="related account",
+        blank=True, null=True,
+    )
+    user_name = models.CharField(max_length=50)
+    user_surname = models.CharField(max_length=50)
+    add_email = models.EmailField("Add email", max_length=100)
+    is_active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "[{}] Profile: {} active:{}".format(self.id, self.user_name, self.is_active)
+
+

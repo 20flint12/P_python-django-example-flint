@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
-    # 'debug_toolbar',
     'rest_framework',
 
     'astro',
@@ -64,7 +63,6 @@ INSTALLED_APPS = [
     'reminder',
 ]
 
-
 # INSTALLED_APPS += ['tastypie']
 
 MIDDLEWARE_CLASSES = [
@@ -73,13 +71,6 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
-
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # './polls',
-    # './records',
 ]
 
 if not True:
