@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 # import astrouser.models
 import astrouser
-from astro import settings
+from astrofactor import settings
 from . import models
 
 

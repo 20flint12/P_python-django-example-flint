@@ -4,12 +4,12 @@
 
 {% block title %} {{ object.name }} {% endblock title %}
 
-{% block mc_header_left %} Editing: {{ object.name }}
-    {% if object.check_hash %} {% else %} *{% endif %}
-    {% if object.published_at %} (published){% else %}{% endif %}
+{% block mc_header_left %} Editing observer
 {% endblock mc_header_left %}
 
-{% block mc_header_right %}{% endblock mc_header_right %}
+{% block mc_header_right %}
+It is {% now "jS F Y H:i:s e / T O \S\a\v\i\n\g\ \t\i\m\e\=I l " %}
+{% endblock mc_header_right %}
 
 {% block css %}
     {{ block.super }}
@@ -19,10 +19,10 @@
 {% block mc_body %}
     <ul class="nav nav-tabs">
         <li class="active">
-            <a class="tab_pages" data-toggle="tab" href="#pages">Pages</a>
+            <a class="tab_pages" data-toggle="tab" href="#pages">Place</a>
         </li>
-        <li><a class="tab_settings" data-toggle="tab" href="#settings">Settings</a></li>
-        <li><a class="tab_share" data-toggle="tab" href="#share">Share</a></li>
+        <li><a class="tab_settings" data-toggle="tab" href="#settings">Time</a></li>
+        <li><a class="tab_share" data-toggle="tab" href="#share">sdgsjdg;skjdmodule_edit.js</a></li>
         <li><a class="tab_monetize" href="">Monetize</a></li>
         <li style="float: right;">
             <button class="study btn btn-info" data-toggle="modal" data-target="#study-settings"
@@ -42,8 +42,6 @@
 
     <div id="settings" class="tab-pane fade">
         <div class="marg-tb">
-
-{#            {% include "madquiz/form_module.html" with submit_btn_name="Save Changes" form=form %}#}
 
             <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete">
                 Delete Module
@@ -75,6 +73,6 @@
     <script src="{% static 'lib/Sortable.min.js' %}"></script>
     <script src="{% static 'lib/ckeditor/ckeditor.js' %}"></script>
     <script src="{% static 'lib/jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>
-    <script src="{% static 'madquiz/js/module_edit.js' %}"></script>
+    <script src="{% static 'engine/js/module_edit.js' %}"></script>
 {% endblock js %}
 

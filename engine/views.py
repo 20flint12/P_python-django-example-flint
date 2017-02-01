@@ -2,7 +2,7 @@
 from django.views.generic import View, TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from engine.forms import PlaceForm
+from engine.forms import PlaceForm, ToDoForm
 from engine.models import Place
 
 
@@ -16,7 +16,13 @@ class PlaceEditView(LoginRequiredMixin, UpdateView):
         #     self.mymodule = self.mymodule.save(force_clone=True)
         return Place.objects.get(id=1)
 
-    # def get(self, request, *args, **kwargs):
+    # def get_context_data(self, **kwargs):
+    #     context = super(PlaceEditView, self).get_context_data(**kwargs)
+    #     context.update({"form": ToDoForm(initial=self.request.GET)})
+    #     return context
+
+
+            # def get(self, request, *args, **kwargs):
     #     self.object = self.get_object()
     #
     #     path = reverse_lazy('edit_module', kwargs={'module_id': self.object.id})
@@ -43,3 +49,15 @@ class PlaceEditView(LoginRequiredMixin, UpdateView):
     #     else:
     #         module_id = self.mymodule.id
     #     return reverse_lazy('edit_module', kwargs={'module_id': module_id})
+
+
+class Place2EditView(TemplateView):
+    template_name = 'engine/form_place2.html'
+    # queryset = Place.objects
+    form_class = ToDoForm
+
+    # def get_object(self, **kwargs):
+    #     # if self.mymodule.frozen_at:
+    #     #     self.mymodule = self.mymodule.save(force_clone=True)
+    #     return Place.objects.get(id=1)
+

@@ -124,7 +124,7 @@ def static_image(request):
     """ Simply return a static image as a png """
 
     # image_path = "/home/flint/Pictures/Screenshot at 2017-01-09 13-21-19.png"
-    image_path = "image_jf.jpg"
+    image_path = "engine/static/engine/images/images (1).jpg"
 
     image_data = open(image_path, "rb").read()
     return HttpResponse(image_data, content_type="image/jpg")

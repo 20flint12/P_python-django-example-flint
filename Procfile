@@ -1,4 +1,4 @@
-web: gunicorn astro.wsgi --log-file - --log-level debug
+web: gunicorn astrofactor.wsgi --log-file - --log-level debug
 
 #clock: python astro/clock.py
 

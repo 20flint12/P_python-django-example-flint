@@ -18,35 +18,56 @@ class PlaceForm(forms.ModelForm):
 
     class Meta:
         model = Place
-        fields = (
-            'title', 'text', 'is_active', 'timezone', 'dst',
-            'latitude', 'longitude',
-        )
+        fields = '__all__'
+        #     (
+        #     # 'title', 'text', 'is_active', 'timezone', 'dst',
+        #     # 'latitude', 'longitude',
+        #     #
+        #     # #'atodo', 'todata', 'reminder',
+        # )
 
-    # def __init__(self, *args, **kwargs):
-    #     # TODO : move default values to FORM
-    #     self.request = kwargs.pop('request', None)
-    #     self.host = kwargs.pop('host', None)
-    #     self.instance = kwargs.get('instance', None)
+        widgets = {
+            'text': forms.Textarea(attrs={'cols': 50, 'rows': 5}),
+            'dtp1': forms.TextInput(attrs={"class": "form-control"}),
+            # 'dtp2': DateTimePicker(options={"format": "YYYY-MM-DD", "pickTime": False}),
+            # 'dtp3': DateTimePicker(options={"format": "YYYY-MM-DD HH:mm", "pickSeconds": False}),
+
+            'dtp2': forms.DateInput(attrs={'id': 'datetimepicker12'}),
+            'dtp3': forms.DateInput(attrs={'id': 'datetimepicker13'}),
+
+        }
+
+
+
+        # def __init__(self, *args, **kwargs):
+    #     super(PlaceForm, self).__init__(*args, **kwargs)
     #
-    #     super(StudyModuleForm, self).__init__(*args, **kwargs)
+    #     # self.fields['name'].label = 'Module Name (Required)'
+    #     # self.fields['name'].widget.attrs.update({'required': True})
+    #     #
+    #     # self.fields['description'].label = 'Module Description (Required)'
+    #     # self.fields['description'].required = True
+    #     # self.fields['description'].widget.attrs.update({'required': True})
+    #     #
+    #     # self.fields['category'].label = 'Category (Optional)'
+    #     # self.fields['category'].required = False
     #
-    #     self.fields['name'].label = 'Module Name (Required)'
-    #     self.fields['name'].widget.attrs.update({'required': True})
+    #     # self.fields['todo'].label = 'Related ISBN (Optional)'
+    #     # self.fields['todo'] = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
+    #     # self.fields['image'].label = 'Cover Image (Optional)'
     #
-    #     self.fields['description'].label = 'Module Description (Required)'
-    #     self.fields['description'].required = True
-    #     self.fields['description'].widget.attrs.update({'required': True})
-    #
-    #     self.fields['category'].label = 'Category (Optional)'
-    #     self.fields['category'].required = False
-    #
-    #     self.fields['isbn'].label = 'Related ISBN (Optional)'
-    #     self.fields['image'].label = 'Cover Image (Optional)'
-    #
-    #     for key in self.fields:
-    #         self.fields[key].widget.attrs.update({'class': 'form-control'})
-    #
+    #     # for key in self.fields:
+    #     #     self.fields[key].widget.attrs.update({'class': 'form-control'})
+
     # def save(self, *args, **kwargs):
     #     return super(StudyModuleForm, self).save(*args, **kwargs)
+
+
+class ToDoForm(forms.Form):
+
+    todo = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
+    # date = forms.DateField(widget=DateTimePicker(options={"format": "YYYY-MM-DD", "pickTime": False}))
+    # reminder = forms.DateTimeField(
+    #     required=False, widget=DateTimePicker(options={"format": "YYYY-MM-DD HH:mm", "pickSeconds": False}))
+
 

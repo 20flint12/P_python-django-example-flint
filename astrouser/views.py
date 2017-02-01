@@ -17,7 +17,7 @@ from django.views.generic import FormView, TemplateView, RedirectView, View
 
 from astrouser.forms import RegForm, SignInForm, PassResetChangeForm, PassResetRequestForm
 from astrouser.mixins import AjaxHandlerMixin
-from astro.settings import ADMIN_EMAIL, APP_EMAIL
+from astrofactor.settings import ADMIN_EMAIL, APP_EMAIL
 
 
 email_validator = EmailValidator()

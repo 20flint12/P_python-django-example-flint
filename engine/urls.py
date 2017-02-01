@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^place-edit/$', views.PlaceEditView.as_view(), name='place_edit'),
+    url(r'^place2-edit/$', views.Place2EditView.as_view(), name='place2_edit'),
 
 ]

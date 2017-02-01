@@ -2,7 +2,7 @@
 #sudo apt-get install python3-dev
 
 gunicorn==19.6.0
-Django==1.9.2
+Django==1.10.5
 dj-database-url==0.4.2
 beautifulsoup4==4.5.3
 

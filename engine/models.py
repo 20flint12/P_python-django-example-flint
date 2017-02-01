@@ -112,6 +112,10 @@ class Place(models.Model):
     latitude = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(180.0)], null=True, blank=True, default=None)
     longitude = models.FloatField(validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)], null=True, blank=True, default=None)
 
+    dtp1 = models.CharField(max_length=250, null=True, blank=True, default=None)
+    dtp2 = models.DateField(null=True, blank=True, default=None)
+    dtp3 = models.DateTimeField(null=True, blank=True, default=None)
+
     def __str__(self):
         return "[{}] Place: {} lat:{} lon:{}".format(self.id, self.title, self.latitude, self.longitude)
 
