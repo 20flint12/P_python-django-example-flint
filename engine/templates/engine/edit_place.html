@@ -19,46 +19,31 @@ It is {% now "jS F Y H:i:s e / T O \S\a\v\i\n\g\ \t\i\m\e\=I l " %}
 {% block mc_body %}
     <ul class="nav nav-tabs">
         <li class="active">
-            <a class="tab_pages" data-toggle="tab" href="#pages">Place</a>
+            <a data-toggle="tab" href="#pages">Place</a>
         </li>
-        <li><a class="tab_settings" data-toggle="tab" href="#settings">Time</a></li>
-        <li><a class="tab_share" data-toggle="tab" href="#share">sdgsjdg;skjdmodule_edit.js</a></li>
-        <li><a class="tab_monetize" href="{% url 'edit_moment' place_id=1 %}#!monetize">Moment</a></li>
-        <li style="float: right;">
-            <button class="study btn btn-info" data-toggle="modal" data-target="#study-settings"
-                    data-url="">Study
-            </button>
-        </li>
+        <li><a data-toggle="tab" href="#settings">Time</a></li>
+        <li><a data-toggle="tab" href="#share">Empty</a></li>
+        <li><a href="{% url 'edit_moment' place_id=1 %}">Moment</a></li>
     </ul>
 
     <div class="tab-content">
-    <div id="pages" class="tab-pane fade in active">
-        <div class="marg-tb">
-
-            {% include "engine/form_place.html" %}
-
+        <div id="pages" class="tab-pane fade in active">
+            <div class="marg-tb">
+                {% include "engine/form_place.html" %}
+            </div>
         </div>
-    </div>
 
-    <div id="settings" class="tab-pane fade">
-        <div class="marg-tb">
-
-            <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete">
-                Delete Module
-            </button>
+        <div id="settings" class="tab-pane fade">
+            <div class="marg-tb">
+                <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete">
+                    Delete Module
+                </button>
+            </div>
         </div>
-    </div>
 
-    <div id="share" class="tab-pane fade">
-        <div class="marg-tb">
-            <label for="recipients-email-address">Recipients Email Address</label>
-            <div class="row">
-                <div class="col-sm-6">
-                    <input id="recipients-email-address" type="email"
-                           data-module_id="{{ object.id }}"
-                           class="form-control form-group marg-b" required="required">
-                </div>
-                <button class="btn btn-info btn-share">Share</button>
+        <div id="share" class="tab-pane fade">
+            <div class="marg-tb">
+
             </div>
         </div>
     </div>

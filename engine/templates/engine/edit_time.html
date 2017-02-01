@@ -16,11 +16,11 @@
 
 {% block mc_body %}
     <ul class="nav nav-tabs">
-        <li><a class="tab_pages" href="{% url 'edit_place' place_id=1 %}#!pages">Place</a></li>
-        <li><a class="tab_settings" href="{% url 'edit_place' 1 %}#!settings">Settings</a></li>
-        <li><a class="tab_share" href="{% url 'edit_place' 1 %}#!share">Share</a></li>
+        <li><a href="{% url 'edit_place' place_id=1 %}#!pages">Place</a></li>
+        <li><a href="{% url 'edit_place' place_id=1 %}#!settings">Time</a></li>
+        <li><a href="{% url 'edit_place' place_id=1 %}#!share">Empty</a></li>
         <li class="active">
-            <a class="tab_monetize" data-toggle="tab" href="">Monetize</a>
+            <a data-toggle="tab" href="">Moment</a>
         </li>
     </ul>
 
