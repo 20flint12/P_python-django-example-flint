@@ -29,12 +29,9 @@ class PlaceForm(forms.ModelForm):
         widgets = {
             'text': forms.Textarea(attrs={'cols': 50, 'rows': 5}),
             'dtp1': forms.TextInput(attrs={"class": "form-control"}),
-            # 'dtp2': DateTimePicker(options={"format": "YYYY-MM-DD", "pickTime": False}),
-            # 'dtp3': DateTimePicker(options={"format": "YYYY-MM-DD HH:mm", "pickSeconds": False}),
 
             'dtp2': forms.DateInput(attrs={'id': 'datetimepicker12'}),
-            'dtp3': forms.DateInput(attrs={'id': 'datetimepicker13'}),
-
+            'dtp3': forms.DateTimeInput(attrs={'id': 'datetimepicker13'}),
         }
 
 

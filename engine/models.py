@@ -119,4 +119,6 @@ class Place(models.Model):
     def __str__(self):
         return "[{}] Place: {} lat:{} lon:{}".format(self.id, self.title, self.latitude, self.longitude)
 
-
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('place_edit', args=[str(self.id)])

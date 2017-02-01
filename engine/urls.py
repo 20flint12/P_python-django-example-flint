@@ -20,13 +20,23 @@ router.register(r'moon-zodiac-contents', viewsets.MoonZodiacContentViewSet)
 # -----------------------------------------------------------------------------
 
 
+place_urls = [
+    url(r'^edit/$', views.PlaceEditView.as_view(), name='place_edit'),
+    # url(r'^edit/api/$', views.AjaxEditModule.as_view()),
+    # url(r'^delete/$', views.ModuleDeleteView.as_view(), name='delete_module'),
+    # url(r'^details/$', views2.ModuleDetailsView.as_view(), name='details_module'),
+]
+
+
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'^place-edit/$', views.PlaceEditView.as_view(), name='place_edit'),
+    # url(r'^place-edit/$', views.PlaceEditView.as_view(), name='place_edit'),
     url(r'^place2-edit/$', views.Place2EditView.as_view(), name='place2_edit'),
+
+    url(r'^place/(?P<place_id>\d+)/', include(place_urls)),
 
 ]

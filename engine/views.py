@@ -1,4 +1,4 @@
-
+from django.urls import reverse_lazy
 from django.views.generic import View, TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -14,22 +14,7 @@ class PlaceEditView(LoginRequiredMixin, UpdateView):
     def get_object(self, **kwargs):
         # if self.mymodule.frozen_at:
         #     self.mymodule = self.mymodule.save(force_clone=True)
-        return Place.objects.get(id=1)
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(PlaceEditView, self).get_context_data(**kwargs)
-    #     context.update({"form": ToDoForm(initial=self.request.GET)})
-    #     return context
-
-
-            # def get(self, request, *args, **kwargs):
-    #     self.object = self.get_object()
-    #
-    #     path = reverse_lazy('edit_module', kwargs={'module_id': self.object.id})
-    #     if self.request.path != path:
-    #         return HttpResponseRedirect(path)
-    #     else:
-    #         return super(ModuleEditView, self).get(request, *args, **kwargs)
+        return Place.objects.all().first()
 
     # def post(self, request, *args, **kwargs):
     #     self.object = self.mymodule
@@ -37,18 +22,10 @@ class PlaceEditView(LoginRequiredMixin, UpdateView):
     #     # if not raise Exception()
     #
     #     return super(ModuleEditView, self).post(request, *args, **kwargs)
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super(ModuleEditView, self).get_context_data(**kwargs)
-    #     context['pages'] = ModulePage.objects.filter(module_id=self.mymodule.id)
-    #     return context
 
-    # def get_success_url(self):
-    #     if self.mymodule.cloned_id > 1:
-    #         module_id = self.mymodule.cloned_id
-    #     else:
-    #         module_id = self.mymodule.id
-    #     return reverse_lazy('edit_module', kwargs={'module_id': module_id})
+    def get_success_url(self):
+        place_id = 1
+        return reverse_lazy('place_edit', kwargs={'place_id': place_id})
 
 
 class Place2EditView(TemplateView):

@@ -1,6 +1,6 @@
 {% extends "inner_layout.html" %}
 
-{% load staticfiles %}
+{% load static %}
 
 {% block title %} {{ object.name }} {% endblock title %}
 
@@ -70,9 +70,9 @@ It is {% now "jS F Y H:i:s e / T O \S\a\v\i\n\g\ \t\i\m\e\=I l " %}
 {% endblock mc_body %}
 
 {% block js %}
-    <script src="{% static 'lib/Sortable.min.js' %}"></script>
-    <script src="{% static 'lib/ckeditor/ckeditor.js' %}"></script>
-    <script src="{% static 'lib/jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>
+{#    <script src="{% static 'lib/Sortable.min.js' %}"></script>#}
+{#    <script src="{% static 'lib/ckeditor/ckeditor.js' %}"></script>#}
+{#    <script src="{% static 'lib/jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>#}
     <script src="{% static 'engine/js/module_edit.js' %}"></script>
 {% endblock js %}
 
