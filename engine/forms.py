@@ -34,36 +34,27 @@ class PlaceForm(forms.ModelForm):
             'dtp3': forms.DateTimeInput(attrs={'id': 'datetimepicker13'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super(PlaceForm, self).__init__(*args, **kwargs)
 
-        # def __init__(self, *args, **kwargs):
-    #     super(PlaceForm, self).__init__(*args, **kwargs)
-    #
-    #     # self.fields['name'].label = 'Module Name (Required)'
-    #     # self.fields['name'].widget.attrs.update({'required': True})
-    #     #
-    #     # self.fields['description'].label = 'Module Description (Required)'
-    #     # self.fields['description'].required = True
-    #     # self.fields['description'].widget.attrs.update({'required': True})
-    #     #
-    #     # self.fields['category'].label = 'Category (Optional)'
-    #     # self.fields['category'].required = False
-    #
-    #     # self.fields['todo'].label = 'Related ISBN (Optional)'
-    #     # self.fields['todo'] = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
-    #     # self.fields['image'].label = 'Cover Image (Optional)'
-    #
-    #     # for key in self.fields:
-    #     #     self.fields[key].widget.attrs.update({'class': 'form-control'})
+        for key in self.fields:
+            self.fields[key].widget.attrs.update({'class': 'form-control'})
 
-    # def save(self, *args, **kwargs):
-    #     return super(StudyModuleForm, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        return super(PlaceForm, self).save(*args, **kwargs)
 
 
 class ToDoForm(forms.Form):
-
-    todo = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
-    # date = forms.DateField(widget=DateTimePicker(options={"format": "YYYY-MM-DD", "pickTime": False}))
-    # reminder = forms.DateTimeField(
-    #     required=False, widget=DateTimePicker(options={"format": "YYYY-MM-DD HH:mm", "pickSeconds": False}))
+    dp1 = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "form-control"}, )
+    )
+    dp2 = forms.DateField(
+        widget=forms.DateInput(attrs={"class": "form-control",
+                                      'id': 'datetimepicker14'}, )
+    )
+    dp3 = forms.DateTimeField(
+        widget=forms.DateTimeInput(attrs={"class": "form-control",
+                                          'id': 'datetimepicker15'}, )
+    )
 
 

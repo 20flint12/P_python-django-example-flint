@@ -1,20 +1,33 @@
 $(document).ready(function () {
 
     $(function () {
-        $('#datetimepicker12').datetimepicker({
+        $('#datetimepicker14').datetimepicker({
             inline: true,
             sideBySide: true,
             // locale: 'ru',
             // format: 'DD.MM.YYYY 11:44:22'
-            format: 'YYYY-MM-DD'
+            format: 'YYYY-MM-DD',
+            icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                },
+            // viewMode: 'years'
         });
 
-        $('#datetimepicker13').datetimepicker({
+        $('#datetimepicker15').datetimepicker({
             inline: true,
             sideBySide: true,
             // locale: 'ru',
             // format: 'DD.MM.YYYY 11:44:22'
-            format: 'YYYY-MM-DD 11:44:22'
+            format: 'YYYY-MM-DD 11:44:22',
+            icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
         });
     });
 

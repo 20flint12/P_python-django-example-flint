@@ -51,10 +51,12 @@ class PlaceAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'profile',
+        'created_at',
+        'updated_at',
         'title',
         # 'text',
         'is_active',
-        'timezone',
+        'timezone_name',
         'dst',
         'latitude',
         'longitude',

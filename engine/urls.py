@@ -38,6 +38,6 @@ urlpatterns = [
     url(r'^place/(?P<place_id>\d+)/', include(place_urls)),
 
     # url(r'^place-edit/$', views.PlaceEditView.as_view(), name='place_edit'),
-    url(r'^place2-edit/$', views.Place2EditView.as_view(), name='edit_time'),
+    # url(r'^place2-edit/$', views.Place2EditView.as_view(), name='edit_time'),
 
 ]

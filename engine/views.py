@@ -25,19 +25,14 @@ class PlaceEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         place_id = 1
-        return reverse_lazy('place_edit', kwargs={'place_id': place_id})
+        return reverse_lazy('edit_place', kwargs={'place_id': place_id})
 
 
-class Place2EditView(TemplateView):
+class Place2EditView(FormView):
     template_name = 'engine/edit_time.html'
     # queryset = Place.objects
     form_class = ToDoForm
 
-    # def get_object(self, **kwargs):
-    #     # if self.mymodule.frozen_at:
-    #     #     self.mymodule = self.mymodule.save(force_clone=True)
-    #     return Place.objects.get(id=1)
-
     def get_success_url(self):
         place_id = 1
-        return reverse_lazy('place_edit')
+        return reverse_lazy('edit_moment', kwargs={'place_id': place_id})
