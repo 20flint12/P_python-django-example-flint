@@ -7,7 +7,7 @@ from engine.models import Place
 
 
 class PlaceEditView(LoginRequiredMixin, UpdateView):
-    template_name = 'engine/edit_module.html'
+    template_name = 'engine/edit_place.html'
     queryset = Place.objects
     form_class = PlaceForm
 
@@ -29,7 +29,7 @@ class PlaceEditView(LoginRequiredMixin, UpdateView):
 
 
 class Place2EditView(TemplateView):
-    template_name = 'engine/form_place2.html'
+    template_name = 'engine/edit_time.html'
     # queryset = Place.objects
     form_class = ToDoForm
 
@@ -38,3 +38,6 @@ class Place2EditView(TemplateView):
     #     #     self.mymodule = self.mymodule.save(force_clone=True)
     #     return Place.objects.get(id=1)
 
+    def get_success_url(self):
+        place_id = 1
+        return reverse_lazy('place_edit')

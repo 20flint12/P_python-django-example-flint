@@ -23,7 +23,7 @@ It is {% now "jS F Y H:i:s e / T O \S\a\v\i\n\g\ \t\i\m\e\=I l " %}
         </li>
         <li><a class="tab_settings" data-toggle="tab" href="#settings">Time</a></li>
         <li><a class="tab_share" data-toggle="tab" href="#share">sdgsjdg;skjdmodule_edit.js</a></li>
-        <li><a class="tab_monetize" href="">Monetize</a></li>
+        <li><a class="tab_monetize" href="{% url 'edit_moment' place_id=1 %}#!monetize">Moment</a></li>
         <li style="float: right;">
             <button class="study btn btn-info" data-toggle="modal" data-target="#study-settings"
                     data-url="">Study
@@ -73,6 +73,6 @@ It is {% now "jS F Y H:i:s e / T O \S\a\v\i\n\g\ \t\i\m\e\=I l " %}
 {#    <script src="{% static 'lib/Sortable.min.js' %}"></script>#}
 {#    <script src="{% static 'lib/ckeditor/ckeditor.js' %}"></script>#}
 {#    <script src="{% static 'lib/jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>#}
-    <script src="{% static 'engine/js/module_edit.js' %}"></script>
+    <script src="{% static 'engine/js/edit_place.js' %}"></script>
 {% endblock js %}
 
