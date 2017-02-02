@@ -7,7 +7,6 @@
 
 
 from datetime import datetime
-
 import pytz
 
 # import geo_preload as geopr
@@ -17,14 +16,14 @@ import pytz
 
 def get_place_coord(in_place_name):
 
-    from geopy import geocoders # pip install geopy
+    from geopy import geocoders  # pip install geopy
 
     g = geocoders.GoogleV3()
     place, (lat, lng) = g.geocode(in_place_name)     # Kremenchuk Boston
 
     # -> (u'Singapore', (1.352083, 103.819836))
     # print place, (lat, lng)
-    return (lat, lng)
+    return lat, lng
 
 
 def get_tz_name(in_coord):
@@ -162,17 +161,3 @@ if __name__ == '__main__':
     # utc_time = local_time.astimezone(utc_zone)
     # # Generate UTC time string
     # utc_string = utc_time.strftime('%Y-%m-%d %H:%M:%S')
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -16,12 +16,9 @@ class PlaceEditView(LoginRequiredMixin, UpdateView):
         #     self.mymodule = self.mymodule.save(force_clone=True)
         return Place.objects.all().first()
 
-    # def post(self, request, *args, **kwargs):
-    #     self.object = self.mymodule
-    #     # TODO : check if we edit latest version
-    #     # if not raise Exception()
-    #
-    #     return super(ModuleEditView, self).post(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+
+        return super(PlaceEditView, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
         place_id = 1

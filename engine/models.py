@@ -1,10 +1,13 @@
 from __future__ import unicode_literals
 
+import sys
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils import timezone
 
 from astrouser.models import UserProfile
+
+import engine.astro_routines.geo_place as geo
 
 '''
 SummaryFactor(zodiac,moonday)
@@ -112,11 +115,11 @@ class Place(models.Model):
     title = models.CharField(max_length=250)
     text = models.TextField()
 
+    longitude = models.FloatField(validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)], null=True, blank=True, default=None)
+    latitude = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(180.0)], null=True, blank=True, default=None)
+
     timezone_name = models.CharField(max_length=250, null=True, blank=True, default=None)     # "Europe/Zaporozhye"
     dst = models.BooleanField(blank=True, default=False)
-
-    latitude = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(180.0)], null=True, blank=True, default=None)
-    longitude = models.FloatField(validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)], null=True, blank=True, default=None)
 
     def __str__(self):
         return "[{}] Place: {} lat:{} lon:{}".format(self.id, self.title, self.latitude, self.longitude)
@@ -124,3 +127,52 @@ class Place(models.Model):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('place_edit', args=[str(self.id)])
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        pass
+        print('asdasd', self.title)
+
+        place_name = self.title     # 'Boston'
+        coord = None
+
+        # Update from Google ##################################################
+        try:
+            coord = geo.get_place_coord(place_name)
+            self.latitude = coord[0]
+            self.longitude = coord[1]
+        except:
+            str_res = "Unexpected error:" + str(sys.exc_info()[0]) + str(sys.exc_info()[1])
+            print(str_res)
+        print(place_name, coord)
+
+        def find_timezone(lat, lng):
+
+            from timezonefinder import TimezoneFinder
+
+            tf = TimezoneFinder()
+            try:
+                timezone_name = tf.timezone_at(lng=lng, lat=lat)
+                if timezone_name is None:
+                    timezone_name = tf.closest_timezone_at(lng=lng, lat=lat)
+                    # maybe even increase the search radius when it is still None
+
+                # ... do something with timezone_name ...
+                return timezone_name
+
+            except ValueError:
+                print('Oops!')
+                # the coordinates were out of bounds
+                # {handle error}
+
+
+        # tz_name = geo.get_tz_name(coord)
+        tz_name = find_timezone(coord[0], coord[1])
+        self.timezone_name = tz_name
+        print("tz_name=", tz_name)
+
+        # Save to
+
+
+
+        return super(Place, self).save(force_insert, force_update, using, update_fields)
+
