@@ -33,46 +33,53 @@
                 {% endfor %}
             </div>
 
-            <div class="form-group">
-                {{ form.dp1.errors }}
-                {{ form.dp1.label_tag }}
-                {{ form.dp1 }}
-            </div>
-
-            <div class="form-group">
-                {{ form.dp2.errors }}
-                {{ form.dp2.label_tag }}
-
-
-
-                <div class="row">
-                    <div class='col-sm-6'>
-                        <div class="form-group">
-                            <div class='input-group date' id='datetimepicker13'>
+{#            <div class="form-group">#}
+{#                {{ form.dp2.errors }}#}
+{#                {{ form.dp2.label_tag }}#}
+{##}
+{#                <div class="row">#}
+{#                    <div class='col-sm-6'>#}
+{#                        <div class="form-group">#}
+{#                            <div class='input-group date' id='datetimepicker13'>#}
 {#                                <input type='text' class="form-control"/>#}
-                                {{ form.dp2 }}
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-time"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{#                                {{ form.dp2 }}#}
+{#                                <span class="input-group-addon">#}
+{#                                    <span class="glyphicon glyphicon-time"></span>#}
+{#                                </span>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
 
-
-            </div>
 
             <div style="overflow:hidden;">
                 <div class="form-group">
-                    {{ form.dp3.errors }}
-                    {{ form.dp3.label_tag }}
+                    {{ form.unaware_local.errors }}
+                    {{ form.unaware_local.label_tag }}
 
                     <div class="row">
                         <div class="col-md-6">
-                            {{ form.dp3 }}
+                            {{ form.unaware_local }}
                         </div>
                     </div>
                 </div>
+            </div>
+
+
+            <div class="form-group">
+                {{ form.result.errors }}
+                {{ form.result.label_tag }}
+                {{ form.result }}
+            </div>
+
+
+            <div class="form-group">
+                {{ unaware_loc }}<br>
+                {{ aware_loc }}<br>
+                {{ aware_utc }}<br>
+                {{ sun_rise_sett }}<br>
             </div>
 
 

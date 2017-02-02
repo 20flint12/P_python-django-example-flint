@@ -165,16 +165,11 @@ class Place(models.Model):
                 # the coordinates were out of bounds
                 # {handle error}
 
-
         # tz_name = geo.get_tz_name(coord)
 
         tz_name = find_timezone(coord[0], coord[1])
         self.timezone_name = tz_name
         print("tz_name=", tz_name)
-
-        # Save to
-
-
 
         return super(Place, self).save(force_insert, force_update, using, update_fields)
 

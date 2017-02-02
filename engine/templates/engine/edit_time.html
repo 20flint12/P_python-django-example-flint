@@ -16,9 +16,9 @@
 
 {% block mc_body %}
     <ul class="nav nav-tabs">
-        <li><a href="{% url 'edit_place' place_id=1 %}#!pages">Place</a></li>
-        <li><a href="{% url 'edit_place' place_id=1 %}#!settings">Time</a></li>
-        <li><a href="{% url 'edit_place' place_id=1 %}#!share">Empty</a></li>
+        <li><a href="{% url 'edit_place' place_id=place_id %}#!pages">Place</a></li>
+        <li><a href="{% url 'edit_place' place_id %}#!settings">Time</a></li>
+        <li><a href="{% url 'edit_place' place_id %}#!share">Empty</a></li>
         <li class="active">
             <a data-toggle="tab" href="">Moment</a>
         </li>

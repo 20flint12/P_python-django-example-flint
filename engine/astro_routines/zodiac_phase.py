@@ -218,7 +218,6 @@ def getInfo(body):
     # ---------------------------------------------------------------------
 
 
-
     # body.compute(cur_date, cur_date)
     str_out += "\n"
     str_out += " ecl3 =" + format_zodiacal_longitude(Ecliptic(body, epoch='2000').long)
@@ -267,11 +266,6 @@ if __name__ == "__main__":
 
         # cur_date = ephem.Date(cur_date + 0.5)
         # ===============================================
-
-
-
-
-
 
 
 print("=============== END ====================")

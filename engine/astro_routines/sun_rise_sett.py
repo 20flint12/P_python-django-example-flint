@@ -125,7 +125,7 @@ def get_sun_on_month(place):
 
 
     tz_name, coord = geopr.set_tz(place)
-    print "place=", place, coord, tz_name
+    print("place=", place, coord, tz_name)
 
 
     place = _set_Observer(coord)
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     out_list = get_sun_on_month(cur_place)
     for d in out_list:
         for k in sorted(d):
-            print k, d[k]
+            print(k, d[k])
         # print sorted(item),item
 
 

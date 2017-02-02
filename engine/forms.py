@@ -45,16 +45,18 @@ class PlaceForm(forms.ModelForm):
 
 
 class ToDoForm(forms.Form):
-    dp1 = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control"}, )
-    )
-    dp2 = forms.DateField(
-        widget=forms.DateInput(attrs={"class": "form-control",
-                                      'id': 'datetimepicker14'}, )
-    )
-    dp3 = forms.DateTimeField(
+
+    # dp2 = forms.DateTimeField(
+    #     required=False,
+    #     widget=forms.DateInput(attrs={"class": "form-control",
+    #                                   'id': 'datetimepicker14'}, )
+    # )
+    unaware_local = forms.DateTimeField(
         widget=forms.DateTimeInput(attrs={"class": "form-control",
-                                          'id': 'datetimepicker15'}, )
+                                          'id': 'datetimepicker15', }, )
     )
-
-
+    result = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={"class": "form-control",
+                                     'cols': 40, 'rows': 3}, )
+    )

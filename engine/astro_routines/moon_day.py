@@ -14,8 +14,8 @@ import engine.astro_routines.geo_preload as geopr
 def _set_Observer(coord):
 
     place = ephem.Observer() # Kharkov
-    place.pressure = 1010 # millibar
-    place.temp = 25 # deg. Celcius
+    place.pressure = 1010   # millibar
+    place.temp = 25         # deg. Celcius
     place.horizon = 0
 
     # place.lat = '50.0'
@@ -23,7 +23,7 @@ def _set_Observer(coord):
     place.lat = str(coord[0])
     place.lon = str(coord[1])
 
-    place.elevation = 3 # meters
+    place.elevation = 3     # meters
 
     return place
 
@@ -101,10 +101,9 @@ def get_moon_day(in_date_utc, coord):
     return md_dict, str_head
 
 
-
 def _form_str_moon_day(cur_day,
-                      day_rise,day_sett,new_rise,
-                      str_mark):
+                       day_rise, day_sett, new_rise,
+                       str_mark):
     str_out = ""
     str_out += "{:2d} =".format(cur_day)
     str_out += " rise:{0:<18}".format(str(day_rise))
@@ -143,9 +142,6 @@ def get_moon_day_ext(in_aware_loc, in_unaware_utc, place):
 
     tp_md_ext.update({"date_utc": in_unaware_utc})
     tp_md_ext.update({"aware_loc": in_aware_loc})
-
-
-
 
     day_rise_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md_ext["day_rise"]).datetime())
     day_sett_loc = geo.utc_to_loc_time(tz_name, ephem.Date(tp_md_ext["day_sett"]).datetime())
