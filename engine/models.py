@@ -145,6 +145,7 @@ class Place(models.Model):
             print(str_res)
         print(place_name, coord)
 
+        # pip install timezonefinder
         def find_timezone(lat, lng):
 
             from timezonefinder import TimezoneFinder
@@ -166,6 +167,7 @@ class Place(models.Model):
 
 
         # tz_name = geo.get_tz_name(coord)
+
         tz_name = find_timezone(coord[0], coord[1])
         self.timezone_name = tz_name
         print("tz_name=", tz_name)

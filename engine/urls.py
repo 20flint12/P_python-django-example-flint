@@ -22,7 +22,7 @@ router.register(r'moon-zodiac-contents', viewsets.MoonZodiacContentViewSet)
 
 place_urls = [
     url(r'^edit/$', views.PlaceEditView.as_view(), name='edit_place'),
-    url(r'^moment/$', views.Place2EditView.as_view(), name='edit_moment'),
+    url(r'^moment/$', views.MomentView.as_view(), name='edit_moment'),
     # url(r'^edit/api/$', views.AjaxEditModule.as_view()),
     # url(r'^delete/$', views.ModuleDeleteView.as_view(), name='delete_module'),
     # url(r'^details/$', views2.ModuleDetailsView.as_view(), name='details_module'),
@@ -35,9 +35,7 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
+    url(r'^new-place/$', views.NewPlaceView.as_view(), name='new_place'),
     url(r'^place/(?P<place_id>\d+)/', include(place_urls)),
-
-    # url(r'^place-edit/$', views.PlaceEditView.as_view(), name='place_edit'),
-    # url(r'^place2-edit/$', views.Place2EditView.as_view(), name='edit_time'),
 
 ]
