@@ -32,5 +32,5 @@ djangorestframework==3.5.3
 django-debug-toolbar==1.6
 sqlparse==0.2.2
 
-
+timezonefinder==1.5.7
 

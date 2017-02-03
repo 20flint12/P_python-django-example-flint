@@ -16,10 +16,10 @@ $(document).ready(function () {
             // viewMode: 'years'
         });
 
-        $('#datetimepicker15').datetimepicker({
-            inline: true,
+        $('#dtp_unaware_local').datetimepicker({
+            // inline: true,
             sideBySide: true,
-            // locale: 'ru',
+            locale: 'ru',
             // format: 'DD.MM.YYYY 11:44:22'
             format: 'YYYY-MM-DD 11:44:22',
             icons: {
@@ -27,7 +27,17 @@ $(document).ready(function () {
                     date: "fa fa-calendar",
                     up: "fa fa-arrow-up",
                     down: "fa fa-arrow-down"
-                }
+                },
+
+            defaultDate: "11/1/2013",
+            // useCurrent: true,
+
+            // disabledDates: [
+            //     moment("12/25/2013"),
+            //     new Date(2013, 11 - 1, 21),
+            //     "11/22/2013 00:53"
+            // ],
+
         });
     });
 

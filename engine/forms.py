@@ -53,10 +53,23 @@ class ToDoForm(forms.Form):
     # )
     unaware_local = forms.DateTimeField(
         widget=forms.DateTimeInput(attrs={"class": "form-control",
-                                          'id': 'datetimepicker15', }, )
+                                          'id': 'dtp_unaware_local',
+                                          'size': '50', }, )
     )
     result = forms.CharField(
         required=False,
         widget=forms.Textarea(attrs={"class": "form-control",
                                      'cols': 40, 'rows': 3}, )
     )
+    '''
+        <div class="input-group date" id="datetimepicker2">
+            <input type="text" class="form-control">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+
+        <input class="form-control" id="datetimepicker15" name="unaware_local" type="text" required="">
+
+
+    '''

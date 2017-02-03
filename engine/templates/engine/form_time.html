@@ -54,13 +54,16 @@
 {#            </div>#}
 
 
-            <div style="overflow:hidden;">
+            <div>
+{#            <div class="row">    #}
+{#            <div class="container">#}
                 <div class="form-group">
                     {{ form.unaware_local.errors }}
                     {{ form.unaware_local.label_tag }}
 
+{#                    <div>#}
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class='col-sm-6' style="height:130px;">
                             {{ form.unaware_local }}
                         </div>
                     </div>

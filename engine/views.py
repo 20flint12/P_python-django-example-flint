@@ -65,7 +65,6 @@ class MomentView(LoginRequiredMixin, FormView):
 
     template_name = 'engine/edit_time.html'
     form_class = ToDoForm
-    observer = Observer("1", 2)
 
     def get_success_url(self):
         place_id = self.kwargs['place_id']
