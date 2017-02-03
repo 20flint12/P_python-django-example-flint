@@ -75,9 +75,12 @@ class MomentView(LoginRequiredMixin, FormView):
 
             tp_md_ext, ctx2 = moon_day.get_moon_day(aware_utc, (22, 33))
             context['tp_md_ext'] = json.dumps(tp_md_ext)
-            md = tp_md_ext['moon_day']
-            m_day = MoonDay.objects.filter(day_choice=md).first()
-            print(m_day)
+            md_choice = tp_md_ext['moon_day']
+            m_day = MoonDay.objects.filter(day_choice=md_choice).first()
+            if m_day:
+                # cnt = m_day.mdcontent_set.filter().first()
+                cnt = m_day.related_mdcontent.filter().first()
+                print(m_day, 'cnt=', cnt)
 
         return context
 

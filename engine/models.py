@@ -80,15 +80,32 @@ class MoonDay(models.Model):
         (10, '10'),
         (11, '11'),
         (12, '12'),
+        (13, '13'),
+        (14, '14'),
+        (15, '15'),
+        (16, '16'),
+        (17, '17'),
+        (18, '18'),
+        (19, '19'),
+        (20, '20'),
+        (21, '21'),
+        (22, '22'),
+        (23, '23'),
+        (24, '24'),
+        (25, '25'),
+        (26, '26'),
+        (27, '27'),
+        (28, '28'),
+        (29, '29'),
+        (30, '30'),
     )
-
     mday = models.ForeignKey(SummaryFactor, related_name="related_mday", on_delete=models.CASCADE, blank=True, null=True)
 
     title = models.CharField(max_length=50)
     day_choice = models.PositiveSmallIntegerField(blank=False, null=False, choices=MOON_DAYS)
 
     def __str__(self):
-        return "{} of {}".format(self.title, self.day_choice)
+        return "[{}] {}".format(self.day_choice, self.title)
 
 
 class MoonDayContent(models.Model):
