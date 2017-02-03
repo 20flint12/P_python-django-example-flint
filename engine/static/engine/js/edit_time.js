@@ -31,8 +31,9 @@ $(document).ready(function () {
                     down: "fa fa-arrow-down"
                 },
 
-            defaultDate: "11/1/2013",
-            // useCurrent: true,
+            useCurrent: true,
+            defaultDate: "2017-02-03",
+            // showTodayButton: true,
 
             // disabledDates: [
             //     moment("12/25/2013"),
@@ -40,7 +41,7 @@ $(document).ready(function () {
             //     "11/22/2013 00:53"
             // ],
 
-            // autoclose: true,
+            keepOpen: true,
 
             // pickTime: false,
 
