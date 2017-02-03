@@ -1,3 +1,4 @@
+
 # coding: utf8
 #!/usr/bin/python
 
@@ -13,9 +14,9 @@ import engine.astro_routines.geo_preload as geopr
 
 def _set_Observer(coord):
 
-    place = ephem.Observer() # Kharkov
-    place.pressure = 1010   # millibar
-    place.temp = 25         # deg. Celcius
+    place = ephem.Observer()    # Kharkov
+    place.pressure = 1010       # millibar
+    place.temp = 25             # deg. Celcius
     place.horizon = 0
 
     # place.lat = '50.0'
@@ -26,7 +27,6 @@ def _set_Observer(coord):
     place.elevation = 3     # meters
 
     return place
-
 
 
 def get_moon_day(in_date_utc, coord):
@@ -87,8 +87,8 @@ def get_moon_day(in_date_utc, coord):
         # print "day_rise=", day_rise
 
         str_out, md_dict = _form_str_moon_day(cur_mday,
-                                             day_rise, day_sett, new_rise,
-                                             str_mark)
+                                              day_rise, day_sett, new_rise,
+                                              str_mark)
         cur_mday += 1  # prepare for next moon day
 
         str_head += str_out + "\n"
@@ -118,7 +118,6 @@ def _form_str_moon_day(cur_day,
     md_dict["new_rise"] = new_rise
 
     return str_out, md_dict
-
 
 
 # def get_moon_day_local12place(in_date_loc, place):
@@ -162,7 +161,6 @@ def get_moon_day_ext(in_aware_loc, in_unaware_utc, place):
     return tp_md_ext
 
 
-
 def get_moons_in_year(year):
     """Returns a list of the full and new moons in a year. The list contains tuples
     of either the form (DATE,'full') or the form (DATE,'new')"""
@@ -193,13 +191,11 @@ def get_moons_in_year(year):
     return moons
 
 
-
 def get_moon_phase(in_date_utc):
-    '''
-    Input:
-    Returns:
-    '''
-
+    """
+    :param in_date_utc:
+    :return:
+    """
     moon = ephem.Moon()
 
     #####################################################################
@@ -265,12 +261,9 @@ def get_moon_phase(in_date_utc):
         # delta_next = delta_next_LQ
         mph_dict["next"] = "next_LQ"
         mph_dict["next_LQ_utc"] = next_LQ
-    #==========================================================================
-
+    # =========================================================================
 
     return mph_dict
-
-
 
 
 def get_moon_phase_local12place(in_date_loc, place):
@@ -305,7 +298,6 @@ def get_moon_phase_local12place(in_date_loc, place):
     tp_mph = get_moon_phase(cur_date_utc)
     # =========================================================================
     # print "tp_mph=", pprint.pprint(tp_mph)
-
 
     for k in tp_mph.keys():
         # print k, "5%%%%%%%%%%%%%%%%%"
@@ -342,7 +334,6 @@ def get_moon_phase_local12place(in_date_loc, place):
 
 if __name__ == '__main__':
 
-
     cur_place = "Boston"
     # cur_place = "Kharkiv"
     loc_date = datetime.datetime.today()
@@ -350,13 +341,10 @@ if __name__ == '__main__':
     # tp_md_ext = get_moon_day_local12place(loc_date, cur_place)
     # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
 
-
     print(get_moon_phase(loc_date))
-
 
     # for ev in get_moons_in_year(2015):
     #     print ev
-
 
     res_dict = get_moon_phase_local12place(loc_date, cur_place)
     pprint.pprint(res_dict)

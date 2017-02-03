@@ -5,30 +5,21 @@ from django.views.generic import View, TemplateView, ListView, FormView, CreateV
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from engine.astro_routines import geo_place
+from engine.astro_routines import moon_day
 from engine.astro_routines import sun_rise_sett
+from engine.astro_routines import zodiac_phase
 from engine.forms import PlaceForm, ToDoForm
 from engine.mixin import PlacePermissionMixin
-from engine.models import Place
+from engine.models import Place, MoonDay
 
 
 class NewPlaceView(LoginRequiredMixin, CreateView):
     template_name = 'engine/new_place.html'
     form_class = PlaceForm
 
-    # # add the request to the kwargs
-    # def get_form_kwargs(self):
-    #     kwargs = super(NewPlaceView, self).get_form_kwargs()
-    #     kwargs['request'] = self.request
-    #     return kwargs
-
     def get_success_url(self):
         return reverse_lazy('new_place',
                             kwargs={'place_id': self.object.id})
-
-    # def form_valid(self, form):
-    #     form.instance.user_id = self.request.user.id
-    #     form.instance.edit_version = True
-    #     return super(NewStudyModuleView, self).form_valid(form)
 
 
 class PlaceEditView(LoginRequiredMixin, UpdateView):
@@ -47,18 +38,6 @@ class PlaceEditView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         place_id = self.kwargs['place_id']
         return reverse_lazy('edit_place', kwargs={'place_id': place_id})
-
-
-class Observer:
-    """
-    Common base class for observer
-    """
-    empCount = 0
-
-    def __init__(self, name, salary):
-        self.name = name
-        self.salary = salary
-        Observer.empCount += 1
 
 
 class MomentView(LoginRequiredMixin, FormView):
@@ -91,6 +70,15 @@ class MomentView(LoginRequiredMixin, FormView):
             sun_rs = sun_rise_sett.get_sun_rise_sett(aware_utc, (22, 33))
             context['sun_rise_sett'] = json.dumps(sun_rs)
 
+            mn_ph_res = moon_day.get_moon_phase(aware_utc)
+            context['mn_ph_res'] = json.dumps(mn_ph_res)
+
+            tp_md_ext, ctx2 = moon_day.get_moon_day(aware_utc, (22, 33))
+            context['tp_md_ext'] = json.dumps(tp_md_ext)
+            md = tp_md_ext['moon_day']
+            m_day = MoonDay.objects.filter(day_choice=md).first()
+            print(m_day)
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -103,3 +91,4 @@ class MomentView(LoginRequiredMixin, FormView):
         request.session['unaware_loc'] = request.POST.get('unaware_local')
 
         return super(MomentView, self).post(request, *args, **kwargs)
+

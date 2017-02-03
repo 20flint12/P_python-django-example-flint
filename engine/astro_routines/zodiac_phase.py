@@ -9,7 +9,7 @@ import pprint
 import time
 
 import ephem
-import mysite.astro_routines.geo_preload as geopr
+# import mysite.astro_routines.geo_preload as geopr
 from ephem import *
 
 # zodiac = 'AR TA GE CN LE VI LI SC SG CP AQ PI'.split()
@@ -17,9 +17,11 @@ from ephem import *
 zodiac = u'Овн Тлц Блз Рак Лев Дев Вес Скп Стр Коз Вод Рыб'.split()
 
 
-
 def format_zodiacal_longitude(longitude):
-    "Format longitude in zodiacal form (like '00AR00') and return as a string."
+    """
+    :param longitude:
+    :return: Format longitude in zodiacal form (like '00AR00') and return as a string."
+    """
     # print longitude
     l = math.degrees(longitude.norm)
     degrees = int(l % 30)
@@ -29,6 +31,7 @@ def format_zodiacal_longitude(longitude):
     # return u'{0:02}{1}'.format(degrees, sign)
     return u'{1}{0:02}'.format(degrees, sign)
 
+
 def format_angle_as_time(a):
     """Format angle as hours:minutes:seconds and return it as a string."""
     a = math.degrees(a) / 15.0
@@ -37,27 +40,28 @@ def format_angle_as_time(a):
     seconds = int(((a * 60) % 1) * 60)
     return '{0:02}:{1:02}:{2:02}'.format(hours, minutes, seconds)
 
+
 def print_ephemeris_for_date(date, bodies):
     date = Date(date)
-    print datetime.datetime(*date.tuple()[:3]).strftime('%A')[:2],
-    print '{0:02}'.format(date.tuple()[2]),
+    print(datetime.datetime(*date.tuple()[:3]).strftime('%A')[:2],)
+    print('{0:02}'.format(date.tuple()[2]),)
     greenwich = Observer()
     greenwich.date = date
-    print format_angle_as_time(greenwich.sidereal_time()),
+    print(format_angle_as_time(greenwich.sidereal_time()),)
     for b in bodies:
         b.compute(date, date)
-        print format_zodiacal_longitude(Ecliptic(b).long),
+        print(format_zodiacal_longitude(Ecliptic(b).long),)
     print
 
+
 def print_ephemeris_for_month(year, month, bodies):
-    print
-    print (datetime.date(year, month, 1).strftime('%B %Y').upper()
-           .center(14 + len(bodies) * 7))
-    print
-    print 'DATE  SID.TIME',
+    print()
+    print((datetime.date(year, month, 1).strftime('%B %Y').upper().center(14 + len(bodies) * 7)))
+    print()
+    print('DATE  SID.TIME',)
     for b in bodies:
-        print '{0: <6}'.format(b.name[:6].upper()),
-    print
+        print('{0: <6}'.format(b.name[:6].upper()),)
+    print()
     for day in itertools.count(1):
         try:
             datetuple = (year, month, day)
@@ -66,13 +70,13 @@ def print_ephemeris_for_month(year, month, bodies):
         except ValueError:
             break
 
+
 def print_ephemeris_for_year(year):
     bodies = [Sun(), Moon(), Mercury(), Venus(), Mars(), Jupiter(),
               Saturn(), Uranus(), Neptune(), Pluto()]
     for month in xrange(1, 13):
         print_ephemeris_for_month(year, month, bodies)
-        print
-
+        print()
 
 
 start_date = ephem.Date('2015/10/21 15:00')
@@ -108,16 +112,13 @@ stop_date  = ephem.Date('2016/02/21 15:00')
 #     # ===============================================
 
 
-
-
-
 def get_zodiac(in_date_utc, body):
 
-    '''
-    Input:  body
-    Returns:
-    Format longitude in zodiacal form (like '00AR00') and return as a string.
-    '''
+    """
+    :param in_date_utc:
+    :param body:
+    :return: Format longitude in zodiacal form (like '00AR00') and return as a string.
+    """
 
     if not body:
         return
@@ -132,18 +133,15 @@ def get_zodiac(in_date_utc, body):
     # str_out += " {:7.3f}]".format(ecl.lat * 180 / 3.14)
     # ---------------------------------------------------------------------
 
-
     ecl_dict = {}
     ecl_dict["date_utc"] = curr_date
     ecl_dict["ecl.lon"] = ecl.lon * 180 / 3.14
     ecl_dict["ecl.lat"] = ecl.lat * 180 / 3.14
 
     ecl_dict["zod_lat"] = format_zodiacal_longitude(ecl.long)
-    #==========================================================================
+    # =========================================================================
 
     return ecl_dict
-
-
 
 
 def get_zodiac_local12place(in_aware_loc, in_unaware_utc, in_str_body, place):
@@ -167,8 +165,6 @@ def get_zodiac_local12place(in_aware_loc, in_unaware_utc, in_str_body, place):
     ecl_dict_ext.update({"aware_loc": in_aware_loc})
 
     return ecl_dict_ext
-
-
 
 
 def getInfo(body):
