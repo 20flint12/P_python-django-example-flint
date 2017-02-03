@@ -1,10 +1,8 @@
+
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-# import astrouser.models
-import astrouser
 from astrofactor import settings
 from . import models
 
@@ -20,6 +18,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'is_staff'
         )
 
+
+# ========================= MoonZodiac ========================================
 
 class MoonZodiacContentSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -45,9 +45,39 @@ class MoonZodiacSerializer(serializers.HyperlinkedModelSerializer):
             'title',
             'zodiac_choice',
             # 'moonzodiaccontents',
-            'mzodiac_content',
+            'related_mzcontent',
         )
 
+
+# ========================= MoonDay ===========================================
+
+class MoonDayContentSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.MoonDayContent
+        fields = (
+            'id',
+            'mdcontent',
+            'title',
+            'text',
+            'image',
+        )
+
+
+class MoonDaySerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.MoonDay
+        fields = (
+            'id',
+            'mday',
+            'title',
+            'day_choice',
+            'related_mdcontent',
+        )
+
+
+# ========================= SummaryFactor =====================================
 
 class SummaryFactorSerializer(serializers.HyperlinkedModelSerializer):
     # moonzodiacs = MoonZodiacSerializer(source='moonzodiac_set', many=True, read_only=True)
@@ -59,7 +89,23 @@ class SummaryFactorSerializer(serializers.HyperlinkedModelSerializer):
             'marked_at',
             'title',
             # 'moonzodiacs',
-            'factor_mzodiac',
+            'related_mzodiac',
         )
 
+
+class PlaceSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.Place
+        fields = (
+            'id',
+            # 'profile',
+            'created_at',
+            'updated_at',
+            'title',
+            'longitude',
+            'latitude',
+            'timezone_name',
+
+        )
 

@@ -11,10 +11,10 @@ import engine.astro_routines.geo_place as geo
 
 '''
 SummaryFactor(zodiac,moonday)
-    MoonZodiac(descr, picture)                  MZodiac     <== factor_mzodiac
-        MoonZodiacContent(descr,source,image)   MZContent   <== mzodiac_content
-    MoonDay(descr, picture)                     MDay        <== factor_mday
-        MoonDayContent(descr,source,image)      MDContent   <== mday_content
+    MoonZodiac(descr, picture)                  mzodiac     <== related_mzodiac
+        MoonZodiacContent(descr,source,image)   mzcontent   <== related_mzcontent
+    MoonDay(descr, picture)                     mday        <== related_mday
+        MoonDayContent(descr,source,image)      mdcontent   <== related_mdcontent
 '''
 
 
@@ -45,7 +45,7 @@ class MoonZodiac(models.Model):
         (11, 'Водолей'),
         (12, 'Рыбы'),
     )
-    mzodiac = models.ForeignKey(SummaryFactor, related_name="factor_mzodiac", on_delete=models.CASCADE, blank=True, null=True)
+    mzodiac = models.ForeignKey(SummaryFactor, related_name="related_mzodiac", on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=50)
     zodiac_choice = models.PositiveSmallIntegerField(blank=False, null=False, choices=MOON_ZODIACS)
 
@@ -55,7 +55,7 @@ class MoonZodiac(models.Model):
 
 class MoonZodiacContent(models.Model):
 
-    mzcontent = models.ForeignKey(MoonZodiac, related_name="mzodiac_content", on_delete=models.CASCADE, blank=True, null=True)
+    mzcontent = models.ForeignKey(MoonZodiac, related_name="related_mzcontent", on_delete=models.CASCADE, blank=True, null=True)
 
     title = models.CharField(max_length=250)
     text = models.TextField()
@@ -82,7 +82,7 @@ class MoonDay(models.Model):
         (12, '12'),
     )
 
-    mday = models.ForeignKey(SummaryFactor, related_name="factor_mday", on_delete=models.CASCADE, blank=True, null=True)
+    mday = models.ForeignKey(SummaryFactor, related_name="related_mday", on_delete=models.CASCADE, blank=True, null=True)
 
     title = models.CharField(max_length=50)
     day_choice = models.PositiveSmallIntegerField(blank=False, null=False, choices=MOON_DAYS)
@@ -93,7 +93,7 @@ class MoonDay(models.Model):
 
 class MoonDayContent(models.Model):
 
-    mdcontent = models.ForeignKey(MoonDay, related_name="mday_content", on_delete=models.CASCADE, blank=True, null=True)
+    mdcontent = models.ForeignKey(MoonDay, related_name="related_mdcontent", on_delete=models.CASCADE, blank=True, null=True)
 
     title = models.CharField(max_length=250)
     text = models.TextField()
@@ -105,7 +105,7 @@ class MoonDayContent(models.Model):
 
 class Place(models.Model):
 
-    profile = models.ForeignKey(UserProfile, related_name="place_profile", on_delete=models.CASCADE, blank=True, null=True)
+    profile = models.ForeignKey(UserProfile, related_name="related_profile", on_delete=models.CASCADE, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -126,7 +126,7 @@ class Place(models.Model):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('place_edit', args=[str(self.id)])
+        return reverse('edit_place', args=[str(self.id)])
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         pass

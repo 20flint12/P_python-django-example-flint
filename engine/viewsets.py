@@ -46,6 +46,32 @@ class MoonZodiacViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.MoonZodiacSerializer
 
 
+class MoonDayContentViewSet(viewsets.ModelViewSet):
+    '''
+    Post new content data, like:
+    {
+        "content_title": "Content title",
+        "title": "Title4",
+    }
+    '''
+
+    queryset = models.MoonDayContent.objects.all()
+    serializer_class = serializers.MoonDayContentSerializer
+
+
+class MoonDayViewSet(viewsets.ModelViewSet):
+    '''
+    Post new image data, like:
+    {
+        "content": "http://server/contents/2/"
+        "title": "Image1",
+    }
+    '''
+
+    queryset = models.MoonDay.objects.all()
+    serializer_class = serializers.MoonDaySerializer
+
+
 class SummaryFactorViewSet(viewsets.ModelViewSet):
     '''
     Post new image data, like:
@@ -57,6 +83,18 @@ class SummaryFactorViewSet(viewsets.ModelViewSet):
 
     queryset = models.SummaryFactor.objects.all()
     serializer_class = serializers.SummaryFactorSerializer
+
+
+class PlaceViewSet(viewsets.ModelViewSet):
+    '''
+    Post new place data, like:
+    {
+
+    }
+    '''
+
+    queryset = models.Place.objects.all()
+    serializer_class = serializers.PlaceSerializer
 
 
 # -----------------------------------------------------------------------------
