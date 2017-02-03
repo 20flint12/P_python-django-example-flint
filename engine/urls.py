@@ -9,6 +9,7 @@ from . import viewsets
 router = routers.DefaultRouter()
 
 router.register(r'users', viewsets.UserViewSet)
+router.register(r'users-profile', viewsets.UserProfileViewSet)
 
 router.register(r'moon-zodiacs', viewsets.MoonZodiacViewSet)
 router.register(r'moon-zodiac-contents', viewsets.MoonZodiacContentViewSet)

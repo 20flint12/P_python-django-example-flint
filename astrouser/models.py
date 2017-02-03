@@ -21,7 +21,11 @@ User
     randomize
 
 UserProfile
-    account ~ User, verbose_name="related account",
+    account = models.OneToOneField(
+        User,
+        verbose_name="user-account",
+        related_name="related_account",
+    )
     user_name
     user_surname
     add_email
@@ -182,7 +186,8 @@ class UserProfile(models.Model):
     account = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        verbose_name="related account",
+        verbose_name="user-account",
+        related_name="related_account",
         blank=True, null=True,
     )
     user_name = models.CharField(max_length=50)

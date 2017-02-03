@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 from rest_framework import viewsets
 
+from astrouser.models import UserProfile
 from . import serializers, models
 
 from rest_framework import permissions
@@ -18,6 +19,13 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = get_user_model().objects.all()
     serializer_class = serializers.UserSerializer
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """
+    """
+    queryset = UserProfile.objects.all()
+    serializer_class = serializers.UserProfileSerializer
 
 
 class MoonZodiacContentViewSet(viewsets.ModelViewSet):

@@ -4,8 +4,11 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from astrofactor import settings
+from astrouser.models import UserProfile
 from . import models
 
+
+# ========================= User, UserProfile =================================
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -15,7 +18,22 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'first_name',
             'email',
-            'is_staff'
+            'is_staff',
+            'related_account',
+        )
+
+
+class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = (
+            'id',
+            'account',
+            'user_name',
+            'user_surname',
+            'add_email',
+            'is_active',
+            'related_profile',
         )
 
 
