@@ -27,7 +27,7 @@ class PlaceForm(forms.ModelForm):
         # )
 
         widgets = {
-            'text': forms.Textarea(attrs={'cols': 50, 'rows': 5}),
+            'text': forms.Textarea(attrs={'cols': 50, 'rows': 3}),
             'dtp1': forms.TextInput(attrs={"class": "form-control"}),
 
             'dtp2': forms.DateInput(attrs={'id': 'datetimepicker12'}),
@@ -69,7 +69,8 @@ class ToDoForm(forms.Form):
             </span>
         </div>
 
-        <input class="form-control" id="datetimepicker15" name="unaware_local" type="text" required="">
-
-
+        <input class="form-control"
+               id="datetimepicker15" name="unaware_local" type="text" required="">
     '''
+
+# http://the7bits.com/blog/how-to-develop-custom-widget-in-django

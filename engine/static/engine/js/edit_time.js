@@ -21,7 +21,9 @@ $(document).ready(function () {
             sideBySide: true,
             locale: 'ru',
             // format: 'DD.MM.YYYY 11:44:22'
-            format: 'YYYY-MM-DD 11:44:22',
+            // format: 'YYYY-MM-DD 11:44:22',
+            format: 'YYYY-MM-DD HH:mm:ss',
+            // format: 'HH:ii',
             icons: {
                     time: "fa fa-clock-o",
                     date: "fa fa-calendar",
@@ -37,6 +39,10 @@ $(document).ready(function () {
             //     new Date(2013, 11 - 1, 21),
             //     "11/22/2013 00:53"
             // ],
+
+            // autoclose: true,
+
+            // pickTime: false,
 
         });
     });
