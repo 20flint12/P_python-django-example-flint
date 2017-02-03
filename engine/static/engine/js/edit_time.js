@@ -31,7 +31,7 @@ $(document).ready(function () {
                     down: "fa fa-arrow-down"
                 },
 
-            useCurrent: true,
+            // useCurrent: true,
             defaultDate: "2017-02-03",
             // showTodayButton: true,
 
@@ -41,7 +41,7 @@ $(document).ready(function () {
             //     "11/22/2013 00:53"
             // ],
 
-            keepOpen: true,
+            // keepOpen: true,
 
             // pickTime: false,
 

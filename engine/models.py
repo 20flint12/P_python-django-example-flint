@@ -11,10 +11,10 @@ import engine.astro_routines.geo_place as geo
 
 '''
 SummaryFactor(zodiac,moonday)
-    MoonZodiac(descr, picture)                  mzodiac     <== related_mzodiac
-        MoonZodiacContent(descr,source,image)   mzcontent   <== related_mzcontent
-    MoonDay(descr, picture)                     mday        <== related_mday
-        MoonDayContent(descr,source,image)      mdcontent   <== related_mdcontent
+    MoonZodiac(descr, picture)                  mzodiac     <==  related_mzodiac
+        MoonZodiacContent(descr,source,image)   mzcontent   <==  related_mzcontent
+    MoonDay(descr, picture)                     mday        <==  related_mday
+        MoonDayContent(descr,source,image)      mdcontent   <==  related_mdcontent
 '''
 
 
@@ -120,6 +120,12 @@ class Place(models.Model):
 
     timezone_name = models.CharField(max_length=250, null=True, blank=True, default=None)     # "Europe/Zaporozhye"
     dst = models.BooleanField(blank=True, default=False)
+
+    # Additional parameters
+    pressure = models.FloatField(null=True, blank=True, default=1010.)   # millibar
+    temperature = models.FloatField(null=True, blank=True, default=25.)  # deg. Celcius
+    horizon = models.FloatField(null=True, blank=True, default=0.)
+    elevation = models.FloatField(null=True, blank=True, default=3.)     # meters
 
     def __str__(self):
         return "[{}] Place: {} lat:{} lon:{}".format(self.id, self.title, self.latitude, self.longitude)
