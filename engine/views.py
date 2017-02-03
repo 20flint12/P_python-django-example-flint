@@ -12,7 +12,7 @@ from engine.models import Place
 
 
 class NewPlaceView(LoginRequiredMixin, CreateView):
-    template_name = 'engine/edit_place.html'
+    template_name = 'engine/new_place.html'
     form_class = PlaceForm
 
     # # add the request to the kwargs
@@ -22,7 +22,7 @@ class NewPlaceView(LoginRequiredMixin, CreateView):
     #     return kwargs
 
     def get_success_url(self):
-        return reverse_lazy('edit_place',
+        return reverse_lazy('new_place',
                             kwargs={'place_id': self.object.id})
 
     # def form_valid(self, form):

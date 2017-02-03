@@ -1,0 +1,59 @@
+{% extends "inner_layout.html" %}
+
+{% load static %}
+
+{% block title %} {{ object.name }} {% endblock title %}
+
+{% block mc_header_left %} Editing observer
+{% endblock mc_header_left %}
+
+{% block mc_header_right %}
+It is {% now "jS F Y H:i:s e / T O \S\a\v\i\n\g\ \t\i\m\e\=I l " %}
+{% endblock mc_header_right %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'lib/jasny-bootstrap/css/jasny-bootstrap.min.css' %}">
+{% endblock css %}
+
+{% block mc_body %}
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a data-toggle="tab" href="#pages">Place</a>
+        </li>
+        <li><a data-toggle="tab" href="#settings">Time</a></li>
+        <li><a data-toggle="tab" href="#share">Empty</a></li>
+{#        <li><a href="{% url 'edit_moment' place_id %}">Moment</a></li>#}
+    </ul>
+
+    <div class="tab-content">
+        <div id="pages" class="tab-pane fade in active">
+            <div class="marg-tb">
+                {% include "engine/form_place.html" %}
+            </div>
+        </div>
+
+        <div id="settings" class="tab-pane fade">
+            <div class="marg-tb">
+                <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete">
+                    Delete Module
+                </button>
+            </div>
+        </div>
+
+        <div id="share" class="tab-pane fade">
+            <div class="marg-tb">
+
+            </div>
+        </div>
+    </div>
+
+{% endblock mc_body %}
+
+{% block js %}
+{#    <script src="{% static 'lib/Sortable.min.js' %}"></script>#}
+{#    <script src="{% static 'lib/ckeditor/ckeditor.js' %}"></script>#}
+{#    <script src="{% static 'lib/jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>#}
+    <script src="{% static 'engine/js/edit_place.js' %}"></script>
+{% endblock js %}
+
