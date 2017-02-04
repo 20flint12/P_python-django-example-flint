@@ -19,6 +19,8 @@ SECRET_KEY = '_rs%0pq1+b#@-&amp;lbd0y%hb_t9w(tz5n-hpv1b!k=&amp;0=@ve*t7n'
 
 DEBUG = True
 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'astro-factor.herokuapp.com']
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
