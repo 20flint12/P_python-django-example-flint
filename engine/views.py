@@ -18,7 +18,7 @@ class NewPlaceView(LoginRequiredMixin, CreateView):
     form_class = PlaceForm
 
     def get_success_url(self):
-        return reverse_lazy('new_place',
+        return reverse_lazy('edit_place',
                             kwargs={'place_id': self.object.id})
 
 
