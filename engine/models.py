@@ -22,7 +22,7 @@ astrouser.User astrouser.UserProfile \
 engine.SummaryFactor \
 engine.MoonZodiac engine.MoonZodiacContent \
 engine.MoonDay engine.MoonDayContent \
-engine.Place > astrofactor.json
+engine.Observer > astrofactor.json
 
 '''
 
@@ -54,7 +54,7 @@ class MoonZodiac(models.Model):
         (11, 'Водолей'),
         (12, 'Рыбы'),
     )
-    mzodiac = models.ForeignKey(SummaryFactor, related_name="related_mzodiac", on_delete=models.CASCADE, blank=True, null=True)
+    summaryfactor = models.ForeignKey(SummaryFactor, related_name="related_mzodiac", on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=50)
     zodiac_choice = models.PositiveSmallIntegerField(blank=False, null=False, choices=MOON_ZODIACS)
 
@@ -64,7 +64,7 @@ class MoonZodiac(models.Model):
 
 class MoonZodiacContent(models.Model):
 
-    mzcontent = models.ForeignKey(MoonZodiac, related_name="related_mzcontent", on_delete=models.CASCADE, blank=True, null=True)
+    moonzodiac = models.ForeignKey(MoonZodiac, related_name="related_mzcontent", on_delete=models.CASCADE, blank=True, null=True)
 
     title = models.CharField(max_length=250)
     text = models.TextField()
@@ -108,18 +108,18 @@ class MoonDay(models.Model):
         (29, '29'),
         (30, '30'),
     )
-    mday = models.ForeignKey(SummaryFactor, related_name="related_mday", on_delete=models.CASCADE, blank=True, null=True)
+    summaryfactor = models.ForeignKey(SummaryFactor, related_name="related_mday", on_delete=models.CASCADE, blank=True, null=True)
 
     title = models.CharField(max_length=50)
     day_choice = models.PositiveSmallIntegerField(blank=False, null=False, choices=MOON_DAYS)
 
     def __str__(self):
-        return "[{}] {}".format(self.day_choice, self.title)
+        return "[{}-й л.д.] {}".format(self.day_choice, self.title)
 
 
 class MoonDayContent(models.Model):
 
-    mdcontent = models.ForeignKey(MoonDay, related_name="related_mdcontent", on_delete=models.CASCADE, blank=True, null=True)
+    moonday = models.ForeignKey(MoonDay, related_name="related_mdcontent", on_delete=models.CASCADE, blank=True, null=True)
 
     title = models.CharField(max_length=250)
     text = models.TextField()
@@ -129,9 +129,9 @@ class MoonDayContent(models.Model):
         return "[{}] Content: {}".format(self.title, self.text)
 
 
-class Place(models.Model):
+class Observer(models.Model):
 
-    profile = models.ForeignKey(UserProfile, related_name="related_profile", on_delete=models.CASCADE, blank=True, null=True)
+    userprofile = models.ForeignKey(UserProfile, related_name="related_observer", on_delete=models.CASCADE, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -154,11 +154,11 @@ class Place(models.Model):
     elevation = models.FloatField(null=True, blank=True, default=3.)     # meters
 
     def __str__(self):
-        return "[{}] Place: {} lat:{} lon:{}".format(self.id, self.title, self.latitude, self.longitude)
+        return "[{}] Observer: {} lat:{} lon:{}".format(self.id, self.title, self.latitude, self.longitude)
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('edit_place', args=[str(self.id)])
+        return reverse('edit_observer', args=[str(self.id)])
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         pass
@@ -203,5 +203,5 @@ class Place(models.Model):
         self.timezone_name = tz_name
         print("tz_name=", tz_name)
 
-        return super(Place, self).save(force_insert, force_update, using, update_fields)
+        return super(Observer, self).save(force_insert, force_update, using, update_fields)
 

@@ -33,7 +33,7 @@ class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
             'user_surname',
             'add_email',
             'is_active',
-            'related_profile',
+            'related_observer',
         )
 
 
@@ -45,7 +45,7 @@ class MoonZodiacContentSerializer(serializers.HyperlinkedModelSerializer):
         model = models.MoonZodiacContent
         fields = (
             'id',
-            'mzcontent',
+            'moonzodiac',
             'title',
             'text',
             'image',
@@ -59,10 +59,9 @@ class MoonZodiacSerializer(serializers.HyperlinkedModelSerializer):
         model = models.MoonZodiac
         fields = (
             'id',
-            'mzodiac',
+            'summaryfactor',
             'title',
             'zodiac_choice',
-            # 'moonzodiaccontents',
             'related_mzcontent',
         )
 
@@ -75,7 +74,7 @@ class MoonDayContentSerializer(serializers.HyperlinkedModelSerializer):
         model = models.MoonDayContent
         fields = (
             'id',
-            'mdcontent',
+            'moonday',
             'title',
             'text',
             'image',
@@ -88,7 +87,7 @@ class MoonDaySerializer(serializers.HyperlinkedModelSerializer):
         model = models.MoonDay
         fields = (
             'id',
-            'mday',
+            'summaryfactor',
             'title',
             'day_choice',
             'related_mdcontent',
@@ -106,24 +105,23 @@ class SummaryFactorSerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'marked_at',
             'title',
-            # 'moonzodiacs',
             'related_mzodiac',
+            'related_mday',
         )
 
 
-class PlaceSerializer(serializers.HyperlinkedModelSerializer):
+class ObserverSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
-        model = models.Place
+        model = models.Observer
         fields = (
             'id',
-            # 'profile',
+            'userprofile',
             'created_at',
             'updated_at',
             'title',
             'longitude',
             'latitude',
             'timezone_name',
-
         )
 

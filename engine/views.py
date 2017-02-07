@@ -8,27 +8,27 @@ from engine.astro_routines import geo_place
 from engine.astro_routines import moon_day
 from engine.astro_routines import sun_rise_sett
 from engine.astro_routines import zodiac_phase
-from engine.forms import PlaceForm, ToDoForm
-from engine.mixin import PlacePermissionMixin
-from engine.models import Place, MoonDay
+from engine.forms import ObserverForm, ToDoForm
+from engine.mixin import ObserverPermissionMixin
+from engine.models import Observer, MoonDay
 
 
-class NewPlaceView(LoginRequiredMixin, CreateView):
-    template_name = 'engine/new_place.html'
-    form_class = PlaceForm
+class NewObserverView(LoginRequiredMixin, CreateView):
+    template_name = 'engine/new_observer.html'
+    form_class = ObserverForm
 
     def get_success_url(self):
-        return reverse_lazy('edit_place',
+        return reverse_lazy('edit_observer',
                             kwargs={'place_id': self.object.id})
 
 
-class PlaceEditView(LoginRequiredMixin, UpdateView):
-    template_name = 'engine/edit_place.html'
-    queryset = Place.objects
-    form_class = PlaceForm
+class ObserverEditView(LoginRequiredMixin, UpdateView):
+    template_name = 'engine/edit_observer.html'
+    queryset = Observer.objects
+    form_class = ObserverForm
 
     def get_object(self, **kwargs):
-        place = Place.objects.get(pk=self.kwargs['place_id'])
+        place = Observer.objects.get(pk=self.kwargs['place_id'])
         return place
 
     # def post(self, request, *args, **kwargs):
@@ -37,12 +37,12 @@ class PlaceEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         place_id = self.kwargs['place_id']
-        return reverse_lazy('edit_place', kwargs={'place_id': place_id})
+        return reverse_lazy('edit_observer', kwargs={'place_id': place_id})
 
 
 class MomentView(LoginRequiredMixin, FormView):
 
-    template_name = 'engine/edit_time.html'
+    template_name = 'engine/edit_moment.html'
     form_class = ToDoForm
 
     def get_success_url(self):
@@ -59,7 +59,7 @@ class MomentView(LoginRequiredMixin, FormView):
             unaware_loc = parse_datetime(unaware_loc_str)
             context['unaware_loc'] = str(unaware_loc)
 
-            place = Place.objects.get(pk=self.kwargs['place_id'])
+            place = Observer.objects.get(pk=self.kwargs['place_id'])
             tz = place.timezone_name
             aware_loc = geo_place.set_tz_to_unaware_time(tz, unaware_loc)
             context['aware_loc'] = str(aware_loc)

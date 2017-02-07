@@ -93,7 +93,7 @@ class SummaryFactorViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.SummaryFactorSerializer
 
 
-class PlaceViewSet(viewsets.ModelViewSet):
+class ObserverViewSet(viewsets.ModelViewSet):
     '''
     Post new place data, like:
     {
@@ -101,8 +101,8 @@ class PlaceViewSet(viewsets.ModelViewSet):
     }
     '''
 
-    queryset = models.Place.objects.all()
-    serializer_class = serializers.PlaceSerializer
+    queryset = models.Observer.objects.all()
+    serializer_class = serializers.ObserverSerializer
 
 
 # -----------------------------------------------------------------------------

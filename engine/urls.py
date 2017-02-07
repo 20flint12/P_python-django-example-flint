@@ -18,15 +18,15 @@ router.register(r'moon-days', viewsets.MoonDayViewSet)
 router.register(r'moon-day-contents', viewsets.MoonDayContentViewSet)
 
 router.register(r'summary-factor', viewsets.SummaryFactorViewSet)
-router.register(r'place-observer', viewsets.PlaceViewSet)
+router.register(r'observer', viewsets.ObserverViewSet)
 
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
 
 
-place_urls = [
-    url(r'^edit/$', views.PlaceEditView.as_view(), name='edit_place'),
+observer_urls = [
+    url(r'^edit/$', views.ObserverEditView.as_view(), name='edit_observer'),
     url(r'^moment/$', views.MomentView.as_view(), name='edit_moment'),
     # url(r'^edit/api/$', views.AjaxEditModule.as_view()),
     # url(r'^delete/$', views.ModuleDeleteView.as_view(), name='delete_module'),
@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'^new-place/$', views.NewPlaceView.as_view(), name='new_place'),
-    url(r'^place/(?P<place_id>\d+)/', include(place_urls)),
+    url(r'^new-observer/$', views.NewObserverView.as_view(), name='new_observer'),
+    url(r'^observer/(?P<place_id>\d+)/', include(observer_urls)),
 
 ]

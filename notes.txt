@@ -33,7 +33,8 @@ python manage.py makemigrations polls
 python manage.py migrate polls
 python manage.py makemigrations records
 python manage.py migrate records
-
+python manage.py makemigrations engine
+python manage.py migrate
 
 python manage.py createsuperuser
 20flint12@gmail.com 20flint12@gmail.com f88888878
@@ -140,6 +141,4 @@ heroku config:get CONFIG-VAR-NAME -s  >> .env
 
 git push heroku  astro-factor:master
 python manage.py dumpdata --exclude auth.permission --exclude contenttypes > engine/fixtures/astrofactor.json
-python manage.py loaddata engine/fixtures/astrofactor.json
-
-python manage.py dumpdata astrouser.User engine.SummaryFactor engine.MoonZodiac engine.Place > astrofactor.json
+heroku run python manage.py loaddata engine/fixtures/astrofactor.json

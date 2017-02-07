@@ -16,9 +16,9 @@
 
 {% block mc_body %}
     <ul class="nav nav-tabs">
-        <li><a href="{% url 'edit_place' place_id=place_id %}#!pages">Place</a></li>
-        <li><a href="{% url 'edit_place' place_id %}#!settings">Time</a></li>
-        <li><a href="{% url 'edit_place' place_id %}#!share">Empty</a></li>
+        <li><a href="{% url 'edit_observer' place_id=place_id %}#!pages">Place</a></li>
+        <li><a href="{% url 'edit_observer' place_id %}#!settings">Time</a></li>
+        <li><a href="{% url 'edit_observer' place_id %}#!share">Empty</a></li>
         <li class="active">
             <a data-toggle="tab" href="">Moment</a>
         </li>
@@ -27,7 +27,7 @@
     <div class="tab-content">
         <div id="monetize" class="tab-pane fade in active">
             <div class="marg-tb">
-                {% include "engine/form_time.html" %}
+                {% include "engine/form_moment.html" %}
             </div>
         </div>
     </div>
@@ -37,5 +37,5 @@
 {#    <script src="{% static 'lib/Sortable.min.js' %}"></script>#}
 {#    <script src="{% static 'lib/ckeditor/ckeditor.js' %}"></script>#}
 {#    <script src="{% static 'lib/jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>#}
-    <script src="{% static 'engine/js/edit_time.js' %}"></script>
+    <script src="{% static 'engine/js/edit_moment.js' %}"></script>
 {% endblock js %}

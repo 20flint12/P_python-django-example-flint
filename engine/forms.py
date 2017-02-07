@@ -1,10 +1,10 @@
 
 from django import forms
 
-from engine.models import Place
+from engine.models import Observer
 
 
-class PlaceForm(forms.ModelForm):
+class ObserverForm(forms.ModelForm):
     '''
     title = models.CharField(max_length=250)
     text = models.TextField()
@@ -17,7 +17,7 @@ class PlaceForm(forms.ModelForm):
     '''
 
     class Meta:
-        model = Place
+        model = Observer
         fields = '__all__'
         #     (
         #     # 'title', 'text', 'is_active', 'timezone', 'dst',
@@ -35,13 +35,13 @@ class PlaceForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(PlaceForm, self).__init__(*args, **kwargs)
+        super(ObserverForm, self).__init__(*args, **kwargs)
 
         for key in self.fields:
             self.fields[key].widget.attrs.update({'class': 'form-control'})
 
     def save(self, *args, **kwargs):
-        return super(PlaceForm, self).save(*args, **kwargs)
+        return super(ObserverForm, self).save(*args, **kwargs)
 
 
 class ToDoForm(forms.Form):
