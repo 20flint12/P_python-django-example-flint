@@ -142,3 +142,4 @@ git push heroku  astro-factor:master
 python manage.py dumpdata --exclude auth.permission --exclude contenttypes > engine/fixtures/astrofactor.json
 python manage.py loaddata engine/fixtures/astrofactor.json
 
+python manage.py dumpdata astrouser.User engine.SummaryFactor engine.MoonZodiac engine.Place > astrofactor.json
