@@ -17,8 +17,11 @@ SummaryFactor(zodiac,moonday)
         MoonDayContent(descr,source,image)      mdcontent   <==  related_mdcontent
 
 
-python manage.py dumpdata astrouser.User engine.SummaryFactor \
-engine.MoonZodiac engine.MoonZodiacContent engine.MoonDay engine.MoonDayContent \
+python manage.py dumpdata \
+astrouser.User astrouser.UserProfile \
+engine.SummaryFactor \
+engine.MoonZodiac engine.MoonZodiacContent \
+engine.MoonDay engine.MoonDayContent \
 engine.Place > astrofactor.json
 
 '''
