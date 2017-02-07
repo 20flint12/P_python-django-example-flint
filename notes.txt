@@ -139,3 +139,5 @@ heroku config:get CONFIG-VAR-NAME -s  >> .env
 
 python manage.py dumpdata --exclude auth.permission --exclude contenttypes > engine/fixtures/astrofactor.json
 python manage.py loaddata engine/fixtures/astrofactor.json
+
+manage.py dumpdata auth.User auth.Group > usersandgroups.json
