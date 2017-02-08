@@ -43,6 +43,7 @@ class MoonZodiacContentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.MoonZodiacContent
+        # fields = '__all__'
         fields = (
             'id',
             'moonzodiac',
@@ -72,11 +73,12 @@ class MoonDayContentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.MoonDayContent
+        # fields = '__all__'
         fields = (
             'id',
             'moonday',
             'title',
-            'text',
+            'description',
             'image',
         )
 
@@ -89,6 +91,7 @@ class MoonDaySerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'summaryfactor',
             'title',
+            'quality',
             'day_choice',
             'related_mdcontent',
         )

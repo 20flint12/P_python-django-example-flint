@@ -27,7 +27,7 @@ class ObserverForm(forms.ModelForm):
         # )
 
         widgets = {
-            'text': forms.Textarea(attrs={'cols': 50, 'rows': 3}),
+            'text': forms.Textarea(attrs={'cols': 50, 'rows': 2}),
             'dtp1': forms.TextInput(attrs={"class": "form-control"}),
 
             'dtp2': forms.DateInput(attrs={'id': 'datetimepicker12'}),
@@ -59,7 +59,7 @@ class ToDoForm(forms.Form):
     result = forms.CharField(
         required=False,
         widget=forms.Textarea(attrs={"class": "form-control",
-                                     'cols': 40, 'rows': 3}, )
+                                     'cols': 40, 'rows': 2}, )
     )
     '''
         <div class="input-group date" id="datetimepicker2">
