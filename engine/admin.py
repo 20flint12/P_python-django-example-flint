@@ -56,8 +56,12 @@ class MoonDayAdmin(admin.ModelAdmin):
 class SummaryFactorAdmin(admin.ModelAdmin):
     list_display = (
         'id',
+        'marked_at',
         'title',
-        'serves_pizza',
+        'special_case',
+        'moon_lng',
+        'moon_lat',
+        'moon_phase',
     )
 
 

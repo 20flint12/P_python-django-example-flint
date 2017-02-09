@@ -29,13 +29,18 @@ engine.Observer > astrofactor.json
 
 class SummaryFactor(models.Model):
 
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     marked_at = models.DateTimeField(blank=True, default=None, null=True)
 
     title = models.CharField(max_length=50, default='')
-    serves_pizza = models.BooleanField(default=False)
+    special_case = models.BooleanField(default=False)
+
+    moon_lng = models.FloatField(validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)], null=True, blank=True, default=None)
+    moon_lat = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(180.0)], null=True, blank=True, default=None)
+    moon_phase = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(100.0)], null=True, blank=True, default=None)
 
     def __str__(self):
-        return "{} of {}".format(self.title, self.serves_pizza)
+        return "{} special:{}".format(self.title, self.special_case)
 
 
 class MoonZodiac(models.Model):

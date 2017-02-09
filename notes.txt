@@ -139,6 +139,10 @@ git push heroku plekhanovskaya121:master
 heroku config:get CONFIG-VAR-NAME -s  >> .env
 
 
+*******************************************************************************
 git push heroku  astro-factor:master
-python manage.py dumpdata --exclude auth.permission --exclude contenttypes > engine/fixtures/astrofactor.json
+
+heroku run python manage.py migrate
+
+//python manage.py dumpdata --exclude auth.permission --exclude contenttypes > engine/fixtures/astrofactor.json
 heroku run python manage.py loaddata engine/fixtures/astrofactor.json
