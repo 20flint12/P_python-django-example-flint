@@ -132,8 +132,8 @@ class MomentView(LoginRequiredMixin, FormView):
             # -------------------------------------------------------------------------
 
             mp_result = moon_day.get_moon_phase(cur_date_utc)
-            str_out += 'ph=' + mp_result['next'] + ', '
-            phase_time = mp_result[mp_result['next'] + '_utc']
+            str_out += 'ph=' + mp_result['prev'] + ', '
+            phase_time = mp_result[mp_result['prev'] + '_utc']
             str_out += 'ph_t=' + str(geo_place.utc_to_loc_time(tz_name, ephem.Date(phase_time).datetime()).strftime(dtformat)) + ', '
             # -------------------------------------------------------------------------
 
