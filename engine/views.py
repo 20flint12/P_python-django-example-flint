@@ -12,6 +12,9 @@ from engine.forms import ObserverForm, ToDoForm
 from engine.mixin import ObserverPermissionMixin
 from engine.models import Observer, MoonDay
 
+import datetime
+import ephem
+
 
 class NewObserverView(LoginRequiredMixin, CreateView):
     template_name = 'engine/new_observer.html'
@@ -67,20 +70,26 @@ class MomentView(LoginRequiredMixin, FormView):
             aware_utc = geo_place.aware_time_to_utc(aware_loc)
             context['aware_utc'] = str(aware_utc)
 
-            sun_rs = sun_rise_sett.get_sun_rise_sett(aware_utc, (22, 33))
+            coord = (place.latitude, place.longitude)
+            sun_rs = sun_rise_sett.get_sun_rise_sett(aware_utc, coord)
             context['sun_rise_sett'] = json.dumps(sun_rs)
 
             mn_ph_res = moon_day.get_moon_phase(aware_utc)
             context['mn_ph_res'] = json.dumps(mn_ph_res)
 
-            tp_md_ext, ctx2 = moon_day.get_moon_day(aware_utc, (22, 33))
+            tp_md_ext, ctx2 = moon_day.get_moon_day(aware_utc, coord)
             context['tp_md_ext'] = json.dumps(tp_md_ext)
             md_choice = tp_md_ext['moon_day']
             m_day = MoonDay.objects.filter(day_choice=md_choice).first()
             if m_day:
                 # cnt = m_day.mdcontent_set.filter().first()
-                cnt = m_day.related_mdcontent.filter().first()
+                cnt = m_day.related_mdcontent.filter()
                 print(m_day, 'cnt=', cnt)
+
+            # Summary data
+            summary = self.summary_info(aware_utc, coord, tz)
+            context['summary_data'] = summary
+
 
         return context
 
@@ -94,4 +103,59 @@ class MomentView(LoginRequiredMixin, FormView):
         request.session['unaware_loc'] = request.POST.get('unaware_local')
 
         return super(MomentView, self).post(request, *args, **kwargs)
+
+    def summary_info(self, aware_utc, coord, tz_name):
+        str_out = ""
+        dtformat = "%Y-%m-%d %H:%M:%S %z"
+        dtsunformat = "%H:%M:%S"
+        dtmoonformat = "%m-%d %H:%M:%S"
+        for d in range(0, 370):
+            cur_date_loc = aware_utc+datetime.timedelta(days=d)
+            # str_out += 'cur_date_loc=' + str(cur_date_loc)
+
+            # Calculate utc date on local noon for selected place #####################
+            cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
+            # str_out += "cur_noon_loc=" + str(cur_noon_loc) + " "
+            # -------------------------------------------------------------------------
+
+            aware_loc = geo_place.set_tz_to_unaware_time(tz_name, cur_noon_loc)
+            str_out += "local=" + str(aware_loc.strftime(dtformat)) + ', '
+            # -------------------------------------------------------------------------
+
+            cur_date_utc = geo_place.aware_time_to_utc(aware_loc)
+            # str_out += "utc=" + str(cur_date_utc.strftime(dtformat)) + ', '
+            # -------------------------------------------------------------------------
+
+            summary = sun_rise_sett.get_sun_rise_sett(cur_date_utc, coord)
+            str_out += 's_r/s=' + str(geo_place.utc_to_loc_time(tz_name, ephem.Date(summary["day_rise"]).datetime()).strftime(dtsunformat)) + ', '
+            str_out += str(geo_place.utc_to_loc_time(tz_name, ephem.Date(summary["day_sett"]).datetime()).strftime(dtsunformat)) + ', '
+            # str_out += "day_rise=", summary['day_rise'].strftime(dtformat)
+            # -------------------------------------------------------------------------
+
+            mp_result = moon_day.get_moon_phase(cur_date_utc)
+            str_out += 'ph=' + mp_result['next'] + ', '
+            phase_time = mp_result[mp_result['next'] + '_utc']
+            str_out += 'ph_t=' + str(geo_place.utc_to_loc_time(tz_name, ephem.Date(phase_time).datetime()).strftime(dtformat)) + ', '
+            # -------------------------------------------------------------------------
+
+            tp_md_ext, ctx2 = moon_day.get_moon_day(cur_date_utc, coord)
+            str_out += "md={:2d}".format(tp_md_ext['moon_day']) + ', '
+            # str_out += 'mrise=' + str(geo_place.utc_to_loc_time(tz_name, ephem.Date(tp_md_ext['day_rise']).datetime()).strftime(dtmoonformat)) + ', '
+            # str_out += 'msett=' + str(geo_place.utc_to_loc_time(tz_name, ephem.Date(tp_md_ext['day_sett']).datetime()).strftime(dtmoonformat)) + ', '
+            # -------------------------------------------------------------------------
+
+            body = ephem.Sun(cur_date_utc)
+            ecl_dict_ext = zodiac_phase.get_zodiac(cur_date_utc, body)
+            str_out += "sz={}".format(ecl_dict_ext['zod_lat']) + ', '
+
+            body = ephem.Moon(cur_date_utc)
+            ecl_dict_ext = zodiac_phase.get_zodiac(cur_date_utc, body)
+            str_out += "mz={}".format(ecl_dict_ext['zod_lat']) + ', '
+            # =========================================================================
+
+            str_out += "\n"
+
+        print("d=", d, "summary=", summary, str_out)
+
+        return str_out
 

@@ -226,3 +226,8 @@ DATETIME_FORMAT = 'Y-m-d H:i'
 DATETIME_INPUT_FORMATS ='%Y-%m-%d %H:%M:%S'     # '2006-10-25 14:30:59'
 
 
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+

@@ -11,10 +11,13 @@ import engine.astro_routines.geo_place as geo
 
 '''
 SummaryFactor(zodiac,moonday)
-    MoonZodiac(descr, picture)                  mzodiac     <==  related_mzodiac
-        MoonZodiacContent(descr,source,image)   mzcontent   <==  related_mzcontent
-    MoonDay(descr, picture)                     mday        <==  related_mday
-        MoonDayContent(descr,source,image)      mdcontent   <==  related_mdcontent
+    MoonZodiac(descr, picture)                  summaryfactor   <==  related_mzodiac
+        MoonZodiacContent(descr,source,image)   moonzodiac      <==  related_mzcontent
+    MoonDay(descr, picture)                     summaryfactor   <==  related_mday
+        MoonDayContent(descr,source,image)      moonday         <==  related_mdcontent
+
+Observer
+    userprofile  <==  related_observer
 
 
 python manage.py dumpdata \
@@ -134,7 +137,7 @@ class MoonDayContent(models.Model):
     source = models.URLField(max_length=250, default='')
 
     def __str__(self):
-        return "[{}] Content: {}".format(self.title, self.symbol)
+        return "[{}] Symbol: {}".format(self.title, self.symbol)
 
 
 class Observer(models.Model):

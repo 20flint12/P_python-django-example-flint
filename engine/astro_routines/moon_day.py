@@ -300,7 +300,6 @@ def get_moon_phase_local12place(in_date_loc, place):
     # print "tp_mph=", pprint.pprint(tp_mph)
 
     for k in tp_mph.keys():
-        # print k, "5%%%%%%%%%%%%%%%%%"
 
         str_re = "(.*)_utc"
         res = re.search(str_re, k)

@@ -1,27 +1,4 @@
 
-{#<form method="post" role="form">#}
-{#    {% for field in form.visible_fields %}#}
-{#    <div id="div_{{ field.html_name }}"#}
-{#         class="form-group{% if field.errors %} has-error{% endif %}">#}
-{#        {{ field.label_tag }}#}
-{#        {{ field }}#}
-{#        <div class="text-muted pull-right">#}
-{#            <small>{{ field.help_text }}</small>#}
-{#        </div>#}
-{#        <div class="help-block">#}
-{#            {{ field.errors }}#}
-{#        </div>#}
-{#    </div>#}
-{#    {% endfor %}#}
-{#    {% for hidden in form.hidden_fields %}#}
-{#        {{ hidden }}#}
-{#    {% endfor %}#}
-{#    {% csrf_token %}#}
-{#    <div class="form-group">#}
-{#        <input type="submit" value="Submit" class="btn btn-primary" />#}
-{#    </div>#}
-{#</form>#}
-
 <form action="" id="time-form" method="post" enctype="multipart/form-data" onsubmit="return timeFormSubmit()">
     {% csrf_token %}
 
@@ -94,7 +71,6 @@
                 Moon day: {{ tp_md_ext }}<br><br>
             </div>
 
-
             <div class="align-right">
                 {% if submit_btn_name %}
                     <button type="submit" class="btn btn-info" name="btn_create_save_changes">{{ submit_btn_name }}</button>
@@ -104,5 +80,16 @@
             </div>
         </div>
 
+
+
     </div>
+
+{#    <div class="row">#}
+{#    </div>#}
+
+        <div class="form-group">
+            Summary data: <code>{{ summary_data|linebreaks }}</code><br><br>
+        </div>
+
+
 </form>

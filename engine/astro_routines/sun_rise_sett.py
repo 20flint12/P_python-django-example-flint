@@ -15,9 +15,9 @@ import engine.astro_routines.geo_place as geo
 
 def _set_Observer(coord):
 
-    place = ephem.Observer() # Kharkov
-    place.pressure = 1010 # millibar
-    place.temp = 25 # deg. Celcius
+    place = ephem.Observer()    # Kharkov
+    place.pressure = 1010       # millibar
+    place.temp = 25             # deg. Celcius
     place.horizon = 0
 
     # place.lat = '50.0'
@@ -25,7 +25,7 @@ def _set_Observer(coord):
     place.lat = str(coord[0])
     place.lon = str(coord[1])
 
-    place.elevation = 3 # meters
+    place.elevation = 3         # meters
 
     return place
 
