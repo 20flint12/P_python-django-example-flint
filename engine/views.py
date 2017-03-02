@@ -109,11 +109,10 @@ class MomentView(LoginRequiredMixin, FormView):
         dtformat = "%Y-%m-%d %H:%M:%S %z"
         dtsunformat = "%H:%M:%S"
         dtmoonformat = "%m-%d %H:%M:%S"
-        for d in range(0, 370):
+        for d in range(0, 37):
             cur_date_loc = aware_utc+datetime.timedelta(days=d)
             # str_out += 'cur_date_loc=' + str(cur_date_loc)
 
-            # Calculate utc date on local noon for selected place #####################
             cur_noon_loc = datetime.datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
             # str_out += "cur_noon_loc=" + str(cur_noon_loc) + " "
             # -------------------------------------------------------------------------
@@ -152,6 +151,7 @@ class MomentView(LoginRequiredMixin, FormView):
             ecl_dict_ext = zodiac_phase.get_zodiac(cur_date_utc, body)
             str_out += "mz={}".format(ecl_dict_ext['zod_lat']) + ', '
             # =========================================================================
+
 
             str_out += "\n"
 
