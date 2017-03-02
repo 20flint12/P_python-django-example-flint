@@ -107,8 +107,8 @@ class MomentView(LoginRequiredMixin, FormView):
     def summary_info(self, aware_utc, coord, tz_name):
         str_out = ""
         dtformat = "%Y-%m-%d %H:%M:%S %z"
-        dtsunformat = "%H:%M:%S"
-        dtmoonformat = "%m-%d %H:%M:%S"
+        dtsunformat = "%H:%M"
+        dtmoonformat = "%m-%d %H:%M"
         for d in range(0, 95):
             cur_date_loc = aware_utc+datetime.timedelta(days=d)
             # str_out += 'cur_date_loc=' + str(cur_date_loc)
