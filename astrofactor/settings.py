@@ -27,8 +27,39 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# *****************************************************************************
+
 ADMIN_EMAIL = '20flint12@gmail.com'
 APP_EMAIL = '20flint12@gmail.com'
+# DEFAULT_FROM_EMAIL = '20flint12@gmail.com'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'akuta.m9@gmail.com'
+# EMAIL_HOST_PASSWORD = 'ddipass2016changed'
+# EMAIL_PORT = 465
+# EMAIL_USE_SSL = True
+
+
+EMAIL_SENDER   = "astroreminder@gmail.com"
+EMAIL_USERNAME = "astroreminder@gmail.com"
+EMAIL_PASSWORD = "95dd2d301"
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'astroreminder@gmail.com'
+DEFAULT_FROM_EMAIL = 'astroreminder@gmail.com'
+SERVER_EMAIL = 'astroreminder@gmail.com'
+EMAIL_HOST_PASSWORD = '95dd2d301'
+
+# *****************************************************************************
+
+
+
+
 
 ON_HEROKU = os.environ.get('ON_HEROKU')
 

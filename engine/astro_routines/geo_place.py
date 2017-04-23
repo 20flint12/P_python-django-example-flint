@@ -10,7 +10,6 @@ from datetime import datetime
 import pytz
 
 # import geo_preload as geopr
-
 # import engine.astro_routines.geo_preload as geopr
 
 
@@ -77,32 +76,38 @@ def loc_to_utc_time(in_tz_name, in_loc_time):
     return utc_time
 
 
-# def aware_loc_unaware_utc_for_local12place(in_unaware_loc, place):
-#     """
-#     Input: local unaware time and place
-#     Returns tuple in utc for local time and place
-#     """
-#     tz_nam, coord = geopr.set_tz(place)
-#     print("place=", place, coord, tz_nam)
-#
-#     ###########################################################################
-#     cur_date_loc = in_unaware_loc  # datetime.datetime.today()
-#     # print "cur_date_loc=", cur_date_loc.strftime(format)
-#
-#     # Calculate utc date on local noon for selected place #####################
-#     cur_noon_loc = datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
-#     # print "cur_noon_loc=", cur_noon_loc
-#     # -------------------------------------------------------------------------
-#
-#     aware_loc = set_tz_to_unaware_time(tz_nam, cur_noon_loc)
-#     # print "aware_loc=", aware_loc.strftime(format)
-#     # -------------------------------------------------------------------------
-#
-#     unaware_utc = aware_time_to_utc(aware_loc)
-#     # print "aware_utc=",    unaware_utc.strftime(format)
-#     # print "unaware_utc=", unaware_utc.strftime(format), "utcoffset=", unaware_utc.utcoffset()
-#
-#     return aware_loc, unaware_utc
+def aware_loc_unaware_utc_for_local12place(in_unaware_loc, place):  # rework!!!
+    """
+    Input: local unaware time and place
+    Returns tuple in utc for local time and place
+    """
+    # tz_nam, coord = geopr.set_tz(place)
+    # place = Observer.objects.get(pk=10)
+    # tz_nam = place.timezone_name
+    tz_nam = "Europe/Kiev"
+    # coord = (place.latitude, place.longitude)
+    coord = (22, 33)
+
+    print("place=", place.title, coord, tz_nam)
+
+    ###########################################################################
+    cur_date_loc = in_unaware_loc  # datetime.datetime.today()
+    # print "cur_date_loc=", cur_date_loc.strftime(format)
+
+    # Calculate utc date on local noon for selected place #####################
+    cur_noon_loc = datetime(cur_date_loc.year, cur_date_loc.month, cur_date_loc.day, 12, 0, 0)
+    # print "cur_noon_loc=", cur_noon_loc
+    # -------------------------------------------------------------------------
+
+    aware_loc = set_tz_to_unaware_time(tz_nam, cur_noon_loc)
+    # print "aware_loc=", aware_loc.strftime(format)
+    # -------------------------------------------------------------------------
+
+    unaware_utc = aware_time_to_utc(aware_loc)
+    # print "aware_utc=",    unaware_utc.strftime(format)
+    # print "unaware_utc=", unaware_utc.strftime(format), "utcoffset=", unaware_utc.utcoffset()
+
+    return aware_loc, unaware_utc
 
 
 if __name__ == '__main__':

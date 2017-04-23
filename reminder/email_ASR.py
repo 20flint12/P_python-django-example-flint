@@ -61,103 +61,103 @@ def email_reminder():
         # out_str_msg += out_str_subject + "\n"
         # ----------------------------------------------------------------------
 
-        tp_srs_ext = srs.get_sun_rise_sett_local12place(cur_date_loc, cur_place)
-        # print "tp_srs_ext=", pprint.pprint(tp_srs_ext)
-        # =====================================================================
-        out_str_msg += u"\n### Солнце ###\n"
-        out_str_msg += u"восход " + tp_srs_ext["day_rise_loc"].strftime(format2) + "\n"
-        out_str_msg += u"закат  " + tp_srs_ext["day_sett_loc"].strftime(format2) + "\n"
-        # ----------------------------------------------------------------------
-
-        td = timedelta(hours=12)
-        # ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc-td, cur12_unaware_utc-td, "Sun", cur_place)
-        # out_str_msg += ecl_dict_ext["zod_lat"] + "-"
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc, cur12_unaware_utc,
-                                                   "Sun", cur_place)
-        # print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
-        # =====================================================================
-        # out_str_msg += "Sun:\n"
-        # out_str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
-        out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        # ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc+td, cur12_unaware_utc+td, "Sun", cur_place)
+        # tp_srs_ext = srs.get_sun_rise_sett_local12place(cur_date_loc, cur_place)
+        # # print "tp_srs_ext=", pprint.pprint(tp_srs_ext)
+        # # =====================================================================
+        # out_str_msg += u"\n### Солнце ###\n"
+        # out_str_msg += u"восход " + tp_srs_ext["day_rise_loc"].strftime(format2) + "\n"
+        # out_str_msg += u"закат  " + tp_srs_ext["day_sett_loc"].strftime(format2) + "\n"
+        # # ----------------------------------------------------------------------
+        #
+        # td = timedelta(hours=12)
+        # # ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc-td, cur12_unaware_utc-td, "Sun", cur_place)
+        # # out_str_msg += ecl_dict_ext["zod_lat"] + "-"
+        # # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc, cur12_unaware_utc,
+        #                                            "Sun", cur_place)
+        # # print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
+        # # =====================================================================
+        # # out_str_msg += "Sun:\n"
+        # # out_str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
         # out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
-        # ----------------------------------------------------------------------
-
-        solar_lst = sa.get_solar_activity()
-        print("solar_lst=", pprint.pprint(solar_lst))
-        # =====================================================================
-        # out_str_msg += "\n"
-        out_str_msg += solar_lst[0][0] + ": "   # ACTIVE
-        out_str_msg += solar_lst[0][1] + "-"
-        out_str_msg += solar_lst[0][2] + "%\n"
-
-        # out_str_msg += solar_lst[1][0] + ": "   # MINOR
-        # out_str_msg += solar_lst[1][1] + "-"
-        # out_str_msg += solar_lst[1][2] + "%\n"
-
-        out_str_msg += solar_lst[2][0] + ": "   # SEVERE
-        out_str_msg += solar_lst[2][1] + "-"
-        out_str_msg += solar_lst[2][2] + "%\n"
-
-        tp_md_ext = md.get_moon_day_ext(cur12_aware_loc, cur12_unaware_utc, cur_place)
-        # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
-        # =====================================================================
-        out_str_msg += u"\n### Луна ###\n"
-        out_str_msg += unicode(tp_md_ext["moon_day"]) + u" лунный день\n"
-        out_str_msg += u"восход  " + tp_md_ext["day_rise_loc"].strftime(format) + "\n"
-        out_str_msg += u"заход   " + tp_md_ext["day_sett_loc"].strftime(format) + "\n"
-        out_str_msg += u"сл.восх " + tp_md_ext["new_rise_loc"].strftime(format) + "\n"
-        # ---------------------------------------------------------------------
-
-        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc-td, cur12_unaware_utc-td, "Moon", cur_place)
-        out_str_msg += ecl_dict_ext["zod_lat"] + "-"
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc, cur12_unaware_utc,
-                                                   "Moon", cur_place)
-        # print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
-        # =====================================================================
-        # out_str_msg += "\n"
-        # out_str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
-        out_str_msg += ecl_dict_ext["zod_lat"] + "-"
-        # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc+td, cur12_unaware_utc+td, "Moon", cur_place)
-        out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
-        # ---------------------------------------------------------------------
-
-        tp_mph_ext = md.get_moon_phase_local12place(cur_date_loc, cur_place)
-        # print "tp_mph_ext=", pprint.pprint(tp_mph_ext)
-        # =====================================================================
-        # out_str_msg += "\n"
-        prev_phase = tp_mph_ext["prev"] + "_loc"
-        next_phase = tp_mph_ext["next"] + "_loc"
-
-        prev_mom = tp_mph_ext["prev"][-2:]
-        next_mom = tp_mph_ext["next"][-2:]
-
-        out_str_msg += u"пред: "
-        if prev_mom == "NM":
-            out_str_msg += u"новолуние"
-        elif prev_mom == "FQ":
-            out_str_msg += u"перв.четв"
-        elif prev_mom == "FM":
-            out_str_msg += u"полная л."
-        elif prev_mom == "LQ":
-            out_str_msg += u"трет.четв"
-        out_str_msg += " " + tp_mph_ext[prev_phase].strftime(format) + "\n"
-
-        out_str_msg += u"след: "
-        if next_mom == "NM":
-            out_str_msg += u"новолуние"
-        elif next_mom == "FQ":
-            out_str_msg += u"перв.четв"
-        elif next_mom == "FM":
-            out_str_msg += u"полная л."
-        elif next_mom == "LQ":
-            out_str_msg += u"трет.четв"
-        out_str_msg += " " + tp_mph_ext[next_phase].strftime(format) + "\n"
-        # ---------------------------------------------------------------------
+        # # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # # ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc+td, cur12_unaware_utc+td, "Sun", cur_place)
+        # # out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
+        # # ----------------------------------------------------------------------
+        #
+        # solar_lst = sa.get_solar_activity()
+        # print("solar_lst=", pprint.pprint(solar_lst))
+        # # =====================================================================
+        # # out_str_msg += "\n"
+        # out_str_msg += solar_lst[0][0] + ": "   # ACTIVE
+        # out_str_msg += solar_lst[0][1] + "-"
+        # out_str_msg += solar_lst[0][2] + "%\n"
+        #
+        # # out_str_msg += solar_lst[1][0] + ": "   # MINOR
+        # # out_str_msg += solar_lst[1][1] + "-"
+        # # out_str_msg += solar_lst[1][2] + "%\n"
+        #
+        # out_str_msg += solar_lst[2][0] + ": "   # SEVERE
+        # out_str_msg += solar_lst[2][1] + "-"
+        # out_str_msg += solar_lst[2][2] + "%\n"
+        #
+        # tp_md_ext = md.get_moon_day_ext(cur12_aware_loc, cur12_unaware_utc, cur_place)
+        # # print "tp_md_ext=\n", pprint.pprint(tp_md_ext)
+        # # =====================================================================
+        # out_str_msg += u"\n### Луна ###\n"
+        # out_str_msg += unicode(tp_md_ext["moon_day"]) + u" лунный день\n"
+        # out_str_msg += u"восход  " + tp_md_ext["day_rise_loc"].strftime(format) + "\n"
+        # out_str_msg += u"заход   " + tp_md_ext["day_sett_loc"].strftime(format) + "\n"
+        # out_str_msg += u"сл.восх " + tp_md_ext["new_rise_loc"].strftime(format) + "\n"
+        # # ---------------------------------------------------------------------
+        #
+        # ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc-td, cur12_unaware_utc-td, "Moon", cur_place)
+        # out_str_msg += ecl_dict_ext["zod_lat"] + "-"
+        # # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc, cur12_unaware_utc,
+        #                                            "Moon", cur_place)
+        # # print "ecl_dict_ext=", pprint.pprint(ecl_dict_ext)
+        # # =====================================================================
+        # # out_str_msg += "\n"
+        # # out_str_msg += str(ecl_dict_ext["ecl.lon"]) + "\n"
+        # out_str_msg += ecl_dict_ext["zod_lat"] + "-"
+        # # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # ecl_dict_ext = zod.get_zodiac_local12place(cur12_aware_loc+td, cur12_unaware_utc+td, "Moon", cur_place)
+        # out_str_msg += ecl_dict_ext["zod_lat"] + "\n"
+        # # ---------------------------------------------------------------------
+        #
+        # tp_mph_ext = md.get_moon_phase_local12place(cur_date_loc, cur_place)
+        # # print "tp_mph_ext=", pprint.pprint(tp_mph_ext)
+        # # =====================================================================
+        # # out_str_msg += "\n"
+        # prev_phase = tp_mph_ext["prev"] + "_loc"
+        # next_phase = tp_mph_ext["next"] + "_loc"
+        #
+        # prev_mom = tp_mph_ext["prev"][-2:]
+        # next_mom = tp_mph_ext["next"][-2:]
+        #
+        # out_str_msg += u"пред: "
+        # if prev_mom == "NM":
+        #     out_str_msg += u"новолуние"
+        # elif prev_mom == "FQ":
+        #     out_str_msg += u"перв.четв"
+        # elif prev_mom == "FM":
+        #     out_str_msg += u"полная л."
+        # elif prev_mom == "LQ":
+        #     out_str_msg += u"трет.четв"
+        # out_str_msg += " " + tp_mph_ext[prev_phase].strftime(format) + "\n"
+        #
+        # out_str_msg += u"след: "
+        # if next_mom == "NM":
+        #     out_str_msg += u"новолуние"
+        # elif next_mom == "FQ":
+        #     out_str_msg += u"перв.четв"
+        # elif next_mom == "FM":
+        #     out_str_msg += u"полная л."
+        # elif next_mom == "LQ":
+        #     out_str_msg += u"трет.четв"
+        # out_str_msg += " " + tp_mph_ext[next_phase].strftime(format) + "\n"
+        # # ---------------------------------------------------------------------
 
 
         # ### Солнце ###
