@@ -1,4 +1,6 @@
 import json
+
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.dateparse import parse_datetime
 from django.views.generic import View, TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
@@ -19,10 +21,42 @@ import ephem
 class NewObserverView(LoginRequiredMixin, CreateView):
     template_name = 'engine/new_observer.html'
     form_class = ObserverForm
+    observer = None
+
+    def get_object(self, **kwargs):
+        # observ = Observer.objects.get(pk=self.kwargs['place_id'])
+        return self.observer
 
     def get_success_url(self):
         return reverse_lazy('edit_observer',
-                            kwargs={'place_id': self.object.id})
+                            kwargs={'place_id': self.observer.id})
+
+    def form_valid(self, form):
+        """
+        If the form is valid, save the associated model.
+            (django.views.generic.edit.ModelFormMixin)
+        If the form is valid, redirect to the supplied URL.
+            (django.views.generic.edit.FormMixin)
+        """
+
+        # Get the email from the form.cleaned_data dictionary
+        # email = form.cleaned_data.get("email", "")
+
+        # Get or create the signup. We don't need to do anything with the
+        #   model instance or created boolean so we don't set them.
+        # NewsLetterSignup.objects.get_or_create(email=email)
+        self.observer, created = Observer.objects.get_or_create(
+            title=form.instance.title, #"Dubno",
+            # longitude=11,
+            # latitude=23,
+            # timezone_name="Vladivostok"
+        )
+        print("self.observer=", self.observer)
+
+        # Don't use super() to inherit as it will do a form.save()
+        # You could call the FormMixin's form_valid() method but I think
+        #   using a HttpResponseRedirect() much more explicit.
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ObserverEditView(LoginRequiredMixin, UpdateView):

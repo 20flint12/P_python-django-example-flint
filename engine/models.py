@@ -173,7 +173,7 @@ class Observer(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         pass
-        print('asdasd', self.title)
+        print('self.title=', self.title)
 
         place_name = self.title     # 'Boston'
         coord = None
@@ -186,6 +186,8 @@ class Observer(models.Model):
         except:
             str_res = "Unexpected error:" + str(sys.exc_info()[0]) + str(sys.exc_info()[1])
             print(str_res)
+            return
+
         print(place_name, coord)
 
         # pip install timezonefinder
@@ -214,5 +216,28 @@ class Observer(models.Model):
         self.timezone_name = tz_name
         print("tz_name=", tz_name)
 
+        # observ, created = Observer.objects.get_or_create(
+        #     title=self.title,
+        #     longitude=self.longitude,
+        #     latitude=self.latitude,
+        #     timezone_name=tz_name
+        # )
+        # print("observ=", observ, "observ.id=", observ.id)
+        #
+        # if created:
+        #     pass
+        # else:
         return super(Observer, self).save(force_insert, force_update, using, update_fields)
+
+    # @staticmethod
+    # def create(title, longitude, latitude, tz_name):
+    #
+    #     observer, created = Observer.objects.get_or_create(
+    #         title=title,
+    #         longitude=longitude,
+    #         latitude=latitude,
+    #         timezone_name=tz_name
+    #     )
+    #     return observer, created
+
 
