@@ -1,0 +1,18 @@
+sudo apt-get install pgadmin3
+
+***********************************************************
+sudo -u postgres -i
+
+CREATE DATABASE flint;
+CREATE USER flint WITH password ‘63933';
+GRANT ALL ON DATABASE flint TO flint;
+
+CREATE ROLE flint;
+ALTER USER flint WITH SUPERUSER LOGIN;
+CREATE ROLE flint WITH LOGIN SUPERUSER;
+ALTER USER flint PASSWORD '63933';
+
+psql -l     # show all databases
+\du;
+\l;  List of databases
+psql -h localhost -p 5432 -U flint flint

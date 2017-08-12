@@ -6,7 +6,6 @@
 # 20flint12@gmail.com 87
 
 
-
 import urllib2
 import json
 
@@ -21,7 +20,7 @@ def locu_search(query):
     data = json.load(json_obj)
 
     for item in data['objects']:
-        print item['name'], item['phone']
+        print(item['name'], item['phone'])
 
 
 locu_search("boston")
