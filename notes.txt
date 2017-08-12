@@ -123,6 +123,7 @@ sudo dd if=/home/flint/Downloads/kubuntu-14.04.4-desktop-amd64.iso of=/dev/sdc
 sudo eject /dev/sdX
 
 sudo dd if=./linuxmint-18-mate-64bit.iso of=/dev/sdc
+sudo dd if=/home/flint/Downloads/linuxmint-18.2-mate-64bit.iso of=/dev/sdc
 
 
 https://docs.djangoproject.com/en/1.9/howto/custom-management-commands/

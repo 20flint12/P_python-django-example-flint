@@ -33,18 +33,7 @@ class NewObserverView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         """
-        If the form is valid, save the associated model.
-            (django.views.generic.edit.ModelFormMixin)
-        If the form is valid, redirect to the supplied URL.
-            (django.views.generic.edit.FormMixin)
         """
-
-        # Get the email from the form.cleaned_data dictionary
-        # email = form.cleaned_data.get("email", "")
-
-        # Get or create the signup. We don't need to do anything with the
-        #   model instance or created boolean so we don't set them.
-        # NewsLetterSignup.objects.get_or_create(email=email)
         self.observer, created = Observer.objects.get_or_create(
             title=form.instance.title, #"Dubno",
             # longitude=11,

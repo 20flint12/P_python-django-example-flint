@@ -151,11 +151,10 @@ WSGI_APPLICATION = 'astrofactor.wsgi.application'
 DATABASE_URL = 'postgresql:///flint'
 
 # DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
-DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
+# DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
 # Update database configuration with $DATABASE_URL.
-db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
-
+# db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
 # DATABASES = {'default': db_from_env}
 
 # DATABASES = {
