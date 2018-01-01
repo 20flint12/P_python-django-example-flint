@@ -1,28 +1,23 @@
 # #!/usr/bin/env python
 # # -*- coding: utf-8 -*-
-#
-# import numpy as np
-# import matplotlib.pyplot as plt
-#
-# X = np.linspace(-np.pi, np.pi, 256, endpoint=True)
-# C, S = np.cos(X), np.sin(X)
-#
-# plt.plot(X, C)
-# plt.plot(X, S)
-#
-# plt.show()
 
 
-# Import `pyplot`
+import numpy as np
 import matplotlib.pyplot as plt
 
-# Initialize a Figure
-fig = plt.figure()
 
+def f(x, y):
+    return (1 - x / 2 + x ** 5 + y ** 3) * np.exp(-x ** 2 -y ** 2)
 
-# Add Axes to the Figure
-fig.add_axes([0, 0, 1, 1])
+n = 256
+x = np.linspace(-3, 3, n)
+y = np.linspace(-3, 3, n)
+X, Y = np.meshgrid(x, y)
+
+plt.contourf(X, Y, f(X, Y), 8, alpha=.75, cmap='jet')
+C = plt.contour(X, Y, f(X, Y), 8, colors='black', linewidth=.5)
+
+print(plt)
 
 plt.show()
 
-print(fig)

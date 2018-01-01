@@ -4,7 +4,7 @@ __author__ = 'sergey'
 def my_plot():
 
     import random
-    import django
+    # import django
     import datetime
 
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
