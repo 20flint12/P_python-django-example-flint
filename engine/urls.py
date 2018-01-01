@@ -5,6 +5,10 @@ from rest_framework import routers
 from engine import views
 from . import viewsets
 
+
+app_name = 'engine'
+
+
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 

@@ -157,10 +157,10 @@ def weather_chart(request, num="1000"):
     ax3 = fig.add_axes(rect3, axisbg=axescolor, sharex=ax1)
 
     # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    max = len(WeatherData.objects.all())
-    if max > 5000: max = 5000
+    # max = len(WeatherData.objects.all())
+    # if max > 5000: max = 5000
     # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    WeatherData.objects.filter(pressure_stn=0).delete()
+    # WeatherData.objects.filter(pressure_stn=0).delete()
 
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$

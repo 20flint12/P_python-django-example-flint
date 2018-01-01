@@ -2,6 +2,7 @@
 from django.conf.urls import url
 from reminder import views
 
+app_name = 'reminder'
 
 urlpatterns = [
 

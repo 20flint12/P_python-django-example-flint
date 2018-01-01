@@ -1,7 +1,7 @@
 import sys
 
 import datetime
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.shortcuts import render, render_to_response
 
 # Create your views here.

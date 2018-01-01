@@ -4,6 +4,8 @@ from polls.models import Poll
 
 import polls.views
 
+app_name = 'polls'
+
 urlpatterns = [
     url(r'^$',
         ListView.as_view(

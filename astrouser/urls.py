@@ -4,6 +4,8 @@ from django.contrib.auth.views import password_reset_done, password_reset_comple
 from astrouser.forms import PassResetRequestForm
 from astrouser import views
 
+app_name = 'astrouser'
+
 urlpatterns = [
     url(r'^$', views.AccountView.as_view(), name='account'),
     url(r'^sign-in/$', views.SignInView.as_view(), name='sign_in'),

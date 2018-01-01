@@ -102,11 +102,11 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
-if True:
-    INSTALLED_APPS += ['debug_toolbar']
-    MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware']
-    INTERNAL_IPS = ['127.0.0.1']
-    DEBUG_TOOLBAR_PATCH_SETTINGS = False
+# if True:
+#     INSTALLED_APPS += ['debug_toolbar']
+#     MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+#     INTERNAL_IPS = ['127.0.0.1']
+#     DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 
 # List of callables that know how to import templates from various sources.

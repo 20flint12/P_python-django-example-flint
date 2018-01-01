@@ -3,6 +3,7 @@ from django.conf.urls import url
 
 from records import views
 
+app_name = 'records'
 
 urlpatterns = [
 
