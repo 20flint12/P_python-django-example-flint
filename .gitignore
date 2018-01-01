@@ -11,3 +11,5 @@ env/*
 lib/*
 .env
 env/
+
+venv35/*
