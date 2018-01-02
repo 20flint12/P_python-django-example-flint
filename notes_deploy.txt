@@ -1,0 +1,10 @@
+'cd ~/Projects/Py_projects/ENV_MADCRAM/madcram/;
+source ../bin/activate;
+python manage.py runserver'
+
+
+
+
+
+
+

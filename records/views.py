@@ -170,7 +170,8 @@ def weather_chart(request, num="1000"):
     num_int = WeatherData.objects.count()
     print("num_int=", num_int, "num=", num)
 
-    sel = WeatherData.objects.all()[num_int - max:num_int]   # last 1000
+    # sel = WeatherData.objects.all()[num_int - max:num_int]   # last 1000
+    sel = WeatherData.objects.all()
     # sel = WeatherData.reverse()[:10000]   # last 1000
 
     x = sel.values_list("grabbed_at")

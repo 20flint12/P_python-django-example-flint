@@ -12,7 +12,7 @@ import polls.urls
 admin.autodiscover()
 
 urlpatterns = [
-    # url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^account/', include(astrouser.urls)),
     url(r'^polls/', include(polls.urls)),
 

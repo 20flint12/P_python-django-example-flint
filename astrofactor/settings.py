@@ -58,9 +58,6 @@ EMAIL_HOST_PASSWORD = '95dd2d301'
 # *****************************************************************************
 
 
-
-
-
 ON_HEROKU = os.environ.get('ON_HEROKU')
 
 if ON_HEROKU:
@@ -100,6 +97,9 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
+    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 # if True:
