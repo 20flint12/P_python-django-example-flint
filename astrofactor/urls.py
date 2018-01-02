@@ -13,7 +13,10 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
     url(r'^account/', include(astrouser.urls)),
+    # url(r'^account/', include(polls.urls)),
+
     url(r'^polls/', include(polls.urls)),
 
     url(r'^records/', include('records.urls')),

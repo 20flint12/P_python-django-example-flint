@@ -29,7 +29,7 @@ class SignInView(FormView):
     success_url = reverse_lazy('time')
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return HttpResponseRedirect(reverse_lazy('time'))
         else:
             return super(SignInView, self).get(request, *args, **kwargs)
@@ -67,7 +67,7 @@ def reg_sign_in(request):
         'sign_in_form': sign_in_form,
     }
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return HttpResponseRedirect(success_url)
     else:
         return TemplateResponse(request, template_name, context)
@@ -87,7 +87,7 @@ class RegistrationView(FormView):
     success_url = reverse_lazy('time')
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return HttpResponseRedirect(reverse_lazy('time'))
         else:
             return super(RegistrationView, self).get(request, *args, **kwargs)

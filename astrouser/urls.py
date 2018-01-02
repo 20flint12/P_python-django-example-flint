@@ -7,6 +7,7 @@ from astrouser import views
 app_name = 'astrouser'
 
 urlpatterns = [
+
     url(r'^$', views.AccountView.as_view(), name='account'),
     url(r'^sign-in/$', views.SignInView.as_view(), name='sign_in'),
     url(r'^sign-out/$', views.SignOutView.as_view(), name='sign_out'),
