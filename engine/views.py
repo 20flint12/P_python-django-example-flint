@@ -28,7 +28,7 @@ class NewObserverView(LoginRequiredMixin, CreateView):
         return self.observer
 
     def get_success_url(self):
-        return reverse_lazy('edit_observer',
+        return reverse_lazy('engine:edit_observer',
                             kwargs={'place_id': self.observer.id})
 
     def form_valid(self, form):
@@ -63,7 +63,7 @@ class ObserverEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         place_id = self.kwargs['place_id']
-        return reverse_lazy('edit_observer', kwargs={'place_id': place_id})
+        return reverse_lazy('engine:edit_observer', kwargs={'place_id': place_id})
 
 
 class MomentView(LoginRequiredMixin, FormView):
@@ -73,7 +73,7 @@ class MomentView(LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         place_id = self.kwargs['place_id']
-        return reverse_lazy('edit_moment', kwargs={'place_id': place_id})
+        return reverse_lazy('engine:edit_moment', kwargs={'place_id': place_id})
 
     def get_context_data(self, **kwargs):
         context = super(MomentView, self).get_context_data(**kwargs)
@@ -112,7 +112,6 @@ class MomentView(LoginRequiredMixin, FormView):
             # Summary data
             summary = self.summary_info(aware_utc, coord, tz)
             context['summary_data'] = summary
-
 
         return context
 

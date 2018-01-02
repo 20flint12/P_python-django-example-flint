@@ -16,9 +16,9 @@
 
 {% block mc_body %}
     <ul class="nav nav-tabs">
-        <li><a href="{% url 'edit_observer' place_id=place_id %}#!pages">Place</a></li>
-        <li><a href="{% url 'edit_observer' place_id %}#!settings">Time</a></li>
-        <li><a href="{% url 'edit_observer' place_id %}#!share">Empty</a></li>
+        <li><a href="{% url 'engine:edit_observer' place_id=place_id %}#!pages">Place</a></li>
+        <li><a href="{% url 'engine:edit_observer' place_id %}#!settings">Time</a></li>
+        <li><a href="{% url 'engine:edit_observer' place_id %}#!share">Empty</a></li>
         <li class="active">
             <a data-toggle="tab" href="">Moment</a>
         </li>
@@ -34,8 +34,8 @@
 {% endblock mc_body %}
 
 {% block js %}
-{#    <script src="{% static 'lib/Sortable.min.js' %}"></script>#}
-{#    <script src="{% static 'lib/ckeditor/ckeditor.js' %}"></script>#}
-{#    <script src="{% static 'lib/jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>#}
+    <script src="{% static 'lib/Sortable.min.js' %}"></script>
+    <script src="{% static 'lib/ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'lib/jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>
     <script src="{% static 'engine/js/edit_moment.js' %}"></script>
 {% endblock js %}

@@ -30,7 +30,7 @@ class SignInView(FormView):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse_lazy('time'))
+            return HttpResponseRedirect(reverse_lazy('reminder:time'))
         else:
             return super(SignInView, self).get(request, *args, **kwargs)
 
@@ -41,7 +41,7 @@ class SignInView(FormView):
 
 def reg_sign_in(request):
     template_name = 'astrouser/reg_sign_in.html'
-    success_url = reverse_lazy('time')
+    success_url = reverse_lazy('reminder:time')
 
     reg_form = RegForm
     sign_in_form = SignInForm
@@ -74,7 +74,7 @@ def reg_sign_in(request):
 
 
 class SignOutView(RedirectView):
-    url = reverse_lazy('sign_in')
+    url = reverse_lazy('astrouser:sign_in')
 
     def get(self, request, *args, **kwargs):
         logout(request)
@@ -84,11 +84,11 @@ class SignOutView(RedirectView):
 class RegistrationView(FormView):
     template_name = 'astrouser/reg.html'
     form_class = RegForm
-    success_url = reverse_lazy('time')
+    success_url = reverse_lazy('reminder:time')
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse_lazy('time'))
+            return HttpResponseRedirect(reverse_lazy('reminder:time'))
         else:
             return super(RegistrationView, self).get(request, *args, **kwargs)
 
@@ -135,9 +135,9 @@ def password_reset_confirm(request, uidb64=None, token=None,
                                     password=form.cleaned_data['new_password1'])
                 if user and user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect(reverse_lazy('time'))
+                    return HttpResponseRedirect(reverse_lazy('reminder:time'))
                 else:
-                    return HttpResponseRedirect(reverse_lazy('sign_in'))
+                    return HttpResponseRedirect(reverse_lazy('astrouser:sign_in'))
         else:
             form = set_password_form(user)
     else:
@@ -166,7 +166,7 @@ def password_reset(request, is_admin_site=False,
                    html_email_template_name=None,
                    extra_email_context=None):
     if post_reset_redirect is None:
-        post_reset_redirect = reverse('password_reset_done')
+        post_reset_redirect = reverse('astrouser:password_reset_done')
     else:
         post_reset_redirect = resolve_url(post_reset_redirect)
     if request.method == "POST":

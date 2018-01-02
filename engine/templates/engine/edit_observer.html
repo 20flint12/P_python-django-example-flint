@@ -23,7 +23,7 @@ It is {% now "jS F Y H:i:s e / T O \S\a\v\i\n\g\ \t\i\m\e\=I l " %}
         </li>
         <li><a data-toggle="tab" href="#settings">Time</a></li>
         <li><a data-toggle="tab" href="#share">Empty</a></li>
-        <li><a href="{% url 'edit_moment' place_id=form.instance.id %}">Moment</a></li>
+        <li><a href="{% url 'engine:edit_moment' place_id=form.instance.id %}">Moment</a></li>
     </ul>
 
     <div class="tab-content">
