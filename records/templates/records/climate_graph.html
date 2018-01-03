@@ -1,6 +1,6 @@
 {% extends "inner_layout.html" %}
 
-{% load staticfiles %}
+{% load static %}
 
 {% block mc_header_left %}
     <p>Permission Denied</p>
@@ -8,5 +8,14 @@
 
 {% block mc_body %}
     <p>You have no access to requested page</p>
+    <img src="{% static "engine/images/images (1).jpg" %}" alt="My image"/>
+
+{#    <img src="data:image/png;base64,{{ mpl_image }}"/>#}
+{#    werwer {{ latest_articles }}#}
+
+    <br>
+{#    <img src="{% static "records/climate_graph.png" %}" alt="My png" width="1000"/>#}
+    <img src="/media/media/img/climate_graph.png" alt="My png2" width="1000"/>
+
 {% endblock mc_body %}
 
