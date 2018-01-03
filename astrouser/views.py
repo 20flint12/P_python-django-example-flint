@@ -26,7 +26,7 @@ email_validator = EmailValidator()
 class SignInView(FormView):
     template_name = 'astrouser/sign_in.html'
     form_class = SignInForm
-    success_url = reverse_lazy('time')
+    success_url = reverse_lazy('reminder:time')
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:

@@ -6,7 +6,7 @@ app_name = 'reminder'
 
 urlpatterns = [
 
-    url(r'^$', views.ReminderView.as_view(), name='reminder'),
+    url(r'^$', views.ReminderView.as_view(), name='reminder1'),
 
     # (r'^hello/$',   views.hello),  ##############################
     url(r'^time/$', views.current_datetime, name='time'),

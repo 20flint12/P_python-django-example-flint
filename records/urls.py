@@ -27,4 +27,7 @@ urlpatterns = [
     url(r'^clear/(?P<numfirst>[0-9]{4})/$', views.clear_weather_data),
     url(r'^clear/(?P<numfirst>\w+)/$',      views.clear_weather_data),
 
+
+    url(r'^climate-graph/$', views.ClimateGraphView.as_view(), name='climate_graph'),
+
 ]

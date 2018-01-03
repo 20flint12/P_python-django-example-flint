@@ -5,7 +5,7 @@
 from datetime import datetime
 
 from django.utils import timezone
-
+from django.views.generic import TemplateView
 
 import grabber.scrapes.scrape_data2 as scr2
 from django.http import HttpResponse
@@ -130,7 +130,7 @@ def static_image(request):
     return HttpResponse(image_data, content_type="image/jpg")
 
 
-def weather_chart(request, num="1000"):
+def weather_graph(num="1000"):
 
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
     from matplotlib.figure import Figure
@@ -163,17 +163,17 @@ def weather_chart(request, num="1000"):
     # WeatherData.objects.filter(pressure_stn=0).delete()
 
 
-    #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    # num_int = int(num_str)
-    # if num_int == "1000":
-    #     pass
-    num_int = WeatherData.objects.count()
-    print("num_int=", num_int, "num=", num)
-
-    # sel = WeatherData.objects.all()[num_int - max:num_int]   # last 1000
+    # #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    # # num_int = int(num_str)
+    # # if num_int == "1000":
+    # #     pass
+    # # num_int = WeatherData.objects.count()
+    # # print("num_int=", num_int, "num=", num)
+    #
+    # # sel = WeatherData.objects.all()[num_int - max:num_int]   # last 1000
     sel = WeatherData.objects.all()
-    # sel = WeatherData.reverse()[:10000]   # last 1000
-
+    # # sel = WeatherData.reverse()[:10000]   # last 1000
+    #
     x = sel.values_list("grabbed_at")
     # print x[:]
     # x = [(21,), (20,), (15,)]
@@ -204,6 +204,14 @@ def weather_chart(request, num="1000"):
     ax2.plot(x, y5, 'r--')
 
     canvas = FigureCanvas(fig)
+
+    return canvas
+
+
+def weather_chart(request):
+
+    canvas = weather_graph()
+
     response = HttpResponse(content_type='image/png')
     canvas.print_png(response)
     return response
@@ -218,6 +226,13 @@ def clear_weather_data(request, numf="0", num_last="10", qw= True):
     text += "<h3>num_first= " + numf + "</h3> to <h3>num_last= " + num_last + "</h3>"
 
     return HttpResponse(text)
+
+
+class ClimateGraphView(TemplateView):
+    template_name = 'records/climate_graph.html'
+
+
+
 
 
 

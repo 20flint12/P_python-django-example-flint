@@ -40,9 +40,6 @@ git push heroku  collector:master
 
 
 
-
-
-
 git push heroku -u plechan121:master
 
 heroku logs --tail
