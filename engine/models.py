@@ -76,7 +76,7 @@ class MoonZodiacContent(models.Model):
 
     title = models.CharField(max_length=250)
     text = models.TextField()
-    image = models.FileField(upload_to='media/zodiac_imgs/%Y/%m/%d/', blank=True, null=True)
+    image = models.FileField(upload_to='zodiac_imgs/%Y/%m/%d/', blank=True, null=True)
 
     def __str__(self):
         return "[{}] Content: {}".format(self.id, self.title)
@@ -133,7 +133,7 @@ class MoonDayContent(models.Model):
     title = models.CharField(max_length=250, default='')
     symbol = models.CharField(max_length=250, default='', blank=True, null=True)
     description = models.TextField()
-    image = models.FileField(upload_to='media/moonday_imgs/%Y/%m/%d/', blank=True, null=True)
+    image = models.FileField(upload_to='moonday_imgs/%Y/%m/%d/', blank=True, null=True)
     source = models.URLField(max_length=250, default='')
 
     def __str__(self):

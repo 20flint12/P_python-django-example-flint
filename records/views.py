@@ -237,7 +237,7 @@ class ClimateGraphView(TemplateView):
         canvas = weather_graph()
 
         # buffer = open('records/static/records/climate_graph.png', 'wb+')
-        buffer = open('media/media/img/climate_graph.png', 'wb+')
+        buffer = open('media/climate_graph.png', 'wb+')
         canvas.print_png(buffer)
 
         # response = HttpResponse(content_type='image/png')

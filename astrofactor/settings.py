@@ -8,9 +8,9 @@ import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-# print("### BASE_DIR=", BASE_DIR)
-print("PROJECT_ROOT=", PROJECT_ROOT)
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+print("### BASE_DIR=", BASE_DIR)
+# print("PROJECT_ROOT=", PROJECT_ROOT)
 
 
 # Make this unique, and don't share it with anybody.
@@ -192,7 +192,6 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # URL that handles the media served from MEDIA_ROOT.
 MEDIA_URL = '/media/'
 
