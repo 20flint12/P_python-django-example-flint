@@ -236,14 +236,14 @@ class ClimateGraphView(TemplateView):
         context = super().get_context_data(**kwargs)
         canvas = weather_graph()
 
-        # buffer = open('records/static/records/climate_graph.png', 'wb+')
-        buffer = open('media/climate_graph.png', 'wb+')
-        canvas.print_png(buffer)
+        # file_png = open('records/static/records/climate_graph.png', 'wb+')
+        file_png = open('media/climate_graph.png', 'wb+')
+        canvas.print_png(file_png)
 
         # response = HttpResponse(content_type='image/png')
         # canvas.print_png(response)
 
-        context['mpl_image'] = buffer.read()
+        context['mpl_image'] = file_png.read()
         context['latest_articles'] = 122
         return context
 
