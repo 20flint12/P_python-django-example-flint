@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^news/$', views.news),
     url(r'^weather/$', views.weather),
 
-    url(r'^wchart/$', views.weather_chart, name='wchart'),
+    url(r'^wchart.png$', views.weather_chart, name='wchart'),
 
     url(r'^static_image/$', views.static_image, name='static_image'),
 
