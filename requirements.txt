@@ -1,22 +1,30 @@
-
 #sudo apt-get install python3-dev
 
 beautifulsoup4==4.6.0
 certifi==2017.11.5
 chardet==3.0.4
+cycler==0.10.0
 dj-database-url==0.4.2
 Django==2.0.1
 django-debug-toolbar==1.9.1
 djangorestframework==3.7.7
+future==0.16.0
+geopy==1.11.0
 gunicorn==19.7.1
 idna==2.6
 matplotlib==2.1.1
 numpy==1.13.1
 psycopg2==2.7.3.2
 pyephem==3.7.6.0
+pyparsing==2.2.0
+python-dateutil==2.6.1
+python-telegram-bot==9.0.0
 pytz==2017.3
 requests==2.18.4
 six==1.10.0
 sqlparse==0.2.4
+timezonefinder==2.1.2
 urllib3==1.22
 whitenoise==3.3.1
+
+
