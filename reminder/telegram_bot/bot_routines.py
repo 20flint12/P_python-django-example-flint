@@ -5,7 +5,7 @@ import telegram
 
 # import mwt
 
-logging.basicConfig(filename='telegram_bot2.log',
+logging.basicConfig(filename='telegram_bot.log',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 # logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)

@@ -32,3 +32,5 @@ venv35/
 qweqweq/
 
 
+reminder/telegram_bot/__pycache__/
+telegram_bot.log
