@@ -12,4 +12,22 @@ lib/*
 .env
 env/
 
-venv35/*
+
+astrofactor/__pycache__/
+astrouser/__pycache__/
+astrouser/migrations/__pycache__/
+engine/__pycache__/
+engine/astro_routines/__pycache__/
+engine/migrations/__pycache__/
+grabber/__pycache__/
+grabber/scrapes/__pycache__/
+media/
+polls/__pycache__/
+polls/migrations/__pycache__/
+qweqweq/
+records/__pycache__/
+records/migrations/__pycache__/
+reminder/__pycache__/
+reminder/migrations/__pycache__/
+static/
+venv35/

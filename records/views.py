@@ -17,6 +17,8 @@ from records.models import Book, SpaceWeatherData
 from records.models import RecNews
 from records.models import WeatherData
 
+from reminder.telegram_bot import bot_routines as tb
+
 
 def search_form(request):
 
@@ -81,6 +83,8 @@ def news(request):
 def weather(request):
 
     weather_collect()
+
+    tb.astro_bot_send_message("manual weather collect")
 
     wdata = WeatherData.objects.all()
     # print wdata
@@ -246,9 +250,6 @@ class ClimateGraphView(TemplateView):
         # context['mpl_image'] = file_png.read()
         context['latest_articles'] = 122
         return context
-
-
-
 
 
 if __name__ == '__main__':
