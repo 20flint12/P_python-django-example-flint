@@ -26,7 +26,7 @@ def get_solar_activity():
     r = requests.get("http://www.spaceweather.com/")
     # print r.content
 
-    soup = BeautifulSoup(r.content)
+    soup = BeautifulSoup(r.content, "html.parser")
     # print( soup.prettify() )
 
     # <table cellpadding="0" cellspacing="0"

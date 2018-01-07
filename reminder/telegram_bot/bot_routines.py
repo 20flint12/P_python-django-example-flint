@@ -14,8 +14,8 @@ logger.setLevel(logging.INFO)
 logger.setLevel(logging.DEBUG)
 
 TOKEN = '345369460:AAGgeEcjoDtS2YCk9f8_N03rBUxjItk_vco'  # Astro-Bot
-TOKEN = '413894645:AAF_c_2tMqSS6MROVMtBtiEuaT0vYTwP31Q'  # FireFly-Notifier
-TOKEN = '540694160:AAFo4J6jRabVrJOrCJJBm8-NXTMHEGVhu3E'  # Ginn-Bot
+# TOKEN = '413894645:AAF_c_2tMqSS6MROVMtBtiEuaT0vYTwP31Q'  # FireFly-Notifier
+# TOKEN = '540694160:AAFo4J6jRabVrJOrCJJBm8-NXTMHEGVhu3E'  # Ginn-Bot
 
 
 def astro_bot_send_message(text):
@@ -26,7 +26,7 @@ def astro_bot_send_message(text):
     bot.send_message(chat_id=442763659, text=text)
 
 
-astro_bot_send_message('asfklafs')
+# astro_bot_send_message('asfklafs')
 
 
 

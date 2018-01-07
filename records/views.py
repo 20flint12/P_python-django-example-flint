@@ -126,15 +126,13 @@ def weather_collect():
 
 def static_image(request):
     """ Simply return a static image as a png """
-
-    # image_path = "/home/flint/Pictures/Screenshot at 2017-01-09 13-21-19.png"
     image_path = "engine/static/engine/images/images (1).jpg"
 
     image_data = open(image_path, "rb").read()
     return HttpResponse(image_data, content_type="image/jpg")
 
 
-def weather_graph(num="1000"):
+def weather_chart(request, num="1000"):
 
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
     from matplotlib.figure import Figure
@@ -209,15 +207,9 @@ def weather_graph(num="1000"):
 
     canvas = FigureCanvas(fig)
 
-    return canvas
-
-
-def weather_chart(request):
-
-    canvas = weather_graph()
-
     response = HttpResponse(content_type='image/png')
     canvas.print_png(response)
+
     return response
 
 

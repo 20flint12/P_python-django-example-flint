@@ -2,21 +2,11 @@
 
 {% load static %}
 
-{% block mc_header_left %}
-    <p>Permission Denied</p>
-{% endblock mc_header_left %}
+{% block mc_header_left %}<p>Weather trends</p>{% endblock mc_header_left %}
 
 {% block mc_body %}
-    <p>You have no access to requested page</p>
-    <img src="{% static "engine/images/images (1).jpg" %}" alt="My image"/>
+    <p>Current graph of weather</p>
 
-{#    <img src="data:image/png;base64,{{ mpl_image }}"/>#}
-{#    werwer {{ latest_articles }}#}
-
-    <br>
-
-{#    <img src="/media/climate_graph.png" alt="My png2" width="1000"/>#}
-{#    <img src="/records/wchart.png" alt="My png3" width="1000"/>#}
     <img src="{% url 'records:wchart' %}" alt="My png3" width="100%"/>
 
 
