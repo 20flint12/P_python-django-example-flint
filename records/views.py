@@ -162,6 +162,7 @@ def weather_chart(request, num="1000"):
     ax12 = ax1.twinx()
     ax2 = fig.add_axes(rect2, facecolor=axescolor, sharex=ax1)
     ax3 = fig.add_axes(rect3, facecolor=axescolor, sharex=ax1)
+    ax32 = ax3.twinx()
     # ax4 = fig.add_axes(rect4, facecolor=axescolor, sharex=ax1)
 
     # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -170,8 +171,8 @@ def weather_chart(request, num="1000"):
     # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     # WeatherData.objects.filter(pressure_stn=0).delete()
 
-    sel1 = WeatherData.objects.all().reverse()[:150]   # last 1000
-    sel2 = SpaceWeatherData.objects.all().reverse()[:150]
+    sel1 = WeatherData.objects.all().reverse()[:181]   # last 1000
+    sel2 = SpaceWeatherData.objects.all().reverse()[:181]
     #
     x = sel1.values_list("grabbed_at")
     # print(x[:])
@@ -202,8 +203,8 @@ def weather_chart(request, num="1000"):
     ax2.plot(x, y6, 'g-')
 
     ax3.plot(x, y7, 'g-')
-    ax3.plot(x, y8, 'p-')
-    ax3.plot(x, y9, 'p-')
+    ax32.plot(x, y8, 'p-')
+    ax32.plot(x, y9, 'p-')
 
     # print(y4)
     # print(y5)
