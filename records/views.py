@@ -158,10 +158,10 @@ def weather_chart(request, num="1000"):
     rect3 = [left, 0.1, width, 0.2]
     # rect4 = [left, 0.1, width, 0.2]
 
-    ax1 = fig.add_axes(rect1, facecolor=axescolor)  # left, bottom, width, height
+    ax1 = fig.add_axes(rect2, facecolor=axescolor)  # left, bottom, width, height
     ax12 = ax1.twinx()
-    ax2 = fig.add_axes(rect2, facecolor=axescolor, sharex=ax1)
-    ax3 = fig.add_axes(rect3, facecolor=axescolor, sharex=ax1)
+    ax2 = fig.add_axes(rect1, facecolor=axescolor)
+    ax3 = fig.add_axes(rect3, facecolor=axescolor)
     ax32 = ax3.twinx()
     # ax4 = fig.add_axes(rect4, facecolor=axescolor, sharex=ax1)
 
@@ -171,9 +171,11 @@ def weather_chart(request, num="1000"):
     # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     # WeatherData.objects.filter(pressure_stn=0).delete()
 
-    sel1 = WeatherData.objects.all().reverse()[:181]   # last 1000
-    sel2 = SpaceWeatherData.objects.all().reverse()[:181]
-    #
+    # sel1 = WeatherData.objects.all().reverse()[:181]   # last 1000
+    # sel2 = SpaceWeatherData.objects.all().reverse()[:181]
+    sel1 = WeatherData.objects.all().order_by('-id')[:180]
+    sel2 = SpaceWeatherData.objects.all().order_by('-id')[:180]
+
     x = sel1.values_list("grabbed_at")
     # print(x[:])
     # x = [(21,), (20,), (15,)]
