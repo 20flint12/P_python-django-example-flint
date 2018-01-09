@@ -48,7 +48,7 @@ class RecNews(models.Model):
 
 class WeatherData(models.Model):
 
-    grabbed_at = models.DateTimeField(auto_now_add=True)    # default=timezone.now()
+    grabbed_at = models.DateTimeField(auto_now_add=True)
 
     check_timestamp = models.CharField(max_length=5)
     temperature_air = models.FloatField()

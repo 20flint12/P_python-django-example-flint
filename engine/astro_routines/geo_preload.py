@@ -82,7 +82,7 @@ def set_tz(in_place_name):
                                                 "dst": "iutuyrdfkhjds"
                                              }
                                         })
-            write_geo_to_config(GEO_PLACE_dict)
+            # write_geo_to_config(GEO_PLACE_dict)
 
     return tz_name, coord
 

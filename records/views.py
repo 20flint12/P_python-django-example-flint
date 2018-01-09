@@ -4,6 +4,7 @@
 # import datetime
 from datetime import datetime
 
+
 from django.utils import timezone
 from django.views.generic import TemplateView
 
@@ -19,6 +20,9 @@ from records.models import WeatherData
 
 from reminder.telegram_bot import bot_routines as tb
 
+import ephem
+import engine.astro_routines.geo_place as geo
+import engine.astro_routines.geo_preload as geopr
 
 def search_form(request):
 
@@ -139,24 +143,28 @@ def weather_chart(request, num="1000"):
     from matplotlib.dates import DateFormatter
 
     print(".'" * 20, "weather_chart", ".'" * 20)
-
     # *************************************************************************
+
     fig = Figure(figsize=(20, 10), dpi=80, facecolor='g', edgecolor='k')
     # ax1 = fig.add_subplot(211)
     # ax2 = fig.add_subplot(212)
     # ax1=fig.subplots_adjust(bottom=0.2)
 
     textsize = 9
-    left, width = 0.1, 0.8
+    axescolor = '#f6f6f6'  # the axes background color
+    left, width = 0.05, 0.9
     rect1 = [left, 0.7, width, 0.2]
     rect2 = [left, 0.3, width, 0.4]
     rect3 = [left, 0.1, width, 0.2]
+    rect4 = [left, 0.1, width, 0.2]
 
-    axescolor = '#f6f6f6'  # the axes background color
     ax1 = fig.add_axes(rect1, facecolor=axescolor)  # left, bottom, width, height
     ax2 = fig.add_axes(rect2, facecolor=axescolor, sharex=ax1)
-    ax2t = ax2.twinx()
+    # ax2t = ax2.twinx()
     ax3 = fig.add_axes(rect3, facecolor=axescolor, sharex=ax1)
+    ax4 = fig.add_axes(rect4, facecolor=axescolor, sharex=ax1)
+
+    ax12 = ax1.twinx()
 
     # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     # max = len(WeatherData.objects.all())
@@ -173,37 +181,35 @@ def weather_chart(request, num="1000"):
     # # print("num_int=", num_int, "num=", num)
     #
     # # sel = WeatherData.objects.all()[num_int - max:num_int]   # last 1000
-    sel = WeatherData.objects.all()
-    # # sel = WeatherData.reverse()[:10000]   # last 1000
+    # sel = WeatherData.objects.all()
+    sel = WeatherData.objects.all().reverse()[:200]   # last 1000
     #
     x = sel.values_list("grabbed_at")
-    # print x[:]
+    # print(x[:])
     # x = [(21,), (20,), (15,)]
-
-    y1 = sel.values_list("pressure_sea")
-    y2 = sel.values_list("pressure_stn")
-    # print y2[:]
-
-    ax1.plot(x, y1, 'p-')
-    ax1.plot(x, y2, 'g-')
 
     xfmt = DateFormatter('%d %b %H:%M') # xfmt = DateFormatter('%Y-%m-%d %H:%M')
     ax1.xaxis.set_major_formatter(xfmt)
     fig.autofmt_xdate()
 
-    # plt.subplots_adjust(bottom=0.2)
-    # plt.xticks( rotation=25 )
-    # ax1=plt.gca()
-    # plt.plot(dates,values)
-
     y3 = sel.values_list("temperature_air")
     y4 = sel.values_list("temperature_com")
     y5 = sel.values_list("temperature_dew")
+    y6 = sel.values_list("temperature_hum")
+    y1 = sel.values_list("pressure_sea")
+    y2 = sel.values_list("pressure_stn")
+    y7 = get_sun_alt(x)
 
-    ax2 = ax1.twinx()
-    ax2.plot(x, y3, 'b--')
-    ax2.plot(x, y4, 'y--')
-    ax2.plot(x, y5, 'r--')
+    ax1.plot(x, y1, 'p-')
+    ax1.plot(x, y2, 'g-')
+
+    ax12.plot(x, y3, 'b--')
+    ax12.plot(x, y4, 'y--')
+    ax12.plot(x, y5, 'r--')
+
+    ax2.plot(x, y6, 'g-')
+    ax3.plot(x, y7, 'g-')
+    ax4.plot(x, y7, 'g-')
 
     canvas = FigureCanvas(fig)
 
@@ -211,6 +217,44 @@ def weather_chart(request, num="1000"):
     canvas.print_png(response)
 
     return response
+
+
+def get_sun_alt(date_list):
+
+
+    sun_angle_list = []
+
+    for ddate in date_list:
+
+        print(".'" * 20, "ddate=", str(ddate[0]))
+        dt = ddate[0].replace(tzinfo=None)
+        print(".'" * 20, "dt=", str(dt))
+
+        # cur_place = "Kharkiv"
+        # tz_name, coord = geopr.set_tz(cur_place)
+        # aware_loc = geo.set_tz_to_unaware_time(tz_name, ddate)
+        # cur_date_utc = geo.aware_time_to_utc(aware_loc)
+
+        # print(ephem.Date(datetime(2005, 4, 18, 22, 15)))
+        # print(",'" * 20, "ddate2=", str(datetime(2005, 4, 18, 22, 15)))
+        obs = ephem.Observer()
+        obs.lat = '31:00'
+        obs.long = '-106:00'
+        obs.date = ephem.Date(dt)
+        print(obs)
+
+        sun = ephem.Sun(obs)
+        sun.compute(obs)
+        print(float(sun.alt))
+        print(str(sun.alt))
+        sun_angle = float(sun.alt) * 57.2957795  # Convert Radians to degrees
+        print("sun_angle: %f" % sun_angle)
+
+        sun_angle_list.append(sun_angle)
+
+    return sun_angle_list
+
+
 
 
 def clear_weather_data(request, numf="0", num_last="10", qw= True):
