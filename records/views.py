@@ -164,26 +164,16 @@ def weather_chart(request, num="1000"):
     ax3 = fig.add_axes(rect3, facecolor=axescolor, sharex=ax1)
     # ax4 = fig.add_axes(rect4, facecolor=axescolor, sharex=ax1)
 
-
     # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     # max = len(WeatherData.objects.all())
     # if max > 5000: max = 5000
     # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     # WeatherData.objects.filter(pressure_stn=0).delete()
 
-
-    # #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    # # num_int = int(num_str)
-    # # if num_int == "1000":
-    # #     pass
-    # # num_int = WeatherData.objects.count()
-    # # print("num_int=", num_int, "num=", num)
+    sel1 = WeatherData.objects.all().reverse()[:150]   # last 1000
+    sel2 = SpaceWeatherData.objects.all().reverse()[:150]
     #
-    # # sel = WeatherData.objects.all()[num_int - max:num_int]   # last 1000
-    # sel = WeatherData.objects.all()
-    sel = WeatherData.objects.all().reverse()[:200]   # last 1000
-    #
-    x = sel.values_list("grabbed_at")
+    x = sel1.values_list("grabbed_at")
     # print(x[:])
     # x = [(21,), (20,), (15,)]
 
@@ -191,23 +181,38 @@ def weather_chart(request, num="1000"):
     ax1.xaxis.set_major_formatter(xfmt)
     fig.autofmt_xdate()
 
-    y3 = sel.values_list("temperature_air")
-    y4 = sel.values_list("temperature_com")
-    y5 = sel.values_list("temperature_dew")
-    y6 = sel.values_list("temperature_hum")
-    y1 = sel.values_list("pressure_sea")
-    y2 = sel.values_list("pressure_stn")
+    y3 = sel1.values_list("temperature_air")
+    y4 = sel1.values_list("temperature_com")
+    y5 = sel1.values_list("temperature_dew")
+    y6 = sel1.values_list("temperature_hum")
+    y1 = sel1.values_list("pressure_sea")
+    y2 = sel1.values_list("pressure_stn")
     y7 = get_sun_alt(x)
 
+    y8 = sel2.values_list("p_00_24_hr")
+    y9 = sel2.values_list("p_24_48_hr")
+
     ax1.plot(x, y1, 'p-')
-    ax1.plot(x, y2, 'g-')
+    ax1.plot(x, y2, 'p-')
 
     ax12.plot(x, y3, 'b--')
     ax12.plot(x, y4, 'y--')
     ax12.plot(x, y5, 'r--')
 
     ax2.plot(x, y6, 'g-')
+
     ax3.plot(x, y7, 'g-')
+    ax3.plot(x, y8, 'p-')
+    ax3.plot(x, y9, 'p-')
+
+    # print(y4)
+    # print(y5)
+    # print(y6)
+    # print(y8)
+    # print(y9)
+    # ax3.plot(x, y8, 'b-')
+    # ax3.plot(x, y9, 'y-')
+
     # ax4.plot(x, y7, 'g-')
 
     canvas = FigureCanvas(fig)
