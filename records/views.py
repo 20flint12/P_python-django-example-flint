@@ -156,15 +156,14 @@ def weather_chart(request, num="1000"):
     rect1 = [left, 0.7, width, 0.2]
     rect2 = [left, 0.3, width, 0.4]
     rect3 = [left, 0.1, width, 0.2]
-    rect4 = [left, 0.1, width, 0.2]
+    # rect4 = [left, 0.1, width, 0.2]
 
     ax1 = fig.add_axes(rect1, facecolor=axescolor)  # left, bottom, width, height
-    ax2 = fig.add_axes(rect2, facecolor=axescolor, sharex=ax1)
-    # ax2t = ax2.twinx()
-    ax3 = fig.add_axes(rect3, facecolor=axescolor, sharex=ax1)
-    ax4 = fig.add_axes(rect4, facecolor=axescolor, sharex=ax1)
-
     ax12 = ax1.twinx()
+    ax2 = fig.add_axes(rect2, facecolor=axescolor, sharex=ax1)
+    ax3 = fig.add_axes(rect3, facecolor=axescolor, sharex=ax1)
+    # ax4 = fig.add_axes(rect4, facecolor=axescolor, sharex=ax1)
+
 
     # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     # max = len(WeatherData.objects.all())
@@ -209,7 +208,7 @@ def weather_chart(request, num="1000"):
 
     ax2.plot(x, y6, 'g-')
     ax3.plot(x, y7, 'g-')
-    ax4.plot(x, y7, 'g-')
+    # ax4.plot(x, y7, 'g-')
 
     canvas = FigureCanvas(fig)
 
@@ -224,31 +223,23 @@ def get_sun_alt(date_list):
 
     sun_angle_list = []
 
-    for ddate in date_list:
+    for date in date_list:
 
-        print(".'" * 20, "ddate=", str(ddate[0]))
-        dt = ddate[0].replace(tzinfo=None)
-        print(".'" * 20, "dt=", str(dt))
+        dt = date[0]   #.replace(tzinfo=None)
+        # print(".'" * 20, "dt=", str(dt))
 
-        # cur_place = "Kharkiv"
-        # tz_name, coord = geopr.set_tz(cur_place)
-        # aware_loc = geo.set_tz_to_unaware_time(tz_name, ddate)
-        # cur_date_utc = geo.aware_time_to_utc(aware_loc)
-
-        # print(ephem.Date(datetime(2005, 4, 18, 22, 15)))
-        # print(",'" * 20, "ddate2=", str(datetime(2005, 4, 18, 22, 15)))
         obs = ephem.Observer()
-        obs.lat = '31:00'
-        obs.long = '-106:00'
+        obs.lat = '47:00'
+        obs.long = '33:00'
         obs.date = ephem.Date(dt)
-        print(obs)
+        # print(obs)
 
         sun = ephem.Sun(obs)
         sun.compute(obs)
-        print(float(sun.alt))
-        print(str(sun.alt))
+        # print(float(sun.alt))
+        # print(str(sun.alt))
         sun_angle = float(sun.alt) * 57.2957795  # Convert Radians to degrees
-        print("sun_angle: %f" % sun_angle)
+        # print("sun_angle: %f" % sun_angle)
 
         sun_angle_list.append(sun_angle)
 
