@@ -7,10 +7,8 @@
 local_settings.py
 media/
 static/
-env/*
-lib/*
+lib/
 .env
-env/
 
 
 astrofactor/__pycache__/
@@ -28,15 +26,14 @@ records/migrations/__pycache__/
 reminder/__pycache__/
 reminder/migrations/__pycache__/
 
+env/
 venv35/
+env35/
 qweqweq/
 
 
 reminder/telegram_bot/__pycache__/
 telegram_bot.log
-
-
-
 
 
 git rm --cached --force "~/Projects/_python/astrofactor/engine/static/engine/js/edit_moment.js"
@@ -75,3 +72,7 @@ git rm --cached --force "engine/static/engine/moon_days/11.jpg"
 git rm --cached --force "engine/static/engine/moon_days/29.jpg"
 git rm --cached --force "engine/static/engine/moon_days/7.jpg"
 git rm --cached --force "engine/static/engine/moon_days/20.jpg"
+
+
+
+

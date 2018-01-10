@@ -227,7 +227,6 @@ def weather_chart(request, num="1000"):
 
 def get_sun_alt(date_list):
 
-
     sun_angle_list = []
 
     for date in date_list:
@@ -251,8 +250,6 @@ def get_sun_alt(date_list):
         sun_angle_list.append(sun_angle)
 
     return sun_angle_list
-
-
 
 
 def clear_weather_data(request, numf="0", num_last="10", qw= True):
