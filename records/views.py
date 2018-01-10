@@ -125,6 +125,11 @@ def weather_collect():
                               p_24_48_hr=sctx[0][2])
         sw.save()
 
+    # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    max1 = len(WeatherData.objects.all())
+    if max1 > 180:
+        WeatherData.objects.all().order_by('id').first().delele()
+
     print("+=!d" * 40)
 
 
@@ -164,12 +169,6 @@ def weather_chart(request, num="1000"):
     ax3 = fig.add_axes(rect3, facecolor=axescolor)
     ax32 = ax3.twinx()
     # ax4 = fig.add_axes(rect4, facecolor=axescolor, sharex=ax1)
-
-    # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    # max = len(WeatherData.objects.all())
-    # if max > 5000: max = 5000
-    # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    # WeatherData.objects.filter(pressure_stn=0).delete()
 
     # sel1 = WeatherData.objects.all().reverse()[:181]   # last 1000
     # sel2 = SpaceWeatherData.objects.all().reverse()[:181]
