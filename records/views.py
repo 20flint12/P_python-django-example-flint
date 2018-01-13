@@ -24,6 +24,9 @@ import ephem
 import engine.astro_routines.geo_place as geo
 import engine.astro_routines.geo_preload as geopr
 
+
+SAMPLES_MAX = 400
+
 def search_form(request):
 
     # # from records.models import Publisher
@@ -126,9 +129,15 @@ def weather_collect():
         sw.save()
 
     # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    max1 = len(WeatherData.objects.all())
-    if max1 > 180:
-        WeatherData.objects.all().order_by('id').first().delele()
+    while len(WeatherData.objects.all()) > SAMPLES_MAX:
+        instance1 = WeatherData.objects.first()
+        print("WeatherData id=", instance1.id, 'deleted')
+        instance1.delete()
+
+    while len(SpaceWeatherData.objects.all()) > SAMPLES_MAX:
+        instance2 = SpaceWeatherData.objects.first()
+        print("SpaceWeatherData id=", instance2.id, 'deleted')
+        instance2.delete()
 
     print("+=!d" * 40)
 
@@ -170,10 +179,8 @@ def weather_chart(request, num="1000"):
     ax32 = ax3.twinx()
     # ax4 = fig.add_axes(rect4, facecolor=axescolor, sharex=ax1)
 
-    # sel1 = WeatherData.objects.all().reverse()[:181]   # last 1000
-    # sel2 = SpaceWeatherData.objects.all().reverse()[:181]
-    sel1 = WeatherData.objects.all().order_by('-id')[:180]
-    sel2 = SpaceWeatherData.objects.all().order_by('-id')[:180]
+    sel1 = WeatherData.objects.all().order_by('-id')[:SAMPLES_MAX]
+    sel2 = SpaceWeatherData.objects.all().order_by('-id')[:SAMPLES_MAX]
 
     x = sel1.values_list("grabbed_at")
     # print(x[:])
