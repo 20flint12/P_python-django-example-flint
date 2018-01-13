@@ -28,6 +28,7 @@ reminder/migrations/__pycache__/
 
 env/
 venv35/
+venv36/
 env35/
 qweqweq/
 
@@ -35,43 +36,6 @@ qweqweq/
 reminder/telegram_bot/__pycache__/
 telegram_bot.log
 
-
-git rm --cached --force "~/Projects/_python/astrofactor/engine/static/engine/js/edit_moment.js"
-git rm --cached --force "engine/static/engine/js/edit_observer.js"
-git rm --cached --force "engine/static/engine/images/images (3).jpg"
-git rm --cached --force "engine/static/engine/images/images (1).jpg"
-git rm --cached --force "engine/static/engine/images/video_moon.avi"
-git rm --cached --force "engine/static/engine/images/images (2).jpg"
-git rm --cached --force "engine/static/engine/moon_days/8.jpg"
-git rm --cached --force "engine/static/engine/moon_days/3.jpg"
-git rm --cached --force "engine/static/engine/moon_days/23.jpg"
-git rm --cached --force "engine/static/engine/moon_days/28.jpg"
-git rm --cached --force "engine/static/engine/moon_days/14.jpg"
-git rm --cached --force "engine/static/engine/moon_days/15.jpg"
-git rm --cached --force "engine/static/engine/moon_days/10.jpg"
-git rm --cached --force "engine/static/engine/moon_days/19.jpg"
-git rm --cached --force "engine/static/engine/moon_days/30.jpg"
-git rm --cached --force "engine/static/engine/moon_days/18.jpg"
-git rm --cached --force "engine/static/engine/moon_days/4.jpg"
-git rm --cached --force "engine/static/engine/moon_days/9.jpg"
-git rm --cached --force "engine/static/engine/moon_days/26.jpg"
-git rm --cached --force "engine/static/engine/moon_days/13.jpg"
-git rm --cached --force "engine/static/engine/moon_days/27.jpg"
-git rm --cached --force "engine/static/engine/moon_days/22.jpg"
-git rm --cached --force "engine/static/engine/moon_days/12.jpg"
-git rm --cached --force "engine/static/engine/moon_days/17.jpg"
-git rm --cached --force "engine/static/engine/moon_days/25.jpg"
-git rm --cached --force "engine/static/engine/moon_days/6.jpg"
-git rm --cached --force "engine/static/engine/moon_days/5.jpg"
-git rm --cached --force "engine/static/engine/moon_days/21.jpg"
-git rm --cached --force "engine/static/engine/moon_days/1.jpg"
-git rm --cached --force "engine/static/engine/moon_days/24.jpg"
-git rm --cached --force "engine/static/engine/moon_days/2.jpg"
-git rm --cached --force "engine/static/engine/moon_days/16.jpg"
-git rm --cached --force "engine/static/engine/moon_days/11.jpg"
-git rm --cached --force "engine/static/engine/moon_days/29.jpg"
-git rm --cached --force "engine/static/engine/moon_days/7.jpg"
-git rm --cached --force "engine/static/engine/moon_days/20.jpg"
 
 
 
