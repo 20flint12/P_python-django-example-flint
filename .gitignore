@@ -7,7 +7,7 @@
 local_settings.py
 media/
 #static/
-lib/
+#lib/
 .env
 
 
