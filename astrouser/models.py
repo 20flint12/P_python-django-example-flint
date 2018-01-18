@@ -30,7 +30,6 @@ UserProfile
     user_surname
     add_email
     is_active
-
 '''
 
 
