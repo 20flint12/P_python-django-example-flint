@@ -16,4 +16,4 @@ https://astro-factor.herokuapp.com/admin/
 https://astro-factor.herokuapp.com/records/wchart/
 
 
-
+https://www.life-moon.pp.ru/research/
