@@ -241,7 +241,7 @@ class Observer(models.Model):
     #     return observer, created
 
 
-class Sensations(models.Model):
+class Sensation(models.Model):
     '''
     день в целом    day_as_a_whole
     тело            body
@@ -278,7 +278,7 @@ class Sensations(models.Model):
     description = models.CharField(max_length=50)
 
     def __str__(self):
-        return "id:{} {} of {}".format(self.id, self.zodiac_choice, self.title)
+        return "id:{} {} of {}".format(self.id, self.mark_day_as_a_whole, self.description)
 
 
 
