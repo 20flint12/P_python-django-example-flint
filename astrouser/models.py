@@ -90,32 +90,29 @@ class User(AbstractBaseUser):
     def is_staff(self):
         return self.is_admin
 
-    # def study_modules(self):
-    #     return len(StudyModule.objects.filter(user=self))
+    # def amount_outstanding(self):
+    #     summ = Payout.objects.filter(user=self, ready_for_payment=True, paid=False).aggregate(Sum('amount_outstanding'))['amount_outstanding__sum']
+    #     if summ is not None:
+    #         str_url = '/admin/madquiz/payoutback/?email={}&summ={}'.format(self.email, summ)
+    #         str_out = '%0.2f <a href="%s">Pay</a>' % (summ, str_url)
+    #         return str_out
 
-    def amount_outstanding(self):
-        summ = Payout.objects.filter(user=self, ready_for_payment=True, paid=False).aggregate(Sum('amount_outstanding'))['amount_outstanding__sum']
-        if summ is not None:
-            str_url = '/admin/madquiz/payoutback/?email={}&summ={}'.format(self.email, summ)
-            str_out = '%0.2f <a href="%s">Pay</a>' % (summ, str_url)
-            return str_out
+    # amount_outstanding.allow_tags = True
 
-    amount_outstanding.allow_tags = True
-
-    def amount_paid_out(self):
-        return Payout.objects.filter(user=self).aggregate(Sum('amount_paid_out'))['amount_paid_out__sum']
-
-    def amount_revenue(self):
-        return Payout.objects.filter(user=self).aggregate(Sum('amount_revenue'))['amount_revenue__sum']
-
-    def processing_fee(self):
-        return Payout.objects.filter(user=self).aggregate(Sum('processing_fee'))['processing_fee__sum']
-
-    def net_revenue(self):
-        if self.amount_revenue() and self.processing_fee():
-            return self.amount_revenue() - self.processing_fee()
-        else:
-            return
+    # def amount_paid_out(self):
+    #     return Payout.objects.filter(user=self).aggregate(Sum('amount_paid_out'))['amount_paid_out__sum']
+    #
+    # def amount_revenue(self):
+    #     return Payout.objects.filter(user=self).aggregate(Sum('amount_revenue'))['amount_revenue__sum']
+    #
+    # def processing_fee(self):
+    #     return Payout.objects.filter(user=self).aggregate(Sum('processing_fee'))['processing_fee__sum']
+    #
+    # def net_revenue(self):
+    #     if self.amount_revenue() and self.processing_fee():
+    #         return self.amount_revenue() - self.processing_fee()
+    #     else:
+    #         return
 
 
 @receiver(pre_save, sender=User)

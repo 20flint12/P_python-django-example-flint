@@ -18,7 +18,7 @@ SummaryFactor(zodiac,moonday)
 
 Observer
     userprofile  <==  related_observer
-
+    
 
 python manage.py dumpdata \
 astrouser.User astrouser.UserProfile \
@@ -239,5 +239,46 @@ class Observer(models.Model):
     #         timezone_name=tz_name
     #     )
     #     return observer, created
+
+
+class Sensations(models.Model):
+    '''
+    день в целом    day_as_a_whole
+    тело            body
+    эмоции          emotions
+    интеллект       intelligence
+    отношения
+    дела
+    творчество
+    обучение, развитие
+    отдых, развлечения
+    '''
+
+    ASSESSMENT = (
+        (1, 'awfully'),
+        (2, 'bad'),
+        (3, 'normally'),
+        (4, 'good'),
+        (5, 'excellent'),
+    )
+
+    user_profile = models.ForeignKey(UserProfile, related_name="related_sensations", on_delete=models.CASCADE, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    # Начало события
+    began_at = models.DateTimeField(auto_now=True)
+    # Длительность события
+    duration = models.DurationField()
+
+    mark_day_as_a_whole = models.PositiveSmallIntegerField(blank=False, null=False, choices=ASSESSMENT)
+    mark_body = models.PositiveSmallIntegerField(blank=False, null=False, choices=ASSESSMENT)
+    mark_emotions = models.PositiveSmallIntegerField(blank=False, null=False, choices=ASSESSMENT)
+    mark_intelligence = models.PositiveSmallIntegerField(blank=False, null=False, choices=ASSESSMENT)
+    description = models.CharField(max_length=50)
+
+    def __str__(self):
+        return "id:{} {} of {}".format(self.id, self.zodiac_choice, self.title)
+
 
 
