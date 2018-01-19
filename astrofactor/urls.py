@@ -1,3 +1,4 @@
+
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -15,13 +16,21 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^account/', include(astrouser.urls)),
-    # url(r'^account/', include(polls.urls)),
 
     url(r'^polls/', include(polls.urls)),
 
     url(r'^records/', include('records.urls')),
     url(r'^reminder/', include('reminder.urls')),
     url(r'^engine/', include('engine.urls')),
+
+
+    # http://127.0.0.1:8000/api-auth/login/
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # + перенаправление после авторизации
+    # url(r'^api-auth/login/?next=/records/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^api/', include('api.urls')),
+
 ]
 
 urlpatterns += staticfiles_urlpatterns()

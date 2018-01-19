@@ -1,12 +1,12 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
 
 from rest_framework import viewsets
 
 from astrouser.models import UserProfile
-from . import serializers, models
+from engine import models
+from api import serializers
 
-from rest_framework import permissions
+
 # from lmcback.permissions import IsOwnerOrReadOnly
 
 

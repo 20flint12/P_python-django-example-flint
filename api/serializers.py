@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 from astrofactor import settings
 from astrouser.models import UserProfile
-from . import models
+from engine import models
 
 
 # ========================= User, UserProfile =================================
