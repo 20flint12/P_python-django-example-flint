@@ -262,23 +262,25 @@ class Sensation(models.Model):
         (5, 'excellent'),
     )
 
-    user_profile = models.ForeignKey(UserProfile, related_name="related_sensations", on_delete=models.CASCADE, blank=True, null=True)
+    user_profile = models.ForeignKey(UserProfile, related_name="related_sensations", on_delete=models.CASCADE, blank=False, null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    title = models.CharField(max_length=50, blank=False, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     # Начало события
-    began_at = models.DateTimeField(auto_now=True)
+    began_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     # Длительность события
-    duration = models.DurationField()
+    duration = models.DurationField(blank=True, null=True)
 
-    mark_day_as_a_whole = models.PositiveSmallIntegerField(blank=False, null=False, choices=ASSESSMENT)
-    mark_body = models.PositiveSmallIntegerField(blank=False, null=False, choices=ASSESSMENT)
-    mark_emotions = models.PositiveSmallIntegerField(blank=False, null=False, choices=ASSESSMENT)
-    mark_intelligence = models.PositiveSmallIntegerField(blank=False, null=False, choices=ASSESSMENT)
-    description = models.CharField(max_length=50)
+    mark_day_as_a_whole = models.PositiveSmallIntegerField(blank=True, null=True, choices=ASSESSMENT)
+    mark_body = models.PositiveSmallIntegerField(blank=True, null=True, choices=ASSESSMENT)
+    mark_emotions = models.PositiveSmallIntegerField(blank=True, null=True, choices=ASSESSMENT)
+    mark_intelligence = models.PositiveSmallIntegerField(blank=True, null=True, choices=ASSESSMENT)
+    details = models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
-        return "id:{} {} of {}".format(self.id, self.mark_day_as_a_whole, self.description)
+        return "id:{} {} of {}".format(self.id, self.title, self.details)
 
 
 

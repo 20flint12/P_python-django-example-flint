@@ -84,6 +84,7 @@ class ObserverAdmin(admin.ModelAdmin):
 class SensationAdmin(admin.ModelAdmin):
     list_display = (
         'id',
+        'title',
         'user_profile',
         'created_at',
         'began_at',
@@ -92,7 +93,7 @@ class SensationAdmin(admin.ModelAdmin):
         'mark_body',
         'mark_emotions',
         'mark_intelligence',
-        'description',
+        'details',
     )
 
 
