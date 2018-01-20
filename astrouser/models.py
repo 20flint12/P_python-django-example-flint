@@ -82,6 +82,9 @@ class User(AbstractBaseUser):
         """Does the user have a specific permission?"""
         return True
 
+    def has_perms(self, perm_list, obj=None):
+        return True
+
     def has_module_perms(self, app_label):
         """Does the user have permissions to view the app `app_label`?"""
         return True

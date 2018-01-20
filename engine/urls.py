@@ -1,31 +1,10 @@
 
 from django.conf.urls import url, include
-# from rest_framework import routers
 
 from engine import views
-# from api import viewsets
+
 
 app_name = 'engine'
-
-
-# # Routers provide an easy way of automatically determining the URL conf.
-# router = routers.DefaultRouter()
-#
-# router.register(r'users', viewsets.UserViewSet)
-# router.register(r'user-profiles', viewsets.UserProfileViewSet)
-#
-# router.register(r'moon-zodiacs', viewsets.MoonZodiacViewSet)
-# router.register(r'moon-zodiac-contents', viewsets.MoonZodiacContentViewSet)
-#
-# router.register(r'moon-days', viewsets.MoonDayViewSet)
-# router.register(r'moon-day-contents', viewsets.MoonDayContentViewSet)
-#
-# router.register(r'summary-factors', viewsets.SummaryFactorViewSet)
-# router.register(r'observers', viewsets.ObserverViewSet)
-
-# -----------------------------------------------------------------------------
-# -----------------------------------------------------------------------------
-# -----------------------------------------------------------------------------
 
 
 observer_urls = [
@@ -40,12 +19,7 @@ observer_urls = [
 ]
 
 
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-
-    # # http://127.0.0.1:8000/engine/
-    # url(r'^', include(router.urls)),
 
     url(r'^new-observer/$', views.NewObserverView.as_view(), name='new_observer'),
 

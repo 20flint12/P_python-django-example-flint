@@ -5,12 +5,17 @@ from rest_framework import serializers
 
 from astrofactor import settings
 from astrouser.models import UserProfile
-from engine import models
+from engine.models import MoonZodiacContent, MoonZodiac, MoonDayContent, MoonDay, SummaryFactor, Observer
 
 
 # ========================= User, UserProfile =================================
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+
+    url = serializers.HyperlinkedIdentityField(
+        view_name="api:user-detail",
+    )
+
     class Meta:
         model = get_user_model()
         fields = (
@@ -19,16 +24,22 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'first_name',
             'email',
             'is_staff',
-            'related_account',
+            # 'related_account',
         )
 
 
 class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+
+    url = serializers.HyperlinkedIdentityField(
+        view_name="api:userprofile-detail",
+    )
+
     class Meta:
         model = UserProfile
         fields = (
             'id',
-            'account',
+            'url',
+            # 'account',
             'user_name',
             'user_surname',
             'add_email',
@@ -42,10 +53,11 @@ class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
 class MoonZodiacContentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
-        model = models.MoonZodiacContent
+        model = MoonZodiacContent
         # fields = '__all__'
         fields = (
             'id',
+            'url',
             'moonzodiac',
             'title',
             'text',
@@ -57,9 +69,10 @@ class MoonZodiacSerializer(serializers.HyperlinkedModelSerializer):
     # moonzodiaccontents = MoonZodiacContentSerializer(source='moonzodiaccontent_set', many=True, read_only=True)
 
     class Meta:
-        model = models.MoonZodiac
+        model = MoonZodiac
         fields = (
             'id',
+            'url',
             'summaryfactor',
             'title',
             'zodiac_choice',
@@ -71,12 +84,17 @@ class MoonZodiacSerializer(serializers.HyperlinkedModelSerializer):
 
 class MoonDayContentSerializer(serializers.HyperlinkedModelSerializer):
 
+    url = serializers.HyperlinkedIdentityField(
+        view_name="api:moonzodiaccontent-detail",
+    )
+
     class Meta:
-        model = models.MoonDayContent
+        model = MoonDayContent
         # fields = '__all__'
         fields = (
             'id',
-            'moonday',
+            'url',
+            # 'moonday',
             'title',
             'description',
             'image',
@@ -86,9 +104,10 @@ class MoonDayContentSerializer(serializers.HyperlinkedModelSerializer):
 class MoonDaySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
-        model = models.MoonDay
+        model = MoonDay
         fields = (
             'id',
+            'url',
             'summaryfactor',
             'title',
             'quality',
@@ -103,9 +122,10 @@ class SummaryFactorSerializer(serializers.HyperlinkedModelSerializer):
     # moonzodiacs = MoonZodiacSerializer(source='moonzodiac_set', many=True, read_only=True)
 
     class Meta:
-        model = models.SummaryFactor
+        model = SummaryFactor
         fields = (
             'id',
+            'url',
             'marked_at',
             'title',
             'related_mzodiac',
@@ -116,7 +136,7 @@ class SummaryFactorSerializer(serializers.HyperlinkedModelSerializer):
 class ObserverSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
-        model = models.Observer
+        model = Observer
         fields = (
             'id',
             'userprofile',
