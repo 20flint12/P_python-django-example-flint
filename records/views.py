@@ -25,7 +25,7 @@ import engine.astro_routines.geo_place as geo
 import engine.astro_routines.geo_preload as geopr
 
 
-SAMPLES_MAX = 400
+SAMPLES_MAX = 1000
 
 def search_form(request):
 

@@ -17,3 +17,5 @@ https://astro-factor.herokuapp.com/records/wchart/
 
 
 https://www.life-moon.pp.ru/research/
+
+https://stackoverflow.com/questions/27728989/django-rest-how-to-use-router-in-application-level-urls-py/27735254#27735254
