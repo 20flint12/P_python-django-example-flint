@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^weather/$', views.weather),
 
     url(r'^wchart.png$', views.weather_chart, name='wchart'),
+    url(r'^wchart2.png$', views.weather_chart2, name='wchart2'),
 
     url(r'^static_image/$', views.static_image, name='static_image'),
 
