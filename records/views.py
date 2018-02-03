@@ -270,7 +270,7 @@ def weather_chart2(request, num="1000"):
     print(".'" * 20, "weather_chart", ".'" * 20)
     # *************************************************************************
 
-    fig = Figure(figsize=(20, 10), dpi=80, facecolor='g', edgecolor='k')
+    fig = Figure(figsize=(20, 10), dpi=80, facecolor='y', edgecolor='k')
     # ax1 = fig.add_subplot(211)
     # ax2 = fig.add_subplot(212)
     # ax1=fig.subplots_adjust(bottom=0.2)
