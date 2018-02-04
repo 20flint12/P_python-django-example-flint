@@ -44,7 +44,7 @@ class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
             'user_surname',
             'add_email',
             'is_active',
-            'related_observer',
+            # 'related_observer',
         )
 
 
@@ -52,13 +52,17 @@ class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
 
 class MoonZodiacContentSerializer(serializers.HyperlinkedModelSerializer):
 
+    url = serializers.HyperlinkedIdentityField(
+        view_name="api:moonzodiaccontent-detail",
+    )
+
     class Meta:
         model = MoonZodiacContent
         # fields = '__all__'
         fields = (
             'id',
             'url',
-            'moonzodiac',
+            # 'moonzodiac',
             'title',
             'text',
             'image',
@@ -68,12 +72,28 @@ class MoonZodiacContentSerializer(serializers.HyperlinkedModelSerializer):
 class MoonZodiacSerializer(serializers.HyperlinkedModelSerializer):
     # moonzodiaccontents = MoonZodiacContentSerializer(source='moonzodiaccontent_set', many=True, read_only=True)
 
+    url = serializers.HyperlinkedIdentityField(
+        view_name="api:moonzodiac-detail",
+    )
+
+    related_mzcontent = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='api:moonzodiaccontent-detail',
+    )
+
+    # summaryfactor = serializers.HyperlinkedRelatedField(
+    #     many=True,
+    #     read_only=True,
+    #     view_name='api:summaryfactor-detail',
+    # )
+
     class Meta:
         model = MoonZodiac
         fields = (
             'id',
             'url',
-            'summaryfactor',
+            # 'summaryfactor',
             'title',
             'zodiac_choice',
             'related_mzcontent',
@@ -121,6 +141,10 @@ class MoonDaySerializer(serializers.HyperlinkedModelSerializer):
 class SummaryFactorSerializer(serializers.HyperlinkedModelSerializer):
     # moonzodiacs = MoonZodiacSerializer(source='moonzodiac_set', many=True, read_only=True)
 
+    url = serializers.HyperlinkedIdentityField(
+        view_name="api:summaryfactor-detail",
+    )
+
     class Meta:
         model = SummaryFactor
         fields = (
@@ -128,18 +152,23 @@ class SummaryFactorSerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'marked_at',
             'title',
-            'related_mzodiac',
-            'related_mday',
+            # 'related_mzodiac',
+            # 'related_mday',
         )
 
 
 class ObserverSerializer(serializers.HyperlinkedModelSerializer):
 
+    url = serializers.HyperlinkedIdentityField(
+        view_name="api:summaryfactor-detail",
+    )
+
     class Meta:
         model = Observer
         fields = (
             'id',
-            'userprofile',
+            'url',
+            # 'userprofile',
             'created_at',
             'updated_at',
             'title',

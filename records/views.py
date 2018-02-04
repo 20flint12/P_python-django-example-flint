@@ -25,7 +25,7 @@ import engine.astro_routines.geo_place as geo
 import engine.astro_routines.geo_preload as geopr
 
 
-SAMPLES_MAX = 400
+SAMPLES_MAX = 1000
 
 def search_form(request):
 
@@ -257,6 +257,112 @@ def get_sun_alt(date_list):
         sun_angle_list.append(sun_angle)
 
     return sun_angle_list
+
+
+def weather_chart2(request, num="1000"):
+
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+    from matplotlib.dates import DateFormatter
+
+    # SAMPLES_MAX = 100
+
+    print(".'" * 20, "weather_chart", ".'" * 20)
+    # *************************************************************************
+
+    fig = Figure(figsize=(20, 10), dpi=80, facecolor='g', edgecolor='k')
+    # ax1 = fig.add_subplot(211)
+    # ax2 = fig.add_subplot(212)
+    # ax1=fig.subplots_adjust(bottom=0.2)
+
+    textsize = 9
+    axescolor = '#f6f6f6'  # the axes background color
+    left, width = 0.05, 0.9
+    rect1 = [left, 0.7, width, 0.2]
+    rect2 = [left, 0.3, width, 0.4]
+    rect3 = [left, 0.1, width, 0.2]
+    # rect4 = [left, 0.1, width, 0.2]
+
+    ax1 = fig.add_axes(rect2, facecolor=axescolor)  # left, bottom, width, height
+    ax12 = ax1.twinx()
+    ax2 = fig.add_axes(rect1, facecolor=axescolor)
+    ax3 = fig.add_axes(rect3, facecolor=axescolor)
+    ax32 = ax3.twinx()
+    # ax4 = fig.add_axes(rect4, facecolor=axescolor, sharex=ax1)
+
+    sel1 = WeatherData.objects.all().order_by('-id')[:SAMPLES_MAX]
+    sel2 = SpaceWeatherData.objects.all().order_by('-id')[:SAMPLES_MAX]
+
+    x = sel1.values_list("grabbed_at")
+    # print(x[:])
+    # x = [(21,), (20,), (15,)]
+
+    xfmt = DateFormatter('%d %b %H:%M') # xfmt = DateFormatter('%Y-%m-%d %H:%M')
+    ax1.xaxis.set_major_formatter(xfmt)
+    fig.autofmt_xdate()
+
+    y3 = sel1.values_list("temperature_air")
+    y4 = sel1.values_list("temperature_com")
+    y5 = sel1.values_list("temperature_dew")
+    y6 = sel1.values_list("temperature_hum")
+    y1 = sel1.values_list("pressure_sea")
+    y2 = sel1.values_list("pressure_stn")
+    y7 = get_moon_alt(x)
+
+    y8 = sel2.values_list("p_00_24_hr")
+    y8 = sel2.values_list("p_00_24_hr")
+    y9 = sel2.values_list("p_24_48_hr")
+
+    # ax1.plot(x, y1, 'p-')
+    ax1.plot(x, y2, 'p-')
+
+    ax12.plot(x, y3, 'b--')
+    # ax12.plot(x, y4, 'y--')
+    ax12.plot(x, y5, 'r--')
+
+    ax2.plot(x, y6, 'g-')
+
+    ax3.plot(x, y7, 'g-')
+    ax32.plot(x, y8, 'p-')
+    ax32.plot(x, y9, 'p-')
+
+    # print(y4)
+    # print(y5)
+    # print(y6)
+    # print(y8)
+    # print(y9)
+    # ax3.plot(x, y8, 'b-')
+    # ax3.plot(x, y9, 'y-')
+
+    # ax4.plot(x, y7, 'g-')
+
+    canvas = FigureCanvas(fig)
+
+    response = HttpResponse(content_type='image/png')
+    canvas.print_png(response)
+
+    return response
+
+
+def get_moon_alt(date_list):
+
+    moon_angle_list = []
+
+    for date in date_list:
+
+        dt = date[0]   #.replace(tzinfo=None)
+        obs = ephem.Observer()
+        obs.lat = '47:00'
+        obs.long = '33:00'
+        obs.date = ephem.Date(dt)
+        # print(obs)
+
+        moon = ephem.Moon(obs)
+        moon.compute(obs)
+        moon_angle = float(moon.alt) * 57.2957795  # Convert Radians to degrees
+        moon_angle_list.append(moon_angle)
+
+    return moon_angle_list
 
 
 def clear_weather_data(request, numf="0", num_last="10", qw= True):
