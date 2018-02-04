@@ -270,7 +270,7 @@ def weather_chart2(request, num="1000"):
     print(".'" * 20, "weather_chart", ".'" * 20)
     # *************************************************************************
 
-    fig = Figure(figsize=(20, 10), dpi=80, facecolor='g', edgecolor='k')
+    fig = Figure(figsize=(20, 10), dpi=80, facecolor='y', edgecolor='k')
     # ax1 = fig.add_subplot(211)
     # ax2 = fig.add_subplot(212)
     # ax1=fig.subplots_adjust(bottom=0.2)
@@ -286,6 +286,7 @@ def weather_chart2(request, num="1000"):
     ax1 = fig.add_axes(rect2, facecolor=axescolor)  # left, bottom, width, height
     ax12 = ax1.twinx()
     ax2 = fig.add_axes(rect1, facecolor=axescolor)
+    ax22 = ax2.twinx()
     ax3 = fig.add_axes(rect3, facecolor=axescolor)
     ax32 = ax3.twinx()
     # ax4 = fig.add_axes(rect4, facecolor=axescolor, sharex=ax1)
@@ -305,7 +306,8 @@ def weather_chart2(request, num="1000"):
     y4 = sel1.values_list("temperature_com")
     y5 = sel1.values_list("temperature_dew")
     y6 = sel1.values_list("temperature_hum")
-    y1 = sel1.values_list("pressure_sea")
+    # y1 = sel1.values_list("pressure_sea")
+    y1 = get_moon_phase(x)
     y2 = sel1.values_list("pressure_stn")
     y7 = get_moon_alt(x)
 
@@ -313,7 +315,7 @@ def weather_chart2(request, num="1000"):
     y8 = sel2.values_list("p_00_24_hr")
     y9 = sel2.values_list("p_24_48_hr")
 
-    # ax1.plot(x, y1, 'p-')
+    ax22.plot(x, y1, 'p-')
     ax1.plot(x, y2, 'p-')
 
     ax12.plot(x, y3, 'b--')
@@ -363,6 +365,27 @@ def get_moon_alt(date_list):
         moon_angle_list.append(moon_angle)
 
     return moon_angle_list
+
+
+def get_moon_phase(date_list):
+
+    moon_phase_list = []
+
+    for date in date_list:
+
+        dt = date[0]   #.replace(tzinfo=None)
+        obs = ephem.Observer()
+        obs.lat = '47:00'
+        obs.long = '33:00'
+        obs.date = ephem.Date(dt)
+        # print(obs)
+
+        moon = ephem.Moon(obs)
+        moon.compute(obs)
+        moon_angle = float(moon.phase) * 57.2957795  # Convert Radians to degrees
+        moon_phase_list.append(moon_angle)
+
+    return moon_phase_list
 
 
 def clear_weather_data(request, numf="0", num_last="10", qw= True):
